@@ -17,5 +17,5 @@
   </table>
 
   <br/>
-  <a href="/p/edit">create new</a><br/>
+  <a href="/p/new">create new</a><br/>
 {/body}

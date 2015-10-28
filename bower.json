@@ -20,9 +20,25 @@
   ],
   "dependencies": {
     "bootstrap-sass": "bootstrap-sass-official#~3.3.5",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "jquery-ui": "~1.11.4",
+    "Character-Counter-Plugin-for-jQuery": "kokulusilgi/Character-Counter-Plugin-for-jQuery",
+    "bootstrap-fileinput": "~4.2.7",
+    "bootstrap-validator": "1000hz/bootstrap-validator#~0.9.0",
+    "typeahead-addresspicker": "~0.1.4",
+    "summernote": "~0.6.16"
   },
   "overrides": {
+    "typeahead-addresspicker": {
+      "main": [
+        "dist/typeahead-addresspicker.js"
+      ]
+    },
+    "Character-Counter-Plugin-for-jQuery": {
+      "main": [
+        "jquery.charactercounter.js"
+      ]
+    },
     "bootstrap-sass-official": {
       "main": [
         "./assets/stylesheets/_bootstrap.scss",

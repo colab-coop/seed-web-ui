@@ -5,7 +5,6 @@ var kraken = require('kraken-js');
 
 var app = module.exports = express();
 
-
 /*
  * Create and configure application. Also exports application instance for use by tests.
  * See https://github.com/krakenjs/kraken-js#options for additional configuration options.
@@ -21,7 +20,6 @@ var app = module.exports = express();
 //};
 
 var options = require('./lib/spec')(app);
-
 
 app.use(kraken(options));
 app.on('start', function () {

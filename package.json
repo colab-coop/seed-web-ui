@@ -13,6 +13,7 @@
   "dependencies": {
     "JSONStream": "^1.0.6",
     "adaro": "^0.1.10",
+    "app-root-path": "^1.0.0",
     "bcrypt": "^0.8.5",
     "bluebird": "^2.10.2",
     "braintree": "^1.29.0",
@@ -34,7 +35,10 @@
     "longjohn": "^0.2.9",
     "machinepack-gravatar": "^1.2.0",
     "machinepack-passwords": "^2.3.0",
+    "method-override": "^2.3.5",
     "mongoose": "^4.1.12",
+    "mongoose-crate": "^1.0.10",
+    "mongoose-crate-localfs": "^1.1.1",
     "node-authorize-net": "0.0.5",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",

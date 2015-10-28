@@ -47,6 +47,9 @@ exports.config = {
         '': ['public/images', 'public/fonts', 'public/favicon.ico'],
         'fonts': ['bower_components/bootstrap-sass/assets/fonts/bootstrap/*']
       }
+    },    
+    browserSync: {
+      files: ["public/**/*.dust"]
     }
   },
 

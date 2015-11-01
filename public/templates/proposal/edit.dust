@@ -1,49 +1,27 @@
 {>"layouts/master" /}
-{<title}
-  Proposal Editor
-{/title}
+{<title} Proposal Editor {/title}
 
 {<body}
   <main role="main">
-    <div class="mb2">
+    <form class="form-horizontal dropzone" id='proposal_form' method="POST" action="/p/{item._id}" enctype='multipart/form-data'>
+      <h2>Edit proposal</h2>
       <fieldset>
-        <h2>Create new proposal</h2>
-        {!<legend>Create a new proposal</legend>!}
-        <form method="POST" action="/p/edit">
-          <input name="title" placeholder="title"><br>
-          <input name="summary" placeholder="summary"><br>
-          <input type="hidden" name="_csrf" value="{_csrf}">
-          <input type="submit" value="Save">
-        </form>
+          <input type="hidden" name="_method" value="PUT"/>
+           {>"proposal/_form"/}
+        <!-- Submit button -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="save"></label>
+
+          <div class="col-sm-8">
+            <button id="save" type="submit" name="save" class="btn btn-primary">Update</button>
+          </div>
+        </div>
       </fieldset>
-    </div>
+    </form>
 
-    {!<div class="products">!}
-    {!{?products}!}
-    {!<fieldset>!}
-    {!<legend>Product List</legend>!}
-    {!<ul class="nm-np inline">!}
-    {!{#products}!}
-    {!<li>!}
-    {!<form method="POST" action="/products">!}
-    {!<input type="hidden" name="item_id" value="{.id}">!}
+    <script>
+      document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onEditPageLoad('{item.image.name}', false ));
+    </script>
 
-    {!<h3 class="nm-np">{.name}</h3>!}
-    {!<h4 class="nm-np">{.prettyPrice}</h4>!}
-    {!<h5 class="nm-np tiny">ID: {.id}</h5>!}
-
-    {!<input type="submit" value="Delete">!}
-    {!<!--If we don't at the Cross-Site Request Forgey token, this POST will be rejected-->!}
-    {!<input type="hidden" name="_csrf" value="{_csrf}">!}
-    {!<input type="hidden" name="_method" value="DELETE">!}
-    {!</form>!}
-    {!</li>!}
-    {!{/products}!}
-    {!</ul>!}
-    {!</fieldset>!}
-    {!{:else}!}
-    {!There are no products :(!}
-    {!{/products}!}
-    {!</div>!}
   </main>
 {/body}

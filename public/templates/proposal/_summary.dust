@@ -3,4 +3,9 @@
 <a href="/p/{_id}/view">Proposal</a>:<br/>
 Title: {title}<br/>
 Summary: {summary}<br/>
+{?image.name}
+Image: <img src="/{image.name}"><br/>
+{/image.name}
+Location: {location}<br/>
+Description: {description}<br/>
 <br>

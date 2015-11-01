@@ -9,7 +9,11 @@ var helpers = require('../lib/helpers');
 var curriedHandleError = _.curry(helpers.handleError);
 
 
-function list(req, res) {
+/*
+ * Proposals
+ */
+
+function listProposals(req, res) {
   Proposal.find().exec()
     .then(function (items) {
       console.log("inside find callback");
@@ -21,7 +25,7 @@ function list(req, res) {
     .catch( curriedHandleError(req, res) );
 }
 
-function view(req, res) {
+function showProposal(req, res) {
   var id = req.param('id');
   var proposal;
   var model = {};
@@ -42,30 +46,49 @@ function view(req, res) {
     .catch( curriedHandleError(req, res) );
 }
 
-function showEdit(req, res) {
-  //todo: edit existing record
-  var model = {item: {}};
-  res.render('proposal/edit', model);
+function newProposal(req, res) {
+  var model = {item: new Proposal()};
+  res.render('proposal/new', model);
 }
 
-function postEdit(req, res) {
-  console.log("body.title: " + req.body.title);
-  var title = req.body.title && req.body.title.trim();
-  var summary = req.body.summary && req.body.summary.trim();
-
-  //Some very lightweight input checking
-  //if (name === '' || isNaN(price)) {
-  //    res.redirect('/products#BadInput');
-  //    return;
-  //}
-
-  var item = new Proposal({ownerRef: req.user.profile._id, title: title, summary: summary});
-  console.log("item: " + item);
-  item.save()
-    .then(function() {
-      res.redirect('/p');
+function editProposal(req, res) {
+  Proposal.findOne({_id: req.params.id}).exec()
+    .then((item) => {
+      var model = {item: item};
+      res.render('proposal/edit', model);
     })
-    .catch( curriedHandleError(req, res) );
+    .catch(curriedHandleError(req, res));
+}
+
+function createProposal(req, res) {
+
+  const proposal = new Proposal({
+    ownerRef: req.user.profile._id,
+    title: req.body.title && req.body.title.trim(),
+    summary: req.body.summary && req.body.summary.trim(),
+    location: req.body.location && req.body.location.trim(),
+    description: req.body.description
+  });
+
+  proposal.attachAsync(req)
+    .then((proposal) => proposal.save())
+    .then(() => res.redirect('/p'))
+    .catch(curriedHandleError(req, res));
+}
+
+function updateProposal(req, res) {
+  Proposal.findOne({_id: req.params.id}).exec()
+    .then((proposal) => proposal.attachAsync(req))
+    .then((proposal) => proposal.update({
+      title: req.body.title && req.body.title.trim(),
+      summary: req.body.summary && req.body.summary.trim(),
+      location: req.body.location && req.body.location.trim(),
+      description: req.body.description
+    }).exec() && proposal)
+    .then((proposal) => {
+      res.redirect('/p')
+    })
+    .catch(curriedHandleError(req, res));
 }
 
 function deleteProposal(req, res) {
@@ -76,6 +99,10 @@ function deleteProposal(req, res) {
     })
     .catch( curriedHandleError(req, res) );
 }
+
+/*
+ * Votes
+ */
 
 function showVote(req, res) {
   var id = req.param('pid');
@@ -90,25 +117,16 @@ function showVote(req, res) {
 }
 
 function postVote(req, res) {
-  //if (! req.user) {
-  //  console.error("post vote - not logged in");
-  //  throw new Error("post vote - not logged in");
-  //}
   var model = {};
   model.voteRank = req.param('voteRank');
   model.anticipatedCapital = req.param('anticipatedCapital');
   model.anticipatedPatronage = req.param('anticipatedPatronage');
   model.workerInterest = req.param('workerInterest');
   var proposalId = req.param('proposalId');
-//    var _id = new mongoose.Types.ObjectId(proposalId);
-//    console.log("_id: " + _id);
-//    model.proposal = _id;
   model.proposalRef = proposalId;
   if (req.user) {
     console.log("userId: " + req.user._id + ', profile: ' + req.user.profile);
     model.profileRef = req.user.profile._id;
-    //model.userId = req.user._id;
-    //model.userName = req.user.name;
   }
 
   Vote.create(model)
@@ -125,13 +143,10 @@ function postVote(req, res) {
 }
 
 function handleVoteSuccess(req, res, vote) {
-//  var path = '/c/pledge?pid=' + vote.proposalId + '&la=vote';
   var path = '/p/' + vote.proposalRef + '/pledge?la=vote&vid=' + vote._id;
   res.redirect(path);
 
 }
-
-
 
 function handlePending(req, res) {
 
@@ -150,8 +165,6 @@ function handlePending(req, res) {
 
   Vote.findOne({_id: pending.voteId}).exec()
     .then(function (item) {
-      //item.userId = req.user._id;
-      //item.userName = req.user.name;
       item.profileRef = req.user.profile._id;
       console.log("profileRef: " + item.profileRef);
       return item.save();
@@ -165,14 +178,11 @@ function handlePending(req, res) {
 
 function voteView(req, res) {
   console.log("root index.js - vote/view");
-  //var model = {item: {id:1,title:"the first proposal"}};
-  //res.render('proposal/view', model);
   var id = req.param('id');
   var model = {};
   Vote.findOne({_id: id}).populate('profileRef proposalRef').exec()
     .then(function(item) {
       model.item = item;
-      //model.proposal = item.proposalRef;
       res.render('vote/view', model);
     })
     .catch( curriedHandleError(req, res) );
@@ -187,13 +197,20 @@ function deleteVote(req, res) {
     .catch( curriedHandleError(req, res) );
 }
 
+/*
+  Routes
+ */
 
 function addRoutes(router) {
-  router.get('/p', list);
-  router.get('/p/view', view);
-  router.get('/p/:id/view', view);
-  router.get('/p/edit', showEdit);
-  router.post('/p/edit', postEdit);
+  router.get('/p', listProposals);
+  router.get('/p/view', showProposal);
+  router.get('/p/:id/view', showProposal);
+
+  router.get('/p/new', newProposal);
+  router.post('/p', createProposal);
+  router.get('/p/:id/edit', editProposal);
+  router.post('/p/:id', updateProposal);
+
   router.get('/p/vote', showVote);
   router.get('/p/:pid/vote', showVote);
   router.post('/p/vote', postVote);

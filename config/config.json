@@ -164,7 +164,7 @@
       "enabled": true,
       "priority": 100,
       "module": {
-        "name": "express-session",
+        "name": "path:./lib/middleware/redis-session",
         "arguments": [
           {
             "key": "",
@@ -176,7 +176,14 @@
             },
             "resave": true,
             "saveUninitialized": true,
-            "proxy": null
+            "proxy": null,
+            "store": null
+
+          },
+          {
+            "host": "env:redis_host",
+            "port": "env:redis_port",
+            "prefix": "session:"
           }
         ]
       }

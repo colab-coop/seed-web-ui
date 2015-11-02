@@ -12,6 +12,7 @@ seed bomb prototype
 $ npm install -g bower brunch nodemon
 ```
 * MongoDB ([https://docs.mongodb.org/manual/installation/](https://docs.mongodb.org/manual/installation/))
+* Redis ([http://redis.io/](http://redis.io/))
 
 ### Main client side libraries
 _These are automatically installed by bower, listed here for easy access_.

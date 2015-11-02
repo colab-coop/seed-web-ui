@@ -11,4 +11,7 @@ braintree_merchantId=xxx
 braintree_publicKey=xxx
 braintree_privateKey=xxx
 
+export redis_host=localhost
+export redis_port=6379
+
 

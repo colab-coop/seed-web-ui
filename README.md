@@ -8,7 +8,6 @@ seed bomb prototype
 
 * Node v4.2.x and npm ([https://docs.npmjs.com/getting-started/installing-node](https://docs.npmjs.com/getting-started/installing-node))
 * Bower ([http://bower.io/](http://bower.io/)), Brunch ([http://brunch.io/](http://brunch.io/)) and Nodemon ([https://github.com/remy/nodemon](https://github.com/remy/nodemon)) globally installed
-
 ```
 $ npm install -g bower brunch nodemon
 ```
@@ -38,10 +37,14 @@ _These are automatically installed by npm, listed here for easy access_.
 
 ### Installation
 ```
-$ git clone https://github.com/elliottjf/seed-proto.git
-$ cd seed-proto
-$ cp config/config-example.json config/config.json
-$ npm install && bower install
+$ git clone git@github.com:colab-coop/seed-web-ui.git
+$ cd seed-web-ui
+$ git checkout develop
+$ cp config/development-example.json config/development.json
+$ cp setenv-example.sh setenv.sh
+# edit setenv.sh as desired with db and payment gateway config 
+$ npm install
+$ bower install
 ```
 
 ### Development
@@ -49,10 +52,12 @@ $ npm install && bower install
 ```
 $ brunch build
 ```
-#### Running the server with automatic static asset rebuild
 
+#### Running the server with automatic static asset rebuild
 ```
+$ source setenv.sh
 $ brunch watch --server
+# may also wish to copy and use the dev-start-example.sh
 ```
 
 ### Testing
@@ -61,4 +66,10 @@ TBD
 
 
 ### Deploying in production
-TBD
+```
+$ export PORT=8108
+$ forever stop 0
+$ git pull
+$ npm run brunch-build
+$ forever start server.js
+```

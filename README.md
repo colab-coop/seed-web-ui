@@ -41,8 +41,8 @@ $ git clone git@github.com:colab-coop/seed-web-ui.git
 $ cd seed-web-ui
 $ git checkout develop
 $ cp config/development-example.json config/development.json
-$ cp setenv-example.sh setenv.sh
-# edit setenv.sh as desired with db and payment gateway config 
+$ cp dotenv-example .env
+# edit .env as needed with db and payment gateway config 
 $ npm install
 $ bower install
 ```

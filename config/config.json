@@ -23,7 +23,7 @@
       }
     }
   },
-  // these values should be specified in your local environment (see setenv-example.sh)
+  // these values should be specified in your .env file
   "databaseConfig": {
     "host": "env:databaseConfig_host",
     "database": "env:databaseConfig_database"

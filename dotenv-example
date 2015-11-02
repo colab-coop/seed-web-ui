@@ -1,0 +1,14 @@
+databaseConfig_host=localhost
+databaseConfig_database=seedbomb
+
+authorizeNet_apiLoginId=xxx
+authorizeNet_transactionKey=xxx
+
+stripe_secretKey=sk_test_xxx
+stripe_publicKey=pk_test_xxx
+
+braintree_merchantId=xxx
+braintree_publicKey=xxx
+braintree_privateKey=xxx
+
+

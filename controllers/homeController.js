@@ -187,6 +187,17 @@ function logout(req, res) {
 }
 
 
+function dump(req, res) {
+  var kraken = req.app.kraken;
+  var env = kraken.get('env').env;
+  console.log('env: ' + kraken.get('express').env);
+  var krakenDump = _.inspect(kraken);
+//  res.render('dump', {kraken: krakenDump});
+  res.json(200, {kraken: kraken});
+
+}
+
+
 function addRoutes(router) {
   router.get('/', home);
   passthrough(router, 'how_it_works');
@@ -201,7 +212,9 @@ function addRoutes(router) {
   router.post('/me/pay', postMemberPay);
   router.get('/me/thanks', membershipThanks);
   router.get('/m/:profileId', viewProfile);
-  router.get('/logout', logout)
+  router.get('/logout', logout);
+
+  router.get('/dump', dump);
 }
 
 

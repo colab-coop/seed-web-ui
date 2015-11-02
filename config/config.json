@@ -23,9 +23,10 @@
       }
     }
   },
+  // these values should be specified in your local environment (see setenv-example.sh)
   "databaseConfig": {
-    "host": "localhost",
-    "database": "seedproto"
+    "host": "env:databaseConfig_host",
+    "database": "env:databaseConfig_database"
   },
   "specialization": {
   },
@@ -243,19 +244,20 @@
     }
   },
 
-  // note, ask joseph@colab.coop for valid dev keys
+  // note, ask joseph@colab.coop for valid dev keys to put into your local env
   "stripe": {
-    "secretKey": "xxx",
-    "publicKey": "xxx"
+    "secretKey": "env:stripe_secretKey",
+    "publicKey": "env:stripe_publicKey"
   },
   "braintree": {
-    "merchantId": "xxx",
-    "publicKey": "xxx",
-    "privateKey": "xxx"
+    "merchantId": "env:braintree_merchantId",
+    "publicKey": "env:braintree_publicKey",
+    "privateKey": "env:braintree_privateKey"
   },
   "authorizeNet": {
-    "apiLoginId": "xxx",
-    "transactionKey": "xxx"
-  }
+    "apiLoginId": "env:authorizeNet_apiLoginId",
+    "transactionKey": "env:authorizeNet_transactionKey"
+  },
 
+  "dummy":null  // suck up trailing ','
 }

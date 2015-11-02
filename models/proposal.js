@@ -34,21 +34,20 @@ var modelFactory = function () {
   schema.methods.attachAsync = function (req) {
     const _this = this;
     return new Promise(function (resolve, reject) {
-      if (req.files.image_file) {
+      if (req.files.image_file.size > 0) {
         _this.attach('image', {path: req.files.image_file.path}, (err) => {
           if (err !== undefined) {
             reject(err);
           }
           else {
             _this.save();
-            resolve(_this);
           }
         });
-      } else {
+      } else if (1 == parseInt(req.body.delete_file)) {
         _this.image = null;
         _this.save();
-        resolve(_this);
       }
+      resolve(_this);
     });
   };
 

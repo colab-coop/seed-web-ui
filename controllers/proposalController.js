@@ -15,30 +15,32 @@ var ProposalService = require('../lib/proposalService');
  */
 
 function home(req, res) {
-  listProposalsView(req, res, 'proposal/home');
+  listProposalsView(req, res, 'proposal/home', Proposal.KIND.campaign);
 }
 
 function listProposals(req, res) {
-  listProposalsView(req, res, 'proposal/list');
+  listProposalsView(req, res, 'proposal/list', Proposal.KIND.campaign);
 }
 
 function adminListProposals(req, res) {
   listProposalsView(req, res, 'proposal/adminList');
 }
 
-function listProposalsView(req, res, view) {
+
+function listProposalsView(req, res, view, kind) {
   const parent = req.query.parent;
   let sectorOptions;
   ProposalService.buildSectorOptions(parent, true, 'All')
     .then((options) => {
       sectorOptions = options;
-      if (!!parent) {
-        //todo: filter by campaign once we have separate proposal admin view
-//        return Proposal.find({kind: Proposal.KIND.campaign, parentRef: parent});
-        return Proposal.find({parentRef: parent});
-      } else {
-        return Proposal.find();
+      const filter = {};
+      if (kind) {
+        filter.kind = kind;
       }
+      if (!!parent) {
+        filter.parentRef = parent;
+      }
+      return Proposal.find(filter).populate('parentRef');  // should confirm if this cascades and if we need to worry about circular refs
     })
     .then(function (items) {
       console.log("inside find callback");
@@ -50,6 +52,7 @@ function listProposalsView(req, res, view) {
     })
     .catch( curriedHandleError(req, res) );
 }
+
 
 function showProposal(req, res) {
   const id = req.param('id');

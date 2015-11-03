@@ -31,7 +31,7 @@
   <br>
 
 
-  <table>
+  <table border="1">
     {#items}
       <tr>
         <td>
@@ -40,10 +40,9 @@
         <td>
           {kind}
         </td>
-        {!todo: resolve and link parent!}
-        {!<td>!}
-          {!{parentRef}!}
-        {!</td>!}
+        <td>
+          {parentRef.title}
+        </td>
         <td>
           <a href="/p/{_id}/edit">[Edit]</a>
         </td>

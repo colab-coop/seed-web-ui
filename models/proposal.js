@@ -17,13 +17,13 @@ var appRoot = require('app-root-path');
 var helpers = require('../lib/helpers');
 
 var attributes = _.merge({
-  profileRef: {type: String, ref: 'Profile'},
-  kind: String, // campaign, sector, proposal  (child proposals filtered by parentRef presence)
-  parentRef: {type: String, ref: 'Proposal'}, // used for sector associations
-  title: String,
-  summary: String,
-  location: String,
-  description: String
+  profileRef: {type: String, ref: 'Profile'}
+  , kind: String // campaign, sector, proposal
+  , parentRef: {type: String, ref: 'Proposal'} // used for sector associations or child proposals
+  , title: String
+  , summary: String
+  , location: String
+  , description: String
 }, baseModel.baseAttributes);
 
 var KIND = {
@@ -74,34 +74,6 @@ var modelFactory = function () {
     });
   };
 
-  schema.methods.detachImageAsync = function (path) {
-    const _this = this;
-    return new Promise(function (resolve, reject) {
-      _this.image = null;
-      _this.save().then(() => resolve(_this));
-    });
-  };
-
-
-  //schema.methods.attachAsync = function (imageFile, deleteFile) {
-  //  const _this = this;
-  //  return new Promise(function (resolve, reject) {
-  //    if (imageFile.size > 0) {
-  //      _this.attach('image', {path: imageFile.path}, (err) => {
-  //        if (err !== undefined) {
-  //          reject(err);
-  //        }
-  //        else {
-  //          _this.save();
-  //        }
-  //      });
-  //    } else if (deleteFile) {
-  //      _this.image = null;
-  //      _this.save();
-  //    }
-  //    resolve(_this);
-  //  });
-  //};
 
 
   schema.plugin(crate, {

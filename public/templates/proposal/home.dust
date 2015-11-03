@@ -1,0 +1,58 @@
+{>"layouts/master" /}
+
+{<body}
+
+    <h1>The future will be cooperative.</h1>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
+            frameborder="0" allowfullscreen></iframe>
+
+
+    <h2>What future do you want to SEED?</h2>
+    {!>>>>>>> proposal list filter!}
+    <form id="filterForm" class="hook">
+      Sector:
+      <select name="parentRef">
+        {#sectorOptions}
+          <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+        {/sectorOptions}
+      </select>
+    </form>
+
+    <script>
+      document.addEventListener( "DOMContentLoaded",
+        (e) => registerHooks(),
+        false);
+      function registerHooks() {
+        $(".hook").change(handleChange);
+      }
+      function handleChange() {
+        var form = document.getElementById("filterForm");
+        var parentRef = form.elements["parentRef"].value;
+        document.location.href='/p?parent=' + parentRef;
+      }
+    </script>
+
+  <br>
+
+    <ul class="row"  id="proposals_list">
+      {#items}
+        {>"proposal/_list_item"/}
+      {/items}
+    </ul>
+    <br> <br>
+
+
+    {#user}
+      {@eq key=user.profile.memberType value="provisional"}
+          <a href="/me/pay">Become Full Member</a>
+      {:else}
+          <a href="/me">My Profile</a><br>
+          <a href="/p/new">Submit New Proposal</a><br>
+      {/eq}
+    {:else}
+        <a href="/signup">Become a Member</a><br>
+    {/user}
+
+
+{/body}

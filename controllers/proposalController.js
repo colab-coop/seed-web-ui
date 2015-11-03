@@ -14,6 +14,10 @@ var ProposalService = require('../lib/proposalService');
  * Proposals
  */
 
+function home(req, res) {
+  listProposalsView(req, res, 'proposal/home');
+}
+
 function listProposals(req, res) {
   listProposalsView(req, res, 'proposal/list');
 }
@@ -233,8 +237,10 @@ function deleteVote(req, res) {
  */
 
 function addRoutes(router) {
-  router.get('/admin/proposal', adminListProposals);
+  router.get('/', home);
+
   router.get('/p', listProposals);
+  router.get('/admin/proposal', adminListProposals);
   router.get('/p/view', showProposal);
   router.get('/p/:id/view', showProposal);
 

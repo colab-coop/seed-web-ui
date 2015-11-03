@@ -199,7 +199,7 @@ function dump(req, res) {
 
 
 function addRoutes(router) {
-  router.get('/', home);
+//  router.get('/', home);
   passthrough(router, 'how_it_works');
   passthrough(router, 'who_we_are');
   router.get('/login', showLogin);

@@ -70,7 +70,7 @@ function createProposal(req, res) {
     description: req.body.description
   });
 
-  proposal.attachAsync(req)
+  handleAttachement(req, proposal)
     .then((proposal) => proposal.save())
     .then(() => res.redirect('/p'))
     .catch(curriedHandleError(req, res));
@@ -78,14 +78,14 @@ function createProposal(req, res) {
 
 function updateProposal(req, res) {
   Proposal.findOne({_id: req.params.id}).exec()
-    .then((proposal) => proposal.attachAsync(req))
+    .then((proposal) => handleAttachement(req, proposal))
     .then((proposal) => proposal.update({
       title: req.body.title && req.body.title.trim(),
       summary: req.body.summary && req.body.summary.trim(),
       location: req.body.location && req.body.location.trim(),
       description: req.body.description
-    }).exec() && proposal)
-    .then((proposal) => {
+    }).exec())
+    .then(() => {
       res.redirect('/p')
     })
     .catch(curriedHandleError(req, res));
@@ -98,6 +98,16 @@ function deleteProposal(req, res) {
       res.redirect('/p');
     })
     .catch( curriedHandleError(req, res) );
+}
+
+function handleAttachement(req, proposal) {
+  if (req.files.image_file.size > 0) {
+    return proposal.attachImageAsync(req.files.image_file.path);
+  } else if (1 == parseInt(req.body.delete_image)) {
+    return proposal.detachImageAsync();
+  } else {
+    return Promise.resolve(proposal);
+  }
 }
 
 /*

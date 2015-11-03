@@ -35,6 +35,7 @@ _These are automatically installed by npm, listed here for easy access_.
 * Lodash: [https://lodash.com/](https://lodash.com/)
 * BlueBird: [http://bluebirdjs.com/docs/getting-started.html](http://bluebirdjs.com/docs/getting-started.html)
 * DustJS: [http://akdubya.github.io/dustjs/](http://akdubya.github.io/dustjs/)
+* Nodemailer [https://github.com/andris9/Nodemailer] (https://github.com/andris9/Nodemailer)
 
 ### Installation
 ```
@@ -43,7 +44,7 @@ $ cd seed-web-ui
 $ git checkout develop
 $ cp config/development-example.json config/development.json
 $ cp dotenv-example .env
-# edit .env as needed with db and payment gateway config 
+# edit .env as needed with db and payment gateway config
 $ npm install
 $ bower install
 ```

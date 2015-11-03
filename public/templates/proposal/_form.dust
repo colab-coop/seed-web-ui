@@ -1,7 +1,7 @@
 <input type="hidden" name="_csrf" value="{_csrf}">
 <input type="hidden" id="delete_image" name="delete_image" value="0"/>
 
-<!-- Kind selctor -->
+<!-- Kind selector -->
 <div class="form-group">
   <label class="col-sm-2 control-label" for="kind">Type</label>
 
@@ -10,6 +10,20 @@
       {#kindOptions}
         <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
       {/kindOptions}
+    </select>
+  </div>
+</div>
+
+
+<!-- Sector selctor -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="parentRef">Sector</label>
+
+  <div class="col-sm-8">
+    <select name="parentRef">
+      {#sectorOptions}
+        <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+      {/sectorOptions}
     </select>
   </div>
 </div>

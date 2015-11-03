@@ -1,14 +1,28 @@
 <input type="hidden" name="_csrf" value="{_csrf}">
 <input type="hidden" id="delete_image" name="delete_image" value="0"/>
 
+<!-- Kind selctor -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="kind">Type</label>
+
+  <div class="col-sm-8">
+    <select name="kind">
+      {#kindOptions}
+        <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+      {/kindOptions}
+    </select>
+  </div>
+</div>
+
+
 <!-- Proposal Title-->
 <div class="form-group">
   <label class="col-sm-2 control-label" for="title">Title</label>
 
   <div class="col-sm-8">
     <input id="title" value="{item.title}" name="title" type="text" placeholder="Title" class="form-control input-md"
-           data-minlength="10" required>
-    <span class="help-block">Required, minimum of 10 characters</span>
+           data-minlength="1" required>
+    <span class="help-block">Required, minimum of 1 characters</span>
   </div>
 </div>
 
@@ -26,9 +40,9 @@
   <label class="col-sm-2 control-label" for="short_description">Summary</label>
 
   <div class="col-sm-8">
-    <textarea class="form-control" id="summary" name="summary" data-minlength="20" data-maxlength="140"
+    <textarea class="form-control" id="summary" name="summary" data-minlength="2" data-maxlength="140"
               required>{item.summary}</textarea>
-    <span class="help-block">Required, between 20 and 140 characters</span>
+    <span class="help-block">Required, between 2 and 140 characters</span>
   </div>
 </div>
 

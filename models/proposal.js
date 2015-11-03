@@ -17,7 +17,7 @@ var appRoot = require('app-root-path');
 
 var attributes = _.merge({
   profileRef: {type: String, ref: 'Profile'},
-  type: String, // campaign, sector  (child proposals filtered by parentRef presence)
+  kind: String, // campaign, sector  (child proposals filtered by parentRef presence)
   parentRef: {type: String, ref: 'Proposal'},
   title: String,
   summary: String,
@@ -25,11 +25,42 @@ var attributes = _.merge({
   description: String
 }, baseModel.baseAttributes);
 
-var TYPES = {
+var KIND = {
   campaign: 'campaign'
   , sector: 'sector'
   , proposal: 'proposal'};
 
+//todo figure out best way to handle select rendering
+var KIND_OPTIONS = [
+  {value:'campaign', display:'Campaign'}
+  , {value:'sector', display:'Sector'}
+  , {value:'proposal', display:'Proposal'}
+];
+
+//todo: revisit this
+function buildKindOptions(selectedValue, includeNone) {
+  var result = [];
+  var matched = false;
+  for (var i = 0; i < KIND_OPTIONS.length; i++) {  //todo: refactor loop with lodash
+    var option = KIND_OPTIONS[i];
+    if (option.value === selectedValue) {
+      var clonedOption = _.clone(option);
+      clonedOption.selected = true;
+      matched = true;
+      result.push(clonedOption);
+    } else {
+      result.push(option);
+    }
+  }
+  if (includeNone) {
+    if (matched) {
+      result.push({value: '', display: 'None'});
+    } else {
+      result.push({value: '', display: 'None', selected: true});
+    }
+  }
+  return result;
+}
 
 var modelFactory = function () {
 
@@ -93,7 +124,9 @@ var modelFactory = function () {
 
 
   var model = mongoose.model('Proposal', schema);
-  model.type = TYPES;
+  model.KIND = KIND;
+  model.KIND_OPTIONS = KIND_OPTIONS;
+  model.buildKindOptions = buildKindOptions;
 
   return model;
 

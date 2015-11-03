@@ -1,7 +1,7 @@
 {!proposal summary information to be included inside a proposal scoped section!}
 
 <a href="/p/{_id}/view">Proposal</a>:<br/>
-Type: {type}<br/>
+Type: {kind}<br/>
 Title: {title}<br/>
 Summary: {summary}<br/>
 {?image.name}

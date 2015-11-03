@@ -25,7 +25,7 @@ function render(res, view, model) {
 }
 
 function list(req, res) {
-  Proposal.find({type: Proposal.type.sector}).exec()
+  Proposal.find({kind: Proposal.type.sector}).exec()
     .then(function (items) {
       var model = {
         items: items
@@ -106,7 +106,7 @@ function save(req, res) {
         if (!!id) {
           throw new Error(`proposal not found for id: [${id}]`);
         } else {
-          data.type = Proposal.type.sector;
+          data.kind = Proposal.KIND.sector;
           data.ownerRef = ownerRef;
           Proposal.create(data);
         }

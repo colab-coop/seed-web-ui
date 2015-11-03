@@ -1,7 +1,7 @@
 <input type="hidden" name="_csrf" value="{_csrf}">
 <input type="hidden" id="delete_image" name="delete_image" value="0"/>
 
-<!-- Kind selector -->
+<!-- Kind selctor -->
 <div class="form-group">
   <label class="col-sm-2 control-label" for="kind">Type</label>
 

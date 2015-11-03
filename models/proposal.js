@@ -106,13 +106,9 @@ var modelFactory = function () {
 
 
   var model = mongoose.model('Proposal', schema);
-<<<<<<< HEAD
   model.KIND = KIND;
   model.KIND_OPTIONS = KIND_OPTIONS;
   model.buildKindOptions = buildKindOptions;
-=======
-  model.type = TYPES;
->>>>>>> first pass at sector admin
 
   return model;
 

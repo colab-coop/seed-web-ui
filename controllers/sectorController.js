@@ -25,7 +25,6 @@ function render(res, view, model) {
 }
 
 function list(req, res) {
-  //Proposal.find({kind: Proposal.KIND.sector}).exec()
   ProposalService.listSectors()
     .then(function (items) {
       var model = {

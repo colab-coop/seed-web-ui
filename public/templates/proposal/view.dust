@@ -3,10 +3,9 @@
 {<body}
   <h2>Proposal Detail</h2>
 
-  {#item}
+  {#proposal}
     {>"proposal/_summary"/}
     {>"proposal/_actions"/}
-  {/item}
 
   <br/>
   <br/>
@@ -73,5 +72,6 @@
     {/item}
   {/eq}
 
+  {/proposal}
 
 {/body}

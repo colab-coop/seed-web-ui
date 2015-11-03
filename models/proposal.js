@@ -3,7 +3,7 @@
 /**
  * proposal.js
  *
- * @description :: represents either produce/sesrvice sector proposal, a specific enterprise, other kind of fund raising campaign
+ * @description :: represents either produce/service sector proposal, a specific enterprise, other kind of fund raising campaign
  */
 
 var _ = require('lodash');
@@ -17,11 +17,19 @@ var appRoot = require('app-root-path');
 
 var attributes = _.merge({
   profileRef: {type: String, ref: 'Profile'},
+  type: String, // campaign, sector  (child proposals filtered by parentRef presence)
+  parentRef: {type: String, ref: 'Proposal'},
   title: String,
   summary: String,
   location: String,
   description: String
 }, baseModel.baseAttributes);
+
+var TYPES = {
+  campaign: 'campaign'
+  , sector: 'sector'
+  , proposal: 'proposal'};
+
 
 var modelFactory = function () {
 
@@ -51,6 +59,28 @@ var modelFactory = function () {
     });
   };
 
+
+  //schema.methods.attachAsync = function (imageFile, deleteFile) {
+  //  const _this = this;
+  //  return new Promise(function (resolve, reject) {
+  //    if (imageFile.size > 0) {
+  //      _this.attach('image', {path: imageFile.path}, (err) => {
+  //        if (err !== undefined) {
+  //          reject(err);
+  //        }
+  //        else {
+  //          _this.save();
+  //        }
+  //      });
+  //    } else if (deleteFile) {
+  //      _this.image = null;
+  //      _this.save();
+  //    }
+  //    resolve(_this);
+  //  });
+  //};
+
+
   schema.plugin(crate, {
     storage: new LocalFS({
       // TODO: get the upload folder from config
@@ -62,7 +92,10 @@ var modelFactory = function () {
   });
 
 
-  return mongoose.model('Proposal', schema);
+  var model = mongoose.model('Proposal', schema);
+  model.type = TYPES;
+
+  return model;
 
 };
 

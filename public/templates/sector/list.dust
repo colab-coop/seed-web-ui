@@ -1,0 +1,25 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Sectors</h2>
+
+  <table>
+    {#items}
+      <tr>
+        <td>
+          <a href="/admin/sector/{_id}/view">{title}</a>
+        </td>
+        <td>
+          {>"sector/_actions"/}
+          {!<a href="/admin/sector/{_id}/edit">[Edit]</a>!}
+        </td>
+      </tr>
+    {/items}
+  </table>
+  <br> <br>
+  <a href="/admin/sector/new/edit">Create New Sector</a>
+
+  <br><br>
+  <a href="/admin">[back]</a>
+
+{/body}

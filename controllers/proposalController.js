@@ -8,6 +8,7 @@ var Contribution = require('../models/contribution');
 var helpers = require('../lib/helpers');
 var curriedHandleError = _.curry(helpers.handleError);
 
+var ProposalService = require('../lib/proposalService');
 
 /*
  * Proposals
@@ -26,21 +27,10 @@ function listProposals(req, res) {
 }
 
 function showProposal(req, res) {
-  var id = req.param('id');
-  var proposal;
-  var model = {};
-  Proposal.findOne({_id: id}).exec()
-    .then(function(item) {
-      proposal = item;
-      model.item = item;
-      return Vote.find({proposalRef: proposal._id}).populate('profileRef');
-    })
-    .then(function (votes) {
-      model.votes = votes;
-      return Contribution.find({proposalRef: proposal._id}).populate('profileRef');
-    })
-    .then(function (contributions) {
-      model.contributions = contributions;
+  const id = req.param('id');
+  ProposalService.fetch(id)
+    .then(function(proposal) {
+      const model = {proposal: proposal};
       res.render('proposal/view', model);
     })
     .catch( curriedHandleError(req, res) );

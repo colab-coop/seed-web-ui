@@ -13,8 +13,8 @@ var baseModel = require('./baseModel');
 var attributes = _.merge({
   email: {type: String, unique: true}  //Ensure logins are unique.
   , authenticationData: String //We'll store bCrypt hashed passwords.
-  , role: String
-  //, defaultProfileId: String
+  , role: String  //todo: think about making this a list
+  , isAdmin: Boolean
   , defaultProfileRef: {type: String, ref: 'Profile'}
   , name: String  //todo: move to Profile
 }, baseModel.baseAttributes);

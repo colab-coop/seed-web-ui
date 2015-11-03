@@ -1,0 +1,22 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Admin</h2>
+
+
+
+  <ul>
+    <li>
+      <a href="/p">Campaigns</a><br>
+    </li>
+    <li>
+      <a href="/admin/sector">Sectors</a><br>
+    </li>
+    {!<li>!}
+      {!<a href="/p">Proposals</a><br>!}
+    {!</li>!}
+
+  </ul>
+
+
+{/body}

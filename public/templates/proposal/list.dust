@@ -1,35 +1,25 @@
 {>"layouts/master" /}
 
 {<body}
-  <h2>Proposals</h2>
+    <h2>Proposals</h2>
 
-  <table>
-    {#items}
-      <tr>
-        <td>
-          <a href="/p/{_id}/view">{title}</a>
-        </td>
-        <td>
-          {>"proposal/_actions"/}
-          {!<a href="/p/{_id}/vote">[vote]</a> &nbsp;!}
-          {!<a href="/p/{_id}/pledge">[pledge]</a> &nbsp;!}
-          {!<a href="/p/{_id}/contribute">[contribute]</a>!}
-        </td>
-      </tr>
-    {/items}
-  </table>
-  <br> <br>
+    <ul class="row"  id="proposals_list">
+      {#items}
+        {>"proposal/_list_item"/}
+      {/items}
+    </ul>
+    <br> <br>
 
-  {#user}
-    {@eq key=user.profile.memberType value="provisional"}
-      <a href="/me/pay">Become Full Member</a>
+    {#user}
+      {@eq key=user.profile.memberType value="provisional"}
+          <a href="/me/pay">Become Full Member</a>
+      {:else}
+          <a href="/me">My Profile</a><br>
+          <a href="/p/new">Submit New Proposal</a><br>
+      {/eq}
     {:else}
-      <a href="/me">My Profile</a><br>
-      <a href="/p/new">Submit New Proposal</a><br>
-    {/eq}
-  {:else}
-    <a href="/signup">Become a Member</a><br>
-  {/user}
+        <a href="/signup">Become a Member</a><br>
+    {/user}
 
 
 {/body}

@@ -74,6 +74,14 @@ var modelFactory = function () {
     });
   };
 
+  schema.methods.detachImageAsync = function (path) {
+    const _this = this;
+    return new Promise(function (resolve, reject) {
+      _this.image = null;
+      _this.save().then(() => resolve(_this));
+    });
+  };
+
 
   //schema.methods.attachAsync = function (imageFile, deleteFile) {
   //  const _this = this;

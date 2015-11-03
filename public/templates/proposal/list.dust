@@ -10,6 +10,31 @@
     </ul>
     <br> <br>
 
+  Sector:
+  <form id="filterForm" class="hook">
+    <select name="parentRef">
+      {#sectorOptions}
+        <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+      {/sectorOptions}
+    </select>
+  </form>
+
+  <script>
+    document.addEventListener( "DOMContentLoaded",
+      (e) => registerHooks(),
+      false);
+    function registerHooks() {
+      $(".hook").change(handleChange);
+    }
+    function handleChange() {
+      var form = document.getElementById("filterForm");
+      var parentRef = form.elements["parentRef"].value;
+      document.location.href='/p?parent=' + parentRef;
+    }
+  </script>
+
+  <br>
+
     {#user}
       {@eq key=user.profile.memberType value="provisional"}
           <a href="/me/pay">Become Full Member</a>

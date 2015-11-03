@@ -15,11 +15,24 @@ var ProposalService = require('../lib/proposalService');
  */
 
 function listProposals(req, res) {
-  Proposal.find().exec()
+  const parent = req.query.parent;
+  let sectorOptions;
+  ProposalService.buildSectorOptions(parent, true, 'All')
+    .then((options) => {
+      sectorOptions = options;
+      if (!!parent) {
+        //todo: filter by campaign once we have separate proposal admin view
+//        return Proposal.find({kind: Proposal.KIND.campaign, parentRef: parent});
+        return Proposal.find({parentRef: parent});
+      } else {
+        return Proposal.find();
+      }
+    })
     .then(function (items) {
       console.log("inside find callback");
       var model = {
         items: items
+        , sectorOptions: sectorOptions
       };
       res.render('proposal/list', model);
     })

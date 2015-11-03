@@ -43,29 +43,6 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
   return helpers.buildOptionsFromList(KIND_OPTIONS, 'value', 'display', selectedValue, includeNone, noneDisplayArg);
 }
 
-////todo: revisit this
-//function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
-//  var noneDisplay = noneDisplayArg || 'None';
-//  var matched = false;
-//  const result = _.map(KIND_OPTIONS, function(option) {
-//    if (option.value === selectedValue) {
-//      var clonedOption = _.clone(option);
-//      clonedOption.selected = true;
-//      matched = true;
-//      return clonedOption;
-//    } else {
-//      return option;
-//    }
-//  });
-//  if (includeNone) {
-//    if (matched) {
-//      result.push({value: '', display: noneDisplay});
-//    } else {
-//      result.push({value: '', display: noneDisplay, selected: true});
-//    }
-//  }
-//  return result;
-//}
 
 var modelFactory = function () {
 
@@ -129,9 +106,13 @@ var modelFactory = function () {
 
 
   var model = mongoose.model('Proposal', schema);
+<<<<<<< HEAD
   model.KIND = KIND;
   model.KIND_OPTIONS = KIND_OPTIONS;
   model.buildKindOptions = buildKindOptions;
+=======
+  model.type = TYPES;
+>>>>>>> first pass at sector admin
 
   return model;
 

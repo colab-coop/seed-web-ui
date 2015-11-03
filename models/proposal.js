@@ -31,25 +31,23 @@ var modelFactory = function () {
     return 'Proposal[' + this._id + ', title: ' + this.title + ']';
   };
 
-  schema.methods.attachImageAsync = function (path) {
+  schema.methods.attachAsync = function (req) {
     const _this = this;
     return new Promise(function (resolve, reject) {
-        _this.attach('image', {path: path}, (err) => {
+      if (req.files.image_file.size > 0) {
+        _this.attach('image', {path: req.files.image_file.path}, (err) => {
           if (err !== undefined) {
             reject(err);
           }
           else {
-            _this.save().then(() => resolve(_this));
+            _this.save();
           }
         });
-    });
-  };
-
-  schema.methods.detachImageAsync = function (path) {
-    const _this = this;
-    return new Promise(function (resolve, reject) {
+      } else if (1 == parseInt(req.body.delete_file)) {
         _this.image = null;
-        _this.save().then(() => resolve(_this));
+        _this.save();
+      }
+      resolve(_this);
     });
   };
 

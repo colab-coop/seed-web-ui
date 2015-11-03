@@ -1,0 +1,77 @@
+/*
+  Proposals
+*/
+
+div.proposal {
+  li {
+    list-style: none outside none;
+    background-color: lightgrey;
+    border-radius: 6px 6px 6px 6px;
+    border: 1px solid;
+    margin-bottom: 30px;
+
+    div.row {
+      div.col-md-12 {
+        div.title {
+          h3 {
+            margin-left: 15px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+
+    div.row {
+      div.col-md-6 {
+
+        div.image {
+          height: 256px;
+          img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 250px;
+            max-height: 250px;
+            width: auto;
+            height: auto;
+          }
+        }
+      }
+
+      div.col-md-6 {
+        div.description {
+          height: 256px;
+          div.summary {
+          }
+
+          div.bottom {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+
+            div.seed_it {
+              margin: 5px;
+              a {
+                display: block;
+                width: 100%;
+              }
+            }
+
+            div.learn_more {
+              margin: 5px;
+              a {
+                display: block;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+

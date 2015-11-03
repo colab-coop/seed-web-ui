@@ -1,0 +1,32 @@
+<div class="col-md-6 proposal">
+    <li>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title"><h3>{title}</h3></div>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-md-6">
+                <div class="image"><img src="/{image.name}"></div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="description">
+
+                    <div class="summary">
+                        <p class="lead">{summary}</p>
+                    </div>
+
+                    <div class="bottom">
+                        <div class="seed_it">
+                            <a class="btn btn-primary btn-lg" href="#">SEED IT</a>
+                        </div>
+                        <div class="learn_more">
+                            <a  class="btn btn-default btn-sm" href="/p/{_id}/view">LEARN MORE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</div>

@@ -1,6 +1,7 @@
 {>"layouts/master" /}
 
 {<body}
+
     <h2>Proposals</h2>
 
     {!>>>>>>> proposal list filter!}

@@ -42,10 +42,14 @@ function newProposal(req, res) {
 }
 
 function editProposal(req, res) {
+  let item = null;
   Proposal.findOne({_id: req.params.id}).exec()
-    .then((item) => {
+    .then((found) => {
+      item = found;
+      return ProposalService.buildSectorOptions(item.parentRef, true);
+    }).then((sectorOptions) => {
       const kindOptions = Proposal.buildKindOptions(item.kind, true);
-      const model = {item: item, kindOptions: kindOptions};
+      const model = {item: item, kindOptions: kindOptions, sectorOptions: sectorOptions};
       res.render('proposal/edit', model);
     })
     .catch(curriedHandleError(req, res));
@@ -69,11 +73,13 @@ function createProposal(req, res) {
 
 function updateProposal(req, res) {
   const kind = req.body.kind;
+  const parentRef = req.body.parentRef;
   console.log(`kind: [${kind}]`);
   Proposal.findOne({_id: req.params.id}).exec()
     .then((proposal) => handleAttachement(req, proposal))
     .then((proposal) => proposal.update({
       kind: kind,
+      parentRef: parentRef,
       title: req.body.title && req.body.title.trim(),
       summary: req.body.summary && req.body.summary.trim(),
       location: req.body.location && req.body.location.trim(),

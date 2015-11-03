@@ -14,11 +14,12 @@ var baseModel = require('./baseModel');
 var crate = require('mongoose-crate');
 var LocalFS = require('mongoose-crate-localfs');
 var appRoot = require('app-root-path');
+var helpers = require('../lib/helpers');
 
 var attributes = _.merge({
   profileRef: {type: String, ref: 'Profile'},
-  kind: String, // campaign, sector  (child proposals filtered by parentRef presence)
-  parentRef: {type: String, ref: 'Proposal'},
+  kind: String, // campaign, sector, proposal  (child proposals filtered by parentRef presence)
+  parentRef: {type: String, ref: 'Proposal'}, // used for sector associations
   title: String,
   summary: String,
   location: String,
@@ -37,30 +38,34 @@ var KIND_OPTIONS = [
   , {value:'proposal', display:'Proposal'}
 ];
 
-//todo: revisit this
-function buildKindOptions(selectedValue, includeNone) {
-  var result = [];
-  var matched = false;
-  for (var i = 0; i < KIND_OPTIONS.length; i++) {  //todo: refactor loop with lodash
-    var option = KIND_OPTIONS[i];
-    if (option.value === selectedValue) {
-      var clonedOption = _.clone(option);
-      clonedOption.selected = true;
-      matched = true;
-      result.push(clonedOption);
-    } else {
-      result.push(option);
-    }
-  }
-  if (includeNone) {
-    if (matched) {
-      result.push({value: '', display: 'None'});
-    } else {
-      result.push({value: '', display: 'None', selected: true});
-    }
-  }
-  return result;
+function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
+  //could probably do some clever currying here
+  return helpers.buildOptionsFromList(KIND_OPTIONS, 'value', 'display', selectedValue, includeNone, noneDisplayArg);
 }
+
+////todo: revisit this
+//function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
+//  var noneDisplay = noneDisplayArg || 'None';
+//  var matched = false;
+//  const result = _.map(KIND_OPTIONS, function(option) {
+//    if (option.value === selectedValue) {
+//      var clonedOption = _.clone(option);
+//      clonedOption.selected = true;
+//      matched = true;
+//      return clonedOption;
+//    } else {
+//      return option;
+//    }
+//  });
+//  if (includeNone) {
+//    if (matched) {
+//      result.push({value: '', display: noneDisplay});
+//    } else {
+//      result.push({value: '', display: noneDisplay, selected: true});
+//    }
+//  }
+//  return result;
+//}
 
 var modelFactory = function () {
 

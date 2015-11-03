@@ -15,6 +15,14 @@ var ProposalService = require('../lib/proposalService');
  */
 
 function listProposals(req, res) {
+  listProposalsView(req, res, 'proposal/list');
+}
+
+function adminListProposals(req, res) {
+  listProposalsView(req, res, 'proposal/adminList');
+}
+
+function listProposalsView(req, res, view) {
   const parent = req.query.parent;
   let sectorOptions;
   ProposalService.buildSectorOptions(parent, true, 'All')
@@ -34,7 +42,7 @@ function listProposals(req, res) {
         items: items
         , sectorOptions: sectorOptions
       };
-      res.render('proposal/list', model);
+      res.render(view, model);
     })
     .catch( curriedHandleError(req, res) );
 }
@@ -225,6 +233,7 @@ function deleteVote(req, res) {
  */
 
 function addRoutes(router) {
+  router.get('/admin/proposal', adminListProposals);
   router.get('/p', listProposals);
   router.get('/p/view', showProposal);
   router.get('/p/:id/view', showProposal);

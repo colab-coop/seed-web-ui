@@ -1,0 +1,18 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Sector Editor</h2>
+
+  {#item}
+    <form method="POST" action="/admin/sector/save">
+      <input type="hidden" name="id" value="{_id}">
+      <input type="hidden" name="_csrf" value="{_csrf}">
+      Title: <input name="title" value="{title}"><br>
+      Summary: <input name="summary" value="{summary}"><br>
+      <input type="submit" value="Save">
+    </form>
+  {/item}
+  <br>
+  <a href="/admin/sector">[back]</a>
+
+{/body}

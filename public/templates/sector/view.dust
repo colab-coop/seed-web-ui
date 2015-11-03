@@ -1,0 +1,21 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Sector Detail</h2>
+
+  {#item}
+    Title: {title}<br/>
+    Summary: {summary]<br/>
+
+    {>"sector/_actions"/}
+
+    <br><br>
+    <a href="/admin/sector/{_id}/delete">[Delete]</a>
+
+  {/item}
+
+  <br><br>
+  <a href="/admin/sector">[back]</a>
+
+
+{/body}

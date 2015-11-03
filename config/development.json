@@ -52,21 +52,5 @@
     }
   },
 
-  // note, these are all non-secure test mode / sandbox api keys
-//  "stripe": {
-//    "secretKey": "sk_test_gNnKH2tmH4Fryn8FoJU57iWa",
-//    "publicKey": "pk_test_nXchy2Bw65OZrUSnVH215bXr"
-//  },
-//  "braintree": {
-//    "merchantId": "bzt74yq9ny3rtgfq",
-//    "publicKey": "nrn8vhrcdnktgdt4",
-//    "privateKey": "df72506d6718daed691ad60b9caae51b"
-//  },
-//  "authorizeNet": {
-//    "apiLoginId": "foo-9vkW3C6G",
-//    "transactionKey": "bar-853xupQE6m5G8R5E"
-//  }
-
-
   "dummy":null  // suck up trailing ','
 }

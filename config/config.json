@@ -265,6 +265,10 @@
     "apiLoginId": "env:authorizeNet_apiLoginId",
     "transactionKey": "env:authorizeNet_transactionKey"
   },
-
+  "email": {
+    "from": "The Sender <sender@something.tld>",
+    "sender": "sender@something.tld",
+    "senderPassword": "supersekrit"
+  },
   "dummy":null  // suck up trailing ','
 }

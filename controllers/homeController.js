@@ -96,6 +96,18 @@ function showSignup(req, res) {
   res.render('signup', model);
 }
 
+function postEmail(req, res) {
+  var email = req.param('email');
+  var name = req.param('name');
+  userLib.emailUser(email, name, function (err, status, sent) {
+    if (err) {
+      // error
+    } else if (sent) {
+      res.redirect('/signup');
+    }
+  })
+}
+
 /**
  * Receive the login credentials and authenticate.
  * Successful authentications will go to /profile or if the user was trying to access a secured resource, the URL
@@ -221,4 +233,3 @@ function addRoutes(router) {
 module.exports = {
   addRoutes: addRoutes
 };
-

@@ -1,6 +1,7 @@
 {>"layouts/master" /}
 
 {<body}
+
     <h2>Proposals</h2>
 
     {!>>>>>>> proposal list filter!}
@@ -36,23 +37,6 @@
     </ul>
     <br> <br>
 
-
-    {!<table>!}
-    {!{#items}!}
-      {!<tr>!}
-        {!<td>!}
-          {!<a href="/p/{_id}/view">{title}</a>!}
-        {!</td>!}
-        {!<td>!}
-          {!{>"proposal/_actions"/}!}
-          {!<a href="/p/{_id}/vote">[vote]</a> &nbsp;!}
-          {!<a href="/p/{_id}/pledge">[pledge]</a> &nbsp;!}
-          {!<a href="/p/{_id}/contribute">[contribute]</a>!}
-        {!</td>!}
-      {!</tr>!}
-    {!{/items}!}
-  {!</table>!}
-  {!<br> <br>!}
 
     {#user}
       {@eq key=user.profile.memberType value="provisional"}

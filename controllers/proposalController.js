@@ -15,13 +15,34 @@ var ProposalService = require('../lib/proposalService');
  */
 
 function listProposals(req, res) {
-  Proposal.find().exec()
+  listProposalsView(req, res, 'proposal/list');
+}
+
+function adminListProposals(req, res) {
+  listProposalsView(req, res, 'proposal/adminList');
+}
+
+function listProposalsView(req, res, view) {
+  const parent = req.query.parent;
+  let sectorOptions;
+  ProposalService.buildSectorOptions(parent, true, 'All')
+    .then((options) => {
+      sectorOptions = options;
+      if (!!parent) {
+        //todo: filter by campaign once we have separate proposal admin view
+//        return Proposal.find({kind: Proposal.KIND.campaign, parentRef: parent});
+        return Proposal.find({parentRef: parent});
+      } else {
+        return Proposal.find();
+      }
+    })
     .then(function (items) {
       console.log("inside find callback");
       var model = {
         items: items
+        , sectorOptions: sectorOptions
       };
-      res.render('proposal/list', model);
+      res.render(view, model);
     })
     .catch( curriedHandleError(req, res) );
 }
@@ -212,6 +233,7 @@ function deleteVote(req, res) {
  */
 
 function addRoutes(router) {
+  router.get('/admin/proposal', adminListProposals);
   router.get('/p', listProposals);
   router.get('/p/view', showProposal);
   router.get('/p/:id/view', showProposal);

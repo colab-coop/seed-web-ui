@@ -3,12 +3,56 @@
 {<body}
     <h2>Proposals</h2>
 
+    {!>>>>>>> proposal list filter!}
+    <form id="filterForm" class="hook">
+      Sector:
+      <select name="parentRef">
+        {#sectorOptions}
+          <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+        {/sectorOptions}
+      </select>
+    </form>
+
+    <script>
+      document.addEventListener( "DOMContentLoaded",
+        (e) => registerHooks(),
+        false);
+      function registerHooks() {
+        $(".hook").change(handleChange);
+      }
+      function handleChange() {
+        var form = document.getElementById("filterForm");
+        var parentRef = form.elements["parentRef"].value;
+        document.location.href='/p?parent=' + parentRef;
+      }
+    </script>
+
+  <br>
+
     <ul class="row"  id="proposals_list">
       {#items}
         {>"proposal/_list_item"/}
       {/items}
     </ul>
     <br> <br>
+
+
+    {!<table>!}
+    {!{#items}!}
+      {!<tr>!}
+        {!<td>!}
+          {!<a href="/p/{_id}/view">{title}</a>!}
+        {!</td>!}
+        {!<td>!}
+          {!{>"proposal/_actions"/}!}
+          {!<a href="/p/{_id}/vote">[vote]</a> &nbsp;!}
+          {!<a href="/p/{_id}/pledge">[pledge]</a> &nbsp;!}
+          {!<a href="/p/{_id}/contribute">[contribute]</a>!}
+        {!</td>!}
+      {!</tr>!}
+    {!{/items}!}
+  {!</table>!}
+  {!<br> <br>!}
 
     {#user}
       {@eq key=user.profile.memberType value="provisional"}

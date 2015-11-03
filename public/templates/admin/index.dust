@@ -7,7 +7,7 @@
 
   <ul>
     <li>
-      <a href="/p">Campaigns</a><br>
+      <a href="/admin/proposal">All Proposals</a><br>
     </li>
     <li>
       <a href="/admin/sector">Sectors</a><br>

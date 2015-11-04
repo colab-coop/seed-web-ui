@@ -7,11 +7,11 @@
  * licensed from http://binbase.com
  */
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
+const _ = require('lodash');
+const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-var attributes = {
+const attributes = {
   name: String  // i.e. 447707
   , countryIso: String   // i.e. US
   , website: String  // i.e. HTTP://WWW.ARTISANSBANK.COM
@@ -19,7 +19,7 @@ var attributes = {
   , isRegulated: Boolean  // true if bank with > $10b in assets
 };
 
-var modelFactory = function () {
+const modelFactory = function () {
 
   var schema = mongoose.Schema(attributes);
 

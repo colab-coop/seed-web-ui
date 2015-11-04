@@ -1,12 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var Proposal = require('../models/proposal');
-var Vote = require('../models/vote');
-var Contribution = require('../models/contribution');
-var helpers = require('../lib/helpers');
-var curriedHandleError = _.curry(helpers.handleError);
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const ProposalService = require('../lib/proposalService');
+const VoteService = require('../lib/voteService');
+const Vote = require('../models/vote');
+const Contribution = require('../models/contribution');
+const helpers = require('../lib/helpers');
+const curriedHandleError = _.curry(helpers.handleError);
 
 /*
  * Vote handling
@@ -14,10 +15,10 @@ var curriedHandleError = _.curry(helpers.handleError);
 
 
 function showVote(req, res) {
-  var id = req.param('pid');
-  Proposal.findOne({_id: id}).populate('profileRef').exec()
-    .then(function (proposal) {
-      var model = {proposal: proposal, item: {}};
+  const id = req.param('pid');
+  ProposalService.fetch(id)
+    .then((proposal) => {
+      const model = {proposal: proposal, item: {}};
       // todo: validation and error message handling
       model.messages = req.flash('error');
       res.render('proposal/vote', model);
@@ -26,12 +27,12 @@ function showVote(req, res) {
 }
 
 function postVote(req, res) {
-  var model = {};
+  const model = {};
   model.voteRank = req.param('voteRank');
   model.anticipatedCapital = req.param('anticipatedCapital');
   model.anticipatedPatronage = req.param('anticipatedPatronage');
   model.workerInterest = req.param('workerInterest');
-  var proposalId = req.param('proposalId');
+  const proposalId = req.param('proposalId');
   model.proposalRef = proposalId;
   if (req.user) {
     console.log("userId: " + req.user._id + ', profile: ' + req.user.profile);
@@ -39,7 +40,7 @@ function postVote(req, res) {
   }
 
   Vote.create(model)
-    .then(function(item) {
+    .then((item) => {
       console.log("new vote id: " + item._id + ", obj: " + item);
       if (! req.user) {
         req.session.pending = {action: 'vote', voteId: item._id, message: 'please signin or login to register your vote'};
@@ -52,14 +53,14 @@ function postVote(req, res) {
 }
 
 function handleVoteSuccess(req, res, vote) {
-  var path = '/p/' + vote.proposalRef + '/pledge?la=vote&vid=' + vote._id;
+  const path = '/p/' + vote.proposalRef + '/pledge?la=vote&vid=' + vote._id;
   res.redirect(path);
 
 }
 
 function handlePending(req, res) {
 
-  var pending = req.session.pending;
+  const pending = req.session.pending;
   if ( ! pending || pending.action != 'vote' ) {
     return false;
   }
@@ -72,14 +73,12 @@ function handlePending(req, res) {
 
   delete req.session.pending;
 
-  Vote.findOne({_id: pending.voteId}).exec()
-    .then(function (item) {
+  VoteService.fetch(pending.voteId)
+    .then((item) => {
       item.profileRef = req.user.profile._id;
       console.log("profileRef: " + item.profileRef);
       return item.save();
-    }).then(function (item) {
-      handleVoteSuccess(req, res, item);
-    })
+    }).then((item) => handleVoteSuccess(req, res, item) )
     .catch( curriedHandleError(req, res) );
   return true
 }
@@ -87,22 +86,16 @@ function handlePending(req, res) {
 
 function voteView(req, res) {
   console.log("root index.js - vote/view");
-  var id = req.param('id');
-  var model = {};
-  Vote.findOne({_id: id}).populate('profileRef proposalRef').exec()
-    .then(function(item) {
-      model.item = item;
-      res.render('vote/view', model);
-    })
+  const id = req.param('id');
+  VoteSevice.fetch(id)
+    .then((item) => res.render('vote/view', {item: item}) )
     .catch( curriedHandleError(req, res) );
 }
 
 function deleteVote(req, res) {
-  var id = req.param('id');
-  Vote.remove({_id: id}).exec()
-    .then(function () {
-      res.redirect('/p');
-    })
+  const id = req.param('id');
+  VoteService(id)
+    .then(() => res.redirect('/p') )
     .catch( curriedHandleError(req, res) );
 }
 

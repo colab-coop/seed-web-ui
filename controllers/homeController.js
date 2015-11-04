@@ -1,29 +1,29 @@
 'use strict';
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var userLib = require('../lib/user');
-var helpers = require('../lib/helpers');
-var passthrough = helpers.passthrough;
-var curriedHandleError = _.curry(helpers.handleError);
-var Profile = require('../models/profile');
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const userLib = require('../lib/user');
+const helpers = require('../lib/helpers');
+const passthrough = helpers.passthrough;
+const curriedHandleError = _.curry(helpers.handleError);
+const ProfileService = require('../lib/profileService');
 
-var contributionController = require('./contributionController');
-var proposalController = require('./proposalController');
-var voteController = require('./voteController');
+const contributionController = require('./contributionController');
+const proposalController = require('./proposalController');
+const voteController = require('./voteController');
 
 
 function buildMessages(req) {
   // todo: should probably separate out the different flavor of messages
-  var messages = [];
-  var pending = req.session.pending;
+  let messages = [];
+  const pending = req.session.pending;
   if ( pending && pending.message && !!pending.message.trim() ) {
     messages.push(pending.message);
   }
 
   //Include any error messages that come from the login process.
-  var flashError = req.flash('error');
+  const flashError = req.flash('error');
   console.log('flashError: [' + flashError + '], const:' + flashError.constructor + ', size: ' + flashError.length);
   if (flashError) {
     messages = messages.concat( flashError );  //todo: better pattern?
@@ -43,7 +43,7 @@ function home(req, res) {
  */
 function showLogin(req, res) {
   //Include any error messages that come from the login process.
-  var model =  {messages: buildMessages(req)};
+  const model =  {messages: buildMessages(req)};
   res.render('login', model);
 }
 
@@ -87,14 +87,14 @@ function afterAuth(req, res) {
  * Display the login page. We also want to display any error messages that result from a failed login attempt.
  */
 function showSignup(req, res) {
-  var messages = buildMessages(req);
-  var model =  {messages: messages};
+  const messages = buildMessages(req);
+  const model =  {messages: messages};
   res.render('signup', model);
 }
 
 function postEmail(req, res) {
-  var email = req.param('email');
-  var name = req.param('name');
+  const email = req.param('email');
+  const name = req.param('name');
   userLib.emailUser(email, name, function (err, status, sent) {
     if (err) {
       // error
@@ -112,9 +112,9 @@ function postEmail(req, res) {
  * Failed authentications will go back to the login page with a helpful error message to be displayed.
  */
 function postSignup(req, res) {
-  var email = req.param('email');
-  var password = req.param('password');
-  var name = req.param('name');
+  const email = req.param('email');
+  const password = req.param('password');
+  const name = req.param('name');
   userLib.createUser(email, password, name, function (err, status, newUser) {
     if (err) {
       return helpers.negotiate(req, res, err);
@@ -141,11 +141,9 @@ function viewMyProfile(req, res) {
 }
 
 function viewProfile(req, res) {
-  var profileId = req.param('profileId');
-  Profile.findOne({_id: profileId}).exec()
-    .then(function(profile) {
-      res.render('profile/view', {profile: profile});
-    })
+  const profileId = req.param('profileId');
+  ProfileService.fetch(profileId)
+    .then((profile) => res.render('profile/view', {profile: profile}) )
     .catch( curriedHandleError(req, res) );
 }
 
@@ -154,7 +152,7 @@ function showMemberPay(req, res) {
 }
 
 function postMemberPay(req, res) {
-  var amount = req.body.amount;
+  const amount = req.body.amount;
   req.session.cart = {
     kind: 'membership'
     , description: 'Membership Share Purchase'
@@ -169,15 +167,15 @@ require('./paymentController').mapMethod('handleMembershipPaymentSuccess', handl
 function handleMembershipPaymentSuccess(req, res) {
   console.log('handlemembershipsuccess cart: ' + _.inspect(req.session.cart));
   console.log('old payment total: ' + req.user.profile.membershipPayments);
-  var profile = req.user.profile; //todo: should probably refresh from db
-  var amount = Number(req.session.cart.amount);
+  const profile = req.user.profile;
+  const amount = Number(req.session.cart.amount);
   profile.membershipPayments = Number(profile.membershipPayments); // be damn sure we have a number!
   profile.membershipPayments += amount;
   if (profile.membershipPayments >= 25 && profile.memberType === 'provisional') {
     profile.memberType = 'full';
   }
   profile.save()
-    .then(function(saved) {
+    .then((saved) => {
       delete req.session.cart;
       res.redirect('/me/thanks');
     })
@@ -196,10 +194,10 @@ function logout(req, res) {
 
 
 function dump(req, res) {
-  var kraken = req.app.kraken;
-  var env = kraken.get('env').env;
+  const kraken = req.app.kraken;
+  const env = kraken.get('env').env;
   console.log('env: ' + kraken.get('express').env);
-  var krakenDump = _.inspect(kraken);
+//  const krakenDump = _.inspect(kraken);
 //  res.render('dump', {kraken: krakenDump});
   res.json(200, {kraken: kraken});
 

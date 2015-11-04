@@ -6,13 +6,11 @@
  * Base model for all domain models. This just contains some common code that every "nearly" every model uses.
  */
 
-var mongoose = require('mongoose');
-var shortid = require('shortid');
+const mongoose = require('mongoose');
+const shortid = require('shortid');
 
-//module.exports = {
-//  schema: true,
 
-var baseAttributes = {
+const baseAttributes = {
   _id: {
     type: String,
     unique: true,

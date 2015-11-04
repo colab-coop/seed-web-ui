@@ -6,17 +6,17 @@
  * @description :: represents either produce/service sector proposal, a specific enterprise, other kind of fund raising campaign
  */
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
 mongoose.Promise = Promise;
-var baseModel = require('./baseModel');
-var crate = require('mongoose-crate');
-var LocalFS = require('mongoose-crate-localfs');
-var appRoot = require('app-root-path');
-var helpers = require('../lib/helpers');
+const baseModel = require('./baseModel');
+const crate = require('mongoose-crate');
+const LocalFS = require('mongoose-crate-localfs');
+const appRoot = require('app-root-path');
+const helpers = require('../lib/helpers');
 
-var attributes = _.merge({
+const attributes = _.merge({
   profileRef: {type: String, ref: 'Profile'}
   , kind: String // campaign, sector, proposal
   , parentRef: {type: String, ref: 'Proposal'} // used for sector associations or child proposals
@@ -26,13 +26,13 @@ var attributes = _.merge({
   , description: String
 }, baseModel.baseAttributes);
 
-var KIND = {
+const KIND = {
   campaign: 'campaign'
   , sector: 'sector'
   , proposal: 'proposal'};
 
 //todo figure out best way to handle select rendering
-var KIND_OPTIONS = [
+const KIND_OPTIONS = [
   {value:'campaign', display:'Campaign'}
   , {value:'sector', display:'Sector'}
   , {value:'proposal', display:'Proposal'}
@@ -44,9 +44,9 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
 }
 
 
-var modelFactory = function () {
+const modelFactory = function () {
 
-  var schema = mongoose.Schema(attributes);
+  const schema = mongoose.Schema(attributes);
 
   schema.methods.toString = function () {
     return 'Proposal[' + this._id + ', title: ' + this.title + ']';

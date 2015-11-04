@@ -2,14 +2,16 @@
  * A model for our user
  */
 'use strict';
-var _ = require('lodash');
-var Promise = require("bluebird");
-var mongoose = require("mongoose");
-var bcrypt = require('bcrypt');
-var crypto = require('../lib/crypto');
-var baseModel = require('./baseModel');
+const _ = require('lodash');
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const crypto = require('../lib/crypto');
+const baseModel = require('./baseModel');
+const Profile = require('./profile');
 
-var attributes = _.merge({
+
+const attributes = _.merge({
   email: {type: String, unique: true}  //Ensure logins are unique.
   , authenticationData: String //We'll store bCrypt hashed passwords.
   , role: String  //todo: don't think this is used or needed here
@@ -18,9 +20,9 @@ var attributes = _.merge({
   , name: String  //todo: move to Profile
 }, baseModel.baseAttributes);
 
-var modelFactory = function () {
+const modelFactory = function () {
 
-  var schema = mongoose.Schema(attributes);
+  const schema = mongoose.Schema(attributes);
 
   /**
    * Helper function that hooks into the 'save' method, and replaces plaintext passwords with a hashed version.
@@ -45,7 +47,7 @@ var modelFactory = function () {
    * @returns true/false
    */
   schema.methods.passwordMatches = function (plainText) {
-    var user = this;
+    const user = this;
     console.log("plainText: " + plainText + ", user id: " + user._id + ", auth data: " + user.authenticationData);
     return bcrypt.compareSync(plainText, user.authenticationData);
   };

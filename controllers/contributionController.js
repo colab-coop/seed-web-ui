@@ -1,50 +1,49 @@
 'use strict';
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var Contribution = require('../models/contribution');
-var Proposal = require('../models/proposal');
-var Vote = require('../models/vote');
-var helpers = require('../lib/helpers');
-var curriedHandleError = _.curry(helpers.handleError);
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const ContributionService = require('../lib/contributionService');
+const ProposalService = require('../lib/proposalService');
+const Contribution = require('../models/contribution');
+const Proposal = require('../models/proposal');
+const Vote = require('../models/vote');
+const helpers = require('../lib/helpers');
+const curriedHandleError = _.curry(helpers.handleError);
+
+
+const baseTemplatePath = 'contribution';
+
+/** render a few relative to our base template path */
+function render(res, view, model) {
+  res.render(`${baseTemplatePath}/${view}`, model);
+}
 
 
 function list(req, res) {
-  Contribution.find().exec()
-    .then(function (items) {
-      var model = {
-        items: items
-      };
-      res.render('contribution/list', model);
-    })
+  ContributionService.list()
+    .then((items) => render(res, 'list', {items: items}) )
     .catch( curriedHandleError(req, res) );
 }
 
 function view(req, res) {
-  var id = req.param('id');
-  var proposal;
+  const id = req.param('id');
   Contribution.findOne({_id: id}).exec()
-    .then(function (item) {
-      var model = {
-        item: item,
-      };
-      res.render('contribution/view', model);
-    })
+    .then((item) => render(res, 'view', {item: item}) )
     .catch( curriedHandleError(req, res) );
 }
 
 function showPledge(req, res) {
-  var proposalId = req.param('pid');
-  var voteId = req.param('vid');
-  var lastAction = req.param('la');
-  var model = {item: {}};
+  const proposalId = req.param('pid');
+  const voteId = req.param('vid');
+  const lastAction = req.param('la');
+  const model = {item: {}};
   if (lastAction) {
     model.lastAction = lastAction;
   }
   model.messages = req.flash('error');
 
-  Proposal.findOne({_id: proposalId}).exec()
-    .then(function (proposal) {
+  ProposalService.fetchLite(proposalId)
+    .then((proposal) => {
       model.proposal = proposal;
       // todo: validation and error message handling
       if (voteId) {
@@ -53,24 +52,24 @@ function showPledge(req, res) {
         return null;
       }
     })
-    .then(function(vote) {
+    .then((vote) => {
       if (vote) {
         model.vote = vote;
         model.anticipatedCapital = vote.anticipatedCapital;
         model.anticipatedPatronage = vote.anticipatedPatronage;
       }
-      res.render('contribution/pledge', model)
+      render(res, 'pledge', model)
     })
     .catch( curriedHandleError(req, res) );
 }
 
 function postPledge(req, res) {
   console.log("postPledge - req: " + req + ", res: " + res);
-  var proposalId = req.body.proposalId;
-  var pledgedCapital = req.body.pledgedCapital;
-  var pledgedPatronage = req.body.pledgedPatronage;
+  const proposalId = req.body.proposalId;
+  const pledgedCapital = req.body.pledgedCapital;
+  const pledgedPatronage = req.body.pledgedPatronage;
 
-  var contribution = new Contribution({
+  const contribution = new Contribution({
     proposalRef: proposalId
     , pledgedCapital: pledgedCapital
     , pledgedPatronage: pledgedPatronage
@@ -84,7 +83,7 @@ function postPledge(req, res) {
   }
 
   contribution.save()
-    .then(function() {
+    .then(() => {
       if (! req.user) {
         console.error("post pledge - need to bind supporter");
         req.session.pending = {
@@ -101,8 +100,7 @@ function postPledge(req, res) {
 }
 
 function handlePledgeSuccess(req, res, contribution) {
-  //var path = '/c/contribute?pid=' + contribution.proposalId + '&cid=' + contribution._id + '&la=pledge';
-  var path = '/p/' + contribution.proposalRef + '/contribute?cid=' + contribution._id + '&la=pledge';
+  const path = '/p/' + contribution.proposalRef + '/contribute?cid=' + contribution._id + '&la=pledge';
   res.redirect(path)
 
 }
@@ -110,7 +108,7 @@ function handlePledgeSuccess(req, res, contribution) {
 
 function handlePending(req, res) {
 
-  var pending = req.session.pending;
+  const pending = req.session.pending;
   if ( ! pending ) {
     return false;
   }
@@ -124,13 +122,13 @@ function handlePending(req, res) {
 
   if (pending.action == 'pledge') {
     delete req.session.pending;
-    Contribution.findOne({_id: pending.contributionId}).exec()
-      .then(function (contribution) {
+    ContributionService.fetch(pending.contributionId)
+      .then((contribution) => {
         contribution.profileRef = req.user.profile._id;
         //contribution.userName = req.user.name;
         console.log("supporterRef: " + contribution.profileRef);
         return contribution.save();
-      }).then(function (contribution) {
+      }).then((contribution) => {
         if (pending.action == 'pledge') {
           handlePledgeSuccess(req, res, contribution);
         }
@@ -148,37 +146,37 @@ function handlePending(req, res) {
 
 
 function showContribute(req, res) {
-  var proposalId = req.param('pid');
-  var contributionId = req.param('cid');
-  var lastAction = req.param('la');
-  var proposal;
+  const proposalId = req.param('pid');
+  const contributionId = req.param('cid');
+  const lastAction = req.param('la');
+  let proposal;
   console.log("last action: " + lastAction);
-  Proposal.findOne({_id: proposalId}).exec()
-    .then(function(found) {
+  ProposalService.fetchLite(proposalId)
+    .then((found) => {
       proposal = found;
       return Contribution.findOne({_id: contributionId})
     })
-    .then(function(found) {
-      var contribution = found;
-      var defaultCapital = found ? found.pledgedCapital : "";
+    .then((found) => {
+      const contribution = found;
+      const defaultCapital = found ? found.pledgedCapital : "";
       console.log("contribution: " + contribution);
-      var model = {contribution: contribution, proposal: proposal, defaultCapital: defaultCapital};
+      const model = {contribution: contribution, proposal: proposal, defaultCapital: defaultCapital};
       if (lastAction) {
         model.lastAction = lastAction;
       }
       // todo: validation and error message handling
       model.messages = req.flash('error');
-      res.render('contribution/contribute', model);
+      render(res, 'contribute', model);
     })
     .catch( curriedHandleError(req, res) );
 }
 
 function postContribute(req, res) {
-  var contributionId = req.body.contributionId;
-  var proposalId = req.body.proposalId;
-  var proposalTitle = req.body.proposalTitle;
-  var capital = req.body.capital;
-  var patronage = req.body.patronage;
+  const contributionId = req.body.contributionId;
+  const proposalId = req.body.proposalId;
+  const proposalTitle = req.body.proposalTitle;
+  const capital = req.body.capital;
+  const patronage = req.body.patronage;
   req.session.cart = {
     kind: 'contribution'
     , description: 'Capital contribution'  // in support of ...'
@@ -188,8 +186,6 @@ function postContribute(req, res) {
     , amount: capital
     , capital: capital  // todo: remove usages
     , successMethodName: 'handleContributionPaymentSuccess'
-    //, successUrl: '/c/' + contributionId + '/thanks'
-    //, patronage: patronage
   };
 
   if (! req.user) {
@@ -216,41 +212,30 @@ require('./paymentController').mapMethod('handleContributionPaymentSuccess', han
 
 function handleContributionPaymentSuccess(req, res) {
   console.log('handlepaymentsuccess cart: ' + _.inspect(req.session.cart));
-  var contributionId = req.session.cart.contributionId;
-  var proposalId = req.session.cart.proposalId;
+  const contributionId = req.session.cart.contributionId;
+  const proposalId = req.session.cart.proposalId;
   //todo: switch on cart.kind - for now only capital contribution
-  var capital = req.session.cart.amount;
-  //var patronage = req.session.pending.patronage;
-
-  //delete req.session.cart;
+  const capital = req.session.cart.amount;
 
   if (contributionId) {
     // updated existing pledge record
-    Contribution.findOne({_id: contributionId}).exec()
-      .then(function (contribution) {
+    ContributionService.fetch(contributionId)
+      .then((contribution) => {
         contribution.paidCapital = capital;
-        //contribution.paidPatronage = patronage;
         return contribution.save();
-      }).then(function (contribution) {
-        //res.redirect('/c/' + contribution._id + '/thanks');
-        //res.redirect(cart.successUrl);
+      }).then((contribution) => {
         gotoThanks(req, res, contribution);
       })
       .catch(curriedHandleError(req, res));
   } else {
     // no pledge context, create a new contribution record
-    var contribution = new Contribution({
+    const contribution = new Contribution({
       proposalRef: proposalId
       , paidCapital: capital
-//      , paidPatronage: patronage
       , profileRef: req.user.profile._id
-      //, userName: req.user.name
     });
     contribution.save()
-      .then(function (saved) {
-        //res.redirect('/c/' + saved._id + '/thanks');
-        gotoThanks(req, res, saved);
-      })
+      .then((saved) => gotoThanks(req, res, saved) )
       .catch(curriedHandleError(req, res))
   }
 }
@@ -273,7 +258,6 @@ function addRoutes(router) {
   router.get('/c/contribute', showContribute);
   router.get('/p/:pid/contribute', showContribute);
   router.post('/c/contribute', postContribute);
-  //router.get('/c/thanks', function (req, res) { res.render('contribution/thanks', {}) });
   router.get('/c/:cid/thanks', function (req, res) { res.render('contribution/thanks', {}) });
 }
 
@@ -285,10 +269,4 @@ module.exports = {
   , handlePending: handlePending
   , handleContributionPaymentSuccess: handleContributionPaymentSuccess
 };
-
-// create serializable binding to success method, since we can't store methods directly in the session
-//require('./paymentController').mapMethod('handleContributionPaymentSuccess', module.exports.handleContributionPaymentSuccess);
-//var paymentController = require('./paymentController');
-//paymentController.mapMethod('handleContributionPaymentSuccess', module.exports.handleContributionPaymentSuccess);
-//console.log("resolved: " + paymentController.resolveMethod('handleContributionPaymentSuccess'));
 

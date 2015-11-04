@@ -1,13 +1,12 @@
 'use strict';
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var Proposal = require('../models/proposal');
-var Vote = require('../models/vote');
-var Contribution = require('../models/contribution');
-var helpers = require('../lib/helpers');
-var curriedHandleError = _.curry(helpers.handleError);
-
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const Proposal = require('../models/proposal');
+const Vote = require('../models/vote');
+const Contribution = require('../models/contribution');
+const helpers = require('../lib/helpers');
+const curriedHandleError = _.curry(helpers.handleError);
 
 
 

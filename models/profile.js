@@ -8,16 +8,16 @@
  * UserProfileRelation model capturing role and access levels
  */
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var baseModel = require('./baseModel');
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const baseModel = require('./baseModel');
 
 const MEMBERSHIP_TYPES = {
   provisional: 'provisional'
   , full: 'full'
 };
 
-var attributes = _.merge({
+const attributes = _.merge({
   name: String
   , email: String
   , phone: String
@@ -29,9 +29,9 @@ var attributes = _.merge({
   , membershipPayments: Number
 }, baseModel.baseAttributes);
 
-var modelFactory = function () {
+const modelFactory = function () {
 
-  var schema = mongoose.Schema(attributes);
+  const schema = mongoose.Schema(attributes);
 
   schema.methods.toString = function () {
     return 'Profile[' + this._id + ', name: ' + this.name + ']';

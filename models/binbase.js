@@ -7,11 +7,11 @@
  * licensed from http://binbase.com
  */
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
+const _ = require('lodash');
+const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 //var baseModel = require('./baseModel');
-var BinbaseOrg = require('../models/binbaseOrg');  // need to make sure related models have been loaded for populate() fetches to work
+const BinbaseOrg = require('../models/binbaseOrg');  // need to make sure related models have been loaded for populate() fetches to work
 
 
 var attributes = {
@@ -27,9 +27,9 @@ var attributes = {
   , isRegulated: Boolean  //remove this once ref population fixed
 };
 
-var modelFactory = function () {
+const modelFactory = function () {
 
-  var schema = mongoose.Schema(attributes);
+  const schema = mongoose.Schema(attributes);
 
   schema.methods.toString = function () {
     return 'Binbase[' + this.bin + ', org: ' + this.issuingOrg + ', type: ' + this.cardType + ', category: ' + this.cardCategory + ']';

@@ -1,14 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var Proposal = require('../models/proposal');
-var Vote = require('../models/vote');
-var Contribution = require('../models/contribution');
-var helpers = require('../lib/helpers');
-var curriedHandleError = _.curry(helpers.handleError);
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const Proposal = require('../models/proposal');
+const Vote = require('../models/vote');
+const Contribution = require('../models/contribution');
+const helpers = require('../lib/helpers');
+const curriedHandleError = _.curry(helpers.handleError);
 
-var ProposalService = require('../lib/proposalService');
+const ProposalService = require('../lib/proposalService');
 
 /*
  * Proposals
@@ -65,7 +65,7 @@ function showLastProposal(req, res) {
   const id = req.session.currentProposalId;
   if (id) {
     ProposalService.fetch(id)
-      .then((proposal) => { render(res, 'view', {proposal: proposal}); })
+      .then((proposal) => render(res, 'view', {proposal: proposal}) )
       .catch( curriedHandleError(req, res) );
   } else {
     home(req, res);
@@ -76,7 +76,7 @@ function showProposal(req, res) {
   const id = req.param('id');
   req.session.currentProposalId = id;  //save this for return flows
   ProposalService.fetch(id)
-    .then((proposal) => { render(res, 'view', {proposal: proposal}); })
+    .then((proposal) => render(res, 'view', {proposal: proposal}) )
     .catch( curriedHandleError(req, res) );
 }
 
@@ -117,6 +117,7 @@ function createProposal(req, res) {
 
 function updateProposal(req, res) {
   const id = req.params.id;
+  console.log(`updateproposal - id: ${id}`);
   const kind = req.body.kind;
   const parentRef = req.body.parentRef;
   const data = {
@@ -138,12 +139,13 @@ function updateProposal(req, res) {
 function deleteProposal(req, res) {
   var id = req.param('id');
   ProposalService.remove(id)
-    .then(() => { gotoBaseView(req, res) })
+    .then(() => gotoBaseView(req, res) )
     .catch( curriedHandleError(req, res) );
 }
 
 function handleAttachement(req, proposal) {
-  if (req.files.image_file.size > 0) {
+  console.log(`handleattach prop: ${proposal}`);
+  if (req.files && req.files.image_file.size > 0) {
     return proposal.attachImageAsync(req.files.image_file.path);
   } else if (1 == parseInt(req.body.delete_image)) {
     return proposal.detachImageAsync();

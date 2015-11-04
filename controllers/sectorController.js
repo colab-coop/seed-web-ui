@@ -1,13 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var Proposal = require('../models/proposal');
-var ProposalService = require('../lib/proposalService');
-var Vote = require('../models/vote');
-var Contribution = require('../models/contribution');
-var helpers = require('../lib/helpers');
-var curriedHandleError = _.curry(helpers.handleError);
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const Proposal = require('../models/proposal');
+const ProposalService = require('../lib/proposalService');
+const Vote = require('../models/vote');
+const Contribution = require('../models/contribution');
+const helpers = require('../lib/helpers');
+const curriedHandleError = _.curry(helpers.handleError);
 
 
 
@@ -25,12 +25,7 @@ function render(res, view, model) {
 
 function list(req, res) {
   ProposalService.listSectors()
-    .then(function (items) {
-      var model = {
-        items: items
-      };
-      render(res, 'list', model);
-    })
+    .then((items) => render(res, 'list', {items: items}) )
     .catch( curriedHandleError(req, res) );
 }
 
@@ -38,17 +33,13 @@ function show(req, res) {
   const id = req.param('id');
   console.log(`show sector - id: ${id}`);
   ProposalService.fetch(id)
-    .then(function(proposal) {
-      const model = {item: proposal};
-      render(res, 'view', model);
-    })
+    .then((proposal) => render(res, 'view', {item: proposal}) )
     .catch( curriedHandleError(req, res) );
 }
 
 
 function newItem(req, res) {
-  var model = {item: new Proposal()};
-  res.render('sector/new', model);
+  render(res, 'new', {item: {}});
 }
 
 function edit(req, res) {
@@ -57,10 +48,7 @@ function edit(req, res) {
     render(res, 'edit', {item: {}});
   } else {
     Proposal.findOne({_id: id}).exec()
-      .then((item) => {
-        var model = {item: item};
-        render(res, 'edit', model);
-      })
+      .then((item) => render(res, 'edit', {item: item}) )
       .catch(curriedHandleError(req, res));
   }
 }
@@ -78,7 +66,7 @@ function save(req, res) {
     description: description
   };
 
-  Proposal.findOne({_id: id}).exec()
+  ProposalService.fetchLite(id)
     .then((proposal) => {
       if (proposal) {
         return proposal.update(data).exec();
@@ -92,18 +80,14 @@ function save(req, res) {
         }
       }
     })
-    .then(() => {
-      gotoBaseView(res);
-    })
+    .then(() => gotoBaseView(res) )
     .catch(curriedHandleError(req, res));
 }
 
 function deleteItem(req, res) {
   const id = req.param('id');
-  Proposal.remove({_id: id}).exec()
-    .then(function () {
-      gotoBaseView(res);
-    })
+  ProposalService.remove(id)
+    .then(() => gotoBaseView(res) )
     .catch( curriedHandleError(req, res) );
 }
 

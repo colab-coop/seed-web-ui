@@ -223,6 +223,7 @@ function addRoutes(router) {
   router.get('/signup', showSignup);
   router.post('/signup', postSignup);
   router.get('/afterAuth', afterAuth);
+  router.get('/m/:profileId', viewProfile);
   router.get('/logout', logout);
 
   router.get('/dump', dump);

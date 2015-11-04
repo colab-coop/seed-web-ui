@@ -26,9 +26,9 @@ const attributes = _.merge({
   , paidMembership: Number
   , paidCapital: Number
   //todo: track choosen perks
-  , offers: [String]
-  , memberships: [String]
-  , perks: [String]
+  , offers: [{type: String, ref: 'Offer'}]
+  , memberships: [{type: String, ref: 'Offer'}]
+  , perks: [{type: String, ref: 'Offer'}]
 }, baseModel.baseAttributes);
 
 const modelFactory = function () {

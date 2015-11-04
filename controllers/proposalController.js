@@ -10,6 +10,7 @@ const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
 
 const ProposalService = require('../lib/proposalService');
+const UserService = require('../lib/user');
 
 /*
  * Proposals
@@ -103,10 +104,12 @@ function postSeed(req, res) {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const fullName = `${firstName} ${lastName}`;
+  console.log(`fullname: ${fullName}`);
+  const email = req.body.email;
   const seedcoop = Boolean(req.body.seedcoop);
   const data = {
     profileRef: profileId
-    , proposalRef : proposalId
+    , proposalRef: proposalId
     , name: fullName
     , firstName: req.body.firstName
     , lastName: req.body.lastName
@@ -119,11 +122,22 @@ function postSeed(req, res) {
   };
   console.log(`postSeed: pid: ${proposalId}, data: ${_.inspect(data)}`);
 //  ContributionService.save(null, data)
+  if (!profileId) {
+    UserService.createUser(email, 'xxxxxx', fullName, (err, status, user) => {
+      console.log(`new user id: ${user._id}, profid: ${user.defaultProfileRef}`);
+      data.profileRef = user.defaultProfileRef;
+      continueSeedSave(req, res, data);
+    })
+  } else {  //todo: figure out better way to have optionaal pipelink operataion
+    continueSeedSave(req, res, data);
+  }
+}
+
+function continueSeedSave(req, res, data) {
   Contribution.create(data)
     .then((saved) => { console.log(`saved: ${saved}`);
       gotoBaseView(req, res)})
     .catch(curriedHandleError(req, res));
-
 }
 
 function newProposal(req, res) {

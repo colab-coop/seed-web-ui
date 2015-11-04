@@ -13,37 +13,10 @@
     <a href="/admin/offer/new/edit?pid={id}">Create New Offer</a>
     <br><br>
 
-  <b>Votes:</b><br/>
-  <table border="1">
-    <th>Supporter</th><th>Vote Rank</th><th>Anticipated Capital Contribution</th><th>Anticipated Customer Patronage</th><th>Worker Interest</th>
-  {#votes}
-    <tr>
-      <td>
-        <a href="/m/{profileRef._id}">{profileRef.name}</a> {@eq key=profileRef.memberType value="provisional"} [{profileRef.memberType}] {/eq}
-      </td>
-      <td>
-        {voteRank}
-      </td>
-      <td>
-        {anticipatedCapital}
-      </td>
-      <td>
-        {anticipatedPatronage}
-      </td>
-      <td>
-        {workerInterest}
-      </td>
-      <td>
-        <a href="/vote/{_id}/view">[view]</a>
-      </td>
-    </tr>
-  {/votes}
-  </table>
-
   <br>
   <b>Pledges/Contributions:</b><br/>
   <table border="1">
-    <th>Supporter</th><th>Patron/Member/Funder</th><th>Perks</th><th>Pledged Capital</th><th>Pledged Patronage</th><th>Paid Capital</th><th>Paid Patronage</th>
+    <th>Supporter</th><th>Patron/Member/Funder</th><th>Perks/Memberships</th><th>Pledged Capital</th><th>Pledged Patronage</th><th>Paid Capital</th><th>Paid Patronage</th><th>ID</th>
     {#contributions}
       <tr>
         <td>
@@ -52,7 +25,15 @@
         <td>
           {#patron}Patron{/patron} {#member}Member{/member} {#funder}Funder{/funder}
         </td>
-        <td>{perks} {memberships}</td>
+        <td>
+          {#perks}
+            {title}&nbsp;
+          {/perks}
+
+          {#memberships}
+            {title}&nbsp;
+          {/memberships}
+        </td>
         <td>
           {pledgedCapital}
         </td>
@@ -65,13 +46,46 @@
         <td>
           {paidPatronage}
         </td>
+        <td>
+          {_id}
+        </td>
         {!<td>!}
           {!<a href="/c/{_id}/view">[view]</a>!}
         {!</td>!}
       </tr>
     {/contributions}
   </table>
-  <br>
+
+
+    <b>Votes:</b><br/>
+    <table border="1">
+      <th>Supporter</th><th>Vote Rank</th><th>Anticipated Capital Contribution</th><th>Anticipated Customer Patronage</th><th>Worker Interest</th>
+      {#votes}
+        <tr>
+          <td>
+            <a href="/m/{profileRef._id}">{profileRef.name}</a> {@eq key=profileRef.memberType value="provisional"} [{profileRef.memberType}] {/eq}
+          </td>
+          <td>
+            {voteRank}
+          </td>
+          <td>
+            {anticipatedCapital}
+          </td>
+          <td>
+            {anticipatedPatronage}
+          </td>
+          <td>
+            {workerInterest}
+          </td>
+          <td>
+            <a href="/vote/{_id}/view">[view]</a>
+          </td>
+        </tr>
+      {/votes}
+    </table>
+
+
+    <br>
     {#user.isAdmin}
     <hr>
     {#item}

@@ -1,7 +1,7 @@
 {>"layouts/master" /}
 
 {<body}
-  <h3>My Profile</h3>
+  <h3>My Profile <a href="/me/edit">[edit]</a></h3>
 
   {#profile}
     Display Name: {displayName}<br>

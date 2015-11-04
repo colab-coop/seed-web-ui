@@ -43,12 +43,16 @@
   <br>
   <b>Pledges/Contributions:</b><br/>
   <table border="1">
-    <th>Supporter</th><th>Pledged Capital</th><th>Pledged Patronage</th><th>Paid Capital</th><th>Paid Patronage</th>
+    <th>Supporter</th><th>Patron/Member/Funder</th><th>Perks</th><th>Pledged Capital</th><th>Pledged Patronage</th><th>Paid Capital</th><th>Paid Patronage</th>
     {#contributions}
       <tr>
         <td>
           <a href="/m/{profileRef._id}">{profileRef.name}</a> {@eq key=profileRef.memberType value="provisional"} [{profileRef.memberType}] {/eq}
         </td>
+        <td>
+          {#patron}Patron{/patron} {#member}Member{/member} {#funder}Funder{/funder}
+        </td>
+        <td>{perks} {memberships}</td>
         <td>
           {pledgedCapital}
         </td>

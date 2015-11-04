@@ -15,10 +15,20 @@ const attributes = _.merge({
   profileRef: {type: String, ref: 'Profile'}
   , proposalRef: {type: String, ref: 'Proposal'}
   , description: String
-  , pledgedCapital: Number
+  , patron: Boolean
+  , member: Boolean
+  , funder: Boolean
   , pledgedPatronage: Number
-  , paidCapital: Number
+  , pledgedMembership: Number
+  , pledgedCapital: Number
+  //todo: probably create two separate instances for pledges/paid
   , paidPatronage: Number
+  , paidMembership: Number
+  , paidCapital: Number
+  //todo: track choosen perks
+  , offers: [String]
+  , memberships: [String]
+  , perks: [String]
 }, baseModel.baseAttributes);
 
 const modelFactory = function () {

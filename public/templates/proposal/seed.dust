@@ -7,15 +7,18 @@
     {>"proposal/_summary"/}
 
     <form method="POST" action="/p/{_id}/seed">
-      <input type="checkbox" name="buyGoods" value="true"> I would like to buy goods from this coop.<br>
+      <input type="hidden" name="pid" value="{_id}">
+      <input type="hidden" name="_csrf" value="{_csrf}">
+
+      <input type="checkbox" name="patron" value="true"> I would like to buy goods from this coop.<br>
       <br>
-      <input type="checkbox" name="becomeMember" value="true"> I am interested in becoming a member of this coop.<br>
+      <input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>
       {#memberships}
         <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>
       {/memberships}
       <br>
 
-      <input type="checkbox" name="fund" value="true"> I would like to fund this coop.<br>
+      <input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>
       {#perks}
         <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
       {/perks}

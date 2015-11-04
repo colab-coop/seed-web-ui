@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Proposal = require('../models/proposal');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
+const ContributionService = require('../lib/contributionService');
 const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
 
@@ -81,7 +82,7 @@ function showProposal(req, res) {
 }
 
 function showSeed(req, res) {
-  const id = req.param('id');
+  const id = req.param('pid');
   req.session.currentProposalId = id;  //save this for return flows
   const model = {};
   model.profile = req.user ? req.user.profile : {};
@@ -95,6 +96,35 @@ function showSeed(req, res) {
     .catch( curriedHandleError(req, res) );
 }
 
+function postSeed(req, res) {
+  const proposalId = req.body.pid;
+  console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
+  let profileId = req.user ? req.user.profile._id : null;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const fullName = `${firstName} ${lastName}`;
+  const seedcoop = Boolean(req.body.seedcoop);
+  const data = {
+    profileRef: profileId
+    , proposalRef : proposalId
+    , name: fullName
+    , firstName: req.body.firstName
+    , lastName: req.body.lastName
+    , email: req.body.email
+    , patron: Boolean(req.body.patron)
+    , member: Boolean(req.body.member)
+    , funder: Boolean(req.body.funder)
+    , memberships: req.body.memberships
+    , perks: req.body.perks
+  };
+  console.log(`postSeed: pid: ${proposalId}, data: ${_.inspect(data)}`);
+//  ContributionService.save(null, data)
+  Contribution.create(data)
+    .then((saved) => { console.log(`saved: ${saved}`);
+      gotoBaseView(req, res)})
+    .catch(curriedHandleError(req, res));
+
+}
 
 function newProposal(req, res) {
   render(res, 'new', {item: {}});
@@ -193,7 +223,8 @@ function addRoutes(router) {
   router.get(uri('/last'), showLastProposal);
   router.get(uri('/view'), showProposal);
   router.get(uri('/:id/view'), showProposal);
-  router.get(uri('/:id/seed'), showSeed);
+  router.get(uri('/:pid/seed'), showSeed);
+  router.post(uri('/:pid/seed'), postSeed);
 
   router.get(uri('/new'), newProposal);
   router.post(uri(''), createProposal);

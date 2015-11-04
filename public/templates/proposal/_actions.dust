@@ -7,5 +7,5 @@
 <a href="/p/{_id}/contribute">[Contribute]</a> &nbsp;
 {#user.hasModeratorAccess}
 <a href="/p/{_id}/edit">[Edit]</a> &nbsp;
-<a href="/admin/offer/edit?pid={_id}">[Create Offer]</a>
+<a href="/admin/offer/new/edit?pid={_id}">[Create Offer]</a>
 {/user.hasModeratorAccess}

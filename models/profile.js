@@ -20,9 +20,9 @@ const MEMBERSHIP_TYPES = {
 
 const attributes = _.merge({
   name: String //todo: deprecated, migrating usage to displayName
-  , firstName: { type: String, required: false }
-  , lastName: { type: String, required: false }
-  , orgName: { type: String, required: false }     // we need either org name or first/last
+  , firstName: String
+  , lastName: String
+  , orgName: String
   , displayName: { type: String, required: true }  // either org name or 'first last'
   , email: { type: String, required: true }
   , phone: String
@@ -34,9 +34,21 @@ const attributes = _.merge({
   , membershipPayments: Number
 }, baseModel.baseAttributes);
 
+const isBlank = (val) => (!val || val === '');
+
 const modelFactory = function () {
 
   const schema = mongoose.Schema(attributes);
+
+  schema.pre('validate', function (next) {
+    if ((isBlank(this.firstName) || isBlank(this.lastName)) && isBlank(this.orgName)) {
+      const err = new Error('First and last name or org name is required');
+      err.type = 'validation';
+      next(err);
+    } else {
+      next();
+    }
+  });
 
   schema.methods.toString = function () {
     return 'Profile[' + this._id + ', name: ' + this.name + ']';

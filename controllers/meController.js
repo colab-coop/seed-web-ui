@@ -37,15 +37,21 @@ function validationMessages(err) {
 function updateMyProfile(req, res, next) {
   var profile = req.user.profile;
 
+  const render = (messages) => {
+    res.render('me/profile_edit', {
+      profile: profile,
+      messages: messages
+    });
+  };
+
   profileLib
     .updateProfile(profile, req.body)
     .then(() => res.redirect('/me'))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.render('me/profile_edit', {
-          profile: profile,
-          messages: validationMessages(err)
-        });
+        render(validationMessages(err));
+      } else if (err.type === 'validation') {
+        render(err.message);
       } else {
         next(err);
       }

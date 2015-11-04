@@ -1,0 +1,21 @@
+<table border="1">
+  <th>Type</th><th>Title</th><th>Min Amount</th><th>Taken</th><th>Actions</th>
+  {#offers}
+    <tr>
+      <td>{kind}</td>
+      <td>
+        <a href="/admin/offer/{_id}/view">{title}</a>
+      </td>
+      <td>{minimumContributionAmount}</td>
+      <td>{taken}</td>
+      <td>
+        {>"offer/_actions"/}
+      </td>
+    </tr>
+  {/offers}
+</table>
+
+
+
+
+

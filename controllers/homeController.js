@@ -11,11 +11,7 @@ var Profile = require('../models/profile');
 
 var contributionController = require('./contributionController');
 var proposalController = require('./proposalController');
-
-//function handleError(err) {
-//  console.error(err);
-//  return helpers.negotiate(req, res, err);
-//}
+var voteController = require('./voteController');
 
 
 function buildMessages(req) {
@@ -76,7 +72,7 @@ function postLogin(req, res) {
  */
 function afterAuth(req, res) {
   //todo: use same methodMap approach as with the payment success
-  if (proposalController.handlePending(req, res)) {
+  if (voteController.handlePending(req, res)) {
     return
   }
   if (contributionController.handlePending(req, res)) {

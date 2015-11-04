@@ -101,14 +101,14 @@ function save(req, res) {
   Proposal.findOne({_id: id}).exec()
     .then((proposal) => {
       if (proposal) {
-        proposal.update(data);
+        return proposal.update(data).exec();
       } else {
         if (!!id) {
           throw new Error(`proposal not found for id: [${id}]`);
         } else {
           data.kind = Proposal.KIND.sector;
           data.ownerRef = ownerRef;
-          Proposal.create(data);
+          return Proposal.create(data);
         }
       }
     })

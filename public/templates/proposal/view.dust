@@ -7,9 +7,12 @@
     {>"proposal/_summary"/}
     {>"proposal/_actions"/}
 
-  <br/>
-  <br/>
-  <br/>
+    <br/> <br/>
+    <b>Offers:</b>
+    {>"offer/_list"/}
+    <a href="/admin/offer/new/edit?pid={id}">Create New Offer</a>
+    <br><br>
+
   <b>Votes:</b><br/>
   <table border="1">
     <th>Supporter</th><th>Vote Rank</th><th>Anticipated Capital Contribution</th><th>Anticipated Customer Patronage</th><th>Worker Interest</th>

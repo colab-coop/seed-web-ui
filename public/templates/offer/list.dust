@@ -1,0 +1,24 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Offers</h2>
+
+  <table>
+    {#items}
+      <tr>
+        <td>
+          <a href="/admin/offer/{_id}/view">{title}</a>
+        </td>
+        <td>
+          {>"offer/_actions"/}
+        </td>
+      </tr>
+    {/items}
+  </table>
+  <br> <br>
+  <a href="/admin/offer/new/edit">Create New Offer</a>
+
+  <br><br>
+  <a href="/admin">[back]</a>
+
+{/body}

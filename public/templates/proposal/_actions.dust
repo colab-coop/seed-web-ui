@@ -4,4 +4,7 @@
 <a href="/p/{_id}/vote">[Vote]</a> &nbsp;
 <a href="/p/{_id}/pledge">[Pledge]</a> &nbsp;
 <a href="/p/{_id}/contribute">[Contribute]</a> &nbsp;
+{@if cond="{user.hasModeratorAccess}"}
 <a href="/p/{_id}/edit">[Edit]</a>
+<a href="/admin/offer/edit?pid={_id}">[Create Offer]</a>
+{/if}

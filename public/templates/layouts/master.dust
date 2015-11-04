@@ -23,12 +23,13 @@
           </ul>
            <ul class="nav navbar-nav navbar-right">
             {#user}
-              {!{#user.isAdmin}!}
-                {!<li><a href="/admin">Admin</a></li>!}
-              {!{/user.isAdmin}!}
-              {@eq key=user.profile.memberType value="full"}
+              {#user.isAdmin}
+                <li><a href="/admin">Admin</a></li>
+              {/user.isAdmin}
+              {!{@eq key=user.profile.memberType value="full"}!}
+              {#user.hasModeratorAccess}
                 <li><a href="/admin">Moderate</a></li>
-              {/eq}
+              {/user.hasModeratorAccess}
               <li><a href="/me">{profile.name} [{profile.memberType} member]</a></li>
               <li><a href="/logout">Logout</a> </li>
             {:else}

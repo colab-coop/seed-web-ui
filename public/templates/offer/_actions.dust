@@ -1,0 +1,4 @@
+
+<a href="/admin/offer/{_id}/edit">[Edit]</a>
+{!<a href="/admin/sector/{_id}/delete">[Delete]</a>!}
+

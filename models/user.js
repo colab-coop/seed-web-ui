@@ -9,12 +9,11 @@ var bcrypt = require('bcrypt');
 var crypto = require('../lib/crypto');
 var baseModel = require('./baseModel');
 
-
 var attributes = _.merge({
   email: {type: String, unique: true}  //Ensure logins are unique.
   , authenticationData: String //We'll store bCrypt hashed passwords.
-  , role: String  //todo: think about making this a list
-  , isAdmin: Boolean
+  , role: String  //todo: don't think this is used or needed here
+  , isAdmin: Boolean  //does this belong on Profile?
   , defaultProfileRef: {type: String, ref: 'Profile'}
   , name: String  //todo: move to Profile
 }, baseModel.baseAttributes);
@@ -49,6 +48,26 @@ var modelFactory = function () {
     var user = this;
     console.log("plainText: " + plainText + ", user id: " + user._id + ", auth data: " + user.authenticationData);
     return bcrypt.compareSync(plainText, user.authenticationData);
+  };
+
+  schema.methods.hasModeratorAccess = function() {
+    if (this.isAdmin) {
+      return true;
+    }
+    //if (hasAdminAccess()) {
+    //  return true;
+    //}
+    if ((typeof this.defaultProfileRef) === 'string' || !this.defaultProfileRef) {
+      console.warn(`hasModeratorAccess - profile object not fetched`);
+      return false;
+    } else {
+      return this.defaultProfileRef.memberType === Profile.MEMBERSHIP_TYPES.full;
+    }
+  };
+
+  schema.methods.hasAdminAccess = function() {
+    //return isAdmin;
+    return this.hasModeratorAccess();  //todo: change this once we have a good way to manage admins, for now treat full members as admins
   };
 
 

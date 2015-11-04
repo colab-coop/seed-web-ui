@@ -1,0 +1,27 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Offer Editor</h2>
+
+  {#item}
+    <form method="POST" action="/admin/offer/save">
+      <input type="hidden" name="proposalRef" value="{proposalRef}">
+      <input type="hidden" name="id" value="{_id}">
+      <input type="hidden" name="_csrf" value="{_csrf}">
+      Type: <input name="kind" value="{kind}"> (membership, perk)<br>
+      Title: <input name="title" value="{title}"><br>
+      Description: <input name="description" value="{description}"><br>
+      Minimum Contribution Amount: <input name="minimumContributionAmount" value="{minimumContributionAmount}"><br>
+      Number Offered: <input name="limit" value="{limit}"><br>
+      Taken So Far: <input name="taken" value="{taken}"><br>
+
+      <input type="submit" value="Save">
+    </form>
+    <br>
+    <a href="/admin/offer/index">[back]</a>
+    <br><br>
+    <a href="/admin/offer/{_id}/delete">[Delete]</a>
+  {/item}
+
+
+{/body}

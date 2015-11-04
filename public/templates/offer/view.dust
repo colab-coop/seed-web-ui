@@ -1,0 +1,26 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Offer Detail</h2>
+
+  {#item}
+    Type: {kind}<br>
+    Title: {title}<br>
+    Description: {description}<br>
+    Minimum Contribution Amount: {minimumContributionAmount}<br>
+    Number Offered: {limit}<br>
+    Taken So Far: {taken}<br>
+    {!Is Regulated: {isRegulated}<br>!}
+
+    {>"offer/_actions"/}
+
+    <br><br>
+    <a href="/admin/offer/{_id}/delete">[Delete]</a>
+
+  {/item}
+
+  <br><br>
+  <a href="/admin/offer/index">[back]</a>
+
+
+{/body}

@@ -5,6 +5,7 @@
 module.exports = function (router) {
 
   require('./homeController').addRoutes(router);
+  require('./meController').addRoutes(router);
   require('./voteController').addRoutes(router);  // beware, for now vote needs to come before proposal. todo: clean this up
   require('./proposalController').addRoutes(router);
   require('./sectorController').addRoutes(router);

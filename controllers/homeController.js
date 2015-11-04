@@ -148,6 +148,25 @@ function editMyProfile(req, res) {
   res.render('me/profile_edit', { profile: req.user.profile });
 }
 
+function validationMessages(err) {
+  const messages = [];
+
+  const reasons = {
+    required: '% is required',
+    // todo: handle other kinds of validation errors
+    unknown: '% is invalid'
+  };
+
+  for (var attr in err.errors) {
+    const error = err.errors[attr];
+    const name = _.startCase(attr);
+    const reason = reasons[error.kind] || reasons.unknown;
+    messages.push(reason.replace(/%/, _.startCase(attr)));
+  }
+
+  return messages;
+}
+
 function updateMyProfile(req, res, next) {
   var profile = req.user.profile;
 
@@ -158,7 +177,7 @@ function updateMyProfile(req, res, next) {
       if (err.name === 'ValidationError') {
         res.render('me/profile_edit', {
           profile: profile,
-          messages: ['One or more fields are invalid'] // todo: create message for each invalid field
+          messages: validationMessages(err)
         });
       } else {
         next(err);

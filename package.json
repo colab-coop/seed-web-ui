@@ -56,10 +56,10 @@
   "devDependencies": {
     "assetsmanager-brunch": "^1.8.1",
     "babel-brunch": "^5.1.1",
+    "browser-sync-brunch": "0.0.9",
     "brunch": "^1.8.5",
     "clean-css-brunch": ">= 1.0 < 1.8",
     "css-brunch": ">= 1.0 < 1.8",
-    "browser-sync-brunch": "0.0.9",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-config-dir": "^0.3.2",
@@ -72,6 +72,8 @@
     "javascript-brunch": ">= 1.0 < 1.8",
     "mocha": "^1.18.0",
     "sass-brunch": "^1.9.1",
+    "shipit-cli": "^1.4.0",
+    "shipit-deploy": "^2.0.0",
     "supertest": "^0.9.0",
     "uglify-js-brunch": ">= 1.0 < 1.8"
   }

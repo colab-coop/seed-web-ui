@@ -1,0 +1,3 @@
+redis_version: 3.0.2
+redis_tmp_path: /tmp
+redis_upstart_conf: "upstart_redis.conf"

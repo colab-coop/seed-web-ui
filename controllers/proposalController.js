@@ -167,8 +167,37 @@ function showWater(req, res) {
 }
 
 function postWater(req, res) {
-  showLastProposal(req, res);
+  console.log(`postWater - body: ${_.inspect(req.body)}`);
+  const contributionId = req.body.contributionId;
+  const data = {
+    pledgedPatronage: Number(req.body.pledgedPatronage || 0)
+    , pledgedCapital: Number(req.body.pledgedCapital || 0)
+    , payNow: Boolean(req.body.payNow)
+    , pledge: Boolean(req.body.pledge)
+  };
+  console.log(`postWater - data: ${_.inspect(data)}`);
+  ContributionService.save(contributionId, data)
+    .then((contribution) => {
+      if (data.pledge) {
+        showLastProposal(req, res);
+      } else {
+        showPayment(req, res, data.pledgedCapital);
+      }
+    })
+    .catch( curriedHandleError(req, res) );
 }
+
+function showPayment(req, res, amountArg) {
+  const amount = amountArg || Number(req.body.amount);
+  req.session.cart = {
+    kind: 'contribution'
+    , description: 'Capital Contribution'  // in support of ...'
+    , amount: amount
+    , successMethodName: 'handleContributionPaymentSuccess'
+  };
+  res.redirect('/pay');
+}
+
 
 function newProposal(req, res) {
   ProposalService.buildSectorOptions('', true)

@@ -52,13 +52,12 @@ $ bower install
 ### Development
 #### Rebuilding the static assets
 ```
-$ brunch build
+$ npm build
 ```
 
 #### Running the server with automatic static asset rebuild
 ```
-$ source setenv.sh
-$ brunch watch --server
+$ npm start
 # may also wish to copy and use the dev-start-example.sh
 ```
 

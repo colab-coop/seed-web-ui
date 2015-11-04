@@ -49,9 +49,9 @@
         <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-danger seed-button">PLEDGE</button>
       </div>
 
-      <div>
-        <button id="payNow" type="submit" name="payNow" value="true" class="btn btn-danger seed-button">PAY NOW</button>
-      </div>
+      {!<div>!}
+        {!<button id="payNow" type="submit" name="payNow" value="true" class="btn btn-danger seed-button">PAY NOW</button>!}
+      {!</div>!}
 
       <div>
         <a href="/how_it_works">

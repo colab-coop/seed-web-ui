@@ -39,12 +39,12 @@
       {/user.profile}
 
       {!payNow: {payNow}, pledge: {pledge}<br>!}
-      {#payNow}
-        credit card form<br>
-        <button id="payNow" type="submit" name="payNow" value="true" class="btn btn-primary">PAY NOW</button>
-      {:else}
+      {!{#payNow}!}
+        {!credit card form<br>!}
+        {!<button id="payNow" type="submit" name="payNow" value="true" class="btn btn-primary">PAY NOW</button>!}
+      {!{:else}!}
         <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-primary">PLEDGE</button>
-      {/payNow}
+      {!{/payNow}!}
       {!todo: understand why this doesn't work!}
       {!{@if cond="{payNow}"}!}
       {!{/if}!}

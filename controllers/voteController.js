@@ -118,7 +118,6 @@ function addRoutes(router) {
   router.get('/vote/view', voteView);
   router.get('/vote/:id/view', voteView);
 
-  router.get('/p/:id/delete', deleteProposal);
   router.get('/vote/:id/delete', deleteVote);
 }
 

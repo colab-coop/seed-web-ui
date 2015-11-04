@@ -14,16 +14,23 @@ var ProposalService = require('../lib/proposalService');
  * Proposals
  */
 
+const baseTemplatePath = 'proposal';
+
+/** render a few relative to our base template path */
+function render(res, view, model) {
+  res.render(`${baseTemplatePath}/${view}`, model);
+}
+
 function home(req, res) {
-  listProposalsView(req, res, 'proposal/home', Proposal.KIND.campaign);
+  listProposalsView(req, res, 'home', Proposal.KIND.campaign);
 }
 
 function listProposals(req, res) {
-  listProposalsView(req, res, 'proposal/list', Proposal.KIND.campaign);
+  listProposalsView(req, res, 'list', Proposal.KIND.campaign);
 }
 
 function adminListProposals(req, res) {
-  listProposalsView(req, res, 'proposal/adminList');
+  listProposalsView(req, res, 'adminList');
 }
 
 
@@ -42,13 +49,13 @@ function listProposalsView(req, res, view, kind) {
       }
       return Proposal.find(filter).populate('parentRef');  // should confirm if this cascades and if we need to worry about circular refs
     })
-    .then(function (items) {
+    .then((items) => {
       console.log("inside find callback");
-      var model = {
+      const model = {
         items: items
         , sectorOptions: sectorOptions
       };
-      res.render(view, model);
+      render(res, view, model);
     })
     .catch( curriedHandleError(req, res) );
 }
@@ -58,10 +65,7 @@ function showLastProposal(req, res) {
   const id = req.session.currentProposalId;
   if (id) {
     ProposalService.fetch(id)
-      .then(function(proposal) {
-        const model = {proposal: proposal};
-        res.render('proposal/view', model);
-      })
+      .then((proposal) => { render(res, 'view', {proposal: proposal}); })
       .catch( curriedHandleError(req, res) );
   } else {
     home(req, res);
@@ -70,30 +74,27 @@ function showLastProposal(req, res) {
 
 function showProposal(req, res) {
   const id = req.param('id');
-  req.session.currentProposalId = id;  //save this for flow returns
+  req.session.currentProposalId = id;  //save this for return flows
   ProposalService.fetch(id)
-    .then(function(proposal) {
-      const model = {proposal: proposal};
-      res.render('proposal/view', model);
-    })
+    .then((proposal) => { render(res, 'view', {proposal: proposal}); })
     .catch( curriedHandleError(req, res) );
 }
 
 function newProposal(req, res) {
-  var model = {item: new Proposal()};
-  res.render('proposal/new', model);
+  render(res, 'new', {item: {}});
 }
 
 function editProposal(req, res) {
-  let item = null;
-  Proposal.findOne({_id: req.params.id}).exec()
+  const id = req.params.id;
+  let item;
+  ProposalService.fetchLite(id)
     .then((found) => {
       item = found;
       return ProposalService.buildSectorOptions(item.parentRef, true);
     }).then((sectorOptions) => {
       const kindOptions = Proposal.buildKindOptions(item.kind, true);
       const model = {item: item, kindOptions: kindOptions, sectorOptions: sectorOptions};
-      res.render('proposal/edit', model);
+      render(res, 'edit', model);
     })
     .catch(curriedHandleError(req, res));
 }
@@ -110,36 +111,34 @@ function createProposal(req, res) {
 
   handleAttachement(req, proposal)
     .then((proposal) => proposal.save())
-    .then(() => res.redirect('/p'))
+    .then(() => gotoBaseView(req, res))
     .catch(curriedHandleError(req, res));
 }
 
 function updateProposal(req, res) {
+  const id = req.params.id;
   const kind = req.body.kind;
   const parentRef = req.body.parentRef;
+  const data = {
+    kind: kind,
+    parentRef: parentRef,
+    title: req.body.title && req.body.title.trim(),
+    summary: req.body.summary && req.body.summary.trim(),
+    location: req.body.location && req.body.location.trim(),
+    description: req.body.description
+  };
   console.log(`kind: [${kind}]`);
-  Proposal.findOne({_id: req.params.id}).exec()
+  ProposalService.fetchLite(id)
     .then((proposal) => handleAttachement(req, proposal))
-    .then((proposal) => proposal.update({
-      kind: kind,
-      parentRef: parentRef,
-      title: req.body.title && req.body.title.trim(),
-      summary: req.body.summary && req.body.summary.trim(),
-      location: req.body.location && req.body.location.trim(),
-      description: req.body.description
-    }).exec())
-    .then(() => {
-      res.redirect('/p')
-    })
+    .then((proposal) => proposal.update(data).exec())
+    .then(() => { gotoBaseView(req, res) })
     .catch(curriedHandleError(req, res));
 }
 
 function deleteProposal(req, res) {
   var id = req.param('id');
-  Proposal.remove({_id: id}).exec()
-    .then(function () {
-      res.redirect('/p');
-    })
+  ProposalService.remove(id)
+    .then(() => { gotoBaseView(req, res) })
     .catch( curriedHandleError(req, res) );
 }
 
@@ -153,102 +152,17 @@ function handleAttachement(req, proposal) {
   }
 }
 
-/*
- * Votes
- */
 
-//function showVote(req, res) {
-//  var id = req.param('pid');
-//  Proposal.findOne({_id: id}).populate('profileRef').exec()
-//    .then(function (proposal) {
-//      var model = {proposal: proposal, item: {}};
-//      // todo: validation and error message handling
-//      model.messages = req.flash('error');
-//      res.render('proposal/vote', model);
-//    })
-//    .catch( curriedHandleError(req, res) );
-//}
-//
-//function postVote(req, res) {
-//  var model = {};
-//  model.voteRank = req.param('voteRank');
-//  model.anticipatedCapital = req.param('anticipatedCapital');
-//  model.anticipatedPatronage = req.param('anticipatedPatronage');
-//  model.workerInterest = req.param('workerInterest');
-//  var proposalId = req.param('proposalId');
-//  model.proposalRef = proposalId;
-//  if (req.user) {
-//    console.log("userId: " + req.user._id + ', profile: ' + req.user.profile);
-//    model.profileRef = req.user.profile._id;
-//  }
-//
-//  Vote.create(model)
-//    .then(function(item) {
-//      console.log("new vote id: " + item._id + ", obj: " + item);
-//      if (! req.user) {
-//        req.session.pending = {action: 'vote', voteId: item._id, message: 'please signin or login to register your vote'};
-//        res.redirect('/signup');
-//      } else {
-//        handleVoteSuccess(req, res, item);
-//      }
-//    })
-//    .catch( curriedHandleError(req, res) );
-//}
-//
-//function handleVoteSuccess(req, res, vote) {
-//  var path = '/p/' + vote.proposalRef + '/pledge?la=vote&vid=' + vote._id;
-//  res.redirect(path);
-//
-//}
-//
-//function handlePending(req, res) {
-//
-//  var pending = req.session.pending;
-//  if ( ! pending || pending.action != 'vote' ) {
-//    return false;
-//  }
-//
-//  console.log('pending action: ' + pending.action);
-//
-//  if ( ! req.user ) {
-//    throw new Error('unexpected missing user context')
-//  }
-//
-//  delete req.session.pending;
-//
-//  Vote.findOne({_id: pending.voteId}).exec()
-//    .then(function (item) {
-//      item.profileRef = req.user.profile._id;
-//      console.log("profileRef: " + item.profileRef);
-//      return item.save();
-//    }).then(function (item) {
-//      handleVoteSuccess(req, res, item);
-//    })
-//    .catch( curriedHandleError(req, res) );
-//  return true
-//}
-//
-//
-//function voteView(req, res) {
-//  console.log("root index.js - vote/view");
-//  var id = req.param('id');
-//  var model = {};
-//  Vote.findOne({_id: id}).populate('profileRef proposalRef').exec()
-//    .then(function(item) {
-//      model.item = item;
-//      res.render('vote/view', model);
-//    })
-//    .catch( curriedHandleError(req, res) );
-//}
-//
-//function deleteVote(req, res) {
-//  var id = req.param('id');
-//  Vote.remove({_id: id}).exec()
-//    .then(function () {
-//      res.redirect('/p');
-//    })
-//    .catch( curriedHandleError(req, res) );
-//}
+const baseUriPath = '/p';
+
+function uri(tail) {
+  return baseUriPath + tail;
+}
+
+function gotoBaseView(req, res) {
+  res.redirect(baseUriPath);
+}
+
 
 /*
   Routes
@@ -257,26 +171,18 @@ function handleAttachement(req, proposal) {
 function addRoutes(router) {
   router.get('/', home);
 
-  router.get('/p', listProposals);
+  router.get(uri(''), listProposals);
+  router.get(uri('/last'), showLastProposal);
+  router.get(uri('/view'), showProposal);
+  router.get(uri('/:id/view'), showProposal);
+
+  router.get(uri('/new'), newProposal);
+  router.post(uri(''), createProposal);
+  router.get(uri('/:id/edit'), editProposal);
+  router.post(uri('/:id'), updateProposal);
+  router.get(uri('/:id/delete'), deleteProposal);
+
   router.get('/admin/proposal', adminListProposals);
-  router.get('/p/last', showLastProposal);
-  router.get('/p/view', showProposal);
-  router.get('/p/:id/view', showProposal);
-
-  router.get('/p/new', newProposal);
-  router.post('/p', createProposal);
-  router.get('/p/:id/edit', editProposal);
-  router.post('/p/:id', updateProposal);
-
-  //router.get('/p/vote', showVote);
-  //router.get('/p/:pid/vote', showVote);
-  //router.post('/p/vote', postVote);
-  //
-  //router.get('/vote/view', voteView);
-  //router.get('/vote/:id/view', voteView);
-
-  router.get('/p/:id/delete', deleteProposal);
-  //router.get('/vote/:id/delete', deleteVote);
 }
 
 module.exports = {

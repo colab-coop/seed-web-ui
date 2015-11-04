@@ -21,7 +21,6 @@ const baseTemplatePath = 'sector';
 /** render a few relative to our base template path */
 function render(res, view, model) {
   res.render(`${baseTemplatePath}/${view}`, model);
-
 }
 
 function list(req, res) {
@@ -66,25 +65,6 @@ function edit(req, res) {
   }
 }
 
-//function create(req, res) {
-//  const ownerRef = req.user.profile._id;
-//  const title = req.body.title && req.body.title.trim();
-//  const summary = req.body.summary && req.body.summary.trim();
-//  const description = req.body.description;
-//
-//  const proposal = new Proposal({
-//    type: Proposal.type.Sector
-//    , ownerRef: ownerRef
-//    , title: title
-//    , summary: summary
-//    , description: description
-//  });
-//
-//  proposal.proposal.save()
-//    .then(() => gotoListView(res))
-//    .catch(curriedHandleError(req, res));
-//}
-
 function save(req, res) {
   const id = req.body.id;
   const title = req.body.title && req.body.title.trim();
@@ -113,36 +93,16 @@ function save(req, res) {
       }
     })
     .then(() => {
-      gotoListView(res);
+      gotoBaseView(res);
     })
     .catch(curriedHandleError(req, res));
 }
-
-  //console.log(`id: [${id}], !!id:[${!!id}], ${_.inspect(id)}`);
-  //if (!!id) { // update existing record
-  //  Proposal.findOne({_id: id}).exec()
-  //    .then((proposal) => proposal.update(data).exec() && proposal)
-  //    .then((proposal) => {
-  //      gotoListView(res);
-  //    })
-  //    .catch(curriedHandleError(req, res));
-  //} else { // create new record
-  //  Proposal.findOne({_id: id}).exec()
-  //    .then((proposal) => proposal.update({
-  //      title: title,
-  //      summary: summary,
-  //      description: description
-  //    }).exec() && proposal)
-  //    .then((proposal) => {
-  //      gotoListView(res);
-  //    })
-  //    .catch(curriedHandleError(req, res));
 
 function deleteItem(req, res) {
   const id = req.param('id');
   Proposal.remove({_id: id}).exec()
     .then(function () {
-      gotoListView(res);
+      gotoBaseView(res);
     })
     .catch( curriedHandleError(req, res) );
 }
@@ -158,7 +118,7 @@ function uri(tail) {
   return baseUriPath + tail;
 }
 
-function gotoListView(res) {
+function gotoBaseView(res) {
   res.redirect(baseUriPath);
 }
 

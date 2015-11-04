@@ -1,4 +1,10 @@
 {!proposal summary information to be included inside a proposal scoped section!}
+<style>
+  img {
+    max-width: 300px;
+    max-height: 300px
+  }
+</style>
 
 <a href="/p/{_id}/view">Proposal</a>:<br/>
 Type: {kind}<br/>

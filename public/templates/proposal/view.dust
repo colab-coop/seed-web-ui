@@ -68,12 +68,16 @@
     {/contributions}
   </table>
   <br>
-  {@eq key=user.profile.memberType value="full"}
+    {#user.isAdmin}
     <hr>
     {#item}
       <a href="/p/{_id}/delete">[delete]</a>
     {/item}
-  {/eq}
+    {/user.isAdmin}
+
+    {#user.hasModeratorAccess}
+      <li><a href="/admin">Moderate</a></li>
+    {/user.hasModeratorAccess}
 
   {/proposal}
 

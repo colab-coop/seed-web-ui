@@ -1,0 +1,58 @@
+{>"layouts/master" /}
+
+{<body}
+  <h3>My Profile</h3>
+
+  {?messages}
+    <ul>
+      {#messages}
+        <li>{.}</li>
+      {/messages}
+    </ul>
+  {/messages}
+
+  <form action="/me/edit" method="post">
+    <input type="hidden" name="_csrf" value="{_csrf}">
+
+    {#profile}
+      <label for="displayName">Display name:</label><br>
+      <input type="text" name="displayName" value="{displayName}" /><br>
+
+      <label for="firstName">First Name:</label><br>
+      <input type="text" name="firstName" value="{firstName}" /><br>
+
+      <label for="lastName">Last Name:</label><br>
+      <input type="text" name="lastName" value="{lastName}" /><br>
+
+      <label for="orgName">Org Name:</label><br>
+      <input type="text" name="orgName" value="{orgName}" /><br>
+
+      <label for="email">Email:</label><br>
+      <input type="text" name="email" value="{email}" /><br>
+
+      <label for="location">Location:</label><br>
+      <input type="text" name="location" value="{location}" /><br>
+
+      <label for="about">About:</label><br>
+      <textarea name="about" value="">{about}</textarea><br>
+
+      <label for="phone">Phone:</label><br>
+      <input type="text" name="phone" value="{phone}" /><br>
+
+      <label for="address">Address:</label><br>
+      <textarea name="address">{address}</textarea><br>
+    {/profile}
+
+    <input type="submit" value="Update Profile" />
+  </form>
+
+  <br>
+
+  {#profile}
+    Membership Status: {memberType}<br>
+    Membership Payments: {membershipPayments}<br>
+  {/profile}
+
+  <br>
+  <a href="/me/pay">[pay co-op membership]</a> &nbsp;
+{/body}

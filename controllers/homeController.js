@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const profileLib = require('../lib/profile');
 const userLib = require('../lib/user');
 const helpers = require('../lib/helpers');
 const passthrough = helpers.passthrough;
@@ -143,6 +144,28 @@ function viewMyProfile(req, res) {
   res.render('me/profile', {profile: req.user.profile});
 }
 
+function editMyProfile(req, res) {
+  res.render('me/profile_edit', { profile: req.user.profile });
+}
+
+function updateMyProfile(req, res, next) {
+  var profile = req.user.profile;
+
+  profileLib
+    .updateProfile(profile, req.body)
+    .then(() => res.redirect('/me'))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        res.render('me/profile_edit', {
+          profile: profile,
+          messages: ['One or more fields are invalid'] // todo: create message for each invalid field
+        });
+      } else {
+        next(err);
+      }
+    });
+}
+
 function viewProfile(req, res) {
   const profileId = req.param('profileId');
   ProfileService.fetch(profileId)
@@ -217,6 +240,8 @@ function addRoutes(router) {
   router.post('/signup', postSignup);
   router.get('/afterAuth', afterAuth);
   router.get('/me', viewMyProfile);
+  router.get('/me/edit', editMyProfile);
+  router.post('/me/edit', updateMyProfile);
   router.get('/me/pay', showMemberPay);
   router.post('/me/pay', postMemberPay);
   router.get('/me/thanks', membershipThanks);

@@ -136,7 +136,7 @@ function postSeed(req, res) {
 function continueSeedSave(req, res, data) {
   Contribution.create(data)
     .then((saved) => { console.log(`saved: ${saved}`);
-      gotoBaseView(req, res)})
+      showLastProposal(req, res)})
     .catch(curriedHandleError(req, res));
 }
 

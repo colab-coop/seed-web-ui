@@ -1,0 +1,57 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Seed a Coop</h2>
+
+  {#contribution}
+    {#proposal}
+    {>"proposal/_summary"/}
+    {/proposal}
+
+    <form method="POST" action="/p/{_id}/water">
+      <input type="hidden" name="contributionId" value="{_id}">
+      <input type="hidden" name="_csrf" value="{_csrf}">
+
+      {#patron}
+        <b>Thanks for your patronage support</b><br>
+        How much to you pledge to purchase over the next 12 months?<br>
+        <input type="text" name="pledgedPatronage"><br><br>
+      {/patron}
+
+      {#member}
+        Thanks for your interest in joining XXXX<br>
+        Membership dues are: XXX<br>
+        <b><i>[we'll need to figure out what kind of membership agreement and payment flow is appropriate for a given
+          organization. will very likely need to link away from our website.
+          perhaps defer this until after the other engagement flows are finished]</i></b><br><br>
+      {/member}
+
+      {#funder}
+        Thanks for your funding support<br>
+        How much to you wish to contribute?<br>
+        <input type="text" name="pledgedCapital"><br><br>
+      {/funder}
+
+      {#user.profile}
+      <input type="text" name="firstName" value="{firstName}" placeholder="First Name">
+      <input type="text" name="lastName" value="{lastName}" placeholder="Last Name"><br>
+      <input type="text" name="email" value="{email}" size="40"><br>
+      {/user.profile}
+
+      {!payNow: {payNow}, pledge: {pledge}<br>!}
+      {#payNow}
+        credit card form<br>
+        <button id="payNow" type="submit" name="payNow" value="true" class="btn btn-primary">first PAY NOW</button>
+      {:else}
+        <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-primary">PLEDGE</button>
+      {/payNow}
+      {!todo: understand why this doesn't work!}
+      {!{@if cond="{payNow}"}!}
+      {!{/if}!}
+
+    </form>
+
+  {/contribution}
+
+
+{/body}

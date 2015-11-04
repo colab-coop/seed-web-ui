@@ -1,7 +1,7 @@
 {>"layouts/master" /}
 
 {<body}
-  <h2>Proposal Detail</h2>
+  <h2>Seed a Coop</h2>
 
   {#proposal}
     {>"proposal/_summary"/}
@@ -30,7 +30,9 @@
       <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>
       <input type="text" name="email" value="{profile.email}" size="40"><br>
 
-      <button id="pledge" type="submit" name="pledge" class="btn btn-primary">PLEDGE</button>
+      <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-primary">PLEDGE</button>
+
+      <button id="payNow" type="submit" name="payNow" value="true" class="btn btn-primary">PAY NOW</button>
 
     </form>
 

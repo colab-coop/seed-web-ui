@@ -6,6 +6,7 @@ const Proposal = require('../models/proposal');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
 const ContributionService = require('../lib/contributionService');
+const Profile = require('../models/profile');
 const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
 
@@ -103,32 +104,41 @@ function postSeed(req, res) {
   let profileId = req.user ? req.user.profile._id : null;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
-  const fullName = `${firstName} ${lastName}`;
-  console.log(`fullname: ${fullName}`);
+  const orgName = req.body.orgName;
+  //const fullName = `${firstName} ${lastName}`;
+  //console.log(`fullname: ${fullName}`);
   const email = req.body.email;
-  const seedcoop = Boolean(req.body.seedcoop);
   const data = {
     profileRef: profileId
     , proposalRef: proposalId
-    , name: fullName
-    , firstName: req.body.firstName
-    , lastName: req.body.lastName
-    , email: req.body.email
+    //, name: fullName
+    , firstName: firstName
+    , lastName: lastName
+    , orgName: orgName
+    , email: email
     , patron: Boolean(req.body.patron)
     , member: Boolean(req.body.member)
     , funder: Boolean(req.body.funder)
+    , payNow: Boolean(req.body.payNow)
+    , pledge: Boolean(req.body.pledge)
+    , seedcoopInterest: Boolean(req.body.seedcoop)
     , memberships: req.body.memberships
     , perks: req.body.perks
   };
   console.log(`postSeed: pid: ${proposalId}, data: ${_.inspect(data)}`);
-//  ContributionService.save(null, data)
+//  ContributionService.save(null, data)  //todo: should move this logic into the service method
   if (!profileId) {
-    UserService.createUser(email, 'xxxxxx', fullName, (err, status, user) => {
+    UserService.createUser(email, 'xxxxxx', firstName, lastName, orgName, Profile.MEMBERSHIP_TYPES.auto, (err, status, user) => {
       console.log(`new user id: ${user._id}, profid: ${user.defaultProfileRef}`);
       data.profileRef = user.defaultProfileRef;
-      continueSeedSave(req, res, data);
+      req.login(user, (err) => {
+        if (err) {
+          console.error(err);
+        }
+        continueSeedSave(req, res, data);
+      });
     })
-  } else {  //todo: figure out better way to have optionaal pipelink operataion
+  } else {  //todo: figure out better way to have optional pipelink operations
     continueSeedSave(req, res, data);
   }
 }
@@ -136,8 +146,28 @@ function postSeed(req, res) {
 function continueSeedSave(req, res, data) {
   Contribution.create(data)
     .then((saved) => { console.log(`saved: ${saved}`);
-      showLastProposal(req, res)})
+//      showLastProposal(req, res)
+      res.redirect(uri(`/${saved._id}/water`));
+    })
     .catch(curriedHandleError(req, res));
+}
+
+function showWater(req, res) {
+  const contributionId = req.param('contributionId');
+  req.session.currentContributionId = contributionId;  //save this for return flows
+  //const model = {};
+//  model.profile = req.user ? req.user.profile : {};
+  let proposal;
+  ContributionService.fetch(contributionId)
+    .then((found) => {
+      //model.contribution = found;
+      render(res, 'water', {contribution: found});
+    })
+    .catch( curriedHandleError(req, res) );
+}
+
+function postWater(req, res) {
+  showLastProposal(req, res);
 }
 
 function newProposal(req, res) {
@@ -245,8 +275,12 @@ function addRoutes(router) {
   router.get(uri('/last'), showLastProposal);
   router.get(uri('/view'), showProposal);
   router.get(uri('/:id/view'), showProposal);
-  router.get(uri('/:pid/seed'), showSeed);
+
+  //todo: these handlers should probably live in contributionController
+  router.get(uri('/:pid/seed'), showSeed);     // form to indicate support
   router.post(uri('/:pid/seed'), postSeed);
+  router.get(uri('/:contributionId/water'), showWater);   // form to confirm pledge/pay
+  router.post(uri('/:contributionId/water'), postWater);
 
   router.get(uri('/new'), newProposal);
   router.post(uri(''), createProposal);

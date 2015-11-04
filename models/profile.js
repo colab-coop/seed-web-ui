@@ -13,14 +13,17 @@ const mongoose = require('mongoose');
 const baseModel = require('./baseModel');
 
 const MEMBERSHIP_TYPES = {
-  provisional: 'provisional'
+  auto: 'auto'  // automatic user/profile creation when support form submitted
+  , provisional: 'provisional'
   , full: 'full'
 };
 
 const attributes = _.merge({
-  name: String
+  name: String //todo: deprecated, migrating usage to displayName
   , firstName: String  //todo: migrate to separate first/last names
   , lastName: String
+  , orgName: String
+  , displayName: String  // either org name or 'first last'
   , email: String
   , phone: String
   , address: String

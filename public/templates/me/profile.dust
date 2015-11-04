@@ -4,7 +4,11 @@
   <h3>My Profile</h3>
 
   {#profile}
-    Name: {name}<br>
+    Display Name: {displayName}<br>
+    First Name: {firstName}<br>
+    Last Name: {lastName}<br>
+    Org Name: {orgName}<br>
+    Name: {name} (deprecated)<br>
     Email: {email}<br>
     Location: {location}<br>
     About: {about}<br>

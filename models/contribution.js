@@ -18,6 +18,9 @@ const attributes = _.merge({
   , patron: Boolean
   , member: Boolean
   , funder: Boolean
+  , payNow: Boolean  // if user indicated an interest in payment immediate (as opposed to a pledge)
+  , pledge: Boolean  // a bit redundant, perhaps remove later
+  , seedcoopInterest: Boolean  // if user indicates they want to join Seed.Coop
   , pledgedPatronage: Number
   , pledgedMembership: Number
   , pledgedCapital: Number

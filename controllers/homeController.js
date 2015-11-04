@@ -8,6 +8,7 @@ const helpers = require('../lib/helpers');
 const passthrough = helpers.passthrough;
 const curriedHandleError = _.curry(helpers.handleError);
 const ProfileService = require('../lib/profileService');
+const Profile = require('../models/profile');
 
 const contributionController = require('./contributionController');
 const proposalController = require('./proposalController');
@@ -114,8 +115,10 @@ function postEmail(req, res) {
 function postSignup(req, res) {
   const email = req.param('email');
   const password = req.param('password');
-  const name = req.param('name');
-  userLib.createUser(email, password, name, function (err, status, newUser) {
+  const firstName = req.param('firstName');
+  const lastName = req.param('lastName');
+  const orgName = req.param('orgName');
+  userLib.createUser(email, password, firstName, lastName, orgName, Profile.MEMBERSHIP_TYPES.provisional, function (err, status, newUser) {
     if (err) {
       return helpers.negotiate(req, res, err);
     } else {

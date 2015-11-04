@@ -52,5 +52,7 @@
   </table>
   <br> <br>
 
+    <a href="/p/new">Create New Campaign</a><br>
+
 
 {/body}

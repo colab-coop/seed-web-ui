@@ -8,6 +8,7 @@
 
 <a href="/p/{_id}/view">Proposal</a>:<br/>
 Type: {kind}<br/>
+Sector: {parentRef.title}<br>
 Title: {title}<br/>
 Summary: {summary}<br/>
 {?image.name}

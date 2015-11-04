@@ -127,7 +127,12 @@ function postSeed(req, res) {
 }
 
 function newProposal(req, res) {
-  render(res, 'new', {item: {}});
+  ProposalService.buildSectorOptions('', true)
+  .then((sectorOptions) => {
+      const kindOptions = Proposal.buildKindOptions(Proposal.KIND.campaign, true);
+      const model = {item: {}, kindOptions: kindOptions, sectorOptions: sectorOptions};
+      render(res, 'new', model);
+    })
 }
 
 function editProposal(req, res) {
@@ -145,6 +150,7 @@ function editProposal(req, res) {
     .catch(curriedHandleError(req, res));
 }
 
+//todo: need to better factor duplicated new/update code
 function createProposal(req, res) {
 
   const proposal = new Proposal({
@@ -152,7 +158,9 @@ function createProposal(req, res) {
     title: req.body.title && req.body.title.trim(),
     summary: req.body.summary && req.body.summary.trim(),
     location: req.body.location && req.body.location.trim(),
-    description: req.body.description
+    description: req.body.description,
+    kind: req.body.kind,
+    parentRef: req.body.parentRef
   });
 
   handleAttachement(req, proposal)

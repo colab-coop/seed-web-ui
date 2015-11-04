@@ -12,6 +12,9 @@
     <li>
       <a href="/admin/sector">Sectors</a><br>
     </li>
+    <li>
+      <a href="/p/new">Create New Campaign</a><br>
+    </li>
 
   </ul>
 

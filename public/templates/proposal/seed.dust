@@ -1,0 +1,36 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Proposal Detail</h2>
+
+  {#proposal}
+    {>"proposal/_summary"/}
+
+    <form method="POST" action="/p/{_id}/seed">
+      <input type="checkbox" name="buyGoods" value="true"> I would like to buy goods from this coop.<br>
+      <br>
+      <input type="checkbox" name="becomeMember" value="true"> I am interested in becoming a member of this coop.<br>
+      {#memberships}
+        <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>
+      {/memberships}
+      <br>
+
+      <input type="checkbox" name="fund" value="true"> I would like to fund this coop.<br>
+      {#perks}
+        <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
+      {/perks}
+      <br>
+      <input type="checkbox" name="seedcoop" value="true"> I want to be a member of SEED.coop<br>
+      <br>
+
+      <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">
+      <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>
+      <input type="text" name="email" value="{profile.email}" size="40"><br>
+
+      <button id="pledge" type="submit" name="pledge" class="btn btn-primary">PLEDGE</button>
+
+    </form>
+
+  {/proposal}
+
+{/body}

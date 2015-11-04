@@ -80,6 +80,22 @@ function showProposal(req, res) {
     .catch( curriedHandleError(req, res) );
 }
 
+function showSeed(req, res) {
+  const id = req.param('id');
+  req.session.currentProposalId = id;  //save this for return flows
+  const model = {};
+  model.profile = req.user ? req.user.profile : {};
+  let proposal;
+  ProposalService.fetch(id)
+    .then((found) => {
+      proposal = found;
+      model.proposal = proposal;
+      render(res, 'seed', model);
+    })
+    .catch( curriedHandleError(req, res) );
+}
+
+
 function newProposal(req, res) {
   render(res, 'new', {item: {}});
 }
@@ -177,6 +193,7 @@ function addRoutes(router) {
   router.get(uri('/last'), showLastProposal);
   router.get(uri('/view'), showProposal);
   router.get(uri('/:id/view'), showProposal);
+  router.get(uri('/:id/seed'), showSeed);
 
   router.get(uri('/new'), newProposal);
   router.post(uri(''), createProposal);

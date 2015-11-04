@@ -19,6 +19,8 @@ const MEMBERSHIP_TYPES = {
 
 const attributes = _.merge({
   name: String
+  , firstName: String  //todo: migrate to separate first/last names
+  , lastName: String
   , email: String
   , phone: String
   , address: String

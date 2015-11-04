@@ -7,14 +7,11 @@
 
   <ul>
     <li>
-      <a href="/admin/proposal">All Proposals</a><br>
+      <a href="/admin/proposal">All Proposals Type</a><br>
     </li>
     <li>
       <a href="/admin/sector">Sectors</a><br>
     </li>
-    {!<li>!}
-      {!<a href="/p">Proposals</a><br>!}
-    {!</li>!}
 
   </ul>
 

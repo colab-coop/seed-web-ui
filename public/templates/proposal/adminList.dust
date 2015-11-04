@@ -5,28 +5,29 @@
 
     {!todo: better factor this with the public view !}
 
-  <form id="filterForm" class="hook">
-    Sector:
-    <select name="parentRef">
-      {#sectorOptions}
-        <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
-      {/sectorOptions}
-    </select>
-  </form>
+    {!perhaps restore this once we fix to stay on admin view !}
+  {!<form id="filterForm" class="hook">!}
+    {!Sector:!}
+    {!<select name="parentRef">!}
+      {!{#sectorOptions}!}
+        {!<option value="{value}" {?selected}selected="true"{/selected}>{display}</option>!}
+      {!{/sectorOptions}!}
+    {!</select>!}
+  {!</form>!}
 
-  <script>
-    document.addEventListener( "DOMContentLoaded",
-      (e) => registerHooks(),
-      false);
-    function registerHooks() {
-      $(".hook").change(handleChange);
-    }
-    function handleChange() {
-      var form = document.getElementById("filterForm");
-      var parentRef = form.elements["parentRef"].value;
-      document.location.href='/p?parent=' + parentRef;
-    }
-  </script>
+  {!<script>!}
+    {!document.addEventListener( "DOMContentLoaded",!}
+      {!(e) => registerHooks(),!}
+      {!false);!}
+    {!function registerHooks() {!}
+      {!$(".hook").change(handleChange);!}
+    {!}!}
+    {!function handleChange() {!}
+      {!var form = document.getElementById("filterForm");!}
+      {!var parentRef = form.elements["parentRef"].value;!}
+      {!document.location.href='/p?parent=' + parentRef;!}
+    {!}!}
+  {!</script>!}
 
   <br>
 

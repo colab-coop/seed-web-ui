@@ -11,6 +11,7 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const baseModel = require('./baseModel');
+const helpers = require('../lib/helpers');
 
 var attributes = _.merge({
   proposalRef: {type: String, ref: 'Proposal'}  // expected to be a campaign
@@ -29,6 +30,13 @@ var KIND = {
   , perk: 'perk'
 };
 
+const KIND_VALUES = [KIND.membership, KIND.perk];
+
+function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
+  //could probably do some clever currying here
+  return helpers.buildOptionsFromList(KIND_VALUES, null, null, selectedValue, includeNone, noneDisplayArg);
+}
+
 const modelFactory = function () {
 
   const schema = mongoose.Schema(attributes);
@@ -37,7 +45,10 @@ const modelFactory = function () {
     return 'Offer[' + this._id + ', title: ' + this.title + ']';
   };
 
-  return mongoose.model('Offer', schema);
+  const model = mongoose.model('Offer', schema);
+  model.KIND = KIND;
+  model.buildKindOptions = buildKindOptions;
+  return model;
 
 };
 

@@ -8,7 +8,10 @@
       <input type="hidden" name="proposalRef" value="{proposalRef}">
       <input type="hidden" name="id" value="{_id}">
       <input type="hidden" name="_csrf" value="{_csrf}">
-      Type: <input name="kind" value="{kind}"> (membership, perk)<br>
+      Type:
+      {>"shared/_select_kind" /}
+      <br>
+
       Title: <input name="title" value="{title}"><br>
       Description: <input name="description" value="{description}"><br>
       Minimum Contribution Amount: <input name="minimumContributionAmount" value="{minimumContributionAmount}"><br>

@@ -56,11 +56,19 @@ function edit(req, res) {
   console.log(`offer edit id: ${id}, pid: ${proposalRef} `);
 //  if ('new' === id) {
   if (proposalRef) {
-    render(res, 'edit', {item: {proposalRef: proposalRef}});
+    const model = {
+      item: {proposalRef: proposalRef}
+      , kindOptions: Model.buildKindOptions(null, true)
+
+  };
+    render(res, 'edit', model);
   } else {
     ModelService.fetch(id)
       .then((item) => {
-        var model = {item: item};
+        const model = {
+          item: item
+          , kindOptions: Model.buildKindOptions(item.kind, true)
+        };
         render(res, 'edit', model);
       })
       .catch(curriedHandleError(req, res));

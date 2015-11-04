@@ -1,0 +1,5 @@
+<select name="kind">
+  {#kindOptions}
+    <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+  {/kindOptions}
+</select>

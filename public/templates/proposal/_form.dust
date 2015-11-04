@@ -6,11 +6,12 @@
   <label class="col-sm-2 control-label" for="kind">Type</label>
 
   <div class="col-sm-8">
-    <select name="kind">
-      {#kindOptions}
-        <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
-      {/kindOptions}
-    </select>
+    {>"shared/_select_kind" /}
+    {!<select name="kind">!}
+      {!{#kindOptions}!}
+        {!<option value="{value}" {?selected}selected="true"{/selected}>{display}</option>!}
+      {!{/kindOptions}!}
+    {!</select>!}
   </div>
 </div>
 

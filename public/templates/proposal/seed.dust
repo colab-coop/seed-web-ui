@@ -6,35 +6,63 @@
   {#proposal}
     {>"proposal/_summary"/}
 
+  <div class="proposal-seed">
     <form method="POST" action="/p/{_id}/seed">
       <input type="hidden" name="pid" value="{_id}">
       <input type="hidden" name="_csrf" value="{_csrf}">
 
-      <input type="checkbox" name="patron" value="true"> I would like to buy goods from this coop.<br>
-      <br>
-      <input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>
+      <div class="alert alert-success">
+        <input type="checkbox" name="patron" value="true"> I would like to buy goods from this coop.<br>
+      </div>
+
+      <div class="alert alert-success">
+        <input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>
+      </div>
+
       {#memberships}
-        <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>
+        <div class="alert alert-success">
+          <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>
+        </div>
       {/memberships}
-      <br>
 
-      <input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>
+      <div class="alert alert-success">
+        <input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>
+      </div>
+
       {#perks}
-        <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
+        <div class="alert alert-success">
+          <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
+        </div>
       {/perks}
+
+      <div class="alert alert-success">
+        <input type="checkbox" name="seedcoop" value="true"> I want to be a member of SEED.coop<br>
+      </div>
+
       <br>
-      <input type="checkbox" name="seedcoop" value="true"> I want to be a member of SEED.coop<br>
+
+      First Name: <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">
+      &nbsp &nbsp Last Name: <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>
+      Email: <input class="proposal-seed-input" type="text" name="email" value="{profile.email}" size="40"><br>
+
+      <div>
+        <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-danger seed-button">PLEDGE</button>
+      </div>
+
+      <div>
+        <button id="payNow" type="submit" name="payNow" value="true" class="btn btn-danger seed-button">PAY NOW</button>
+      </div>
+
+      <div>
+        <a href="/how_it_works">
+          <div class="btn btn-info seed-button">Learn More!</div>
+        </a>
+      </div>
+
       <br>
-
-      <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">
-      <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>
-      <input type="text" name="email" value="{profile.email}" size="40"><br>
-
-      <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-primary">PLEDGE</button>
-
-      <button id="payNow" type="submit" name="payNow" value="true" class="btn btn-primary">PAY NOW</button>
 
     </form>
+  </div>
 
   {/proposal}
 

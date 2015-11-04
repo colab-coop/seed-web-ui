@@ -4,16 +4,49 @@
     max-width: 300px;
     max-height: 300px
   }
+
+  .proposal-seed {
+    position: relative;
+    width: 50%;
+    left: 20%;
+  }
+
+  .proposal-seed-input {
+    width: 50%;
+    margin: 15px;
+  }
+
+  .seed-button {
+    margin-top: 10px;
+    width: 100%;
+  }
 </style>
 
-<a href="/p/{_id}/view">Proposal</a>:<br/>
-Type: {kind}<br/>
-Sector: {parentRef.title}<br>
-Title: {title}<br/>
-Summary: {summary}<br/>
-{?image.name}
-Image: <img src="/{image.name}"><br/>
-{/image.name}
-Location: {location}<br/>
-Description: {description}<br/>
-<br>
+<div class="proposal-seed">
+  <a href="/p/{_id}/view">Proposal</a>:<br/>
+  <h2>
+    {title}
+  </h2>
+  <h4>
+    Type: {kind}
+  </h4>
+  <h4>
+    Sector: {parentRef.title}
+  </h4>
+  <h4>
+    Location: {location}
+  </h4>
+
+  <h3>
+    {summary}
+  </h3>
+
+  {?image.name}
+  <img src="/{image.name}">
+  {/image.name}
+
+  <h3>
+    {description}
+  </h3>
+
+</div>

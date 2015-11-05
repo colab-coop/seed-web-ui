@@ -11,29 +11,40 @@
       <input type="hidden" name="pid" value="{_id}">
       <input type="hidden" name="_csrf" value="{_csrf}">
 
-      <div class="alert alert-success">
-        <input type="checkbox" name="patron" value="true"> I would like to buy goods from this coop.<br>
-      </div>
-
-      <div class="alert alert-success">
-        <input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>
-      </div>
-
-      {#memberships}
+      {?patronEnabled}
         <div class="alert alert-success">
-          <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>
+          <input type="checkbox" name="patron" value="true"> I would like to buy goods from this coop.<br>
         </div>
-      {/memberships}
+        {#prepays}
+          <div class="alert alert-success">
+            <input type="checkbox" name="prepays" value="{_id}"> Pre Pay: {title} &nbsp; ${minimumContributionAmount}<br>
+          </div>
+        {/prepays}
+      {/patronEnabled}
 
-      <div class="alert alert-success">
-        <input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>
-      </div>
-
-      {#perks}
+      {?memberEnabled}
         <div class="alert alert-success">
-          <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
+          <input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>
         </div>
-      {/perks}
+
+        {#memberships}
+          <div class="alert alert-success">
+            <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>
+          </div>
+        {/memberships}
+      {/memberEnabled}
+
+      {?funderEnabled}
+        <div class="alert alert-success">
+          <input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>
+        </div>
+
+        {#perks}
+          <div class="alert alert-success">
+            <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
+          </div>
+        {/perks}
+      {/funderEnabled}
 
       <div class="alert alert-success">
         <input type="checkbox" name="seedcoop" value="true"> I want to be a member of SEED.coop<br>
@@ -41,9 +52,17 @@
 
       <br>
 
+      {?user}
+        Name: {profile.firstName} {profile.lastName}<br>
+        Organization: {profile.orgName}<br>
+        Email: {profile.email}<br>
+        [not you?, please signout first]<br>
+      {:else}
       First Name: <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">
       &nbsp &nbsp Last Name: <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>
+      Organization: <input type="text" name="orgName" value="{profile.orgName}" placeholder="Organization"><br>
       Email: <input class="proposal-seed-input" type="text" name="email" value="{profile.email}" size="40"><br>
+      {/user}
 
       <div>
         <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-danger seed-button">PLEDGE</button>

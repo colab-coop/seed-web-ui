@@ -26,11 +26,12 @@ var attributes = _.merge({
 }, baseModel.baseAttributes);
 
 var KIND = {
-  membership: 'membership'
-  , perk: 'perk'
+  prepay: 'prepay'    // gift cards or other prepayments / discount offers from established businesses
+  , membership: 'membership'  // coop membership levels
+  , perk: 'perk'      // funding 'perks' offered in exchange for non-redeemable contributions
 };
 
-const KIND_VALUES = [KIND.membership, KIND.perk];
+const KIND_VALUES = [KIND.prepay, KIND.membership, KIND.perk];
 
 function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
   //could probably do some clever currying here

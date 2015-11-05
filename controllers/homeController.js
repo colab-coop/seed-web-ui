@@ -216,8 +216,8 @@ function handleMembershipPaymentSuccess(req, res) {
   const amount = Number(req.session.cart.amount);
   profile.membershipPayments = Number(profile.membershipPayments); // be damn sure we have a number!
   profile.membershipPayments += amount;
-  if (profile.membershipPayments >= 25 && profile.memberType === 'provisional') {
-    profile.memberType = 'full';
+  if (profile.membershipPayments >= 25 && profile.memberType !== Profile.MEMBERSHIP_TYPES.provisional) {
+    profile.memberType = Profile.MEMBERSHIP_TYPES.full;
   }
   profile.save()
     .then((saved) => {

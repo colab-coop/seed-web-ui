@@ -118,6 +118,9 @@ function createProposal(req, res) {
     location: req.body.location && req.body.location.trim(),
     description: req.body.description,
     kind: req.body.kind,
+    patronEnabled: req.body.patronEnabled,
+    memberEnabled: req.body.memberEnabled,
+    funderEnabled: req.body.funderEnabled,
     parentRef: req.body.parentRef
   });
 
@@ -130,6 +133,7 @@ function createProposal(req, res) {
 function updateProposal(req, res) {
   const id = req.params.id;
   console.log(`updateproposal - id: ${id}`);
+  console.log(`req.body: ${_.inspect(req.body)}`);
   const kind = req.body.kind;
   const parentRef = req.body.parentRef;
   const data = {
@@ -138,13 +142,17 @@ function updateProposal(req, res) {
     title: req.body.title && req.body.title.trim(),
     summary: req.body.summary && req.body.summary.trim(),
     location: req.body.location && req.body.location.trim(),
-    description: req.body.description
+    description: req.body.description,
+    patronEnabled: req.body.patronEnabled,
+    memberEnabled: req.body.memberEnabled,
+    funderEnabled: req.body.funderEnabled
   };
+  console.log(`proposal data: ${_.inspect(data)}`);
   console.log(`kind: [${kind}]`);
   ProposalService.fetchLite(id)
     .then((proposal) => handleAttachement(req, proposal))
     .then((proposal) => proposal.update(data).exec())
-    .then(() => { gotoBaseView(req, res) })
+    .then(() => { gotoBaseAdminView(req, res) })
     .catch(curriedHandleError(req, res));
 }
 
@@ -177,6 +185,9 @@ function gotoBaseView(req, res) {
   res.redirect(baseUriPath);
 }
 
+function gotoBaseAdminView(req, res) {
+  res.redirect('/admin/proposal');
+}
 
 /*
   Routes

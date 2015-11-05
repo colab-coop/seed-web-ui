@@ -24,6 +24,10 @@ const attributes = _.merge({
   , summary: String
   , location: String
   , description: String
+  // engagement flags
+  , patronEnabled: Boolean
+  , memberEnabled: Boolean
+  , funderEnabled: Boolean
 }, baseModel.baseAttributes);
 
 const KIND = {

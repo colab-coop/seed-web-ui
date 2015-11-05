@@ -47,6 +47,21 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
   return helpers.buildOptionsFromList(KIND_OPTIONS, 'value', 'display', selectedValue, includeNone, noneDisplayArg);
 }
 
+// fields to directly populate from edit forms
+const PARAM_FIELDS = [
+  'kind', 'parentRef', 'title', 'summary', 'location', 'description'
+  , 'patronEnabled', 'memberEnabled', 'funderEnabled'
+];
+
+function copyParams(target, params) {
+  const result = target || {};
+  _.assign(result, _.pick(params, PARAM_FIELDS));
+  // todo: make this generic from xxx_present form fields
+  result.patronEnabled = params.patronEnabled;
+  result.memberEnabled = params.memberEnabled;
+  result.funderEnabled = params.funderEnabled;
+  return result;
+}
 
 const modelFactory = function () {
 
@@ -55,6 +70,12 @@ const modelFactory = function () {
   schema.methods.toString = function () {
     return 'Proposal[' + this._id + ', title: ' + this.title + ']';
   };
+
+  // populate fields directly from post body
+  schema.methods.assignParams = function(params) {
+    copyParams(this, params);
+  };
+
 
   schema.methods.attachImageAsync = function (path) {
     const _this = this;
@@ -95,6 +116,7 @@ const modelFactory = function () {
   model.KIND = KIND;
   model.KIND_OPTIONS = KIND_OPTIONS;
   model.buildKindOptions = buildKindOptions;
+  model.copyParams = copyParams;
 
   return model;
 

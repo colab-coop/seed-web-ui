@@ -111,18 +111,21 @@ function editProposal(req, res) {
 //todo: need to better factor duplicated new/update code
 function createProposal(req, res) {
 
-  const proposal = new Proposal({
-    ownerRef: req.user.profile._id,
-    title: req.body.title && req.body.title.trim(),
-    summary: req.body.summary && req.body.summary.trim(),
-    location: req.body.location && req.body.location.trim(),
-    description: req.body.description,
-    kind: req.body.kind,
-    patronEnabled: req.body.patronEnabled,
-    memberEnabled: req.body.memberEnabled,
-    funderEnabled: req.body.funderEnabled,
-    parentRef: req.body.parentRef
-  });
+  //const proposal = new Proposal({
+  //  ownerRef: req.user.profile._id,
+  //  title: req.body.title && req.body.title.trim(),
+  //  summary: req.body.summary && req.body.summary.trim(),
+  //  location: req.body.location && req.body.location.trim(),
+  //  description: req.body.description,
+  //  kind: req.body.kind,
+  //  patronEnabled: req.body.patronEnabled,
+  //  memberEnabled: req.body.memberEnabled,
+  //  funderEnabled: req.body.funderEnabled,
+  //  parentRef: req.body.parentRef
+  //});
+  const proposal = new Proposal({wnerRef: req.user.profile._id});
+  proposal.assignParams(req.body);
+  console.log(`new prop: ${_.inspect(proposal)}`);
 
   handleAttachement(req, proposal)
     .then((proposal) => proposal.save())
@@ -136,17 +139,17 @@ function updateProposal(req, res) {
   console.log(`req.body: ${_.inspect(req.body)}`);
   const kind = req.body.kind;
   const parentRef = req.body.parentRef;
-  const data = {
-    kind: kind,
-    parentRef: parentRef,
-    title: req.body.title && req.body.title.trim(),
-    summary: req.body.summary && req.body.summary.trim(),
-    location: req.body.location && req.body.location.trim(),
-    description: req.body.description,
-    patronEnabled: req.body.patronEnabled,
-    memberEnabled: req.body.memberEnabled,
-    funderEnabled: req.body.funderEnabled
-  };
+  const data = Proposal.copyParams(null, req.body);
+  //  kind: kind,
+  //  parentRef: parentRef,
+  //  title: req.body.title && req.body.title.trim(),
+  //  summary: req.body.summary && req.body.summary.trim(),
+  //  location: req.body.location && req.body.location.trim(),
+  //  description: req.body.description,
+  //  patronEnabled: req.body.patronEnabled,
+  //  memberEnabled: req.body.memberEnabled,
+  //  funderEnabled: req.body.funderEnabled
+  //};
   console.log(`proposal data: ${_.inspect(data)}`);
   console.log(`kind: [${kind}]`);
   ProposalService.fetchLite(id)

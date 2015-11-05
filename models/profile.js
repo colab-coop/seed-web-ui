@@ -13,8 +13,9 @@ const mongoose = require('mongoose');
 const baseModel = require('./baseModel');
 
 const MEMBERSHIP_TYPES = {
-  auto: 'auto'  // automatic user/profile creation when support form submitted
+  visitor: 'visitor'  // automatic user/profile creation when support form submitted
   , provisional: 'provisional'
+//  , sustainer: 'sustainer'
   , full: 'full'
 };
 

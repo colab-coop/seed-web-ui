@@ -6,6 +6,7 @@ const passport = require('passport');
 const profileLib = require('../lib/profile');
 const userLib = require('../lib/user');
 const helpers = require('../lib/helpers');
+const validation = require('../lib/validation');
 const passthrough = helpers.passthrough;
 const curriedHandleError = _.curry(helpers.handleError);
 const ProfileService = require('../lib/profileService');
@@ -121,7 +122,12 @@ function postSignup(req, res) {
   const orgName = req.param('orgName');
   userLib.createUser(email, password, firstName, lastName, orgName, Profile.MEMBERSHIP_TYPES.provisional, function (err, status, newUser) {
     if (err) {
-      return helpers.negotiate(req, res, err);
+      if (err.name === 'ValidationError') {
+        res.render('signup', { messages: validation.validationMessages(err) });
+        return;
+      } else {
+        return helpers.negotiate(req, res, err);
+      }
     } else {
       if ('emailAddressInUse' === status) {
         return res.emailAddressInUse()
@@ -148,25 +154,6 @@ function editMyProfile(req, res) {
   res.render('me/profile_edit', { profile: req.user.profile });
 }
 
-function validationMessages(err) {
-  const messages = [];
-
-  const reasons = {
-    required: '% is required',
-    // todo: handle other kinds of validation errors
-    unknown: '% is invalid'
-  };
-
-  for (var attr in err.errors) {
-    const error = err.errors[attr];
-    const name = _.startCase(attr);
-    const reason = reasons[error.kind] || reasons.unknown;
-    messages.push(reason.replace(/%/, _.startCase(attr)));
-  }
-
-  return messages;
-}
-
 function updateMyProfile(req, res, next) {
   var profile = req.user.profile;
 
@@ -177,7 +164,7 @@ function updateMyProfile(req, res, next) {
       if (err.name === 'ValidationError') {
         res.render('me/profile_edit', {
           profile: profile,
-          messages: validationMessages(err)
+          messages: validation.validationMessages(err)
         });
       } else {
         next(err);

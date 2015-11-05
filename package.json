@@ -42,6 +42,7 @@
     "mongoose": "^4.1.12",
     "mongoose-crate": "^1.0.10",
     "mongoose-crate-localfs": "^1.1.1",
+    "mongoose-unique-validator": "^0.6.0",
     "node-authorize-net": "0.0.5",
     "nodemailer": "^1.8.0",
     "passport": "^0.2.0",

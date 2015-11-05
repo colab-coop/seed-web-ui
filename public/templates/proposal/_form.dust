@@ -85,6 +85,7 @@
 <div class="form-group">
   <label class="col-sm-2 control-label" for="patronEnabled">Enable Patron Engagement</label>
   <div class="col-sm-8">
+    <input type="hidden" name="patronEnabled_present" value="true">
     <input id="patronEnabled" value="true" name="patronEnabled" type="checkbox" {?item.patronEnabled}checked{/item.patronEnabled} >
   </div>
 </div>
@@ -92,13 +93,15 @@
 <div class="form-group">
   <label class="col-sm-2 control-label" for="patronEnabled">Enable Member Engagement</label>
   <div class="col-sm-8">
+    <input type="hidden" name="memberEnabled_present" value="true">
     <input id="memberEnabled" value="true" name="memberEnabled" type="checkbox" {?item.memberEnabled}checked{/item.memberEnabled}>
   </div>
 </div>
 
 <div class="form-group">
-  <label class="col-sm-2 control-label" for="patronEnabled">Enable Funder Engagement</label>
+  <label class="col-sm-2 control-label" for="funderEnabled">Enable Funder Engagement</label>
   <div class="col-sm-8">
+    <input type="hidden" name="funderEnabled_present" value="true">
     <input id="funderEnabled" value="true" name="funderEnabled" type="checkbox" {?item.funderEnabled}checked{/item.funderEnabled}>
   </div>
 </div>

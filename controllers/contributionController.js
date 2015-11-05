@@ -71,8 +71,9 @@ function postSeed(req, res) {
   console.log(`postSeed: pid: ${proposalId}, data: ${_.inspect(data)}`);
 //  ContributionService.save(null, data)  //todo: should move this logic into the service method
   if (!profileId) {
+    const memberType = data.seedcoopInterest ? Profile.MEMBERSHIP_TYPES.provisional : Profile.MEMBERSHIP_TYPES.visitor;
     //todo: change this to return Promise and clean up below
-    UserService.createUser(email, 'xxxxxx', firstName, lastName, orgName, Profile.MEMBERSHIP_TYPES.auto, (err, status, user) => {
+    UserService.createUser(email, 'xxxxxx', firstName, lastName, orgName, memberType, (err, status, user) => {
       console.log(`new user: ${user}`);
       if (err) {
         console.error(err);

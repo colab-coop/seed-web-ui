@@ -1,0 +1,27 @@
+  <h3>Share Your Vision</h3>
+
+<form method="POST" action="/p/newVision">
+  <input type="hidden" name="_csrf" value="{_csrf}"/>
+  <input type="hidden" name="kind" value="vision"/>
+  <select name="parentRef">
+    {#visionSectorOptions}
+      <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+    {/visionSectorOptions}
+  </select>
+  <br>
+
+  <textarea name="description" rows="4" cols="80" placeholder="Share">
+  </textarea><br>
+
+  {!for now, stuff the email into the title field of the proposal instance!}
+  <input name="title" placeholder="Email Address"><br>
+
+  <button id="amPart" type="submit" name="role" value="amPart" class="btn btn-danger seed-button">
+    I am part of a coop that is doing this.</button><br>
+  <button id="wishToStart" type="submit" name="role" value="wishToStart" class="btn btn-danger seed-button">
+    I'd like to start a coop to do this.</button><br>
+  <button id="wishToJoin" type="submit" name="role" value="wishToJoin" class="btn btn-danger seed-button">
+    I would become a member or patron of such a coop.</button><br>
+
+</form>
+  <br>

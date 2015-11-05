@@ -33,13 +33,16 @@ const attributes = _.merge({
 const KIND = {
   campaign: 'campaign'
   , sector: 'sector'
-  , proposal: 'proposal'};
+  , proposal: 'proposal'
+  , vision: 'vision'
+};
 
 //todo figure out best way to handle select rendering
 const KIND_OPTIONS = [
   {value:'campaign', display:'Campaign'}
   , {value:'sector', display:'Sector'}
   , {value:'proposal', display:'Proposal'}
+  , {value:'vision', display:'Vision'}
 ];
 
 function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {

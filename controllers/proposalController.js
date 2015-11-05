@@ -39,10 +39,16 @@ function adminListProposals(req, res) {
 
 function listProposalsView(req, res, view, kind) {
   const parent = req.query.parent;
-  let sectorOptions;
-  ProposalService.buildSectorOptions(parent, true, 'All')
+  const model={};
+
+  ProposalService.buildSectorOptions(parent, true, 'Choose a sector')
     .then((options) => {
-      sectorOptions = options;
+      model.visionSectorOptions = options;
+      //todo: avoid redundant query and also important to cache
+      ProposalService.buildSectorOptions(parent, true, 'All')
+    })
+    .then((options) => {
+      model.sectorOptions = options;
       const filter = {};
       if (kind) {
         filter.kind = kind;
@@ -54,10 +60,7 @@ function listProposalsView(req, res, view, kind) {
     })
     .then((items) => {
       console.log("inside find callback");
-      const model = {
-        items: items
-        , sectorOptions: sectorOptions
-      };
+      model.items = items;
       render(res, view, model);
     })
     .catch( curriedHandleError(req, res) );
@@ -123,7 +126,7 @@ function createProposal(req, res) {
   //  funderEnabled: req.body.funderEnabled,
   //  parentRef: req.body.parentRef
   //});
-  const proposal = new Proposal({wnerRef: req.user.profile._id});
+  const proposal = new Proposal({ownerRef: req.user.profile._id});
   proposal.assignParams(req.body);
   console.log(`new prop: ${_.inspect(proposal)}`);
 
@@ -177,6 +180,18 @@ function handleAttachement(req, proposal) {
   }
 }
 
+function newVision(req, res) {
+  const proposal = new Proposal({ownerRef: req.user.profile._id});
+  proposal.assignParams(req.body);
+  const role = req.body.role;
+  proposal.summary = `role: ${role}`;
+  console.log(`new prop: ${_.inspect(proposal)}`);
+
+  proposal.save()
+    .then(() => gotoBaseView(req, res))
+    .catch(curriedHandleError(req, res));
+}
+
 
 const baseUriPath = '/p';
 
@@ -185,7 +200,7 @@ function uri(tail) {
 }
 
 function gotoBaseView(req, res) {
-  res.redirect(baseUriPath);
+  res.redirect('/');
 }
 
 function gotoBaseAdminView(req, res) {
@@ -203,6 +218,8 @@ function addRoutes(router) {
   router.get(uri('/last'), showLastProposal);
   router.get(uri('/view'), showProposal);
   router.get(uri('/:id/view'), showProposal);
+
+  router.post(uri('/newVision'), newVision);
 
   router.get(uri('/new'), newProposal);
   router.post(uri(''), createProposal);

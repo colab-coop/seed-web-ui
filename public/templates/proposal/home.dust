@@ -43,6 +43,9 @@
     <br> <br>
 
 
+    {>"proposal/_visionForm"/}
+
+
     {#user}
       {@eq key=user.profile.memberType value="provisional"}
           <a href="/me/pay">Become Full Member</a>

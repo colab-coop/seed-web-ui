@@ -23,6 +23,8 @@
   <br>
   <br>
   <a href="/me/pay">[pay co-op membership]</a> &nbsp;
+  <br>
+  <a href="/me/password">[change password]</a> &nbsp;
 
     {!<hr>!}
     {!<a href="/vote/{_id}/delete">[delete]</a>!}

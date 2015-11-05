@@ -4,6 +4,7 @@ const _ = require('lodash');
 const helpers = require('../lib/helpers');
 const profileLib = require('../lib/profile');
 const ProfileService = require('../lib/profileService');
+const userLib = require('../lib/user');
 
 const curriedHandleError = _.curry(helpers.handleError);
 
@@ -56,6 +57,22 @@ function updateMyProfile(req, res, next) {
         next(err);
       }
     });
+}
+
+function editPassword(req, res) {
+  res.render('me/password');
+}
+
+function updatePassword(req, res, next) {
+  if (!req.user.passwordMatches(req.body.currentPassword)) {
+    res.render('me/password', { messages: ['Your current password is incorrect'] });
+    return;
+  }
+
+  userLib
+    .updatePassword(req.user, req.body.password)
+    .then(() => res.redirect('/me'))
+    .catch(next);
 }
 
 function viewProfile(req, res) {
@@ -111,6 +128,8 @@ function addRoutes(router) {
   router.get('/me/pay', showMemberPay);
   router.post('/me/pay', postMemberPay);
   router.get('/me/thanks', membershipThanks);
+  router.get('/me/password', editPassword);
+  router.post('/me/password', updatePassword);
 }
 
 

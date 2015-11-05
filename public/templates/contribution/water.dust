@@ -8,7 +8,7 @@
     {>"proposal/_summary"/}
     {/proposal}
 
-    <form method="POST" action="/p/{_id}/water">
+    <form method="POST" action="/c/{_id}/water">
       <input type="hidden" name="contributionId" value="{_id}">
       <input type="hidden" name="_csrf" value="{_csrf}">
 
@@ -32,11 +32,12 @@
         <input type="text" name="pledgedCapital"><br><br>
       {/funder}
 
-      {#user.profile}
-      <input type="text" name="firstName" value="{firstName}" placeholder="First Name">
-      <input type="text" name="lastName" value="{lastName}" placeholder="Last Name"><br>
-      <input type="text" name="email" value="{email}" size="40"><br>
-      {/user.profile}
+      {!already captured for now with previous screen!}
+      {!{#user.profile}!}
+      {!<input type="text" name="firstName" value="{firstName}" placeholder="First Name">!}
+      {!<input type="text" name="lastName" value="{lastName}" placeholder="Last Name"><br>!}
+      {!<input type="text" name="email" value="{email}" size="40"><br>!}
+      {!{/user.profile}!}
 
       {!payNow: {payNow}, pledge: {pledge}<br>!}
       {!{#payNow}!}

@@ -1,7 +1,7 @@
 {>"layouts/master" /}
 
 {<body}
-  <h2>Ways to Pay</h2>
+  <h2>{pageTitle} Ways to Pay</h2>
 
   <fieldset>
     <form method="post" action="/pay/by">

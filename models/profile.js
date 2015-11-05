@@ -20,9 +20,9 @@ const MEMBERSHIP_TYPES = {
 
 const attributes = _.merge({
   name: String //todo: deprecated, migrating usage to displayName
-  , firstName: { type: String, required: true }
-  , lastName: { type: String, required: true }
-  , orgName: { type: String, required: true }
+  , firstName: { type: String, required: false }
+  , lastName: { type: String, required: false }
+  , orgName: { type: String, required: false }     // we need either org name or first/last
   , displayName: { type: String, required: true }  // either org name or 'first last'
   , email: { type: String, required: true }
   , phone: String

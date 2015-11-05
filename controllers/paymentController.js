@@ -29,6 +29,7 @@ function handleMissingState(req, res, next) {
 
 function showPayment(req, res) {
   var model = req.session.cart;
+  model.pageTitle = model.pageTitle || 'Ways to Pay';
   model.messages = req.flash('error');
   res.render('payment/index', model);
 }

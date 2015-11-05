@@ -1,7 +1,9 @@
 {>"layouts/master" /}
 
 {<body}
-  <h2>Pay by Check / <a href="/pay/authorizeNet">Credit Card</a></h2>
+  <h2>{pageTitle}</h2>
+
+  <h4>Pay by Check / <a href="/pay/authorizeNet">Credit Card</a></h4>
 
   <fieldset>
     {description}<br>

@@ -2,7 +2,8 @@
 
 {<body}
 
-  <h2>Pay By Credit Card / <a href="/pay/check">Check</a></h2>
+  <h2>{pageTitle}</h2>
+  <h4>Pay By Credit Card / <a href="/pay/check">Check</a></h4>
 
   <b>About Credit Cards</b><br>
   blah blah blah<br>

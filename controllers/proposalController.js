@@ -32,14 +32,22 @@ function listProposals(req, res) {
   listProposalsView(req, res, 'list', Proposal.KIND.campaign);
 }
 
+function listProposalItems(req, res) {
+  listProposalsView(req, res, 'items', Proposal.KIND.campaign);
+}
+
 function adminListProposals(req, res) {
   listProposalsView(req, res, 'adminList');
 }
 
 
 function listProposalsView(req, res, view, kind) {
+  console.log("VIEW:" + view);
   const parent = req.query.parent;
   const model={};
+  const filter={};
+  const skip = parseInt(req.query.skip);
+  const count = parseInt(req.query.count) || 0;
 
   ProposalService.buildSectorOptions(parent, true, 'Choose a sector')
     .then((options) => {
@@ -49,21 +57,27 @@ function listProposalsView(req, res, view, kind) {
     })
     .then((options) => {
       model.sectorOptions = options;
-      const filter = {};
       if (kind) {
         filter.kind = kind;
       }
       if (!!parent) {
         filter.parentRef = parent;
       }
-      return Proposal.find(filter).populate('parentRef');  // should confirm if this cascades and if we need to worry about circular refs
+      return count == 0
+        ? Promise.resolve([])
+        : Proposal.find(filter, null, {skip: skip, limit: count}).populate('parentRef');  // TODO: confirm if this cascades and if we need to worry about circular refs
     })
     .then((items) => {
-      console.log("inside find callback");
       model.items = items;
+      return Proposal.count(filter);
+    })
+    .then((total_count) => {
+      if (skip + model.items.length >= total_count) {
+        model.items[model.items.length - 1].isLast = true;
+      }
       render(res, view, model);
     })
-    .catch( curriedHandleError(req, res) );
+    .catch(curriedHandleError(req, res));
 }
 
 
@@ -215,6 +229,7 @@ function addRoutes(router) {
   router.get('/', home);
 
   router.get(uri(''), listProposals);
+  router.get(uri('/items'), listProposalItems);
   router.get(uri('/last'), showLastProposal);
   router.get(uri('/view'), showProposal);
   router.get(uri('/:id/view'), showProposal);

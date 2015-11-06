@@ -26,7 +26,8 @@
     "bootstrap-fileinput": "~4.2.7",
     "bootstrap-validator": "1000hz/bootstrap-validator#~0.9.0",
     "typeahead-addresspicker": "~0.1.4",
-    "summernote": "~0.6.16"
+    "summernote": "~0.6.16",
+    "jquery.scrollTo": "~2.1.2"
   },
   "overrides": {
     "typeahead-addresspicker": {

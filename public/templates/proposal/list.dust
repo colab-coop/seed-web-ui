@@ -15,26 +15,19 @@
     </form>
 
     <script>
-      document.addEventListener( "DOMContentLoaded",
-        (e) => registerHooks(),
-        false);
-      function registerHooks() {
-        $(".hook").change(handleChange);
-      }
-      function handleChange() {
-        var form = document.getElementById("filterForm");
-        var parentRef = form.elements["parentRef"].value;
-        document.location.href='/p?parent=' + parentRef;
-      }
+      document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onProposalsIndexPageLoad(), false );
     </script>
 
   <br>
 
     <ul class="row"  id="proposals_list">
-      {#items}
-        {>"proposal/_list_item"/}
-      {/items}
+      {> "proposal/_list_items" /}
     </ul>
+
+    <div>
+      <a class="btn btn-default btn-lg" id="load_more" href="#">Load More</a>
+    </div>
+
     <br> <br>
 
 

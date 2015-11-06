@@ -21,7 +21,7 @@
     </form>
 
     <script>
-      document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onEditPageLoad(), false ) ;
+      document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onProposalEditPageLoad(), false) );
     </script>
 
   </main>

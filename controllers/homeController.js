@@ -89,8 +89,16 @@ function afterAuth(req, res) {
  * Display the login page. We also want to display any error messages that result from a failed login attempt.
  */
 function showSignup(req, res) {
+  renderShowSignup(req, res); // needed for clean handling of the optional arg
+}
+
+function renderShowSignup(req, res, formDataArg) {
   const messages = buildMessages(req);
-  const model =  {messages: messages};
+  // beware: this pattern doesn't work for methods directly called by the router,
+  // somehow a function named 'undefined' is passed in instead of an actual undefined value
+  const formData = formDataArg || {};
+  console.log(`formData: ${_.inspect(formData)}, arg: ${_.inspect(formDataArg)}, typeof arg: ${typeof formDataArg}, isundef: ${formDataArg == undefined}, args.len: ${arguments.length}`);
+  const model =  {messages: messages, formData: formData}; //, formData: formData || {}};
   res.render('signup', model);
 }
 
@@ -119,25 +127,57 @@ function postSignup(req, res) {
   const firstName = req.param('firstName');
   const lastName = req.param('lastName');
   const orgName = req.param('orgName');
-  userLib.createUser(email, password, firstName, lastName, orgName, Profile.MEMBERSHIP_TYPES.provisional, function (err, status, newUser) {
-    if (err) {
-      return helpers.negotiate(req, res, err);
-    } else {
-      if ('emailAddressInUse' === status) {
-        return res.emailAddressInUse()
-      } else if (newUser) {
-        req.login(newUser, function (err) {
-          if (err) {
-            console.error(err);
-          }
-          res.redirect('/afterAuth');
-        });
-      } else {
-        console.error("unexpected createUser status: " + status);
+
+  //todo: consider a helper method using the param() method instead of the body obj
+  const data = _.pick(req.body, 'firstName','lastName','orgName','email', 'password', 'confirmPassword');
+  if (data.password !== data.confirmPassword) {
+    req.flash('error', 'Passwords mismatched');
+    renderShowSignup(req, res, data);
+    return;
+  }
+  data.memberType = Profile.MEMBERSHIP_TYPES.provisional;
+  console.log(`data: ${_.inspect(data)}`);
+
+  userLib.createUser(data)
+    .then((newUser) => {
+      console.log(`postSignup - newUser: ${_.inspect(newUser)}`);
+      req.login(newUser, function (err) {
+        if (err) {
+          console.error(err);
+        }
         res.redirect('/afterAuth');
+      });
+    })
+    .catch((err) => {
+      console.log(`postSignup - err: ${err}, inspected: ${_.inspect(err)}`);
+      if (err.message === 'emailAddressInUse') {
+        console.log(`email addr in use: ${email}`);
+        req.flash('error', 'Sorry, that email address is already in use');
+        renderShowSignup(req, res, data);
+      } else {
+        console.error(`unexpected createUser error: ${err}`);
+        return helpers.negotiate(req, res, err);
       }
-    }
-  })
+    });
+  //userLib.createUser(email, password, firstName, lastName, orgName, Profile.MEMBERSHIP_TYPES.provisional, function (err, status, newUser) {
+  //  if (err) {
+  //    return helpers.negotiate(req, res, err);
+  //  } else {
+  //    if ('emailAddressInUse' === status) {
+  //      return res.emailAddressInUse()
+  //    } else if (newUser) {
+  //      req.login(newUser, function (err) {
+  //        if (err) {
+  //          console.error(err);
+  //        }
+  //        res.redirect('/afterAuth');
+  //      });
+  //    } else {
+  //      console.error("unexpected createUser status: " + status);
+  //      res.redirect('/afterAuth');
+  //    }
+  //  }
+  //})
 }
 
 function viewMyProfile(req, res) {

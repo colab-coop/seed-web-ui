@@ -17,30 +17,31 @@
 
           </ul>
         {/messages}
+        {#formData}
         <table>
           <tr>
             <td><label for="firstName">First Name: </label></td>
-            <td><input id="firstName" name="firstName" type="text"/></td>
+            <td><input id="firstName" name="firstName" type="text" value="{firstName}"/></td>
           </tr>
           <tr>
             <td><label for="lastName">Last Name: </label></td>
-            <td><input id="lastName" name="lastName" type="text"/></td>
+            <td><input id="lastName" name="lastName" type="text" value="{lastName}"/></td>
           </tr>
           <tr>
             <td><label for="orgName">Organization Name: </label></td>
-            <td><input id="orgName" name="orgName" type="text"/></td>
+            <td><input id="orgName" name="orgName" type="text" value="{orgName}"/></td>
           </tr>
           <tr>
             <td><label for="email">Email: </label></td>
-            <td><input id="email" name="email" type="text"/></td>
+            <td><input id="email" name="email" type="text" value="{email}"/></td>
           </tr>
           <tr>
             <td><label for="password">Password: </label></td>
             <td><input id="password" name="password" type="password"/></td>
           </tr>
           <tr>
-            <td><label for="confirm_password">Confirm Password: </label></td>
-            <td><input id="confirm_password" name="confirm_password" type="password"/></td>
+            <td><label for="confirmPassword">Confirm Password: </label></td>
+            <td><input id="confirmPassword" name="confirmPassword" type="password"/></td>
           </tr>
           <tr>
             <td>
@@ -50,6 +51,7 @@
             <td></td>
           </tr>
         </table>
+        {/formData}
 
       </fieldset>
     </form>

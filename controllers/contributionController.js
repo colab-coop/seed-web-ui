@@ -71,14 +71,14 @@ function postSeed(req, res) {
   console.log(`postSeed: pid: ${proposalId}, data: ${_.inspect(data)}`);
 //  ContributionService.save(null, data)  //todo: should move this logic into the service method
   if (!profileId) {
-    const memberType = data.seedcoopInterest ? Profile.MEMBERSHIP_TYPES.provisional : Profile.MEMBERSHIP_TYPES.visitor;
-    //todo: change this to return Promise and clean up below
-    UserService.createUser(email, 'xxxxxx', firstName, lastName, orgName, memberType, (err, status, user) => {
-      console.log(`new user: ${user}`);
-      if (err) {
-        console.error(err);
-        helpers.handleError(req, res, err);
-      } else {
+//    const memberType = data.seedcoopInterest ? Profile.MEMBERSHIP_TYPES.provisional : Profile.MEMBERSHIP_TYPES.visitor;
+//    //todo: change this to return Promise and clean up below
+//    UserService.createUser(email, 'xxxxxx', firstName, lastName, orgName, memberType, (err, status, user) => {
+    data.password = 'xxxxxx';  //tmp hack, should leave password undefined once we have reset flow
+    data.memberType = data.seedcoopInterest ? Profile.MEMBERSHIP_TYPES.provisional : Profile.MEMBERSHIP_TYPES.visitor;
+    UserService.createUser(data)
+      .then((user) => {
+        console.log(`auto signup - new user: ${user}`);
         data.profileRef = user.defaultProfileRef;
         req.login(user, (err) => {
           if (err) {
@@ -88,8 +88,8 @@ function postSeed(req, res) {
             continueSeedSave(req, res, data);
           }
         });
-      }
-    })
+      })
+      .catch(curriedHandleError(req, res));
   } else {  //todo: figure out better way to have optional pipelink operations
     continueSeedSave(req, res, data);
   }

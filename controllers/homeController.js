@@ -141,12 +141,6 @@ function postSignup(req, res) {
     .then(() => {
       res.redirect('/afterAuth');
     })
-    //req.login(newUser, function (err) {
-    //  if (err) {
-    //    console.error(err);
-    //  }
-    //  res.redirect('/afterAuth');
-    //});
     .catch((err) => {
       console.log(`postSignup - err: ${err}, inspected: ${_.inspect(err)}`);
       if (err.name === 'ValidationError') {

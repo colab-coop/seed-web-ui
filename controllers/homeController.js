@@ -292,6 +292,12 @@ function dump(req, res) {
 
 }
 
+function testWelcomeEmail(req, res) {
+  userLib.emailUser(req.user.profile.email, req.user.profile.name)
+    .then( (status) => res.json(200, {status: status}) )
+    .catch(curriedHandleError(req, res));
+}
+
 
 function addRoutes(router) {
 //  router.get('/', home);
@@ -312,6 +318,7 @@ function addRoutes(router) {
   router.get('/logout', logout);
 
   router.get('/dump', dump);
+  router.get('/test/welcomeEmail', testWelcomeEmail);
 }
 
 

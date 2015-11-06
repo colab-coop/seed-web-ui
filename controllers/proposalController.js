@@ -11,7 +11,7 @@ const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
 
 const ProposalService = require('../lib/proposalService');
-const UserService = require('../lib/user');
+const UserService = require('../lib/userService');
 
 /*
  * Proposals

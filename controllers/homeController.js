@@ -141,13 +141,17 @@ function postSignup(req, res) {
   userLib.createUser(data)
     .then((newUser) => {
       console.log(`postSignup - newUser: ${_.inspect(newUser)}`);
-      req.login(newUser, function (err) {
-        if (err) {
-          console.error(err);
-        }
-        res.redirect('/afterAuth');
-      });
+      return userLib.login(req, newUser);
     })
+    .then(() => {
+      res.redirect('/afterAuth');
+    })
+      //req.login(newUser, function (err) {
+      //  if (err) {
+      //    console.error(err);
+      //  }
+      //  res.redirect('/afterAuth');
+      //});
     .catch((err) => {
       console.log(`postSignup - err: ${err}, inspected: ${_.inspect(err)}`);
       if (err.message === 'emailAddressInUse') {

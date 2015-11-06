@@ -4,8 +4,6 @@
 
 .navbar-nav li form {
   display: block;
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
 
 .navbar-right {
@@ -13,7 +11,8 @@
 }
 
 body {
-  padding-top: 70px; // pushes the body under the nav bar
+  text-align: center;
+  padding-top: 150px; // pushes the body under the nav bar
 }
 
 /*
@@ -21,14 +20,16 @@ body {
   http://work.smarchal.com/twbscolor/index.php
 */
 
-$bgDefault: #337bb7;
-$bgHighlight: #114877;
-$colDefault: #a9cdec;
-$colHighlight: #062d4d;
+$bgDefault: #065013;
+$bgHighlight: #ffffff;
+$colDefault: #ffffff;
+$colHighlight: #369043;
 $dropDown: false;
 .navbar-custom {
   background-color: $bgDefault;
   border-color: $bgHighlight;
+  padding-top: 10px;
+  padding-bottom: 5px;
   .navbar-brand {
     color: $colDefault;
     &:hover, &:focus {
@@ -39,7 +40,13 @@ $dropDown: false;
     color: $colDefault;
   }
   .navbar-nav {
+    .navbar-logo {
+      top: 0px;
+    }
     > li {
+      top: 17px;
+      font-weight: bold;
+      font-size: 1.3em;
       > a {
         color: $colDefault;
         &:hover, &:focus {

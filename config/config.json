@@ -266,9 +266,13 @@
     "transactionKey": "env:authorizeNet_transactionKey"
   },
   "email": {
-    "from": "The Sender <sender@something.tld>",
-    "sender": "sender@something.tld",
-    "senderPassword": "supersekrit"
+//    "from": "The Sender <sender@something.tld>",
+//    "sender": "sender@something.tld",
+//    "senderPassword": "supersekrit"
+    "from": "env:email_from",
+    "sender": "env:email_sender",
+    "senderPassword": "env:email_senderPassword",
+    "enabled": "env:email_enabled"
   },
   "dummy":null  // suck up trailing ','
 }

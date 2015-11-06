@@ -5,6 +5,7 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 const crypto = require('../lib/crypto');
 const baseModel = require('./baseModel');
@@ -12,7 +13,7 @@ const Profile = require('./profile');
 
 
 const attributes = _.merge({
-  email: {type: String, unique: true}  //Ensure logins are unique.
+  email: {type: String, unique: true, uniqueCaseInsensitive: true}  //Ensure logins are unique.
   , authenticationData: String //We'll store bCrypt hashed passwords.
   , role: String  //todo: don't think this is used or needed here
   , isAdmin: Boolean  //does this belong on Profile?
@@ -23,6 +24,8 @@ const attributes = _.merge({
 const modelFactory = function () {
 
   const schema = mongoose.Schema(attributes);
+
+  schema.plugin(uniqueValidator);
 
   /**
    * Helper function that hooks into the 'save' method, and replaces plaintext passwords with a hashed version.

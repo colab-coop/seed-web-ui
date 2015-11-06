@@ -6,6 +6,7 @@ const passport = require('passport');
 const profileLib = require('../lib/profile');
 const userLib = require('../lib/userService');
 const helpers = require('../lib/helpers');
+const validation = require('../lib/validation');
 const passthrough = helpers.passthrough;
 const curriedHandleError = _.curry(helpers.handleError);
 const ProfileService = require('../lib/profileService');
@@ -122,12 +123,6 @@ function postEmail(req, res) {
  * Failed authentications will go back to the login page with a helpful error message to be displayed.
  */
 function postSignup(req, res) {
-  const email = req.param('email');
-  const password = req.param('password');
-  const firstName = req.param('firstName');
-  const lastName = req.param('lastName');
-  const orgName = req.param('orgName');
-
   //todo: consider a helper method using the param() method instead of the body obj
   const data = _.pick(req.body, 'firstName','lastName','orgName','email', 'password', 'confirmPassword');
   if (data.password !== data.confirmPassword) {
@@ -154,10 +149,66 @@ function postSignup(req, res) {
       //});
     .catch((err) => {
       console.log(`postSignup - err: ${err}, inspected: ${_.inspect(err)}`);
-      if (err.message === 'emailAddressInUse') {
+      if (err.name === 'ValidationError') {
+        req.flash('error', validation.validationMessages(err));
+        //res.render('signup', {messages: validation.validationMessages(err)});
+        renderShowSignup(req, res, data);
+      } else if (err.message === 'emailAddressInUse') {
         console.log(`email addr in use: ${email}`);
         req.flash('error', 'Sorry, that email address is already in use');
         renderShowSignup(req, res, data);
+
+  //const email = req.param('email');
+  //const password = req.param('password');
+  //const firstName = req.param('firstName');
+  //const lastName = req.param('lastName');
+  //const orgName = req.param('orgName');
+  //userLib.createUser(email, password, firstName, lastName, orgName, Profile.MEMBERSHIP_TYPES.provisional, function (err, status, newUser) {
+  //  if (err) {
+  //    if (err.name === 'ValidationError') {
+  //      res.render('signup', { messages: validation.validationMessages(err) });
+  //      return;
+  //    } else {
+  //      return helpers.negotiate(req, res, err);
+  //    }
+  //  } else {
+  //    if ('emailAddressInUse' === status) {
+  //      return res.emailAddressInUse()
+  //    } else if (newUser) {
+  //      req.login(newUser, function (err) {
+  //        if (err) {
+  //          console.error(err);
+  //        }
+  //        res.redirect('/afterAuth');
+  //      });
+  //    } else {
+  //      console.error("unexpected createUser status: " + status);
+  //      res.redirect('/afterAuth');
+  //    }
+      }
+    })
+}
+
+function viewMyProfile(req, res) {
+  res.render('me/profile', {profile: req.user.profile});
+}
+
+function editMyProfile(req, res) {
+  res.render('me/profile_edit', { profile: req.user.profile });
+}
+
+function updateMyProfile(req, res, next) {
+  var profile = req.user.profile;
+
+  profileLib
+    .updateProfile(profile, req.body)
+    .then(() => res.redirect('/me'))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        res.render('me/profile_edit', {
+          profile: profile,
+          messages: validation.validationMessages(err)
+        });
       } else {
         console.error(`unexpected createUser error: ${err}`);
         return helpers.negotiate(req, res, err);

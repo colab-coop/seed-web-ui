@@ -75,6 +75,10 @@ function listProposalsView(req, res, view, kind) {
       if (skip + model.items.length >= total_count) {
         model.items[model.items.length - 1].isLast = true;
       }
+//=======
+//      console.log("inside find callback");
+//      model.items = items;
+//>>>>>>> unique-email
       render(res, view, model);
     })
     .catch(curriedHandleError(req, res));

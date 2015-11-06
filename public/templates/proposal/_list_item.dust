@@ -1,4 +1,4 @@
-<div class="col-md-6 proposal">
+<div class="col-md-6 proposal" data-is-last="{isLast}">
     <li>
         <div class="row">
             <div class="col-md-12">
@@ -22,7 +22,7 @@
                             <a class="btn btn-primary btn-lg" href="/p/{_id}/seed">SEED IT</a>
                         </div>
                         <div class="learn_more">
-                            <a  class="btn btn-default btn-sm" href="/p/{_id}/view">LEARN MORE</a>
+                            <a class="btn btn-default btn-sm" href="/p/{_id}/view">LEARN MORE</a>
                         </div>
                     </div>
                 </div>

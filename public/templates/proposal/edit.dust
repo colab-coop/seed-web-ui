@@ -20,7 +20,7 @@
     </form>
 
     <script>
-      document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onEditPageLoad('{item.image.name}', false ));
+        document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onProposalEditPageLoad('{item.image.name}'), false );
     </script>
 
   </main>

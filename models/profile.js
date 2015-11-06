@@ -30,6 +30,7 @@ const attributes = _.merge({
   , address: String
   , location: String  // publicly shared
   , about: String
+  , imageUrl: String
   , taxId: String
   , memberType: String  //provisional, paid, other classes?
   , membershipPayments: Number

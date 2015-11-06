@@ -77,7 +77,7 @@ const modelFactory = function () {
 
 
   schema.methods.toString = function () {
-    return 'User[' + this._id + ', email: ' + this.name + ', profile: ' + this.defaultProfileRef + ']';
+    return 'User[' + this._id + ', email: ' + this.email + ', profile: ' + this.defaultProfileRef + ']';
   };
 
   return mongoose.model('User', schema);

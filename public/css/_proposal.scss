@@ -2,6 +2,8 @@
 #load_more {
   display: none;
   @include center(true, false);
+  font-family: Museo;
+  font-size: 16px;
 }
 
 /*
@@ -13,7 +15,7 @@ div.proposal_container {
   background-color: white;
   border-radius: 4px 4px 4px 4px;
   border: 1px solid;
-  border-color: #f3f3f3;
+  border-color: $seed_gallery;
   padding-left: 40px;
   padding-right: 24px;
   padding-top: 40px;
@@ -86,8 +88,9 @@ div.proposal_container {
   }
 
 }
+
 .btn-patron {
-  @include button-variant(white,  $seed_fern, $seed_corduroy);
+  @include button-variant(white, $seed_fern, $seed_corduroy);
 }
 
 .btn-funder {
@@ -98,8 +101,11 @@ div.proposal_container {
   @include button-variant(white, #781c4b, #604b57);
 }
 
-/*
+.btn-learn-more {
+  @include button-variant(white, #781c4b, #604b57);
+}
 
+/*
 info card
 */
 
@@ -113,8 +119,9 @@ div.proposal_info_card {
     img {
       border-radius: 4px 4px 4px 4px;
       border: 1px solid;
-      border-color: #f3f3f3;
+      border-color: $seed_gallery;
       width: 308px;
+      height: 308px;
       object-fit: cover;
     }
   }
@@ -165,81 +172,72 @@ div.proposal_info_card {
   }
 }
 
-
 /*
   list item
 */
 
-div.proposal {
-  li {
-    list-style: none outside none;
-    background-color: lightgrey;
-    border-radius: 6px 6px 6px 6px;
-    border: 1px solid;
-    margin-bottom: 30px;
+div.proposal_list_item {
+  border-radius: 6px 6px 6px 6px;
+  border: 1px solid;
+  border-color: $seed_gallery;
 
-    div.row {
-      div.col-md-12 {
-        div.title {
-          h3 {
-            margin-left: 15px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-          }
-        }
-      }
+  width: 520px;
+  height: 290px;
+
+  float: left;
+  margin: 15px;
+  padding: 15px;
+  overflow: hidden;
+
+  div.proposal_image {
+    width: 250px;
+    height: 250px;
+    float: left;
+
+    img {
+      border-radius: 4px 4px 4px 4px;
+      border: 1px solid;
+      border-color: $seed_gallery;
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+    }
+  }
+  div.proposal_info {
+    width: 223px;
+    margin-left: 15px;
+    overflow: hidden;
+    float: left;
+
+    div.title {
+      height: 32px;
+      white-space: nowrap;
+      text-align: left;
+      font-size: 22px;
+      font-family: MonserratBold;
+      color: $seed_mineshaft;
+      margin-bottom: 7px;
     }
 
-    div.row {
-      div.col-md-6 {
+    div.proposal_summary {
+      height: 160px;
+      text-align: left;
+      font-size: 16px;
+      line-height: 115%;
+      font-family: MonserratRegular;
+      color: $seed_tundora;
+      margin-bottom: 15px;
+    }
 
-        div.image {
-          height: 256px;
-          img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 250px;
-            max-height: 250px;
-            width: auto;
-            height: auto;
-          }
-        }
-      }
-
-      div.col-md-6 {
-        div.description {
-          height: 256px;
-          div.summary {
-          }
-
-          div.bottom {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-
-            div.seed_it {
-              margin: 5px;
-              a {
-                display: block;
-                width: 100%;
-              }
-            }
-
-            div.learn_more {
-              margin: 5px;
-              a {
-                display: block;
-                width: 100%;
-              }
-            }
-          }
-        }
+    div.learn_more {
+      a {
+        width: 100%;
+        font-family: Museo;
+        font-size: 16px;
       }
     }
   }
 }
+
 
 

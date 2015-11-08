@@ -35,10 +35,10 @@
                 <li><a href="/admin">Admin</a></li>
               {/user.hasModeratorAccess}
               <li><a href="/me">{profile.name} [{profile.memberType} member]</a></li>
-              <li><a href="/logout">Logout</a> </li>
+              <li><a href="/logout">Log Out</a> </li>
             {:else}
-              <li><a href="/login">Login</a></li>
-              <li><a href="/signup">Signup</a></li>
+              <li><a href="/login">Log In</a></li>
+              <li><a href="/signup">Sign Up</a></li>
             {/user}
           </ul>
         </div>

@@ -2,55 +2,43 @@
 
 {<body}
 
-    <h1>The future will be cooperative.</h1>
+  <h1>The future will be cooperative.</h1>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
-            frameborder="0" allowfullscreen></iframe>
+  <iframe width="560" height="315"
+          src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
+          frameborder="0" allowfullscreen></iframe>
 
 
-    <h2>What future do you want to SEED?</h2>
-    {!>>>>>>> proposal list filter!}
-    <form id="filterForm" class="hook">
-      Sector:
-      <select name="parentRef">
-        {#sectorOptions}
-          <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
-        {/sectorOptions}
-      </select>
-    </form>
+  <h2>What future do you want to SEED?</h2>
+  {!>>>>>>> proposal list filter!}
+  <form id="filterForm" class="hook">
+    Sector:
+    <select name="parentRef">
+      {#sectorOptions}
+        <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+      {/sectorOptions}
+    </select>
+  </form>
 
-    <script>
-        document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onProposalsIndexPageLoad(), false );
-    </script>
 
   <br>
 
-    <ul class="row"  id="proposals_list">
-      {#items}
-        {>"proposal/_list_item"/}
-      {/items}
-    </ul>
-
-    <div>
-        <a class="btn btn-default btn-lg" id="load_more" href="#">Load More</a>
-    </div>
-
-    <br> <br>
+  {> "proposal/_list_items" /}
 
 
-    {>"proposal/_visionForm"/}
+  {>"proposal/_visionForm"/}
 
 
-    {#user}
-      {@eq key=user.profile.memberType value="provisional"}
-          <a href="/me/pay">Become Full Member</a>
-      {:else}
-          <a href="/me">My Profile</a><br>
-          <a href="/p/new">Submit New Proposal</a><br>
-      {/eq}
+  {#user}
+    {@eq key=user.profile.memberType value="provisional"}
+      <a href="/me/pay">Become Full Member</a>
     {:else}
-        <a href="/signup">Become a Member</a><br>
-    {/user}
+      <a href="/me">My Profile</a><br>
+      <a href="/p/new">Submit New Proposal</a><br>
+    {/eq}
+  {:else}
+    <a href="/signup">Become a Member</a><br>
+  {/user}
 
 
 {/body}

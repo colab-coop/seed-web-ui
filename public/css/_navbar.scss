@@ -1,3 +1,5 @@
+
+
 /*
   Keeps the session information to overflow
 */
@@ -20,10 +22,10 @@ body {
   http://work.smarchal.com/twbscolor/index.php
 */
 
-$bgDefault: #065013;
-$bgHighlight: #ffffff;
-$colDefault: #ffffff;
-$colHighlight: #369043;
+$bgDefault: $seed_sanfelix;
+$bgHighlight: $seed_mineshaft;
+$colDefault: $seed_white;
+$colHighlight: $seed_mineshaft;
 $dropDown: false;
 .navbar-custom {
   background-color: $bgDefault;
@@ -45,8 +47,9 @@ $dropDown: false;
     }
     > li {
       top: 17px;
+      font-family: MonserratRegular;
       font-weight: bold;
-      font-size: 1.3em;
+      font-size: 16px;
       > a {
         color: $colDefault;
         &:hover, &:focus {

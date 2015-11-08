@@ -14,21 +14,10 @@
       </select>
     </form>
 
-    <script>
-      document.addEventListener( "DOMContentLoaded", (e) => require('public/js/proposal').onProposalsIndexPageLoad(), false );
-    </script>
 
-  <br>
+    <br>
 
-    <ul class="row"  id="proposals_list">
-      {> "proposal/_list_items" /}
-    </ul>
-
-    <div>
-      <a class="btn btn-default btn-lg" id="load_more" href="#">Load More</a>
-    </div>
-
-    <br> <br>
+    {> "proposal/_list_items" /}
 
 
     {#user}

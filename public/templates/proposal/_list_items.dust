@@ -1,3 +1,21 @@
-{#items}
-  {>"proposal/_list_item"/}
-{/items}
+<div class="row" >
+  <div class="col-12-md" id="proposals_list">
+    {#items}
+      {>"proposal/_list_item"/}
+    {/items}
+  </div>
+</div>
+
+
+<div class="row" >
+  <div class="col-12-md">
+    <a class="btn btn-default btn-lg" id="load_more" href="#">Load More</a>
+  </div>
+</div>
+
+<br> <br>
+
+<script>
+  document.addEventListener("DOMContentLoaded", (e) => require('public/js/proposal').onProposalsIndexPageLoad(), false ) ;
+</script>
+

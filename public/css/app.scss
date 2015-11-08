@@ -1,8 +1,12 @@
+$navbar-height: 37px;
+
+
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../bower_components/bootstrap-fileinput/css/fileinput";
 @import "../../bower_components/summernote/dist/summernote-bs3";
 @import "../../bower_components/summernote/dist/summernote";
 @import "../../bower_components/font-awesome/css/font-awesome"; // Summernote
+
 
 @import "_mixins";
 @import "_colors";

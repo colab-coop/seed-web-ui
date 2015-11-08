@@ -30,10 +30,11 @@ module.exports = {
 
   onProposalsIndexPageLoad: function () {
     const count = parseInt(document.location.hash.substr(1)) || 0;
-    const itemsCount = $('.proposal').length;
+    const itemsCount = $('.proposal_list_item').length;
     if ( itemsCount < count || 0 == itemsCount) {
       $.get(`/p/items?skip=${itemsCount}&count=${Math.max(2, count - itemsCount)}`, (data) => {
         $('#proposals_list').append(data);
+        document.location.hash = $('.proposal_list_item').length;
         this.setLoadMore();
       })
     }
@@ -48,12 +49,10 @@ module.exports = {
       if (!this.hasMore()) {
         return;
       }
-      $.get(`/p/items?skip=${$('.proposal').length}&count=2`, (data) => {
+      $.get(`/p/items?skip=${$('.proposal_list_item').length}&count=2`, (data) => {
         $('#proposals_list').append(data);
-        document.location.hash = $('.proposal').length;
-        if (this.hasMore()) {
-          $.scrollTo($("#load_more"), 500);
-        }
+        document.location.hash = $('.proposal_list_item').length;
+        $.scrollTo($("#load_more"), 500);
         this.setLoadMore();
       })
     });
@@ -61,7 +60,7 @@ module.exports = {
   },
 
   hasMore: function() {
-    return !$('.proposal').last().data('is-last');
+    return !$('.proposal_list_item').last().data('is-last');
   },
 
   setLoadMore: function() {

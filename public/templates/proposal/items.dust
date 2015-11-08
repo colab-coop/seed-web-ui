@@ -1,1 +1,3 @@
-{> "proposal/_list_items" /}
+{#items}
+  {>"proposal/_list_item"/}
+{/items}

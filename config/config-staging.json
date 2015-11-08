@@ -1,0 +1,278 @@
+{
+  "express": {
+    "view cache": false,
+    "view engine": "js",
+    "views": "path:./.build/templates"
+  },
+  "view engines": {
+    "js": {
+      "module": "engine-munger",
+      "renderer": {
+        "method": "js",
+        "arguments": [
+          {
+            "cache": true
+          },
+          {
+            "views": "config:express.views",
+            "view engine": "config:express.view engine",
+            "specialization": "config:specialization",
+            "i18n": "config:i18n"
+          }
+        ]
+      }
+    }
+  },
+  // these values should be specified in your .env file
+  "databaseConfig": {
+    "host": "env:databaseConfig_host",
+    "database": "env:databaseConfig_database"
+  },
+  "specialization": {
+  },
+  "middleware": {
+    "shutdown": {
+      "enabled": true,
+      "priority": 0,
+      "module": {
+        "name": "kraken-js/middleware/shutdown",
+        "arguments": [
+          {
+            "timeout": 30000,
+            "template": null
+          }
+        ]
+      }
+    },
+
+    "compress": {
+      "enabled": false,
+      "priority": 10,
+      "module": "compression"
+    },
+
+    "favicon": {
+      "enabled": true,
+      "priority": 30,
+      "module": {
+        "name": "serve-favicon",
+        "arguments": [
+          "resolve:kraken-js/public/favicon.ico"
+        ]
+      }
+    },
+
+    "static": {
+      "enabled": true,
+      "priority": 40,
+      "module": {
+        "name": "serve-static",
+        "arguments": [
+          "path:./static"
+        ]
+      }
+    },
+
+    "staticUpload": {
+      "enabled": true,
+      "priority": 45,
+      "module": {
+        "name": "serve-static",
+        "arguments": [
+          "path:./u"
+        ]
+      }
+    },
+
+    "logger": {
+      "enabled": true,
+      "priority": 50,
+      "module": {
+        "name": "morgan",
+        "arguments": [
+          "combined"
+        ]
+      }
+    },
+
+    "method-override": {
+      "enabled": true,
+      "priority": 55,
+      "module": {
+        "name": "method-override",
+        "arguments": ["_method"]
+      }
+    },
+
+    "json": {
+      "enabled": true,
+      "priority": 60,
+      "module": {
+        "name": "body-parser",
+        "method": "json"
+      }
+    },
+
+    "urlencoded": {
+      "enabled": true,
+      "priority": 70,
+      "module": {
+        "name": "body-parser",
+        "method": "urlencoded",
+        "arguments": [
+          {
+            "extended": true
+          }
+        ]
+      }
+    },
+
+    "multipart": {
+      "enabled": true,
+      "priority": 80,
+      "module": {
+        "name": "kraken-js/middleware/multipart",
+        "arguments": [
+          {
+            "keepExtensions": true
+          }
+        ]
+      }
+    },
+
+    "cookieParser": {
+      "enabled": true,
+      "priority": 90,
+      "module": {
+        "name": "cookie-parser",
+        "arguments": [
+          "keyboard cat"
+        ]
+      }
+    },
+
+    "flash": {
+      "priority": 91,
+      "enabled": true,
+      "module": {
+        "name": "connect-flash",
+        "method": "flash"
+      }
+    },
+
+    "session": {
+      "enabled": true,
+      "priority": 100,
+      "module": {
+        "name": "express-session",
+        "arguments": [
+          {
+            "key": "",
+            "secret": "keyboard cat",
+            "cookie": {
+              "path": "/",
+              "httpOnly": true,
+              "maxAge": null
+            },
+            "resave": true,
+            "saveUninitialized": true,
+            "proxy": null,
+            "store": null
+
+          },
+          {
+            "host": "env:redis_host",
+            "port": "env:redis_port",
+            "prefix": "session:"
+          }
+        ]
+      }
+    },
+
+    "appsec": {
+      "enabled": true,
+      "priority": 110,
+      "module": {
+        "name": "lusca",
+        "arguments": [
+          {
+            "csrf": true,
+            "xframe": "SAMEORIGIN",
+            "p3p": false,
+            "csp": false
+          }
+        ]
+      }
+    },
+
+    //add the user to the response object
+    "injectUser": {
+      "enabled": true,
+      "priority": 112,
+      "module": {
+        "name": "path:./lib/auth",
+        "method": "injectUser"
+      }
+    },
+
+    "router": {
+      "enabled": true,
+      "priority": 120,
+      "module": {
+        "name": "express-enrouten",
+        "arguments": [
+          {
+            "directory": "path:./controllers"
+          }
+        ]
+      }
+    },
+
+    "fileNotFound": {
+      "enabled": true,
+      "priority": 130,
+      "module": {
+        "name": "kraken-js/middleware/404",
+        "arguments": [
+          "errors/404"
+        ]
+      }
+    },
+
+    "serverError": {
+      "enabled": true,
+      "priority": 140,
+      "module": {
+        "name": "kraken-js/middleware/500",
+        "arguments": [
+          "errors/500"
+        ]
+      }
+    }
+  },
+
+  // note, ask joseph@colab.coop for valid dev keys to put into your local env
+  "stripe": {
+    "secretKey": "env:stripe_secretKey",
+    "publicKey": "env:stripe_publicKey"
+  },
+  "braintree": {
+    "merchantId": "env:braintree_merchantId",
+    "publicKey": "env:braintree_publicKey",
+    "privateKey": "env:braintree_privateKey"
+  },
+  "authorizeNet": {
+    "apiLoginId": "env:authorizeNet_apiLoginId",
+    "transactionKey": "env:authorizeNet_transactionKey"
+  },
+  "email": {
+//    "from": "The Sender <sender@something.tld>",
+//    "sender": "sender@something.tld",
+//    "senderPassword": "supersekrit"
+    "from": "env:email_from",
+    "sender": "env:email_sender",
+    "senderPassword": "env:email_senderPassword",
+    "enabled": "env:email_enabled"
+  },
+  "dummy":null  // suck up trailing ','
+}

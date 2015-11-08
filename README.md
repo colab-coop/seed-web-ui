@@ -9,7 +9,7 @@ seed bomb prototype
 * Node v4.2.x and npm ([https://docs.npmjs.com/getting-started/installing-node](https://docs.npmjs.com/getting-started/installing-node))
 * Bower ([http://bower.io/](http://bower.io/)), Brunch ([http://brunch.io/](http://brunch.io/)) and Nodemon ([https://github.com/remy/nodemon](https://github.com/remy/nodemon)) globally installed
 ```
-$ npm install -g bower brunch nodemon
+$ npm install -g bower brunch nodemon shipit-cli
 ```
 * MongoDB ([https://docs.mongodb.org/manual/installation/](https://docs.mongodb.org/manual/installation/))
 * Redis ([http://redis.io/](http://redis.io/))
@@ -65,12 +65,40 @@ $ npm start
 
 TBD
 
+### Vagrant environment
+#### Prerequisites
+* VirtualBox ([https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads))
+* Vagrant ([https://www.vagrantup.com/](https://www.vagrantup.com/))
 
-### Deploying in production
+#### Running
 ```
-$ export PORT=8108
-$ forever stop 0
-$ git pull
-$ npm run brunch-build
-$ forever start server.js
+$ cd vagrant && vagrant up
+```
+
+### Deploying and running
+We are using Shipit ([https://github.com/shipitjs/shipit](https://github.com/shipitjs/shipit)) for automatic deploys in the different environments.
+Currently available environments are __staging__ and __vagrant__.
+
+#### Deploying
+```
+$ shipit <environment> deploy
+```
+#### Rollback
+```
+$ shipit <environment> rollback
+```
+
+#### Starting the app
+```
+$ shipit <environment> start
+```
+
+#### Stoping the app
+```
+$ shipit <environment> stop
+```
+
+#### Getting the app status
+```
+$ shipit <environment> status
 ```

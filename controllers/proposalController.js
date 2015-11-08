@@ -47,7 +47,7 @@ function listProposalsView(req, res, view, kind) {
   const model={};
   const filter={};
   const skip = parseInt(req.query.skip);
-  const count = parseInt(req.query.count) || 0;
+  const count = parseInt(req.query.count) || 10;
 
   ProposalService.buildSectorOptions(parent, true, 'Choose a sector')
     .then((options) => {

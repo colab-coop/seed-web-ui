@@ -4,9 +4,170 @@
   @include center(true, false);
 }
 
+/*
+  details
+*/
+
+div.proposal_container {
+  width: 684px;
+  background-color: white;
+  border-radius: 4px 4px 4px 4px;
+  border: 1px solid;
+  border-color: #f3f3f3;
+  padding-left: 40px;
+  padding-right: 24px;
+  padding-top: 40px;
+  overflow: auto;
+
+  div.proposal_metrics {
+    float: left;
+    background-color: $seed_mulefawn;
+    box-shadow: $seed_dustygrey 0px 0px 0px 1px;
+    margin-top: 45px;
+    margin-bottom: 30px;
+    width: 100%;
+    overflow: hidden;
+    padding: 9.6px;
+    height: 65px;
+
+    ul {
+      padding: 0;
+      float: left;
+
+      white-space: nowrap;
+      li {
+        display: inline-block;
+        list-style: none outside none;
+        font-size: 16.8px;
+        line-height: 22.8px;
+        font-family: MonserratBold;
+        color: $seed_white;
+        padding-right: 56px;
+      }
+    }
+  }
+
+  div.proposal_description {
+    float: left;
+    width: 100%;
+    margin-bottom: 40px;
+    overflow: hidden;
+    //background-color: lightcyan;
+  }
+
+  div.proposal_i_want {
+    //background-color: lightseagreen;
+    float: left;
+    width: 100%;
+    padding-left: 118px;
+    padding-right: 118px;
+    a {
+      display: block;
+      margin-bottom: 40px;
+      height: 64px;
+      border-radius: 19px;
+      font-family: Museo;
+      font-size: 18px;
+
+    }
+  }
+
+  div.proposal_pledge {
+    float: left;
+    width: 100%;
+    a {
+      display: block;
+      margin-bottom: 40px;
+      height: 64px;
+      border-radius: 19px;
+      font-family: Museo;
+      font-size: 18px;
+    }
+  }
+
+}
+.btn-patron {
+  @include button-variant(white,  $seed_fern, $seed_corduroy);
+}
+
+.btn-funder {
+  @include button-variant(white, $seed_forestgreen, $seed_corduroy);
+}
+
+.btn-pledge {
+  @include button-variant(white, #781c4b, #604b57);
+}
 
 /*
-  Proposals
+
+info card
+*/
+
+div.proposal_info_card {
+  div.proposal_image {
+    width: 308px;
+    height: 308px;
+    //background-color: yellow;
+    float: left;
+
+    img {
+      border-radius: 4px 4px 4px 4px;
+      border: 1px solid;
+      border-color: #f3f3f3;
+      width: 308px;
+      object-fit: cover;
+    }
+  }
+  div.proposal_info {
+    //background-color: violet;
+    width: 270px;
+    height: 308px;
+    margin-left: 40px;
+    overflow: hidden;
+    float: left;
+
+    div.title {
+      //background-color: red;
+      height: 34px;
+      white-space: nowrap;
+      text-align: left;
+      font-size: 26px;
+      font-family: MonserratBold;
+      color: $seed_mineshaft;
+      margin-bottom: 7px;
+    }
+
+    div.proposal_summary {
+      //background-color: #green;
+      height: 150px;
+      text-align: left;
+      font-size: 18px;
+      line-height: 115%;
+      font-family: MonserratRegular;
+      color: $seed_tundora;
+    }
+
+    div.proposal_data {
+      ul {
+        list-style: none outside none;
+        padding: 0;
+
+        li {
+          font-family: MonserratBold;
+          text-align: left;
+          font-size: 16.8px;
+          line-height: 22.8px;
+          color: $seed_black;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+
+
+/*
+  list item
 */
 
 div.proposal {

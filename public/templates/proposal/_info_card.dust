@@ -1,0 +1,30 @@
+{!to be included inside a proposal scoped section!}
+
+<div class="proposal_info_card">
+  <div class="proposal_image">
+    <img src="/{image.name}">
+  </div>
+
+  <div class="proposal_info">
+    <div class="title">
+      {title}
+    </div>
+
+    <div class="proposal_summary">{summary}</div>
+
+    <div class="proposal_data">
+      <ul>
+        <li>
+          Needs: $12,900
+        </li>
+        <li>
+          Funding to date: $5,000
+        </li>
+        <li>
+          Closing: 12/31/2015
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>

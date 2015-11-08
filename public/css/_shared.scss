@@ -1,0 +1,6 @@
+body {
+  //background-color: ;
+  @include background-image-retina('/images/background', png, 661px, 501px);
+  background-color: $seed_alabaster;
+}
+

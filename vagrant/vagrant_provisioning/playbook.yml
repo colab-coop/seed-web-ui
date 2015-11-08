@@ -9,9 +9,9 @@
       apt_key: keyserver=keyserver.ubuntu.com id=7F0CEB10 state=present
     - name: Apt | Adding MongoDB apt repository
       apt_repository: repo='deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse' state=present
-    - name: Apt | Update cache
+    - name: Apt | Updating cache
       apt: update_cache=yes
-    - name: Apt | Install build tools
+    - name: Apt | Installing build tools
       apt: name=build-essential
 
   tasks:
@@ -33,18 +33,14 @@
       npm: name=grunt-cli global=yes
     - name: Npm | Installing Forever
       npm: name=forever global=yes
-    - name: Shipit | Creating user
+    - name: Shipit | Creating deploy user
       user: name=deploy shell=/bin/bash generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa
     - name: Shipit | Adding authorized key
-      authorized_key: user=deploy key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-
+      authorized_key: user=deploy key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}" # TODO: probably not the public key you want to add
 
   roles:
-#    - Stouts.mongodb
     - palkan.redis
     - kbrebanov.git
   vars:
     node_version: "4.2.1"
     redis_version: "3.0.5"
-
-

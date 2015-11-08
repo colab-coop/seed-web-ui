@@ -9,10 +9,24 @@ module.exports = function (shipit) {
       branch: 'develop',
       ignores: ['.git', 'node_modules'],
       keepReleases: 2,
-      shallowClone: true
+      shallowClone: true,
+      port: 8000,
+      brunch: 'brunch',
+      dotEnv: '.env'
     },
     vagrant: {
       servers: 'deploy@vagrant:2222'
+    },
+    staging: {
+      servers: 'seedbombing@seedbombing.dev.colab.coop',
+      deployTo: '~/seedbomb',
+      branch: 'develop',
+      port: 8108,
+      brunch: '~/.nvm/versions/node/v4.2.1/bin/brunch',
+      krakenConfig: 'config/config-staging.json'
+    },
+    production: {
+      branch: 'master'
     }
   });
 
@@ -27,19 +41,29 @@ module.exports = function (shipit) {
         return shipit.remote('cd ~/seedbomb/current && bower install')
       })
       .then(function (res) {
-        return shipit.remote('cd ~/seedbomb/current && brunch build');
+        return shipit.remote('cd ~/seedbomb/current && ' + shipit.config.brunch + ' build');
       })
       .then(function (res) {
         return shipit.remote('cd ~/seedbomb/current && grunt dustjs');
       })
       .then(function (res) {
-        return shipit.remoteCopy('.env', '~/seedbomb/current');
+        return shipit.remoteCopy(shipit.config.dotEnv, '~/seedbomb/current');
+      })
+      .then(function (res) {
+        return shipit.remote('ln -s ~/seedbomb/shared/u/ ~/seedbomb/current/u');
+      })
+      .then(function (res) {
+        if (shipit.config.krakenConfig) {
+          return shipit.remote('cp ~/seedbomb/current/' + shipit.config.krakenConfig + ' ~/seedbomb/current/config/config.json');
+        } else {
+          return Promise.resolve(true);
+        }
       })
 
   });
 
   shipit.task('start', function () {
-    return shipit.remote('cd ~/seedbomb/current && NODE_ENV=production forever start server.js')
+    return shipit.remote('cd ~/seedbomb/current && NODE_ENV=production PORT=' + shipit.config.port + ' forever start server.js')
   });
 
   shipit.task('stop', function () {

@@ -30,6 +30,10 @@
     "jquery.scrollTo": "~2.1.2"
   },
   "overrides": {
+    "bootstrap": {
+      "main": [
+      ]
+    },
     "typeahead-addresspicker": {
       "main": [
         "dist/typeahead-addresspicker.js"

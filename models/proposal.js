@@ -28,6 +28,8 @@ const attributes = _.merge({
   , patronEnabled: Boolean
   , memberEnabled: Boolean
   , funderEnabled: Boolean
+  , pledgedCapitalTotal: Number
+  , paidCapitalTotal: Number
 }, baseModel.baseAttributes);
 
 const KIND = {

@@ -1,0 +1,97 @@
+{!assumptions:!}
+{!included within a 'proposal' data scope, and 'user' object is also available!}
+
+
+<div class="proposal-seed">
+  <form method="POST" action="/p/{_id}/pledge">
+    <input type="hidden" name="pid" value="{_id}">
+    <input type="hidden" name="_csrf" value="{_csrf}">
+
+      {?patronEnabled}
+      <div class="proposal_i_want">
+        <div class="alert alert-success">
+        </div>
+        {!{#prepays}!}
+        {!<div class="alert alert-success">!}
+        {!<input type="checkbox" name="prepays" value="{_id}"> Pre Pay: {title} &nbsp; ${minimumContributionAmount}<br>!}
+        {!</div>!}
+        {!{/prepays}!}
+        {!todo: replace checkbox with button toggled state!}
+        <input type="checkbox" name="patron" value="true"><br>
+        <a class="btn btn-patron btn-lg" href="javascript:return false;">I Want to be a Customer</a>
+      </div>
+      {/patronEnabled}
+
+
+
+
+    {?memberEnabled}
+    <div class="proposal_i_want">
+    {!<div class="alert alert-success">!}
+    {!<input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>!}
+    {!</div>!}
+
+      <input type="checkbox" name="member" value="true"><br>
+      <a class="btn btn-patron btn-lg" href="javascript:return false;">I Want to be a Member</a>
+
+    {!{#memberships}!}
+    {!<div class="alert alert-success">!}
+    {!<input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>!}
+    {!</div>!}
+    {!{/memberships}!}
+    </div>
+    {/memberEnabled}
+
+    {?funderEnabled}
+    <div class="proposal_i_want">
+    {!<div class="alert alert-success">!}
+    {!<input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>!}
+    {!</div>!}
+      <br/>
+      <input type="checkbox" name="funder" value="true">
+      <a class="btn btn-funder btn-lg" href="javascript:return false;">I Want to fund this</a>
+      <br/>
+      Amount: <input type="text" name="amount" size="5"/><br/>
+
+      {#perks}
+        <div class="alert alert-success">
+          <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
+        </div>
+      {/perks}
+    </div>
+    {/funderEnabled}
+
+    <div class="alert alert-success">
+      <input type="checkbox" name="seedcoop" value="true"> I want to be a member of SEED.coop<br>
+    </div>
+
+    <br>
+
+    {?user}
+      Name: {profile.firstName} {profile.lastName}<br>
+      Organization: {profile.orgName}<br>
+      Email: {profile.email}<br>
+      [not you?, please <a href="/logout">signout</a> first]<br>
+    {:else}
+      First Name: <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">
+      &nbsp &nbsp Last Name: <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>
+      Organization: <input type="text" name="orgName" value="{profile.orgName}" placeholder="Organization"><br>
+      Email: <input class="proposal-seed-input" type="text" name="email" value="{profile.email}" size="40"><br>
+    {/user}
+
+    {!<div>!}
+    {!<button id="pledge" type="submit" name="pledge" value="true" class="btn btn-danger seed-button">PLEDGE</button>!}
+    {!</div>!}
+    <div>
+      <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg">Pledge</button>
+    </div>
+    {!<div class="proposal_pledge">!}
+    {!<a class="btn btn-pledge btn-lg" href="#">Pledge</a>!}
+    {!</div>!}
+
+    {!<div>!}
+    {!<button id="payNow" type="submit" name="payNow" value="true" class="btn btn-danger seed-button">PAY NOW</button>!}
+    {!</div>!}
+
+  </form>
+</div>

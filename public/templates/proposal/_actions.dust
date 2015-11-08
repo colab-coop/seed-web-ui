@@ -1,11 +1,13 @@
 {!proposal action links, assumes proposal context!}
 
 
-<a href="/p/{_id}/seed">[Seed It]</a> &nbsp;
-<a href="/p/{_id}/vote">[Vote]</a> &nbsp;
-<a href="/p/{_id}/pledge">[Pledge]</a> &nbsp;
-<a href="/p/{_id}/contribute">[Contribute]</a> &nbsp;
+<a href="/p/{_id}/view">[Public View]</a> &nbsp;
 {#user.hasModeratorAccess}
 <a href="/p/{_id}/edit">[Edit]</a> &nbsp;
 <a href="/admin/offer/new/edit?pid={_id}">[Create Offer]</a>
 {/user.hasModeratorAccess}
+<br>
+old flows:
+<a href="/p/{_id}/vote">[Vote]</a> &nbsp;
+<a href="/p/{_id}/pledge">[Pledge]</a> &nbsp;
+<a href="/p/{_id}/contribute">[Contribute]</a> &nbsp;

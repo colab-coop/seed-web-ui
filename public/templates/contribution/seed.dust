@@ -1,3 +1,5 @@
+{!  !!!!note!!!!!, this have moved over to _pledge.dust!}
+
 {>"layouts/master" /}
 
 {<body}
@@ -6,38 +8,51 @@
   {#proposal}
     {>"proposal/_summary"/}
 
-  <div class="proposal-seed">
+
+    <div class="proposal-seed">
     <form method="POST" action="/p/{_id}/seed">
       <input type="hidden" name="pid" value="{_id}">
       <input type="hidden" name="_csrf" value="{_csrf}">
 
-      {?patronEnabled}
-        <div class="alert alert-success">
-          <input type="checkbox" name="patron" value="true"> I would like to buy goods from this coop.<br>
-        </div>
-        {#prepays}
+      <div class="proposal_i_want">
+        {?patronEnabled}
           <div class="alert alert-success">
-            <input type="checkbox" name="prepays" value="{_id}"> Pre Pay: {title} &nbsp; ${minimumContributionAmount}<br>
           </div>
-        {/prepays}
-      {/patronEnabled}
+          {!{#prepays}!}
+            {!<div class="alert alert-success">!}
+              {!<input type="checkbox" name="prepays" value="{_id}"> Pre Pay: {title} &nbsp; ${minimumContributionAmount}<br>!}
+            {!</div>!}
+          {!{/prepays}!}
+        {!todo: replace checkbox with button toggled state!}
+          <input type="checkbox" name="patron" value="true"><br>
+          <a class="btn btn-patron btn-lg" href="#">I Want to be a Customer</a>
+        {/patronEnabled}
+
+      </div>
+
+
 
       {?memberEnabled}
-        <div class="alert alert-success">
-          <input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>
-        </div>
+        {!<div class="alert alert-success">!}
+          {!<input type="checkbox" name="member" value="true"> I am interested in becoming a member of this coop.<br>!}
+        {!</div>!}
 
-        {#memberships}
-          <div class="alert alert-success">
-            <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>
-          </div>
-        {/memberships}
+        <input type="checkbox" name="member" value="true"><br>
+        <a class="btn btn-patron btn-lg" href="#">I Want to be a Member</a>
+
+        {!{#memberships}!}
+          {!<div class="alert alert-success">!}
+            {!<input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>!}
+          {!</div>!}
+        {!{/memberships}!}
       {/memberEnabled}
 
       {?funderEnabled}
-        <div class="alert alert-success">
-          <input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>
-        </div>
+        {!<div class="alert alert-success">!}
+          {!<input type="checkbox" name="funder" value="true"> I would like to fund this coop.<br>!}
+        {!</div>!}
+
+        <a class="btn btn-funder btn-lg" href="#">I Want to fund this</a>
 
         {#perks}
           <div class="alert alert-success">
@@ -56,7 +71,7 @@
         Name: {profile.firstName} {profile.lastName}<br>
         Organization: {profile.orgName}<br>
         Email: {profile.email}<br>
-        [not you?, please signout first]<br>
+        [not you?, please <a href="/logout">signout</a> first]<br>
       {:else}
       First Name: <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">
       &nbsp &nbsp Last Name: <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>
@@ -64,9 +79,15 @@
       Email: <input class="proposal-seed-input" type="text" name="email" value="{profile.email}" size="40"><br>
       {/user}
 
+      {!<div>!}
+        {!<button id="pledge" type="submit" name="pledge" value="true" class="btn btn-danger seed-button">PLEDGE</button>!}
+      {!</div>!}
       <div>
-        <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-danger seed-button">PLEDGE</button>
+        <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg">Pledge</button>
       </div>
+      {!<div class="proposal_pledge">!}
+        {!<a class="btn btn-pledge btn-lg" href="#">Pledge</a>!}
+      {!</div>!}
 
       {!<div>!}
         {!<button id="payNow" type="submit" name="payNow" value="true" class="btn btn-danger seed-button">PAY NOW</button>!}

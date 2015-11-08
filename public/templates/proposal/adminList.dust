@@ -46,7 +46,7 @@
         </td>
         <td>
           <a href="/p/{_id}/edit">[Edit]</a> &nbsp;
-          <a href="/p/{_id}/view">[Admin View]</a> &nbsp;
+          <a href="/p/{_id}/adminView">[Admin View]</a> &nbsp;
           <a href="/p/{_id}/seed">[Seed View]</a> &nbsp;
         </td>
       </tr>

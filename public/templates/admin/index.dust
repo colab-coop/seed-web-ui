@@ -7,7 +7,7 @@
 
   <ul>
     <li>
-      <a href="/admin/proposal">All Proposals Type</a><br>
+      <a href="/admin/proposal?count=99">All Proposals Type</a><br>
     </li>
     <li>
       <a href="/admin/sector">Sectors</a><br>

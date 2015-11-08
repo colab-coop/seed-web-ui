@@ -25,13 +25,13 @@
     {description|s}
   </div>
 
-  <div class="proposal_i_want">
-    <a class="btn btn-patron btn-lg" href="#">I Want to be a patron</a>
-    <a class="btn btn-funder btn-lg" href="#">I Want to fund this</a>
-  </div>
+  {!<div class="proposal_i_want">!}
+    {!<a class="btn btn-patron btn-lg" href="#">I Want to be a patron</a>!}
+    {!<a class="btn btn-funder btn-lg" href="#">I Want to fund this</a>!}
+  {!</div>!}
 
-  <div class="proposal_pledge">
-    <a class="btn btn-pledge btn-lg" href="#">Pledge</a>
-  </div>
+  {!<div class="proposal_pledge">!}
+    {!<a class="btn btn-pledge btn-lg" href="#">Pledge</a>!}
+  {!</div>!}
 
 </div>

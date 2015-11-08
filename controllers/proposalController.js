@@ -48,6 +48,7 @@ function listProposalsView(req, res, view, kind) {
   const filter={};
   const skip = parseInt(req.query.skip);
   const count = parseInt(req.query.count) || 10;
+  console.log(`count: ${count}`);
 
   ProposalService.buildSectorOptions(parent, true, 'Choose a sector')
     .then((options) => {
@@ -88,9 +89,7 @@ function listProposalsView(req, res, view, kind) {
 function showLastProposal(req, res) {
   const id = req.session.currentProposalId;
   if (id) {
-    ProposalService.fetch(id)
-      .then((proposal) => render(res, 'view', {proposal: proposal}) )
-      .catch( curriedHandleError(req, res) );
+    showProposalForId(req, res, 'proposal/view', id);
   } else {
     home(req, res);
   }
@@ -98,10 +97,33 @@ function showLastProposal(req, res) {
 
 function showProposal(req, res) {
   const id = req.param('id');
+  showProposalForId(req, res, 'proposal/view', id);
+}
+
+
+function showProposalForId(req, res, viewPath, id) {
   req.session.currentProposalId = id;  //save this for return flows
+
+  const model = {};
+  model.profile = req.user ? req.user.profile : {};
+  let proposal;
   ProposalService.fetch(id)
-    .then((proposal) => render(res, 'view', {proposal: proposal}) )
+    .then((proposal) => {
+      model.proposal = proposal;
+      res.render(viewPath, model);
+    })
     .catch( curriedHandleError(req, res) );
+}
+
+
+function adminShowProposal(req, res) {
+  const id = req.param('id');
+  showProposalForId(req, res, 'proposal/adminView', id);
+  //
+  //req.session.currentProposalId = id;  //save this for return flows
+  //ProposalService.fetch(id)
+  //  .then((proposal) => render(res, 'adminView', {proposal: proposal}) )
+  //  .catch( curriedHandleError(req, res) );
 }
 
 
@@ -222,7 +244,7 @@ function gotoBaseView(req, res) {
 }
 
 function gotoBaseAdminView(req, res) {
-  res.redirect('/admin/proposal');
+  res.redirect('/admin/proposal?count=99');  //until admin view is better split apart
 }
 
 /*
@@ -247,6 +269,7 @@ function addRoutes(router) {
   router.get(uri('/:id/delete'), deleteProposal);
 
   router.get('/admin/proposal', adminListProposals);
+  router.get(uri('/:id/adminView'), adminShowProposal);
 }
 
 module.exports = {

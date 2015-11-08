@@ -1,52 +1,37 @@
-{!proposal summary information to be included inside a proposal scoped section!}
-<style>
-  img {
-    max-width: 300px;
-    max-height: 300px
-  }
+{!to be included inside a proposal scoped section!}
 
-  .proposal-seed {
-    position: relative;
-    width: 50%;
-    left: 20%;
-  }
+<div class="proposal_container">
 
-  .proposal-seed-input {
-    width: 50%;
-    margin: 15px;
-  }
+  {>"proposal/_info_card"/}
 
-  .seed-button {
-    margin-top: 10px;
-    width: 100%;
-  }
-</style>
+  <div class="proposal_metrics">
+    <ul>
+      <li>
+        Consumer Supporters<br>1234
+      </li>
+      <li>
+        Members<br>123
+      </li>
+      <li>
+        Funders<br>12
+      </li>
+      <li>
+        Metrics 4<br>N/A
+      </li>
+    </ul>
+  </div>
 
-<div class="proposal-seed">
-  <a href="/p/{_id}/view">Proposal</a>:<br/>
-  <h2>
-    {title}
-  </h2>
-  <h4>
-    Type: {kind}
-  </h4>
-  <h4>
-    Sector: {parentRef.title}
-  </h4>
-  <h4>
-    Location: {location}
-  </h4>
+  <div class="proposal_description">
+    {description|s}
+  </div>
 
-  <h3>
-    {summary}
-  </h3>
+  <div class="proposal_i_want">
+    <a class="btn btn-patron btn-lg" href="#">I Want to be a patron</a>
+    <a class="btn btn-funder btn-lg" href="#">I Want to fund this</a>
+  </div>
 
-  {?image.name}
-  <img src="/{image.name}">
-  {/image.name}
-
-  <h3>
-    {description}
-  </h3>
+  <div class="proposal_pledge">
+    <a class="btn btn-pledge btn-lg" href="#">Pledge</a>
+  </div>
 
 </div>

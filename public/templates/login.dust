@@ -1,47 +1,41 @@
 {>"layouts/master" /}
 
 {<body}
-  <div>
-    <form id="loginForm" method="post">
-      <fieldset>
-        <h2>Login</h2>
-        {!<legend>Login</legend>!}
 
-        {?messages}
-          <ul>
-            {#messages}
-              <li>{.}</li>
-            {/messages}
-          </ul>
-        {/messages}
+  <h2>Log in</h2>
 
-        <form method="POST" action="/p/edit">
-          {!Email: <input name="username"><br>!}
-          {!Password: <input name="password" type="password"><br>!}
-          {!<input type="hidden" name="_csrf" value="{_csrf}">!}
-          {!<input type="submit" value="Login">!}
+  {?messages}
+    <ul>
+      {#messages}
+        <li>{.}</li>
+      {/messages}
+    </ul>
+  {/messages}
 
-          <table>
-            <tr>
-              <td><label for="username">Email: </label></td>
-              <td><input id="username" name="username" type="text"/></td>
-            </tr>
-            <tr>
-              <td><label for="password">Password: </label></td>
-              <td><input id="password" name="password" type="password"/></td>
-            </tr>
-            <tr>
-              <td>
-                <input type="submit" value="Login"/>
-                <input type="hidden" name="_csrf" value="{_csrf}"/>
-              </td>
-              <td></td>
-            </tr>
-          </table>
-        </form>
+  <div class="signin-panel">
+    <form id="signinForm" class="form-signin form-group" method="POST" action="/login">
+      <div>
+        <input type="email" id="username" name="username" class="form-control" placeholder="Email Address" required autofocus>
+        <span class="help-block with-errors"></span>
+      </div>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+      <input type="hidden" name="_csrf" value="{_csrf}"/>
 
-        <a href="/forgotPassword">Forgot your password?</a>
-      </fieldset>
-    </form>
+      {!<div id="remember" class="checkbox">!}
+      {!<label>!}
+      {!<input type="checkbox" value="remember-me"> Remember me!}
+      {!</label>!}
+      {!</div>!}
+
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Log In</button>
+    </form><!-- /form -->
+    <a href="/forgotPassword" class="forgot-password">Forgot your password?</a>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+      require('public/js/profile').onSigninFormLoad()
+    }, false);
+  </script>
+
 {/body}

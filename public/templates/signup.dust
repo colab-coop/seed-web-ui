@@ -2,7 +2,7 @@
 
 {<body}
   <div>
-    <form id="signupForm" method="post">
+    <form class="form-horizontal dropzone" id='signupForm' method="POST" action="/signup">
       <fieldset>
         <h2>Signup as a Provisional Co-op Member</h2>
         Once you've signed up, you'll be able to make provisional votes for proposals and engage in discussions as a
@@ -18,42 +18,91 @@
           </ul>
         {/messages}
         {#formData}
-        <table>
-          <tr>
-            <td><label for="firstName">First Name: </label></td>
-            <td><input id="firstName" name="firstName" type="text" value="{firstName}"/></td>
-          </tr>
-          <tr>
-            <td><label for="lastName">Last Name: </label></td>
-            <td><input id="lastName" name="lastName" type="text" value="{lastName}"/></td>
-          </tr>
-          <tr>
-            <td><label for="orgName">Organization Name: </label></td>
-            <td><input id="orgName" name="orgName" type="text" value="{orgName}"/></td>
-          </tr>
-          <tr>
-            <td><label for="email">Email: </label></td>
-            <td><input id="email" name="email" type="text" value="{email}"/></td>
-          </tr>
-          <tr>
-            <td><label for="password">Password: </label></td>
-            <td><input id="password" name="password" type="password"/></td>
-          </tr>
-          <tr>
-            <td><label for="confirmPassword">Confirm Password: </label></td>
-            <td><input id="confirmPassword" name="confirmPassword" type="password"/></td>
-          </tr>
-          <tr>
-            <td>
-              <input type="submit" value="Signup"/>
-              <input type="hidden" name="_csrf" value="{_csrf}"/>
-            </td>
-            <td></td>
-          </tr>
-        </table>
+
+
+          <div class="form-group">
+            <label for="firstName" class="col-sm-2 control-label">First Name: </label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                     value="{firstName}" required>
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="firstName" class="col-sm-2 control-label">Last Name: </label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+                     value="{lastName}">
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="firstName" class="col-sm-2 control-label">Organization: </label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="orgName" name="orgName" placeholder="Your Organization Name"
+                     value="{orgName}">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email: </label>
+
+            <div class="col-sm-8">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                     value="{email}" required>
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password: </label>
+
+            <div class="col-sm-8">
+              <input type="password" class="form-control" id="password" name="password" required data-minlength="6"
+                     placeholder="Password" >
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Confirm Password: </label>
+
+            <div class="col-sm-8">
+              <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required
+                     data-minlength="6" data-match="#password" placeholder="Password Confirmation">
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
+
+
+          <!-- Submit button -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="save"></label>
+
+            <div class="col-sm-8">
+              <button id="save" type="submit" name="signup" class="btn btn-primary">Signup</button>
+            </div>
+          </div>
+
+          <input type="hidden" name="_csrf" value="{_csrf}"/>
         {/formData}
 
       </fieldset>
     </form>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+      require('public/js/profile').onSignupFormLoad()
+    }, false);
+  </script>
+
 {/body}

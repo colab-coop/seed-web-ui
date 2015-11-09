@@ -11,40 +11,121 @@
     </ul>
   {/messages}
 
-  <form action="/me/edit" method="post">
-    <input type="hidden" name="_csrf" value="{_csrf}">
+  <div class="form-group">
 
-    {#profile}
-      <label for="displayName">Display name:</label><br>
-      <input type="text" name="displayName" value="{displayName}" /><br>
+    <form class="form-horizontal dropzone" id='editProfileForm' method="POST" action="/me/edit">
 
-      <label for="firstName">First Name:</label><br>
-      <input type="text" name="firstName" value="{firstName}" /><br>
+      <fieldset>
 
-      <label for="lastName">Last Name:</label><br>
-      <input type="text" name="lastName" value="{lastName}" /><br>
+        <input type="hidden" name="_csrf" value="{_csrf}">
 
-      <label for="orgName">Org Name:</label><br>
-      <input type="text" name="orgName" value="{orgName}" /><br>
+        {#profile}
 
-      <label for="email">Email:</label><br>
-      <input type="text" name="email" value="{email}" /><br>
+          <div class="form-group">
+            <label for="displayName" class="col-sm-2 control-label">Display Name: </label>
 
-      <label for="location">Location:</label><br>
-      <input type="text" name="location" value="{location}" /><br>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="displayName" name="displayName" placeholder="Display Name"
+                     value="{displayName}">
+            </div>
+          </div>
 
-      <label for="about">About:</label><br>
-      <textarea name="about" value="">{about}</textarea><br>
+          <div class="form-group">
+            <label for="firstName" class="col-sm-2 control-label">First Name: </label>
 
-      <label for="phone">Phone:</label><br>
-      <input type="text" name="phone" value="{phone}" /><br>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                     value="{firstName}" required>
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
 
-      <label for="address">Address:</label><br>
-      <textarea name="address">{address}</textarea><br>
-    {/profile}
+          <div class="form-group">
+            <label for="lastName" class="col-sm-2 control-label">Last Name: </label>
 
-    <input type="submit" value="Update Profile" />
-  </form>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+                     value="{lastName}" required>
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="orgName" class="col-sm-2 control-label">Organization: </label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="orgName" name="orgName" placeholder="Your Organization Name"
+                     value="{orgName}">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email: </label>
+
+            <div class="col-sm-8">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                     value="{email}" required>
+              <span class="help-block with-errors">Required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="location">Location</label>
+
+            <div class="col-sm-8">
+              <input id="location" value="{item.location}" name="location" type="text" placeholder="Enter an location"
+                     class="form-control input-md">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="description">About:</label>
+
+            <div class="col-sm-8">
+              <textarea class="form-control" id="about" name="about"
+                        placeholder="Something about yourself">{about}</textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="description">Phone:</label>
+
+            <div class="col-sm-8">
+              <input id="phone" value="{phone}" name="phone" type="tel" placeholder="Phone Number"
+                     class="form-control input-md">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="description">Address:</label>
+
+            <div class="col-sm-8">
+              <textarea class="form-control" id="about" name="about"
+                        placeholder="Your mailing address">{about}</textarea>
+            </div>
+          </div>
+
+        {/profile}
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="save"></label>
+
+          <div class="col-sm-8">
+            <button id="save" type="submit" name="save" class="btn btn-primary">Update</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+      require('public/js/profile').onEditProfileFormLoad()
+    }, false);
+  </script>
+
 
   <br>
 

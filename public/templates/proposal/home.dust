@@ -13,7 +13,7 @@
   {!>>>>>>> proposal list filter!}
   <form id="filterForm" class="hook">
     Sector:
-    <select name="parentRef">
+    <select name="parentRef" class="selectpicker">
       {#sectorOptions}
         <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
       {/sectorOptions}

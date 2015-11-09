@@ -19,7 +19,8 @@ exports.config = {
         },
         stylesheets: {
             joinTo: {
-                'css/app.css': 'public/css/*.scss'
+                'css/app.css': ['public/css/*.scss',
+                /^bower_components/]
             }
         }
 

@@ -1,5 +1,5 @@
 'use strict';
 
 $(function() {
-  console.log('App started');
+  $('.selectpicker').selectpicker();
 });

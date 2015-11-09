@@ -3,7 +3,7 @@
 <form method="POST" action="/p/newVision">
   <input type="hidden" name="_csrf" value="{_csrf}"/>
   <input type="hidden" name="kind" value="vision"/>
-  <select name="parentRef">
+  <select name="parentRef" class="form-control">
     {#visionSectorOptions}
       <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
     {/visionSectorOptions}

@@ -63,11 +63,11 @@ module.exports = function (shipit) {
   });
 
   shipit.task('start', function () {
-    return shipit.remote('cd ~/seedbomb/current && NODE_ENV=production PORT=' + shipit.config.port + ' forever start server.js')
+    return shipit.remote('cd ~/seedbomb/current && NODE_ENV=production PORT=' + shipit.config.port + ' forever --uid \"seedbomb\" start server.js')
   });
 
   shipit.task('stop', function () {
-    return shipit.remote('cd ~/seedbomb/current && forever stop server.js')
+    return shipit.remote('forever stop seedbomb')
   });
 
   shipit.task('status', function () {

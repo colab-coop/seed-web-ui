@@ -22,7 +22,7 @@
       <label class="col-sm-2 control-label" for="short_description">Summary</label>
 
       <div class="col-sm-8">
-        <textarea class="form-control" rows="4" id="descrition" name="description" placeholder="Share"
+        <textarea class="form-control" rows="4" id="description" name="description" placeholder="Share"
                   data-minlength="40" data-maxlength="640" required></textarea>
         <span class="help-block">Required, between 40 and 640 characters</span>
       </div>
@@ -34,7 +34,7 @@
       <label class="col-sm-2 control-label" for="email">Email Address</label>
 
       <div class="col-sm-8">
-        <input id="location" name="title" type="email" placeholder="Email Address" required
+        <input id="email" name="title" type="email" placeholder="Email Address" required
                class="form-control input-md">
         <span class="help-block">Required</span>
       </div>

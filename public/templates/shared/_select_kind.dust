@@ -1,4 +1,4 @@
-<select name="kind">
+<select name="kind" class="form-control">
   {#kindOptions}
     <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
   {/kindOptions}

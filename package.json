@@ -44,6 +44,7 @@
     "mongoose-crate-localfs": "^1.1.1",
     "mongoose-unique-validator": "^0.6.0",
     "node-authorize-net": "0.0.5",
+    "node-uuid": "^1.4.3",
     "nodemailer": "^1.8.0",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",

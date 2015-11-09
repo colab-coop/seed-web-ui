@@ -38,8 +38,9 @@
               <td></td>
             </tr>
           </table>
-
         </form>
+
+        <a href="/forgotPassword">Forgot your password?</a>
       </fieldset>
     </form>
   </div>

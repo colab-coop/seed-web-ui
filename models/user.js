@@ -19,6 +19,7 @@ const attributes = _.merge({
   , isAdmin: Boolean  //does this belong on Profile?
   , defaultProfileRef: {type: String, ref: 'Profile'}
   , name: String  //todo: move to Profile
+  , passwordResetToken: String
 }, baseModel.baseAttributes);
 
 const modelFactory = function () {

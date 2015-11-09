@@ -264,6 +264,35 @@ function testWelcomeEmail(req, res) {
     .catch(curriedHandleError(req, res));
 }
 
+function forgotPassword(req, res) {
+  res.render('forgot_password');
+}
+
+function sendPasswordResetEmail(req, res, next) {
+  const email = req.body.email;
+
+  userLib
+    .sendPasswordResetEmail(req.body.email)
+    .then(() => res.redirect('/login'))
+    .catch(next);
+}
+
+function resetPassword(req, res) {
+  res.render('reset_password', {
+    token: req.query.token
+  });
+}
+
+function updatePassword(req, res, next) {
+  userLib.updatePasswordFromToken(req.body.token, req.body.password)
+    .then((user) => {
+      if (!user) {
+        req.flash('error', 'Invalid token');
+      }
+      res.redirect('/login');
+    })
+    .catch(next);
+}
 
 function addRoutes(router) {
 //  router.get('/', home);
@@ -279,6 +308,11 @@ function addRoutes(router) {
 
   router.get('/dump', dump);
   router.get('/test/welcomeEmail', testWelcomeEmail);
+
+  router.get('/forgotPassword', forgotPassword);
+  router.post('/forgotPassword', sendPasswordResetEmail);
+  router.get('/resetPassword', resetPassword);
+  router.post('/resetPassword', updatePassword);
 }
 
 

@@ -41,6 +41,15 @@
   roles:
     - palkan.redis
     - kbrebanov.git
+    - bennojoy.nginx
+
   vars:
     node_version: "4.2.1"
     redis_version: "3.0.5"
+    nginx_sites:
+      - server:
+          file_name: seedbomb
+          listen: 8001
+          server_name: vagrant
+          location1: {name: /, proxy_pass: "http://localhost:8000/"}
+          location2: {name: "~ ^/(css/|fonts/|images/|js/|favicon.ico)", root: "/home/deploy/seedbomb/current/static", access_log: off}

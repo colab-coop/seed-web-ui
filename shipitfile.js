@@ -63,7 +63,7 @@ module.exports = function (shipit) {
   });
 
   shipit.task('start', function () {
-    return shipit.remote('cd ~/seedbomb/current && NODE_ENV=production PORT=' + shipit.config.port + ' forever --uid \"seedbomb\" start server.js')
+    return shipit.remote('cd ~/seedbomb/current && NODE_ENV=production PORT=' + shipit.config.port + ' forever --append --uid \"seedbomb\" start server.js')
   });
 
   shipit.task('stop', function () {

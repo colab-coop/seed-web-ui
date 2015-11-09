@@ -1,0 +1,25 @@
+.signin-panel {
+  max-width: 350px;
+  padding: 40px 40px;
+  background-color: $seed_white;
+  border-color: $seed_dustygrey;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 2px;
+
+  input {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 15px;
+  }
+
+  a {
+    display: block;
+    margin-top: 10px;
+  }
+
+}
+
+

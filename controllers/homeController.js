@@ -58,6 +58,7 @@ function showLogin(req, res) {
  * Failed authentications will go back to the login page with a helpful error message to be displayed.
  */
 function postLogin(req, res) {
+  console.log(_.inspect(req.body));
   passport.authenticate('local', {
     successRedirect: '/afterAuth' //req.session.goingTo || '/p',
     , failureRedirect: '/login'

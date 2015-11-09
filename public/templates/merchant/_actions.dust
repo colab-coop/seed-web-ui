@@ -1,0 +1,6 @@
+{!sector action links, assumes proposal context!}
+
+
+<a href="/admin/mc/{_id}/edit">[Edit]</a>
+{!<a href="/admin/sector/{_id}/delete">[Delete]</a>!}
+

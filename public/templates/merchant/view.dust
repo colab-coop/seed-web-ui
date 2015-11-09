@@ -1,0 +1,32 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Merchant Config Detail</h2>
+
+  {#item}
+    Id: {_id}<br/>
+    Name: {name}<br/>
+    Dwolla Enabled: {dwollaEnabled}<br/>
+    Dwolla Data Key: {dwollaDataKey}<br/>
+    Paper Check Enabled: {paperCheckEnabled}<br/>
+    Paper Check Info: {paperCheckInfo}<br/>
+    Authorize Net Enabled: {authorizeNetEnabled}<br/>
+    Authorize Net API Login Id: {authorizeNetApiLoginId}<br/>
+    Authorize Net Transaction Key: <i>secure</i><br/>
+    Braintree Enabled: {braintreeEnabled}<br/>
+    Braintree Merchant Id: {braintreeMerchantId}<br/>
+    Braintree Public Key: {braintreePublicKey}<br/>
+    Braintree Private Key: <i>secure</i><br/>
+
+    {>"merchant/_actions"/}
+
+    <br><br>
+    <a href="/admin/mc/{_id}/delete">[Delete]</a>
+
+  {/item}
+
+  <br><br>
+  <a href="/admin/mc">[back]</a>
+
+
+{/body}

@@ -1,0 +1,36 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Merchant Config Editor</h2>
+
+  {#item}
+    <form method="POST" action="/admin/mc/save">
+      <input type="hidden" name="id" value="{_id}">
+      <input type="hidden" name="_csrf" value="{_csrf}">
+      Name: <input name="name" value="{name}"><br>
+
+      Dwolla Enabled: <input name="dwollaEnabled" value="{dwollaEnabled}"><br>
+      Dwolla Data Key: <input name="dwollaDataKey" value="{dwollaDataKey}"><br>
+
+      Paper Check Enabled: <input name="paperCheckEnabled" value="{paperCheckEnabled}"><br>
+      Paper Check Info: <input name="paperCheckInfo" value="{paperCheckInfo}"><br>
+
+      Authorize Net Enabled: <input name="authorizeNetEnabled" value="{authorizeNetEnabled}"><br>
+      Authorize Net API Login Id: <input name="authorizeNetApiLoginId" value="{authorizeNetApiLoginId}"><br>
+      Authorize Net Transaction Key: <i>secure</i><br/>
+
+      Braintree Enabled: <input name="braintreeEnabled" value="{braintreeEnabled}"><br>
+      Braintree Merchant Id: <input name="braintreeMerchantId" value="{braintreeMerchantId}"><br>
+      Braintree Public Key: <input name="braintreePublicKey" value="{braintreePublicKey}"><br>
+      Braintree Private Key: <i>secure</i><br/>
+
+      <input type="submit" value="Save">
+    </form>
+    <br>
+    <a href="/admin/mc">[back]</a>
+    <br><br>
+    <a href="/admin/mc/{_id}/delete">[Delete]</a>
+  {/item}
+
+
+{/body}

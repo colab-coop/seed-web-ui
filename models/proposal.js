@@ -28,6 +28,7 @@ const attributes = _.merge({
   , patronEnabled: Boolean
   , memberEnabled: Boolean
   , funderEnabled: Boolean
+  , merchantConfigRef: {type: String, ref: 'MerchantConfig'}
   , pledgedCapitalTotal: Number
   , paidCapitalTotal: Number
 }, baseModel.baseAttributes);
@@ -55,7 +56,7 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
 // fields to directly populate from edit forms
 const PARAM_FIELDS = [
   'kind', 'parentRef', 'title', 'summary', 'location', 'description'
-  , 'patronEnabled', 'memberEnabled', 'funderEnabled'
+  , 'patronEnabled', 'memberEnabled', 'funderEnabled', 'merchantConfigRef'
 ];
 
 function copyParams(target, params) {

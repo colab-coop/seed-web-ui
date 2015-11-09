@@ -15,6 +15,9 @@
     <li>
       <a href="/p/new">Create New Campaign</a><br>
     </li>
+    <li>
+      <a href="/admin/mc">Merchant Configs</a><br>
+    </li>
 
   </ul>
 

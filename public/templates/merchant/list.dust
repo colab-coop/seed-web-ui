@@ -1,0 +1,29 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Merchant Configs</h2>
+
+  <table border="2">
+    <th>name</th><th>id</th><th>actions</th>
+    {#items}
+      <tr>
+        <td>
+          <a href="/admin/mc/{_id}/view">{name}</a>
+        </td>
+        <td>
+          {_id}
+        </td>
+        <td>
+          {>"merchant/_actions"/}
+          {!<a href="/admin/sector/{_id}/edit">[Edit]</a>!}
+        </td>
+      </tr>
+    {/items}
+  </table>
+  <br> <br>
+  <a href="/admin/mc/new/edit">Create New Merchant Config</a>
+
+  <br><br>
+  <a href="/admin">[back]</a>
+
+{/body}

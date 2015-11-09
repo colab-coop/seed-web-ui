@@ -84,6 +84,15 @@
       {/votes}
     </table>
 
+    {#merchantConfigRef}
+      <br>
+      Merchant Config:<br>
+      Id: <a href="/admin/mc/{_id}/view">{_id}</a><br>
+      Dwolla Enabled: {dwollaEnabled}<br>
+      Paper Check Enabaled: {paperCheckEnabled}<br>
+      Brain Tree Enabled: {braintreeEnabled}<br>
+      Authorize Net Enabled: {authorizeNetEnabled}<br>
+    {/merchantConfigRef}
 
     <br>
     {#user.isAdmin}

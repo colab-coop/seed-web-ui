@@ -12,6 +12,7 @@ module.exports = function (router) {
   require('./contributionController').addRoutes(router);
   require('./offerController').addRoutes(router);
   require('./paymentController').addRoutes(router);
+  require('./merchantConfigController').addRoutes(router);
 
   require('./adminController').addRoutes(router);
 

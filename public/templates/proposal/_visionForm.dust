@@ -1,27 +1,71 @@
-  <h3>Share Your Vision</h3>
+<h3>Share Your Vision</h3>
 
-<form method="POST" action="/p/newVision">
-  <input type="hidden" name="_csrf" value="{_csrf}"/>
-  <input type="hidden" name="kind" value="vision"/>
-  <select name="parentRef" class="form-control">
-    {#visionSectorOptions}
-      <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
-    {/visionSectorOptions}
-  </select>
-  <br>
+<form method="POST" action="/p/newVision" class="form-horizontal" id="vision_form">
+  <fieldset>
+    <input type="hidden" name="_csrf" value="{_csrf}"/>
+    <input type="hidden" name="kind" value="vision"/>
 
-  <textarea name="description" rows="4" cols="80" placeholder="Share">
-  </textarea><br>
+    <!-- Sector -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="parentRef">Sector</label>
+      <div class="col-sm-8">
+        <select name="parentRef" class="form-control">
+          {#visionSectorOptions}
+            <option value="{value}" {?selected}selected="true"{/selected}>{display}</option>
+          {/visionSectorOptions}
+        </select>
+      </div>
+    </div>
 
-  {!for now, stuff the email into the title field of the proposal instance!}
-  <input name="title" placeholder="Email Address"><br>
+    <!-- Description -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="short_description">Summary</label>
 
-  <button id="amPart" type="submit" name="role" value="amPart" class="btn btn-danger seed-button">
-    I am part of a coop that is doing this.</button><br>
-  <button id="wishToStart" type="submit" name="role" value="wishToStart" class="btn btn-danger seed-button">
-    I'd like to start a coop to do this.</button><br>
-  <button id="wishToJoin" type="submit" name="role" value="wishToJoin" class="btn btn-danger seed-button">
-    I would become a member or patron of such a coop.</button><br>
+      <div class="col-sm-8">
+        <textarea class="form-control" rows="4" id="descrition" name="description" placeholder="Share"
+                  data-minlength="40" data-maxlength="640" required></textarea>
+        <span class="help-block">Required, between 40 and 640 characters</span>
+      </div>
+    </div>
 
+    <!-- Email -->
+    {!for now, stuff the email into the title field of the proposal instance!}
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="email">Email Address</label>
+
+      <div class="col-sm-8">
+        <input id="location" name="title" type="email" placeholder="Email Address" required
+               class="form-control input-md">
+        <span class="help-block">Required</span>
+      </div>
+    </div>
+
+    <!-- Role -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="parentRef">Motivation</label>
+      <div class="col-sm-8">
+        <select name="role" class="form-control">
+            <option value="amPart">I am part of a coop that is doing this.</option>
+            <option value="amPart">I'd like to start a coop to do this.</option>
+            <option value="amPart">I would become a member or patron of such a coop.</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="save"></label>
+
+      <div class="col-sm-8">
+        <button id="save" type="submit" name="save" class="btn btn-primary btn-lrg">Submit</button>
+      </div>
+    </div>
+
+  </fieldset>
 </form>
-  <br>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (e) {
+    require('public/js/vision').onVisionFormLoad()
+  }, false);
+</script>

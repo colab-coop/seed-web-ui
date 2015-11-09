@@ -27,11 +27,17 @@
     "bootstrap-validator": "1000hz/bootstrap-validator#~0.9.0",
     "typeahead-addresspicker": "~0.1.4",
     "summernote": "~0.6.16",
-    "jquery.scrollTo": "~2.1.2"
+    "jquery.scrollTo": "~2.1.2",
+    "bootstrap-select": "~1.7.5"
   },
   "overrides": {
     "bootstrap": {
+      "main": []
+    },
+    "bootstrap-select": {
       "main": [
+        "dist/css/bootstrap-select.css",
+        "dist/js/bootstrap-select.js"
       ]
     },
     "typeahead-addresspicker": {

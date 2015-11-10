@@ -1,4 +1,7 @@
 exports.config = {
+
+    //todo: integrate the 'grunt dustjs' handling into here
+
     // See http://brunch.io/#documentation for docs.
     files: {
         javascripts: {

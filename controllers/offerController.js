@@ -78,15 +78,17 @@ function edit(req, res) {
 function save(req, res) {
   const id = req.body.id;
   const proposalRef = req.body.proposalRef;
-  const data = {
-    proposalRef: proposalRef
-    , kind: req.body.kind  //.trim()
-    , title: req.body.title // && req.body.title.trim()
-    , description: req.body.description
-    , minimumContributionAmount: Number(req.body.minimumContributionAmount)
-    , limit: Number(req.body.limit)
-    , taken: Number(req.body.taken)
-  };
+  //const data = {
+  //  proposalRef: proposalRef
+  //  , kind: req.body.kind  //.trim()
+  //  , title: req.body.title // && req.body.title.trim()
+  //  , description: req.body.description
+  //  , minimumContributionAmount: Number(req.body.minimumContributionAmount)
+  //  , contributionInterval: req.body.contributionInterval
+  //  , limit: Number(req.body.limit)
+  //  , taken: Number(req.body.taken)
+  //};
+  const data = Model.copyParams(null, req.body);
   console.log(`save id: ${id}, data: ${_.inspect(data)}`);
   ModelService.save(id, data)
     .then((saved) => {
@@ -120,7 +122,8 @@ function uri(tail) {
 /** returns to last viewed proposal, or falls back to proposal index view */
 function gotoBaseView(req, res) {
   const proposalId = req.session.currentProposalId;
-  const path = proposalId ? `/p/${proposalId}/view` : '/admin/proposal';
+  console.log('currentpropid: ' + proposalId);
+  const path = proposalId ? `/p/${proposalId}/adminView` : '/admin/proposal';
   res.redirect(path);
 }
 

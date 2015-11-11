@@ -19,8 +19,9 @@ var attributes = _.merge({
   , title: String
   , description: String
   , minimumContributionAmount: Number
+  , contributionInterval: String  // used for subscription / periodic membership fees, 'monthly', 'yearly'
   , limit: Number  // total units offered, (if blank, then unlimited)
-  , taken: Number  // number of units taken so far
+  , taken:  { type: Number, default: 0 }  // number of units taken so far
   , isRegulated: Boolean  // indicated this offer has restrictions
   , supporterCriteria: mongoose.Schema.Types.Mixed  // attributes hash
 }, baseModel.baseAttributes);
@@ -38,6 +39,21 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
   return helpers.buildOptionsFromList(KIND_VALUES, null, null, selectedValue, includeNone, noneDisplayArg);
 }
 
+// fields to directly populate from edit forms
+const STRING_PARAM_FIELDS = [
+  'kind', 'title', 'description', 'contributionInterval' // 'minimumContributionAmount',
+  , 'limit', 'taken', 'isRegulated'
+];
+
+function copyParams(target, params) {
+  const result = target || {};
+  _.assign(result, _.pick(params, STRING_PARAM_FIELDS));
+  _.assignNumericParam(result, params, 'minimumContributionAmount');
+  //result.isRegulated = Boolean.parse(params.isRegulated);
+  return result;
+}
+
+
 const modelFactory = function () {
 
   const schema = mongoose.Schema(attributes);
@@ -49,6 +65,7 @@ const modelFactory = function () {
   const model = mongoose.model('Offer', schema);
   model.KIND = KIND;
   model.buildKindOptions = buildKindOptions;
+  model.copyParams = copyParams;
   return model;
 
 };

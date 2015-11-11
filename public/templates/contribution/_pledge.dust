@@ -34,11 +34,13 @@
       <input type="checkbox" name="member" value="true"><br>
       <a class="btn btn-patron btn-lg" href="javascript:return false;">I Want to be a Member</a>
 
-    {!{#memberships}!}
-    {!<div class="alert alert-success">!}
-    {!<input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}<br>!}
-    {!</div>!}
-    {!{/memberships}!}
+    {#memberships}
+    <div class="alert alert-success">
+    <input type="checkbox" name="memberships" value="{_id}"> Membership: {title} &nbsp; ${minimumContributionAmount}
+      {?contributionInterval} / {contributionInterval}{/contributionInterval}
+      <br>
+    </div>
+    {/memberships}
     </div>
     {/memberEnabled}
 

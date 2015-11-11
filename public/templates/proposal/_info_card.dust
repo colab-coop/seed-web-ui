@@ -14,13 +14,23 @@
 
     <div class="proposal_data">
       <ul>
-        <li>
-          Needs: {@formatNumber val=goalAmount style="currency" currency="USD"/}
-        </li>
-        <li>
-          Pledged to date: {@formatNumber val=pledgedCapitalTotal style="currency" currency="USD"/}<br>
-          Supporters: {supporterCount}
-        </li>
+
+        {@eq key=subType value="memberdrive"}
+          <li>
+            Member Goal: {goalAmount}
+          </li>
+          <li>
+            Members So Far: {supporterCount}
+          </li>
+        {:else}
+          <li>
+            Needs: {@formatNumber val=goalAmount style="currency" currency="USD"/}
+          </li>
+          <li>
+            Pledged to date: {@formatNumber val=pledgedCapitalTotal style="currency" currency="USD"/}<br>
+            Supporters: {supporterCount}
+          </li>
+        {/eq}
         <li>
           {?closingDate}
             Closing: {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}

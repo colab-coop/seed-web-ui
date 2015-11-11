@@ -8,6 +8,7 @@
     Title: {title}<br>
     Description: {description}<br>
     Minimum Contribution Amount: {minimumContributionAmount}<br>
+    Contribution Interval: {contributionInterval}<br>
     Number Offered: {limit}<br>
     Taken So Far: {taken}<br>
     {!Is Regulated: {isRegulated}<br>!}

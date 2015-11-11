@@ -26,6 +26,7 @@ const attributes = _.merge({
   , description: String   // rename this to 'story'?
   , socialMediaLinks: mongoose.Schema.Types.Mixed   // future
 
+  , subType: String  // default, memberdrive
   // engagement flags
   , patronEnabled: Boolean
   , memberEnabled: Boolean
@@ -37,15 +38,16 @@ const attributes = _.merge({
   , goalAmount: Number
   , goalUnits: String  //to support campaigns for # of units pre-sold, etc
   , merchantConfigRef: {type: String, ref: 'MerchantConfig'}
-  , pledgedCapitalTotal: Number
-  , paidCapitalTotal: Number
-  , supporterCount: Number  // total number of pledging users
+  , pledgedCapitalTotal:  { type: Number, default: 0 }
+  , paidCapitalTotal:  { type: Number, default: 0 }
+  , supporterCount:  { type: Number, default: 0 }  // total number of pledging users
 }, baseModel.baseAttributes);
 
 
 
 const KIND = {
   campaign: 'campaign'
+  , memberdrive: 'memberdrive'
   , sector: 'sector'
   , proposal: 'proposal'
   , vision: 'vision'
@@ -66,7 +68,7 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
 
 // fields to directly populate from edit forms
 const PARAM_FIELDS = [
-  'kind', 'parentRef', 'title', 'summary', 'location', 'description'
+  'kind', 'subType', 'parentRef', 'title', 'summary', 'location', 'description'
   , 'patronEnabled', 'memberEnabled', 'funderEnabled', 'merchantConfigRef'
 ];
 
@@ -77,9 +79,10 @@ function copyParams(target, params) {
   result.patronEnabled = params.patronEnabled;
   result.memberEnabled = params.memberEnabled;
   result.funderEnabled = params.funderEnabled;
-  if (params.goalAmount) {
-    result.goalAmount = Number(params.goalAmount)
-  }
+  //if (params.goalAmount) {
+  //  result.goalAmount = Number(params.goalAmount)
+  //}
+  _.assignNumericParam(result, params, 'goalAmount');
   if (params.closingDate) {
     result.closingDate = new Date(params.closingDate); //todo: need a way to remove, this will ignore if blank
   }

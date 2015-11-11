@@ -61,6 +61,26 @@
   </div>
 </div>
 
+<!-- Goal amount-->
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="goalAmount">Goal Amount</label>
+
+  <div class="col-sm-8">
+    <input id="goalAmount" value="{item.goalAmount}" name="goalAmount" type="text" placeholder="5000"
+           class="form-control input-md">
+  </div>
+</div>
+
+<!-- Closing date -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="closingDate">Closing Date</label>
+
+  <div class="col-sm-8">
+    <input id="closingDate" value="{item.closingDate}" name="closingDate" type="text" placeholder="12/31/2015"
+           class="form-control input-md">
+  </div>
+</div>
+
 <!-- Proposal location-->
 <div class="form-group">
   <label class="col-sm-2 control-label" for="location">Location</label>

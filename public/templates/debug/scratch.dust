@@ -1,0 +1,17 @@
+{>"layouts/master" /}
+
+{<body}
+  <h3>scratch</h3>
+
+  raw date: {date}<br/>
+  static: {@formatDate date="12/3/2015" format="MM/DD/YYYY" lan="en-US"/}<br/>
+  model: {@formatDate date=date format="MM/DD/YYYY" lan="en-US"/}<br/>
+  my static: {@myFormatDate date="12/3/2015" format="MM/DD/YYYY" lan="en-US"/}<br/>
+  my model: {@myFormatDate date="{date}" format="MM/DD/YYYY" lan="en-US"/}<br/>
+  manual format: {formatted}<br/>
+
+  currency: {@formatNumber val="5500.10" style="currency" currency="USD"/}<br/>
+
+  {@foo/}
+
+{/body}

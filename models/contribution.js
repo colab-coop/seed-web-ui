@@ -32,14 +32,21 @@ const attributes = _.merge({
   , offers: [{type: String, ref: 'Offer'}]
   , memberships: [{type: String, ref: 'Offer'}]
   , perks: [{type: String, ref: 'Offer'}]
+  // future functionality
+  , isRecurring: Boolean
+  , recurringInterval: String  // would need to define this
+  , recurringStart: Date
+  , recurringFinish: Date
 }, baseModel.baseAttributes);
+
+
 
 const modelFactory = function () {
 
   const schema = mongoose.Schema(attributes);
 
   schema.methods.toString = function () {
-    return 'Contribution[' + this._id + ', amount: ' + this.amount + ']';
+    return 'Contribution[' + this._id + ', pledgedCapital: ' + this.pledgedCapital + ']';
   };
 
   return mongoose.model('Contribution', schema);

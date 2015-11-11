@@ -16,8 +16,8 @@ const baseAttributes = {
     unique: true,
     'default': shortid.generate
   }
-  , createdDate: Date
-  , updatedDate: Date
+  , createdAt: { type: Date, default: Date.now }
+  , updatedAt: Date
   // Relation to User object via created user id
   , createdByRef: {type: String, ref: 'User'}
   // Relation to User object via updated user id

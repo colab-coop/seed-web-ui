@@ -249,22 +249,6 @@ function logout(req, res) {
 }
 
 
-function dump(req, res) {
-  const kraken = req.app.kraken;
-  const env = kraken.get('env').env;
-  console.log('env: ' + kraken.get('express').env);
-//  const krakenDump = _.inspect(kraken);
-//  res.render('dump', {kraken: krakenDump});
-  res.json(200, {kraken: kraken});
-
-}
-
-function testWelcomeEmail(req, res) {
-  userLib.emailUser(req.user.profile.email, req.user.profile.name)
-    .then( (status) => res.json(200, {status: status}) )
-    .catch(curriedHandleError(req, res));
-}
-
 function forgotPassword(req, res) {
   res.render('forgot_password');
 }
@@ -307,16 +291,51 @@ function addRoutes(router) {
   router.get('/m/:profileId', viewProfile);
   router.get('/logout', logout);
 
-  router.get('/dump', dump);
-  router.get('/test/welcomeEmail', testWelcomeEmail);
-
   router.get('/forgotPassword', forgotPassword);
   router.post('/forgotPassword', sendPasswordResetEmail);
   router.get('/resetPassword', resetPassword);
   router.post('/resetPassword', updatePassword);
+
+  router.get('/dump', dump);
+  router.get('/scratch', scratch);
+  router.get('/test/welcomeEmail', testWelcomeEmail);
+
+
 }
 
 
 module.exports = {
   addRoutes: addRoutes
 };
+
+
+//
+// debug and scratch code
+//
+
+function dump(req, res) {
+  const kraken = req.app.kraken;
+  const env = kraken.get('env').env;
+  console.log('env: ' + kraken.get('express').env);
+//  const krakenDump = _.inspect(kraken);
+//  res.render('dump', {kraken: krakenDump});
+  res.json(200, {kraken: kraken});
+
+}
+
+function scratch(req, res) {
+  const date = Date.now();
+  const moment = require('moment');
+  const formatted = moment(date).format('MM/DD/YYYY');
+  console.log(`formatted date: ${formatted}`);
+  res.render('debug/scratch', { date: date, formatted: formatted });
+}
+
+
+
+function testWelcomeEmail(req, res) {
+  userLib.emailUser(req.user.profile.email, req.user.profile.name)
+    .then( (status) => res.json(200, {status: status}) )
+    .catch(curriedHandleError(req, res));
+}
+

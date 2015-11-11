@@ -21,17 +21,28 @@ const attributes = _.merge({
   , kind: String // campaign, sector, proposal
   , parentRef: {type: String, ref: 'Proposal'} // used for sector associations or child proposals
   , title: String
-  , summary: String
+  , summary: String  // shown in list views, html
   , location: String
-  , description: String
+  , description: String   // rename this to 'story'?
+  , socialMediaLinks: mongoose.Schema.Types.Mixed   // future
+
   // engagement flags
   , patronEnabled: Boolean
   , memberEnabled: Boolean
   , funderEnabled: Boolean
+
+  , startingDate: Date  //needed?
+  , closingDate: Date
+  , needsTip: Boolean  // if true, then campaign succeeds or fails based on pledged vs goal. if false
+  , goalAmount: Number
+  , goalUnits: String  //to support campaigns for # of units pre-sold, etc
   , merchantConfigRef: {type: String, ref: 'MerchantConfig'}
   , pledgedCapitalTotal: Number
   , paidCapitalTotal: Number
+  , supporterCount: Number  // total number of pledging users
 }, baseModel.baseAttributes);
+
+
 
 const KIND = {
   campaign: 'campaign'
@@ -66,6 +77,12 @@ function copyParams(target, params) {
   result.patronEnabled = params.patronEnabled;
   result.memberEnabled = params.memberEnabled;
   result.funderEnabled = params.funderEnabled;
+  if (params.goalAmount) {
+    result.goalAmount = Number(params.goalAmount)
+  }
+  if (params.closingDate) {
+    result.closingDate = new Date(params.closingDate); //todo: need a way to remove, this will ignore if blank
+  }
   return result;
 }
 

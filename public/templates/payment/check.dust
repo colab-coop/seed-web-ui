@@ -34,13 +34,14 @@
       <br>
       <input type="radio" name="checkMethod" value="googleWallet">
       <b>Google Wallet</b><br>
-      seed.coop@gmail.com<br>
+      Send payment to: seed.coop@gmail.com<br>
+      {!Include Payment ID: <b>12345</b> in message.!}
       <br>
-      <input type="radio" name="checkMethod" value="venmo">
-      <b>Venmo</b><br>
-      SeedCoop-Inc<br>
-      <br>
-      Note: please enter the Payment ID <b>12345</b> in the memo of your check or as the account # of your Bill Pay.
+      {!<input type="radio" name="checkMethod" value="venmo">!}
+      {!<b>Venmo</b><br>!}
+      {!SeedCoop-Inc<br>!}
+      {!<br>!}
+      Note: please enter the Payment ID <b>12345</b> in the memo/message of your check/e-check or as the account # of your Bill Pay.
       <br>
       <br>
       <input type="hidden" name="_csrf" value="{_csrf}">

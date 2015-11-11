@@ -4,22 +4,22 @@
 
   {>"proposal/_info_card"/}
 
-  <div class="proposal_metrics">
-    <ul>
-      <li>
-        Consumer Supporters<br>1234
-      </li>
-      <li>
-        Members<br>123
-      </li>
-      <li>
-        Funders<br>12
-      </li>
-      <li>
-        Metrics 4<br>N/A
-      </li>
-    </ul>
-  </div>
+  {!<div class="proposal_metrics">!}
+    {!<ul>!}
+      {!<li>!}
+        {!Consumer Supporters<br>1234!}
+      {!</li>!}
+      {!<li>!}
+        {!Members<br>123!}
+      {!</li>!}
+      {!<li>!}
+        {!Funders<br>12!}
+      {!</li>!}
+      {!<li>!}
+        {!Metrics 4<br>N/A!}
+      {!</li>!}
+    {!</ul>!}
+  {!</div>!}
 
   <div class="proposal_description">
     {description|s}

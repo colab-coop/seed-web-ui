@@ -15,16 +15,20 @@
     <div class="proposal_data">
       <ul>
         <li>
-          Needs: $12,900
+          Needs: {@formatNumber val=goalAmount style="currency" currency="USD"/}
         </li>
         <li>
-          Funding to date: $5,000
+          Pledged to date: {@formatNumber val=pledgedCapitalTotal style="currency" currency="USD"/}<br>
+          Supporters: {supporterCount}
         </li>
         <li>
-          Closing: 12/31/2015
+          {?closingDate}
+            Closing: {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}
+          {/closingDate}
         </li>
       </ul>
     </div>
 
   </div>
 </div>
+

@@ -1,0 +1,79 @@
+<h3>Share Your Vision</h3>
+
+<form method="post" action="/proposals" class="form-horizontal">
+  <fieldset>
+    <input type="hidden" name="_csrf" value="{_csrf}"/>
+
+    <!-- Coop Name -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="orgName">Coop Name</label>
+
+      <div class="col-sm-8">
+        <input value="{item.orgName}" name="orgName" type="text" class="form-control input-md" required>
+        <span class="help-block">Required</span>
+      </div>
+    </div>
+
+    <!-- Campaign Name -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="campaignName">Campaign Name</label>
+
+      <div class="col-sm-8">
+        <textarea class="form-control" rows="4" name="campaignName" required></textarea>
+        <span class="help-block">Required</span>
+      </div>
+    </div>
+
+
+    <!-- Tagline -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="tagline">Tagline</label>
+
+      <div class="col-sm-8">
+        <textarea class="form-control" rows="4" name="tagline" placeholder="What you’re doing in 50 words" required></textarea>
+        <span class="help-block">Required</span>
+      </div>
+    </div>
+
+    <!-- First Name -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="firstName">First Name</label>
+
+      <div class="col-sm-8">
+        <input value="{item.firstName}" name="firstName" type="text" class="form-control input-md" required>
+        <span class="help-block">Required</span>
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="lastName">Last Name</label>
+
+      <div class="col-sm-8">
+        <input value="{item.lastName}" name="lastName" type="text" class="form-control input-md" required>
+        <span class="help-block">Required</span>
+      </div>
+    </div>
+
+
+    <!-- Email -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="title">Email</label>
+
+      <div class="col-sm-8">
+        <input value="{item.email}" name="email" type="email" class="form-control input-md" required>
+        <span class="help-block">Required</span>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="save"></label>
+
+      <div class="col-sm-8">
+        <button type="submit" name="save" class="btn btn-primary btn-lrg">Submit</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

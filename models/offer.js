@@ -18,6 +18,8 @@ var attributes = _.merge({
   , kind: String   // the type of offer, i.e. membership, perk
   , title: String
   , description: String
+  , impact: String
+  , teamSummary: String
   , minimumContributionAmount: Number
   , contributionInterval: String  // used for subscription / periodic membership fees, 'monthly', 'yearly'
   , limit: Number  // total units offered, (if blank, then unlimited)

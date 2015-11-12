@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{+title /}</title>
   <link rel="stylesheet" href="/css/app.css">
 </head>
@@ -14,6 +15,13 @@
    {! nav bar !}
     <div class="row navigation-bar">
       <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom" role="navigation">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="navbar-logo">

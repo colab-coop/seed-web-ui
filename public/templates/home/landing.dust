@@ -16,7 +16,8 @@
 
     <div class="btn btn-primary btn-more btn-more--landing-raise">Learn More <span class="fa fa-caret-down"></span></div>
   </div>
-  {![learn more] (will open special seed.coop campaign view)!}
+  {!NOTE, it is assumed that there is a single proposal with sub type: 'seedcoop'.  !}
+  {!that campaign is populated into this attribute!}
   {#seedcoop}
     <div>
     {>"proposal/_list_item"/}
@@ -38,6 +39,8 @@
   <h2>Support Existing Coops</h2>
   <br>
 
+
+  {!NOTE, the 'items' attribute used by this partial is populated by proposals with subtype 'featured'  !}
   {> "proposal/_list_items" /}
 
 

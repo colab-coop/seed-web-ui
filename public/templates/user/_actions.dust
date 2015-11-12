@@ -1,0 +1,6 @@
+{!assumes user!}
+
+{!<a href="/admin/user/{_id}/edit">[Edit User]</a>!}
+{!<a href="/admin/profile/{profile._id}/edit">[Edit Profile]</a>!}
+
+

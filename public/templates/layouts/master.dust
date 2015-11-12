@@ -43,9 +43,9 @@
                   <li><a href="/admin">ADMIN</a></li>
                 {/user.isAdmin}
                 {!{@eq key=user.profile.memberType value="full"}!}
-                {#user.hasModeratorAccess}
-                  <li><a href="/admin">Admin</a></li>
-                {/user.hasModeratorAccess}
+                {!{#user.hasModeratorAccess}!}
+                  {!<li><a href="/admin">Admin</a></li>!}
+                {!{/user.hasModeratorAccess}!}
                 <li><a href="/me">{profile.name} [{profile.memberType} member]</a></li>
                 <li><a href="/logout">Log Out</a> </li>
               {:else}

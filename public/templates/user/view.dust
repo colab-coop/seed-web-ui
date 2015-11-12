@@ -1,0 +1,43 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>User / Profile</h2>
+
+  {#item}
+    <b>User:</b><br>
+    Id: {_id}<br/>
+    Email: {email}<br/>
+    Is Admin: {isAdmin}<br/>
+
+    {#defaultProfileRef}
+    <b>Profile:</b><br>
+    name: {name}<br/>
+    firstName: {firstName}<br/>
+    lastName: {lastName}<br/>
+    orgName: {orgName}<br/>
+    displayName: {displayName}<br/>
+    email: {email}<br/>
+    phone: {phone}<br/>
+    address: {address}<br/>
+    location: {location}<br/>
+    {!, about: String!}
+    {!, imageUrl: String!}
+    {!, taxId: String!}
+    memberType: {memberType}<br/>
+    membershipPayments: {membershipPayments}<br/>
+    stripeCustomerId: {stripeCustomerId}<br/>
+    {/defaultProfileRef}
+
+
+    {>"user/_actions"/}
+
+    {!<br><br>!}
+    {!<a href="/admin/mc/{_id}/delete">[Delete]</a>!}
+
+  {/item}
+
+  <br><br>
+  <a href="/admin/user">[back]</a>
+
+
+{/body}

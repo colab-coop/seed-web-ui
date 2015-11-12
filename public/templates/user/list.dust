@@ -1,0 +1,37 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>Users / Profiles</h2>
+
+  <table border="2">
+    <th>email</th><th>display name</th><th>organization</th><th>type</th><th>actions</th>
+    {#items}
+      <tr>
+        <td>
+          <a href="/admin/user/{_id}/view">{email}</a>
+        </td>
+        {#defaultProfileRef}
+        <td>
+          {displayName}
+        </td>
+        <td>
+          {orgName}
+        </td>
+        <td>
+          {memberType}
+        </td>
+        {/defaultProfileRef}
+        <td>
+          {>"user/_actions"/}
+          {!<a href="/admin/sector/{_id}/edit">[Edit]</a>!}
+        </td>
+      </tr>
+    {/items}
+  </table>
+  <br> <br>
+  <a href="/admin/mc/new/edit">Create New Merchant Config</a>
+
+  <br><br>
+  <a href="/admin">[back]</a>
+
+{/body}

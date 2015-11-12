@@ -1,3 +1,7 @@
+#NODE_ENV=development
+#TMP=/home/elliott/colab/tmp
+
+
 databaseConfig_host=localhost
 databaseConfig_database=seedbomb
 
@@ -14,9 +18,12 @@ braintree_privateKey=xxx
 export redis_host=localhost
 export redis_port=6379
 
-# note, you'll need to enable 'less secure apps' if testing with gmail
-# https://www.google.com/settings/security/lesssecureapps
-email_from=The Sender <sender@something.tld>
-email_sender=sender@something.tld
-email_senderPassword=supersekrit
+email_from=Seed Staging <seed-noreply-staging@seed.coop>
+email_sender=seed-noreply-staging@seed.coop
+email_sesAccessKey=AKIxxx
+email_sesSecretKey=ce7xxx
 email_enabled=false
+
+# use /me/promoteAdmin?key=...  to bootstrap your admin user
+admin_bootstrapKey=secret
+

@@ -24,6 +24,11 @@ const attributes = _.merge({
   , summary: String  // shown in list views, html
   , location: String
   , description: String   // rename this to 'story'?
+
+  , impact: String
+  , teamSummary: String
+  , paymentDetails: String // ? not sure what this needs to be... account? stripe?
+
   , socialMediaLinks: mongoose.Schema.Types.Mixed   // future
 
   , subType: String  // default, memberdrive

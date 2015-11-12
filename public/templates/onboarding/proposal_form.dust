@@ -9,7 +9,7 @@
 
       <!-- Description -->
       <div class="form-group">
-        <label class="col-sm-2 control-label" for="proposal[descritpion]">Description</label>
+        <label class="col-sm-2 control-label" for="proposal[description]">Description</label>
 
         <div class="col-sm-8">
           <textarea class="form-control" rows="4" name="proposal[description]" required></textarea>

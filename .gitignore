@@ -15,7 +15,6 @@ handlebars_build.js
 npm-debug.log
 public/js/compiled/
 Cheffile
-Vagrantfile
 valuate.lock
 data/bins_iso*
 data/*.log

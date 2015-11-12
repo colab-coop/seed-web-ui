@@ -1,3 +1,7 @@
+/*
+  Banner: Full width
+*/
+
 .banner-full-block--landing {
 	background-image: url("https://unsplash.it/2000/600?image=846");
 	padding-top: 220px;
@@ -8,6 +12,10 @@
 		font-family: $font-family-slab;
 	}
 }
+
+/*
+  Section: Raise Money
+*/
 
 .heading-1--landing-raise {
 	position: relative;
@@ -22,4 +30,14 @@
 		left: -50px;
 	}
 }
+
+/*
+  Section: Call to action
+*/
+
+.landing-member-action-block {
+	background-color: $green-fern;
+}
+
+
 

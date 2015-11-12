@@ -13,8 +13,10 @@
   <div class="container">
     <h2 class="heading-1 heading-1--landing-raise"><img src="/images/icons/acorn.svg" alt="" class="heading-graphic-acorn" width="34">Raise money from your community</h2>
     <p class="sub-heading">Seed is enabling the corporate movement to scale into the digital age. Anyone can master their own destiny. Find out how.</p>
+
+    <div class="btn btn-primary">Learn More</div>
   </div>
-  [learn more] (will open special seed.coop campaign view)<br>
+  [learn more] (will open special seed.coop campaign view)
 
   {?user}
   {:else}

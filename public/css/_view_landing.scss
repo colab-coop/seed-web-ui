@@ -48,7 +48,14 @@
 */
 
 .landing-member-action-block {
+	color: $white;
 	background-color: $green-fern;
+	padding-top: $spacing;
+	padding-bottom: ($spacing * 2.5);
+
+	.form-horizontal {
+		margin-top: $spacing-3;
+	}
 }
 
 

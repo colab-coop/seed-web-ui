@@ -202,12 +202,14 @@ function postJoin(req, res) {
   userData.password = 'xxxxxx';  //tmp hack, should leave password undefined once we have reset flow
   userData.memberType = Profile.MEMBERSHIP_TYPES.provisional;
   console.log(`get involved new user: ${_.inspect(userData)}`);
+  let user;
   UserService.createUser(userData)
-    .then((user) => {
+    .then((savedUser) => {
+      user = savedUser;
       UserService.login(req, user);
     })
     .then(() => {
-      UserService.sendWelcomeEmail(userData);
+      UserService.sendWelcomeEmail(user);
     })
     .then(() => {
       //res.redirect('/afterAuth');  //todo: need something better to do here

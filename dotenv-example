@@ -23,6 +23,7 @@ email_sender=seed-noreply-staging@seed.coop
 email_sesAccessKey=AKIxxx
 email_sesSecretKey=ce7xxx
 email_enabled=false
+email_rootUrl=http://local.coop:8000
 
 # use /me/promoteAdmin?key=...  to bootstrap your admin user
 admin_bootstrapKey=secret

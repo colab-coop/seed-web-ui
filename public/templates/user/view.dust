@@ -7,7 +7,11 @@
     <b>User:</b><br>
     Id: {_id}<br/>
     Email: {email}<br/>
-    Is Admin: {isAdmin}<br/>
+    Is Admin: {isAdmin}
+    <a href="/admin/user/{id}/setAdmin?value=true">[enable]</a>
+    <a href="/admin/user/{id}/setAdmin?value=false">[disable]</a>
+
+    <br/>
 
     {#defaultProfileRef}
     <b>Profile:</b><br>
@@ -34,10 +38,12 @@
     {!<br><br>!}
     {!<a href="/admin/mc/{_id}/delete">[Delete]</a>!}
 
-  {/item}
-
   <br><br>
   <a href="/admin/user">[back]</a>
+  <br/><br/>
+
+  {/item}
+
 
 
 {/body}

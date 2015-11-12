@@ -94,7 +94,8 @@ function setAdmin(req, res) {
   }
   const value = 'false' != req.query.value; //Boolean.parse(req.query.value);
   const key = req.query.key;
-  if (key === adminConfig.bootstrapKey) {
+  const isCurrentUserAdmin = req.user && req.user.isAdmin;
+  if (isCurrentUserAdmin || (key === adminConfig.bootstrapKey)) {
     ModelService.setAdmin(id, value)
       .then(() => res.redirect(`/admin/user/${id}/view`) )
       .catch( curriedHandleError(req, res) );

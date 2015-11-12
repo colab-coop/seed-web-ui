@@ -1,6 +1,6 @@
 .settings*
 .project
-.env
+.env*
 .c9revisions
 .idea
 .build

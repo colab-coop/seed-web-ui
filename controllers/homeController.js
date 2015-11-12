@@ -207,10 +207,18 @@ function postJoin(req, res) {
       UserService.login(req, user);
     })
     .then(() => {
+      UserService.sendWelcomeEmail(userData);
+    })
+    .then(() => {
       //res.redirect('/afterAuth');  //todo: need something better to do here
       res.redirect('/');
     })
     .catch(curriedHandleError(req, res));
+}
+
+function completeSignup(req, res) {
+  console.log('completing signup')
+  res.redirect('/');
 }
 
 function viewMyProfile(req, res) {
@@ -308,6 +316,7 @@ function addRoutes(router) {
   passthrough(router, 'who_we_are');
   router.get('/login', showLogin);
   router.post('/login', postLogin);
+  router.get('/completeSignup/:id', completeSignup);
   router.get('/signup', showSignup);
   router.post('/signup', postSignup);
   router.post('/join', postJoin);
@@ -363,4 +372,3 @@ function testWelcomeEmail(req, res) {
     .then( (status) => res.json(200, {status: status}) )
     .catch(curriedHandleError(req, res));
 }
-

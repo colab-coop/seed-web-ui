@@ -44,9 +44,9 @@
     <input type="submit" value="Complete Payment">
   </form>
   <script>
-    document.addEventListener( "DOMContentLoaded",
-                               (e) => require('public/js/card').registerHooks(),
-                               false);
+    document.addEventListener( "DOMContentLoaded", function(e) {
+      require('public/js/card').registerHooks()
+    }, false);
   </script>
 
   {!<br>!}

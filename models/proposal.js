@@ -12,9 +12,12 @@ const Promise = require('bluebird');
 mongoose.Promise = Promise;
 const baseModel = require('./baseModel');
 const crate = require('mongoose-crate');
+const S3 = require('mongoose-crate-s3')
 const LocalFS = require('mongoose-crate-localfs');
 const appRoot = require('app-root-path');
 const helpers = require('../lib/helpers');
+const config = require('../lib/config');
+const path = require('path');
 
 const attributes = _.merge({
   profileRef: {type: String, ref: 'Profile'}
@@ -43,11 +46,10 @@ const attributes = _.merge({
   , goalAmount: Number
   , goalUnits: String  //to support campaigns for # of units pre-sold, etc
   , merchantConfigRef: {type: String, ref: 'MerchantConfig'}
-  , pledgedCapitalTotal:  { type: Number, default: 0 }
-  , paidCapitalTotal:  { type: Number, default: 0 }
-  , supporterCount:  { type: Number, default: 0 }  // total number of pledging users
+  , pledgedCapitalTotal: {type: Number, default: 0}
+  , paidCapitalTotal: {type: Number, default: 0}
+  , supporterCount: {type: Number, default: 0}  // total number of pledging users
 }, baseModel.baseAttributes);
-
 
 
 const KIND = {
@@ -61,10 +63,10 @@ const KIND = {
 
 //todo figure out best way to handle select rendering
 const KIND_OPTIONS = [
-  {value:'campaign', display:'Campaign'}
-  , {value:'sector', display:'Sector'}
-  , {value:'proposal', display:'Proposal'}
-  , {value:'vision', display:'Vision'}
+  {value: 'campaign', display: 'Campaign'}
+  , {value: 'sector', display: 'Sector'}
+  , {value: 'proposal', display: 'Proposal'}
+  , {value: 'vision', display: 'Vision'}
 ];
 
 function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
@@ -97,6 +99,8 @@ function copyParams(target, params) {
 
 const modelFactory = function () {
 
+  const fileUploadConfig = config.get('fileUpload');
+  console.log( "CONFIG:" + _.inspect(fileUploadConfig));
   const schema = mongoose.Schema(attributes);
 
   schema.methods.toString = function () {
@@ -104,7 +108,7 @@ const modelFactory = function () {
   };
 
   // populate fields directly from post body
-  schema.methods.assignParams = function(params) {
+  schema.methods.assignParams = function (params) {
     copyParams(this, params);
   };
 
@@ -131,25 +135,35 @@ const modelFactory = function () {
     });
   };
 
+  schema.methods.imageUrl = function () {
+    return fileUploadConfig.storage === 'S3' ? this.image.url : '/' + this.image.name;
+  };
+
+  const storage = fileUploadConfig.storage === 'S3'
+    ? new S3({
+    key: fileUploadConfig.S3ApiKey,
+    secret: fileUploadConfig.S3Secret,
+    bucket: fileUploadConfig.S3Bucket,
+    region: fileUploadConfig.S3Region,
+    path: (attachment) => '/' + path.basename(attachment.path)
+  })
+    : new LocalFS({
+    directory: appRoot.resolve(fileUploadConfig.LocalFSFolder)
+  });
 
 
   schema.plugin(crate, {
-    storage: new LocalFS({
-      // TODO: get the upload folder from config
-      directory: appRoot.resolve('/u')
-    }),
+    storage: storage,
     fields: {
       image: {}
     }
   });
-
 
   var model = mongoose.model('Proposal', schema);
   model.KIND = KIND;
   model.KIND_OPTIONS = KIND_OPTIONS;
   model.buildKindOptions = buildKindOptions;
   model.copyParams = copyParams;
-
   return model;
 
 };

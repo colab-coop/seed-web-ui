@@ -4,8 +4,9 @@
   <html><body>
 {/wrap}
 
-
-  {>"home/campaign/loconomics"/}
+{#seedcoop}
+  {>"home/campaign/seedcoop"/}
+{/seedcoop}
 
 {?wrap}
   </body></html>

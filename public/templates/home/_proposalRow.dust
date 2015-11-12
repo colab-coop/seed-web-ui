@@ -11,7 +11,7 @@
     <div class="proposal_summary">{summary}</div>
 
     <div class="learn_more">
-      <a class="btn btn-default btn-sm" href="/p/{_id}/more">LEARN MORE</a>
+      <a class="btn btn-default btn-sm" href="/p/{_id}/more?wrap=true" target="_blank">LEARN MORE</a>
     </div>
 
   </div>

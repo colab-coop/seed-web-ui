@@ -34,16 +34,26 @@ function home(req, res) {
   ProposalService.fetchOneByFilter({subType: 'seedcoop'}) // the one special seedcoop campaign
     .then((result) => {
       model.seedcoop = result;
-      return Proposal.find({subType: 'featured'})  // the list of campaings to show on the landing page
+      return Proposal.find({subType: 'featured'});  // the list of campaings to show on the landing page
     })
     .then((results) => {
       model.items = results;
       res.render('home/landing', model);
     })
     .catch(curriedHandleError(req, res));
-
-
 }
+
+function seedMore(req, res) {
+  const model = {};
+  ProposalService.fetchOneByFilter({subType: 'seedcoop'}) // the one special seedcoop campaign
+    .then((result) => {
+      model.seedcoop = result;
+      res.render('home/seedMore', model);
+    })
+    .catch(curriedHandleError(req, res));
+}
+
+
 
 function listProposals(req, res) {
   listProposalsView(req, res, 'list', Proposal.KIND.campaign);
@@ -118,11 +128,11 @@ function showMore(req, res) {
   showProposalForId(req, res, 'home/more', id);
 }
 
-
 function showProposalForId(req, res, viewPath, id) {
   req.session.currentProposalId = id;  //save this for return flows
 
-  const model = {};
+
+  const model = {wrap: req.query.wrap};
   model.profile = req.user ? req.user.profile : {};
   let proposal;
   ProposalService.fetch(id)
@@ -278,6 +288,7 @@ function addRoutes(router) {
   router.get(uri('/view'), showProposal);
 
   router.get(uri('/:id/more'), showMore);
+  router.get('/seedMore', seedMore);
 
   router.get(uri('/:id/view'), showProposal);
 

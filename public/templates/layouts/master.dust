@@ -15,40 +15,45 @@
    {! nav bar !}
     <div class="row navigation-bar">
       <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom" role="navigation">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="navbar-logo">
-              <a href="/">
-                <img src="/images/seedcooplogo.png" alt="Home" />
-              </a>
-            </li>
-            {!<li><a href="/p">Proposals</a></li>!}
-            <li><a href="/how_it_works">How it works</a></li>
-            <li><a href="/who_we_are">Who we are</a></li>
-          </ul>
-           <ul class="nav navbar-nav navbar-right">
-            {#user}
-              {#user.isAdmin}
-                <li><a href="/admin">ADMIN</a></li>
-              {/user.isAdmin}
-              {!{@eq key=user.profile.memberType value="full"}!}
-              {#user.hasModeratorAccess}
-                <li><a href="/admin">Admin</a></li>
-              {/user.hasModeratorAccess}
-              <li><a href="/me">{profile.name} [{profile.memberType} member]</a></li>
-              <li><a href="/logout">Log Out</a> </li>
-            {:else}
-              <li><a href="/login">Log In</a></li>
-              <li><a href="/signup">Sign Up</a></li>
-            {/user}
-          </ul>
+        <div class="container-fluid">
+          <a href="/" class="navbar-logo">
+            <img src="/images/seedcooplogo.png" alt="Home" />
+          </a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <!-- <li class="navbar-logo">
+                <a href="/">
+                  <img src="/images/seedcooplogo.png" alt="Home" />
+                </a>
+              </li> -->
+              {!<li><a href="/p">Proposals</a></li>!}
+              <li><a href="/how_it_works">How it works</a></li>
+              <li><a href="/who_we_are">Who we are</a></li>
+            </ul>
+             <ul class="nav navbar-nav navbar-right">
+              {#user}
+                {#user.isAdmin}
+                  <li><a href="/admin">ADMIN</a></li>
+                {/user.isAdmin}
+                {!{@eq key=user.profile.memberType value="full"}!}
+                {#user.hasModeratorAccess}
+                  <li><a href="/admin">Admin</a></li>
+                {/user.hasModeratorAccess}
+                <li><a href="/me">{profile.name} [{profile.memberType} member]</a></li>
+                <li><a href="/logout">Log Out</a> </li>
+              {:else}
+                <li><a href="/login">Log In</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+              {/user}
+            </ul>
+          </div>
         </div>
       </nav>
     </div>

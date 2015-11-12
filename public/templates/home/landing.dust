@@ -1,0 +1,30 @@
+{>"layouts/master" /}
+
+{<body}
+
+  <h1>Build movements</h1>
+  <h2><a href="/how_it_works">Find out how</a></h2>
+  <br>
+  <h2>Raise money from your community<h2></h2>
+  [learn more] (will open special seed.coop campaign view)<br>
+
+  {?user}
+  {:else}
+  {>"home/_join" /}
+  {/user}
+
+
+  <h1>What future do you want to SEED?</h1>
+
+
+  <h2>Support Existing Coops</h2>
+  <br>
+
+  {> "proposal/_list_items" /}
+
+
+  {>"onboarding/_initial" /}
+
+
+
+{/body}

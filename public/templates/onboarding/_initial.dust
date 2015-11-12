@@ -1,4 +1,4 @@
-<h3>Share Your Vision</h3>
+<h3>Start Your Project Here</h3>
 
 <form method="post" action="/proposals" class="form-horizontal">
   <fieldset>
@@ -71,7 +71,7 @@
       <label class="col-sm-2 control-label" for="save"></label>
 
       <div class="col-sm-8">
-        <button type="submit" name="save" class="btn btn-primary btn-lrg">Submit</button>
+        <button type="submit" name="save" class="btn btn-primary btn-lrg">ON TO STEP 2</button>
       </div>
     </div>
 

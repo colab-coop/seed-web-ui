@@ -11,6 +11,7 @@ const validation = require('../lib/validation');
 const passthrough = helpers.passthrough;
 const curriedHandleError = _.curry(helpers.handleError);
 const ProfileService = require('../lib/profileService');
+const UserService = require('../lib/userService');
 const Profile = require('../models/profile');
 
 const contributionController = require('./contributionController');
@@ -191,6 +192,27 @@ function postSignup(req, res) {
     })
 }
 
+function postJoin(req, res) {
+  const wasAuthenticated = !!req.user;
+  const userData = {
+    firstName: req.body.name
+    , lastName: ''  // todo, better reconcile name vs fisrt/last in different forms on site
+    , email: req.body.email
+  };
+  userData.password = 'xxxxxx';  //tmp hack, should leave password undefined once we have reset flow
+  userData.memberType = Profile.MEMBERSHIP_TYPES.provisional;
+  console.log(`get involved new user: ${_.inspect(userData)}`);
+  UserService.createUser(userData)
+    .then((user) => {
+      UserService.login(req, user);
+    })
+    .then(() => {
+      //res.redirect('/afterAuth');  //todo: need something better to do here
+      res.redirect('/');
+    })
+    .catch(curriedHandleError(req, res));
+}
+
 function viewMyProfile(req, res) {
   res.render('me/profile', {profile: req.user.profile});
 }
@@ -288,6 +310,7 @@ function addRoutes(router) {
   router.post('/login', postLogin);
   router.get('/signup', showSignup);
   router.post('/signup', postSignup);
+  router.post('/join', postJoin);
   router.get('/afterAuth', afterAuth);
   router.get('/m/:profileId', viewProfile);
   router.get('/logout', logout);

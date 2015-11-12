@@ -44,7 +44,8 @@ const modelFactory = function () {
   const schema = mongoose.Schema(attributes);
 
   schema.pre('validate', function (next) {
-    if ((isBlank(this.firstName) || isBlank(this.lastName)) && isBlank(this.orgName)) {
+    //if ((isBlank(this.firstName) || isBlank(this.lastName)) && isBlank(this.orgName)) {
+    if (isBlank(this.firstName) && isBlank(this.orgName)) {
       const err = new Error('First and last name or org name is required');
       err.type = 'validation';
       next(err);

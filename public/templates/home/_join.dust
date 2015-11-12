@@ -1,0 +1,6 @@
+<b>Join the Seed.Coop movement?</b><br>
+<form class="form-horizontal dropzone" id='joinForm' method="POST" action="/join">
+<input type="text" name="name" placeholder="Name"> <input type="text" name="email" placeholder="email"><br>
+  <input type="hidden" name="_csrf" value="{_csrf}"/>
+  <button id="save" type="submit" name="signup" class="btn btn-primary">Submit</button>
+</form>

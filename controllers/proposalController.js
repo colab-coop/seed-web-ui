@@ -21,11 +21,12 @@ const baseTemplatePath = 'proposal';
 
 /** render a few relative to our base template path */
 function render(res, view, model) {
-  res.render(`${baseTemplatePath}/${view}`, model);
+  const viewPath = view.indexOf('/') >= 0 ? view : `${baseTemplatePath}/${view}`;
+  res.render(viewPath, model);
 }
 
 function home(req, res) {
-  listProposalsView(req, res, 'home', Proposal.KIND.campaign);
+  listProposalsView(req, res, 'home/landing', Proposal.KIND.campaign);
 }
 
 function listProposals(req, res) {

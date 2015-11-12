@@ -1,13 +1,14 @@
 {>"layouts/master" /}
 
 {<body}
-  <h2>Pay By Credit Card</h2>
+  <h2>Payment Information</h2>
 
-  <b>About Credit Cards</b><br>
-  blah blah blah<br>
+  <b>Please provide your credit card information.</b><br>
+  Note, your card will automatically be billed for {amount} on 12/31/2015
+  if the campaign reaches it's goal<br>
   <br>
 
-  <form action="/pay/stripe" method="POST">
+  <form action="/pay/stripeInfo" method="POST">
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{publicKey}"
             data-amount="{amountCents}"

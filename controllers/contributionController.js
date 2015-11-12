@@ -68,7 +68,7 @@ function postPledge(req, res) {
         , successMethodName: 'handleContributionPaymentSuccess'
       };
 //      res.redirect(uri(`/${resultMap.contribution._id}/pay`));
-      res.redirect('/pay');
+      res.redirect('/pay/stripeInfo');
     })
     .catch(curriedHandleError(req, res));
 }

@@ -1,17 +1,19 @@
 'use strict';
 
-var _ = require('lodash');
-var mongoose = require('mongoose');
-var Contribution = require('../models/contribution');
-var Proposal = require('../models/proposal');
-var Vote = require('../models/vote');
-var helpers = require('../lib/helpers');
-var curriedHandleError = _.curry(helpers.handleError);
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const Contribution = require('../models/contribution');
+const Proposal = require('../models/proposal');
+const Vote = require('../models/vote');
+const helpers = require('../lib/helpers');
+const userService = require('../lib/userService');
+const ProfileService = require('../lib/profileService');
+const curriedHandleError = _.curry(helpers.handleError);
 
-var stripe = require('../lib/stripe').instance();
-var braintree = require('../lib/braintree').instance();
-var authorizeNet = require('../lib/authorizeNet').instance();
-var Binbase = require('../models/binbase');
+const stripe = require('../lib/stripe').instance();
+const braintree = require('../lib/braintree').instance();
+const authorizeNet = require('../lib/authorizeNet').instance();
+const Binbase = require('../models/binbase');
 
 
 /** checks that the expected session state exists, and passes control on the main handler if so
@@ -27,7 +29,7 @@ function handleMissingState(req, res, next) {
 }
 
 
-function showPayment(req, res) {
+function showPaymentIndex(req, res) {
   var model = req.session.cart;
   model.pageTitle = model.pageTitle || 'Ways to Pay';
   model.messages = req.flash('error');
@@ -79,6 +81,85 @@ function postStripe(req, res) {
       res.redirect('/pay/stripe');
     }
   });
+}
+
+
+function showStripeInfo(req, res) {
+  var model = req.session.cart;
+  model.amountCents = model.amount * 100;
+  model.publicKey = stripe.config.publicKey;
+  model.messages = req.flash('error');
+  model.pageTitle = model.pageTitle || 'Payment Information';
+  res.render('payment/stripeInfo', model);
+}
+
+
+
+function postStripeInfo(req, res) {
+  var amountCents = req.body.amountCents;
+  var description = req.body.description;
+  var stripeToken = req.body.stripeToken;
+  var stripeTokenType = req.body.stripeTokenType;
+  var stripeEmail = req.body.stripeEmail;
+  console.log('postStripe - token: ' + stripeToken + ', type: ' + stripeTokenType + ', emai: ' + stripeEmail);
+
+  //todo, refactor this into promise api on stripe.js
+  stripe.customers.create({
+    description: 'test customer description'
+    , source: stripeToken
+  }, function(err, customer) {
+    console.log('stripe create customer response - err: ' + err + ', charge: ' + _.inspect(customer));
+    if (err && err.type === 'StripeCardError') {
+      // The card has been declined
+      req.flash('error', "Sorry, that card has been declined");
+      res.redirect('/pay/stripeInfo');
+    } else if (customer) {
+      const customerId = customer.id;
+      console.log(`captured stripg customer id: ${customerId}`);
+      const profileId = req.user.profile._id;
+      ProfileService.updateStripeCustomerId(profileId, customerId)
+      .then(() => {
+          handleSuccess(req, res);
+        })
+        .catch(curriedHandleError(req, res));
+    } else {
+      req.flash('error', 'Sorry, there was an unexpected error: ' + err);
+      res.redirect('/pay/stripeInfo');
+    }
+  });
+}
+
+// perform charge against existing customer record
+function stripeCharge(req, res) {
+  const cart = req.session.cart;
+  const customerId = req.user.profile.stripeCustomerId;
+
+  const amountCents = cart.amount * 100;
+  const description = cart.description;
+
+  console.log(`customerid: ${customerId}, amount: ${amountCents}, desc: ${description}`);
+
+  var charge = stripe.charges.create({
+    amount: amountCents // amount in cents, again
+    , currency: "usd"
+    , customer: customerId
+    , description: description
+  }, function (err, charge) {
+    console.log('stripe response - err: ' + err + ', charge: ' + _.inspect(charge));
+    if (err && err.type === 'StripeCardError') {
+      // The card has been declined
+      req.flash('error', "Sorry, that card has been declined");
+      helpers.handleError(req, res, err);
+      //res.redirect('/pay/stripe');
+    } else if (charge) {
+      handleSuccess(req, res);
+    } else {
+      req.flash('error', 'Sorry, there was an unexpected error: ' + err);
+      helpers.handleError(req, res, err);
+      //res.redirect('/pay/stripe');
+    }
+  });
+
 }
 
 
@@ -312,13 +393,20 @@ function resolveMethod(name) {
 
 function addRoutes(router) {
 //  router.get('/pay', handleMissingState, showPayment);
-  router.get('/pay', handleMissingState, showCheck);
+  router.get('/pay', handleMissingState, showStripe);
+  router.get('/pay/info', handleMissingState, showStripeInfo);
+
+
   router.post('/pay/by', handleMissingState, postPayment);
   router.get('/pay/dwolla', handleMissingState, showDwolla);
   router.get('/pay/check', handleMissingState, showCheck);
   router.post('/pay/check', handleMissingState, postCheck);
+
   router.get('/pay/stripe', handleMissingState, showStripe);
   router.post('/pay/stripe', handleMissingState, postStripe);
+  router.get('/pay/stripeInfo', handleMissingState, showStripeInfo);
+  router.post('/pay/stripeInfo', handleMissingState, postStripeInfo);
+
   router.get('/pay/braintree', handleMissingState, showBraintree);
   router.post('/pay/braintree', handleMissingState, postBraintree);
   router.get('/pay/authorizeNet', handleMissingState, showAuthorizeNet);
@@ -337,5 +425,6 @@ module.exports = {
   addRoutes: addRoutes
   , mapMethod: mapMethod
   , resolveMethod: resolveMethod
+  , stripeCharge: stripeCharge
 };
 

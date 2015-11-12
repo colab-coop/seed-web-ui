@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const helpers = require('../lib/helpers');
+const paymentController = require('./paymentController');
 const profileLib = require('../lib/profile');
 const ProfileService = require('../lib/profileService');
 const userLib = require('../lib/userService');
@@ -94,7 +95,13 @@ function postMemberPay(req, res) {
     , amount: amount
     , successMethodName: 'handleMembershipPaymentSuccess'
   };
-  res.redirect('/pay');
+
+  if (req.user.profile.stripeCustomerId) {
+    console.log('using existing bill info');
+    paymentController.stripeCharge(req, res);
+  } else {
+    res.redirect('/pay');
+  }
 }
 
 require('./paymentController').mapMethod('handleMembershipPaymentSuccess', handleMembershipPaymentSuccess);

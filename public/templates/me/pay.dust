@@ -10,6 +10,9 @@
   <fieldset>
     <form method="post" action="/me/pay">
       Share Purchase Amount: $<input type="text" name="amount" value="" size="5"><br>
+      {?user.profile.stripeCustomerId}
+        Note, stored payment information available.  Will chage against that card.
+      {/user.profile.stripeCustomerId}
       <input type="hidden" name="_csrf" value="{_csrf}">
       <input type="submit" value="Next">
     </form>

@@ -34,6 +34,7 @@ const attributes = _.merge({
   , taxId: String
   , memberType: String  //provisional, paid, other classes?
   , membershipPayments: Number
+  , stripeCustomerId: String  // represents stored credit card info
 }, baseModel.baseAttributes);
 
 const isBlank = (val) => (!val || val === '');

@@ -18,6 +18,8 @@
     <br>
     Membership Status: {memberType}<br>
     Membership Payments: {membershipPayments}<br>
+    <br>
+    stripe customer id: {stripeCustomerId}<br>
   {/profile}
 
   <br>

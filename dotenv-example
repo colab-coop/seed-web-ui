@@ -25,6 +25,8 @@ email_sesSecretKey=ce7xxx
 email_enabled=false
 email_rootUrl=http://local.coop:8000
 
-# use /me/promoteAdmin?key=...  to bootstrap your admin user
-admin_bootstrapKey=secret
+# use /me/setAdmin?key=secret  to promote your logged in user to an admin
+#admin_bootstrapKey=secret
+# if absent, then you can just use /me/setAdmin to promote
+admin_bootstrapKey=
 

@@ -112,6 +112,7 @@ function postPledge(req, res) {
   const wasAuthenticated = !!req.user;
   const userData = {
     profileId: wasAuthenticated ? req.user.profile._id : null
+    , displayName: req.body.displayName
     , firstName: req.body.firstName
     , lastName:  req.body.lastName
     , orgName: req.body.orgName

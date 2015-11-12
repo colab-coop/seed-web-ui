@@ -19,7 +19,11 @@
     Membership Status: {memberType}<br>
     Membership Payments: {membershipPayments}<br>
     <br>
-    stripe customer id: {stripeCustomerId}<br>
+    {?stripeCustomerId}
+      payment information on file
+    {:else}
+      payment information not on file
+    {/stripeCustomerId}
   {/profile}
 
   <br>

@@ -45,7 +45,8 @@ const modelFactory = function () {
 
   schema.pre('validate', function (next) {
     //if ((isBlank(this.firstName) || isBlank(this.lastName)) && isBlank(this.orgName)) {
-    if (isBlank(this.firstName) && isBlank(this.orgName)) {
+    // note, for now, we're going back to just needing a display name
+    if (false && isBlank(this.firstName) && isBlank(this.orgName)) {
       const err = new Error('First and last name or org name is required');
       err.type = 'validation';
       next(err);

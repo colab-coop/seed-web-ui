@@ -24,7 +24,10 @@
   {/user}
 
 
-  <h1>What future do you want to SEED?</h1>
+  <div class="container landing-section">
+    <h2 class="heading-1">What future do you want to SEED?</h2>
+    <div class="sub-heading">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus labore optio quae unde eaque perferendis iste accusantium vel.</div>
+  </div>
 
 
   <h2>Support Existing Coops</h2>

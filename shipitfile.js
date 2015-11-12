@@ -30,7 +30,8 @@ module.exports = function (shipit) {
       port: 8108,
       brunch: '~/.nvm/versions/node/v4.2.1/bin/brunch',
       krakenConfig: 'config/config-staging.json',
-      tmp: '~/seedbomb/tmp'
+      tmp: '~/seedbomb/tmp',
+      storage:'S3',
     },
     production: {
       servers: 'seed@seed.colab.coop',
@@ -42,7 +43,8 @@ module.exports = function (shipit) {
       npm: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/npm',
       bower: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/bower',
       brunch: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/brunch',
-      grunt: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/grunt'
+      grunt: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/grunt',
+      storage:'S3',
     }
   });
 
@@ -91,7 +93,7 @@ module.exports = function (shipit) {
       })
       .then(function (res) {
         if (shipit.config.krakenConfig) {
-          return shipit.remote('cd ' + shipit.config.deployTo + '/current/' + shipit.config.krakenConfig + ' ' + shipit.config.deployTo + '/current/config/config.json');
+          return shipit.remote('cp ' + shipit.config.deployTo + '/current/' + shipit.config.krakenConfig + ' ' + shipit.config.deployTo + '/current/config/config.json');
         } else {
           return Promise.resolve(true);
         }

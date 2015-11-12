@@ -52,7 +52,7 @@ $ bower install
 ### Development
 #### Rebuilding the static assets
 ```
-$ npm build
+$ brunch build
 ```
 
 #### Running the server with automatic static asset rebuild
@@ -66,6 +66,7 @@ $ npm start
 TBD
 
 ### Vagrant environment
+_Running the app in a vagrant VM is not necessary, this setting is here mainly to have an environment as close as production as possible._
 #### Prerequisites
 * VirtualBox ([https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads))
 * Vagrant ([https://www.vagrantup.com/](https://www.vagrantup.com/))

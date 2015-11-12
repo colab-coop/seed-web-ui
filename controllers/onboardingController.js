@@ -45,6 +45,16 @@ function proposalForm(req, res, next) {
     });
 }
 
+function followUpForm(req, res, next) {
+  proposalService
+    .fetchLite(req.params.id)
+    .then((proposal) => {
+      res.render('onboarding/follow_up_form', {
+        proposal: proposal
+      });
+    });
+}
+
 function updateProposal(req, res, next) {
   var proposal;
 
@@ -71,7 +81,14 @@ function updateProposal(req, res, next) {
     proposalService.update(req.params.id, req.body.proposal),
     updateOffer(req.params.id, req.body.offer)
   ]).then(() => {
-    res.redirect('/FIXME'); // todo: redirect to follow-up form
+
+    // if we have payment details, then we're doing the follow-up form
+    if (req.body.proposal.paymentDetails) {
+      res.redirect('/p');
+    } else {
+      // otherwise we're on "step 2", and we want to proceed to follow-up form
+      res.redirect('/follow-up/' + req.params.id);
+    }
   }).catch(next);
 }
 
@@ -79,6 +96,7 @@ function addRoutes(router) {
   router.post('/proposals', createProposal);
   router.get('/proposals/:id', proposalForm);
   router.post('/proposals/:id', updateProposal);
+  router.get('/follow-up/:id', followUpForm);
 }
 
 module.exports = {

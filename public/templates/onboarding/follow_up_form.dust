@@ -1,0 +1,30 @@
+{>"layouts/master" /}
+
+{<body}
+  <h2>{proposal.title}</h2>
+
+  <form method="post" action="/proposals/{proposal._id}" class="form-horizontal">
+    <fieldset>
+      <input type="hidden" name="_csrf" value="{_csrf}"/>
+
+      <!-- Payment Details -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="proposal[paymentDetails]">Payment Details</label>
+
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="4" name="proposal[paymentDetails]" required></textarea>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="save"></label>
+
+        <div class="col-sm-8">
+          <button type="submit" class="btn btn-primary btn-lrg">Submit</button>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+{/body}

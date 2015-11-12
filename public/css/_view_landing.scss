@@ -2,4 +2,15 @@
 	background-image: url("https://unsplash.it/2000/600?image=846");
 	padding-top: 220px;
 	padding-bottom: 220px;
+
+	.banner-full-content {
+		max-width: $container-desktop;
+		margin: 0 auto;
+	}
+
+	h1 {
+		font-size: 350%;
+		font-family: $font-family-slab;
+	}
 }
+

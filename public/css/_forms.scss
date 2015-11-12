@@ -1,0 +1,7 @@
+form .btn {
+	border: none;
+	text-transform: uppercase;
+	height: $input-height-base; // to match input height
+	padding-left: $spacing-4;
+	padding-right: $spacing-4;
+}

@@ -3,9 +3,20 @@
 		<h3>Become a provisional member of Seed.Coop</h3>
 		<p>Very non committal. We'll send you more details and you can decide later.</p>
 		<form class="form-horizontal dropzone" id='joinForm' method="POST" action="/join">
-		<input type="text" name="name" placeholder="Name"> <input type="text" name="email" placeholder="email"><br>
-		  <input type="hidden" name="_csrf" value="{_csrf}"/>
-		  <button id="save" type="submit" name="signup" class="btn btn-default">Submit</button>
+		  <div class="form-group">
+		  	<div class="col-md-6">
+				  <input type="text" name="name" placeholder="Name" class="form-control"> 
+				</div>
+		  	<div class="col-md-6">
+				  <input type="text" name="email" placeholder="email" class="form-control">
+				</div>
+			  <input type="hidden" name="_csrf" value="{_csrf}"/>
+			</div>
+		  <div class="form-group">
+		  	<div class="col-xs-12">
+			  	<button id="save" type="submit" name="signup" class="btn btn-default">Submit</button>
+			  </div>
+			</div>
 		</form>
 	</div>
 </div>

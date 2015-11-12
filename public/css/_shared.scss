@@ -1,3 +1,9 @@
+svg {
+	max-width: 100%;
+	height: auto;
+	max-height: 100%; // fix for old Android
+}
+
 body {
   //background-color: ;
   @include background-image-retina('/images/background', png, 661px, 501px);

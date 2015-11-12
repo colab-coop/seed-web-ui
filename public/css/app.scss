@@ -1,6 +1,6 @@
 $navbar-height: 37px;
 
-
+@import "_bootstrap_variable_overrides";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../bower_components/bootstrap-fileinput/css/fileinput";
 @import "../../bower_components/summernote/dist/summernote-bs3";
@@ -11,8 +11,10 @@ $navbar-height: 37px;
 @import "_mixins";
 @import "_colors";
 @import "_fonts";
+@import "_globals";
 @import "_shared";
 @import "_navbar";
+@import "_view_landing";
 @import "_proposal";
 @import "_profile";
 

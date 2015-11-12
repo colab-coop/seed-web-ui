@@ -1,11 +1,14 @@
 {>"layouts/master" /}
 
 {<body}
-
-  <h1>Build movements</h1>
-  <h2><a href="/how_it_works">Find out how</a></h2>
-  <br>
-  <h2>Raise money from your community<h2></h2>
+  <div class="row">
+    <div class="banner-full-block banner-full-block--landing">
+      <h1>Build movements</h1>
+      <h2><a href="/how_it_works">Find out how</a></h2>
+    </div>
+    <br>
+    <h2>Raise money from your community<h2></h2>
+  </div>
   [learn more] (will open special seed.coop campaign view)<br>
 
   {?user}

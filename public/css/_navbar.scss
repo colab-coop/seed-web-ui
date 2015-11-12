@@ -13,7 +13,6 @@
 }
 
 body {
-  text-align: center;
   padding-top: 150px; // pushes the body under the nav bar
 }
 
@@ -47,8 +46,7 @@ $dropDown: false;
     }
     > li {
       top: 17px;
-      font-family: MonserratRegular;
-      font-weight: bold;
+      //font-family: MonserratRegular;
       font-size: 16px;
       > a {
         color: $colDefault;

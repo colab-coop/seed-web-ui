@@ -51,7 +51,8 @@ const attributes = _.merge({
 
 
 const KIND = {
-  campaign: 'campaign'
+  seedcoop: 'seedcoop'  // the special seed.coop campaign
+  , campaign: 'campaign'
   , memberdrive: 'memberdrive'
   , sector: 'sector'
   , proposal: 'proposal'

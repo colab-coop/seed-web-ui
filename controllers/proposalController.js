@@ -25,8 +25,24 @@ function render(res, view, model) {
   res.render(viewPath, model);
 }
 
+
+
 function home(req, res) {
-  listProposalsView(req, res, 'home/landing', Proposal.KIND.campaign);
+  //listProposalsView(req, res, 'home/landing', Proposal.KIND.campaign);
+
+  const model = {};
+  ProposalService.fetchOneByFilter({subType: 'seedcoop'}) // the one special seedcoop campaign
+    .then((result) => {
+      model.seedcoop = result;
+      return Proposal.find({subType: 'featured'})  // the list of campaings to show on the landing page
+    })
+    .then((results) => {
+      model.items = results;
+      res.render('home/landing', model);
+    })
+    .catch(curriedHandleError(req, res));
+
+
 }
 
 function listProposals(req, res) {

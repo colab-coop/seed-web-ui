@@ -100,7 +100,6 @@ function copyParams(target, params) {
 const modelFactory = function () {
 
   const fileUploadConfig = config.get('fileUpload');
-  console.log( "CONFIG:" + _.inspect(fileUploadConfig));
   const schema = mongoose.Schema(attributes);
 
   schema.methods.toString = function () {

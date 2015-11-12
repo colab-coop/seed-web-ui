@@ -274,7 +274,9 @@
     "sender": "env:email_sender",
     "senderPassword": "env:email_senderPassword",
     "enabled": "env:email_enabled",
-    "rootUrl": "env:email_rootUrl"
+    "rootUrl": "env:email_rootUrl",
+    "sesAccessKey": "env:email_sesAccessKey",
+    "sesSecretKey": "env:email_sesSecretKey"
   },
   "dummy":null  // suck up trailing ','
 }

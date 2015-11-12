@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const profileLib = require('../lib/profile');
 const userLib = require('../lib/userService');
+const mailer = require('../lib/mailer');
 const helpers = require('../lib/helpers');
 const validation = require('../lib/validation');
 const passthrough = helpers.passthrough;
@@ -334,6 +335,7 @@ function scratch(req, res) {
 
 
 function testWelcomeEmail(req, res) {
+  console.log(`email: ${req.user.profile.email}`);
   userLib.emailUser(req.user.profile.email, req.user.profile.name)
     .then( (status) => res.json(200, {status: status}) )
     .catch(curriedHandleError(req, res));

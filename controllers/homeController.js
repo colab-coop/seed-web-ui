@@ -13,6 +13,7 @@ const curriedHandleError = _.curry(helpers.handleError);
 const ProfileService = require('../lib/profileService');
 const UserService = require('../lib/userService');
 const Profile = require('../models/profile');
+const User = require('../models/user');
 
 const contributionController = require('./contributionController');
 const proposalController = require('./proposalController');
@@ -209,7 +210,7 @@ function postJoin(req, res) {
       UserService.login(req, user);
     })
     .then(() => {
-      UserService.sendWelcomeEmail(user);
+      UserService.sendWelcomeEmail(req.body.email, userData.firstName);
     })
     .then(() => {
       //res.redirect('/afterAuth');  //todo: need something better to do here
@@ -219,8 +220,18 @@ function postJoin(req, res) {
 }
 
 function completeSignup(req, res) {
-  console.log('completing signup')
-  res.redirect('/');
+  const token = req.body.token;
+
+  return User
+    .findOne({ completeSignupToken: token })
+    .populate('defaultProfileRef')
+    .then((user) => {
+      if (user) {
+        renderShowSignup(req, res, {firstName: user.defaultProfileRef.name, email: user.email}); // TODO: why doesn't user model have firstname?
+      } else {
+        Promise.resolve(null);
+      }
+    });
 }
 
 function viewMyProfile(req, res) {
@@ -318,7 +329,7 @@ function addRoutes(router) {
   passthrough(router, 'who_we_are');
   router.get('/login', showLogin);
   router.post('/login', postLogin);
-  router.get('/completeSignup/:id', completeSignup);
+  router.get('/completeSignup', completeSignup);
   router.get('/signup', showSignup);
   router.post('/signup', postSignup);
   router.post('/join', postJoin);

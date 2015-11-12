@@ -7,8 +7,20 @@ $font-family-slab: "MuseoSlab", sans-serif;
 
 
 /*
-  Header
+  Header: Height
 */
 
 $header-height: 40px;
 $header-height-lg: 77px;
+
+/*
+  Spacing
+*/
+
+
+$spacing: 10px;
+$spacing-2: ($spacing * 2);
+$spacing-3: ($spacing * 3);
+$spacing-4: ($spacing * 4);
+$spacing-5: ($spacing * 5);
+$spacing-6: ($spacing * 6);

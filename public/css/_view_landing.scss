@@ -3,14 +3,23 @@
 	padding-top: 220px;
 	padding-bottom: 220px;
 
-	.banner-full-content {
-		max-width: $container-desktop;
-		margin: 0 auto;
-	}
-
 	h1 {
-		font-size: 350%;
+		font-size: 320%;
 		font-family: $font-family-slab;
+	}
+}
+
+.heading-1--landing-raise {
+	position: relative;
+}
+
+.heading-graphic-acorn {
+	vertical-align: top;
+	margin: 0 $spacing-2 0 0;
+
+	@media (min-width: $screen-lg-min) {
+		position: absolute;
+		left: -50px;
 	}
 }
 

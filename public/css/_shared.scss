@@ -7,14 +7,13 @@ svg {
 body {
   //background-color: ;
   @include background-image-retina('/images/background', png, 661px, 501px);
-  background-color: $seed_alabaster;
+  background-color: $grey-alabaster;
 	padding-top: $header-height;
-	
+
   @media (min-width: $screen-sm-min) {
   	padding-top: $header-height-lg;
   }
 }
-
 
 .help-block {
   float: left;

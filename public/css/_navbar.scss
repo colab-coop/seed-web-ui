@@ -17,10 +17,9 @@
   http://work.smarchal.com/twbscolor/index.php
 */
 
-$bgDefault: $seed_sanfelix;
-$bgHighlight: $seed_mineshaft;
-$colDefault: $seed_white;
-$colHighlight: $seed_mineshaft;
+$bgHighlight: $grey-soot;
+$colDefault: $white;
+$colHighlight: $grey-soot;
 $dropDown: false;
 
 .navbar {
@@ -28,7 +27,7 @@ $dropDown: false;
 }
 
 .navbar-custom {
-  background-color: $bgDefault;
+  background-color: $green-forest;
   border-color: $bgHighlight;
   padding-top: 10px;
   padding-bottom: 5px;

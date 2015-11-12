@@ -12,10 +12,10 @@
 
 div.proposal_container {
   width: 684px;
-  background-color: white;
+  background-color: $white;
   border-radius: 4px 4px 4px 4px;
   border: 1px solid;
-  border-color: $seed_gallery;
+  border-color: $grey-cloud;
   padding-left: 40px;
   padding-right: 24px;
   padding-top: 40px;
@@ -23,8 +23,8 @@ div.proposal_container {
 
   div.proposal_metrics {
     float: left;
-    background-color: $seed_mulefawn;
-    box-shadow: $seed_dustygrey 0px 0px 0px 1px;
+    background-color: $brown-clay;
+    box-shadow: $grey-dusty 0px 0px 0px 1px;
     margin-top: 45px;
     margin-bottom: 30px;
     width: 100%;
@@ -43,7 +43,7 @@ div.proposal_container {
         font-size: 16.8px;
         line-height: 22.8px;
         font-family: MonserratBold;
-        color: $seed_white;
+        color: $white;
         padding-right: 56px;
       }
     }
@@ -90,19 +90,19 @@ div.proposal_container {
 }
 
 .btn-patron {
-  @include button-variant(white, $seed_fern, $seed_corduroy);
+  @include button-variant($white, $green-fern, $grey-stone);
 }
 
 .btn-funder {
-  @include button-variant(white, $seed_forestgreen, $seed_corduroy);
+  @include button-variant($white, $green-forest, $grey-stone);
 }
 
 .btn-pledge {
-  @include button-variant(white, #781c4b, #604b57);
+  @include button-variant($white, #781c4b, #604b57);
 }
 
 .btn-learn-more {
-  @include button-variant(white, #781c4b, #604b57);
+  @include button-variant($white, #781c4b, #604b57);
 }
 
 /*
@@ -119,7 +119,7 @@ div.proposal_info_card {
     img {
       border-radius: 4px 4px 4px 4px;
       border: 1px solid;
-      border-color: $seed_gallery;
+      border-color: $grey-cloud;
       width: 308px;
       height: 308px;
       object-fit: cover;
@@ -140,7 +140,7 @@ div.proposal_info_card {
       text-align: left;
       font-size: 26px;
       font-family: MonserratBold;
-      color: $seed_mineshaft;
+      color: $grey-soot;
       margin-bottom: 7px;
     }
 
@@ -151,7 +151,7 @@ div.proposal_info_card {
       font-size: 18px;
       line-height: 115%;
       font-family: MonserratRegular;
-      color: $seed_tundora;
+      color: $grey-gravel;
     }
 
     div.proposal_data {
@@ -164,7 +164,7 @@ div.proposal_info_card {
           text-align: left;
           font-size: 16.8px;
           line-height: 22.8px;
-          color: $seed_black;
+          color: $black;
           margin-bottom: 10px;
         }
       }
@@ -179,8 +179,8 @@ div.proposal_info_card {
 div.proposal_list_item {
   border-radius: 6px 6px 6px 6px;
   border: 1px solid;
-  border-color: $seed_gallery;
-  background-color: $seed_white;
+  border-color: $grey-cloud;
+  background-color: $white;
 
   width: 520px;
   height: 290px;
@@ -198,7 +198,7 @@ div.proposal_list_item {
     img {
       border-radius: 4px 4px 4px 4px;
       border: 1px solid;
-      border-color: $seed_gallery;
+      border-color: $grey-cloud;
       width: 250px;
       height: 250px;
       object-fit: cover;
@@ -216,7 +216,7 @@ div.proposal_list_item {
       text-align: left;
       font-size: 22px;
       font-family: MonserratBold;
-      color: $seed_mineshaft;
+      color: $grey-soot;
       margin-bottom: 7px;
     }
 
@@ -226,7 +226,7 @@ div.proposal_list_item {
       font-size: 16px;
       line-height: 115%;
       font-family: MonserratRegular;
-      color: $seed_tundora;
+      color: $grey-gravel;
       margin-bottom: 15px;
     }
 

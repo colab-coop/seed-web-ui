@@ -4,3 +4,18 @@
 @include fontFace('MonserratLight','/fonts/montserrat/montserrat-light-webfont');
 @include fontFace('Museo','/fonts/museo/museo-700-opentype-webfont');
 @include fontFace('MuseoSlab','/fonts/museo-slab/museo-slab-500-webfont-webfont');
+
+
+/*
+ Headings
+*/
+
+.heading-1 {
+	font-family: $font-family-serif;
+	font-size: 260%;
+	margin: $spacing-6 0 $spacing-3;
+}
+
+.sub-heading {
+	font-size: 150%;
+}

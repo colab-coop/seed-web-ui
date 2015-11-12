@@ -5,3 +5,9 @@ form .btn {
 	padding-left: $spacing-4;
 	padding-right: $spacing-4;
 }
+
+.form-control {
+	&:focus {
+		box-shadow: none;
+	}
+}

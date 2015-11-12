@@ -15,4 +15,26 @@
 .btn {
 	border: none;
 	text-transform: uppercase;
+	transition: all 0.2s linear;
+
+	&:hover {
+		transition: all 0.2s ease-in;
+	}
+}
+
+/*.btn-lg-x {
+	padding: $spacing-2 $spacing-2;
+}*/
+
+.btn-more {
+ 	 padding: $spacing $spacing-2;
+
+	.fa-caret-down {
+		font-size: 230%;
+		margin-left: $spacing-2;
+		line-height: 1;
+		vertical-align: middle;
+		position: relative;
+		top: -3px;
+	}
 }

@@ -1,4 +1,10 @@
 /*
+  Container: Sizes
+*/
+
+$container-large-desktop: 940px;
+
+/*
   Fonts: Overrides
 */
 
@@ -17,6 +23,7 @@ $btn-border-radius-small: 0 !default;
 
 $btn-default-color: $white !default;
 $btn-default-bg: $purple-grape !default;
+$btn-primary-bg: $orange-pumpkin !default;
 
 
 /*

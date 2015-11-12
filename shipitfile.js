@@ -19,7 +19,7 @@ module.exports = function (shipit) {
       tmp: '/tmp'
     },
     vagrant: {
-      servers: 'deploy@vagrant:2222'
+      servers: 'deploy@127.0.0.1:2222'
     },
     staging: {
       servers: 'seedbombing@seedbombing.dev.colab.coop',

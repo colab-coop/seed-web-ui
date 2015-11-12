@@ -274,5 +274,17 @@
     "senderPassword": "env:email_senderPassword",
     "enabled": "env:email_enabled"
   },
+  "admin" : {
+    "foo" : "bar",
+    "bootstrapKey": "env:admin_bootstrapKey"
+  },
+  "fileUpload": {
+    "storage": "env:storage", // LocalFS || S3
+    "LocalFSFolder": "env:LocalFS_folder",
+    "S3ApiKey": "env:S3_apiKey",
+    "S3Secret": "env:S3_secret",
+    "S3Bucket": "env:S3_bucket",
+    "S3Region": "env:S3_region"
+  },
   "dummy":null  // suck up trailing ','
 }

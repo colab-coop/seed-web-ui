@@ -291,10 +291,5 @@
     "S3Bucket": "env:S3_bucket",
     "S3Region": "env:S3_region"
   },
-
-  "admin" : {
-    "foo" : "bar",
-    "bootstrapKey": "env:admin_bootstrapKey"
-  },
   "dummy":null  // suck up trailing ','
 }

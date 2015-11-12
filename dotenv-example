@@ -30,3 +30,18 @@ email_rootUrl=http://local.coop:8000
 # if absent, then you can just use /me/setAdmin to promote
 admin_bootstrapKey=
 
+
+# Comment out the following two lines to disable local storage for uploaded files
+storage=LocalFS
+LocalFS_folder=/u
+
+# Uncomment the following lines and provide the proper config
+# to enable S3 storage for uploaded files
+#storage=S3
+#S3_apiKey=AKIxxx
+#S3_secret=JEFxxx
+#S3_bucket=xxx
+#S3_region=xxx
+
+
+

@@ -5,13 +5,21 @@
 .banner-full-block--landing {
 	background-image: url("https://unsplash.it/2000/600?image=846");
 	padding-top: 220px;
-	padding-bottom: 220px;
+	padding-bottom: 200px;
+}
 
 	h1 {
 		font-size: 320%;
 		font-family: $font-family-slab;
+		line-height: 1.2;
+		color: $black;
+		
+		a, a:hover {
+			color: inherit;
+			border-bottom: 1px solid rgba($black, 0.4);
+		}
 	}
-}
+
 
 /*
   Section: Raise Money

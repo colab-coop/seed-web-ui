@@ -7,6 +7,20 @@
 
 
 /*
+ Links
+*/
+
+a {
+	transition: all 0.2s ease-in;
+
+	&:hover, &:focus {	
+		opacity: 0.8;
+		text-decoration: none;
+		transition: all 0.2s ease-in;
+	}
+}
+
+/*
  Headings
 */
 

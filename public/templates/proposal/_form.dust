@@ -16,6 +16,17 @@
 </div>
 
 
+<!-- subType -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="subType">Sub-Type (seedcoop, featured)</label>
+
+  <div class="col-sm-8">
+    <input id="subType" value="{item.subType}" name="subType" type="text"
+           class="form-control input-md">
+  </div>
+</div>
+
+
 <!-- Sector selector -->
 <div class="form-group">
   <label class="col-sm-2 control-label" for="parentRef">Sector</label>
@@ -101,16 +112,6 @@
   </div>
 </div>
 
-
-<!-- subType -->
-<div class="form-group">
-  <label class="col-sm-2 control-label" for="subType">Sub-Type (seedcoop, featured)</label>
-
-  <div class="col-sm-8">
-    <input id="subType" value="{item.subType}" name="subType" type="text"
-           class="form-control input-md">
-  </div>
-</div>
 
 {!todo: how to better factor the checkbox form element pattern with dust?  !}
 <div class="form-group">

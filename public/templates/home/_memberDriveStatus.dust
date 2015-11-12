@@ -1,0 +1,14 @@
+<ul>
+  <li>
+    Member Goal: {goalAmount}
+  </li>
+  <li>
+    Members So Far: {supporterCount}
+  </li>
+  <li>
+    {?closingDate}
+      Closing: {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}
+    {/closingDate}
+  </li>
+</ul>
+

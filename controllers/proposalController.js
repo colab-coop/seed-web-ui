@@ -113,6 +113,11 @@ function showProposal(req, res) {
   showProposalForId(req, res, 'proposal/view', id);
 }
 
+function showMore(req, res) {
+  const id = req.param('id');
+  showProposalForId(req, res, 'home/more', id);
+}
+
 
 function showProposalForId(req, res, viewPath, id) {
   req.session.currentProposalId = id;  //save this for return flows
@@ -271,6 +276,9 @@ function addRoutes(router) {
   router.get(uri('/items'), listProposalItems);
   router.get(uri('/last'), showLastProposal);
   router.get(uri('/view'), showProposal);
+
+  router.get(uri('/:id/more'), showMore);
+
   router.get(uri('/:id/view'), showProposal);
 
   router.post(uri('/newVision'), newVision);

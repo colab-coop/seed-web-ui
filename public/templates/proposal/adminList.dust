@@ -33,6 +33,7 @@
 
 
   <table border="1">
+    <th>title</th><th>type</th><th>subtype</th><th>sector</th><th>actions</th>
     {#items}
       <tr>
         <td>
@@ -40,6 +41,9 @@
         </td>
         <td>
           {kind}
+        </td>
+        <td>
+          {subType}
         </td>
         <td>
           {parentRef.title}

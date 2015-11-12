@@ -43,7 +43,7 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
 
 // fields to directly populate from edit forms
 const STRING_PARAM_FIELDS = [
-  'kind', 'title', 'description', 'contributionInterval' // 'minimumContributionAmount',
+    'proposalRef', 'kind', 'title', 'description', 'contributionInterval' // 'minimumContributionAmount',
   , 'limit', 'taken', 'isRegulated'
 ];
 
@@ -51,6 +51,7 @@ function copyParams(target, params) {
   const result = target || {};
   _.assign(result, _.pick(params, STRING_PARAM_FIELDS));
   _.assignNumericParam(result, params, 'minimumContributionAmount');
+  _.assignNumericParam(result, params, 'taken');
   //result.isRegulated = Boolean.parse(params.isRegulated);
   return result;
 }

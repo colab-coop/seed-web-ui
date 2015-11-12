@@ -78,6 +78,7 @@ function edit(req, res) {
 function save(req, res) {
   const id = req.body.id;
   const proposalRef = req.body.proposalRef;
+  console.log(`offser - save: ${id}, pref: ${proposalRef}`);
   //const data = {
   //  proposalRef: proposalRef
   //  , kind: req.body.kind  //.trim()

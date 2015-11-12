@@ -1,0 +1,7 @@
+{!intended to have html/body tags removed and loaded into page dynamically !}
+
+<html><body>
+
+  {>"home/campaign/loconomics"/}
+
+</body></html>

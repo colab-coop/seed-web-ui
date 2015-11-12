@@ -1,0 +1,36 @@
+{!assumes a proposal context with membership typed offers!}
+
+<form method="POST" action="/p/{_id}/pledge">
+  <input type="hidden" name="pid" value="{_id}">
+  <input type="hidden" name="_csrf" value="{_csrf}">
+
+  <h4>Get Involved</h4>
+  How Will You Contribute?<br/>
+  {#memberships}
+    <input type="checkbox" name="memberships" value="{_id}">[{title}] &nbsp; {description}
+    {!${minimumContributionAmount} {?contributionInterval} / {contributionInterval}{/contributionInterval}!}
+    <br>
+  {/memberships}
+
+  {!Amount: <input type="text" name="amount" size="5"/><br/>!}
+
+  {?user}
+  {!Name: {profile.firstName} {profile.lastName}<br>!}
+  {!Organization: {profile.orgName}<br>!}
+    Name: {user.profile.displayName}<br>
+    Email: {user.profile.email}<br>
+    [not you?, please <a href="/logout">signout</a> first]<br>
+  {:else}
+  {!First Name: <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">!}
+  {!&nbsp &nbsp Last Name: <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>!}
+  {!Organization: <input type="text" name="orgName" value="{profile.orgName}" placeholder="Organization"><br>!}
+    Name: <input type="text" name="displayName" value="{profile.displayName}" placeholder="Name">
+    Email: <input class="proposal-seed-input" type="text" name="email" value="{profile.email}" size="40"><br>
+  {/user}
+
+  <div>
+    <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg">Pledge</button>
+  </div>
+
+</form>
+

@@ -21,9 +21,9 @@
     {!</ul>!}
   {!</div>!}
 
-  <div class="proposal_description">
+  <!-- <div class="proposal_description">
     {description|s}
-  </div>
+  </div> -->
 
   {!<div class="proposal_i_want">!}
     {!<a class="btn btn-patron btn-lg" href="#">I Want to be a patron</a>!}

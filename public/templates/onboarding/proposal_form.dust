@@ -1,11 +1,33 @@
 {>"layouts/master" /}
 
 {<body}
-  <h2>{proposal.title}</h2>
+  <h2>Building For Success</h2>
 
-  <form method="post" action="/proposals/{proposal._id}" class="form-horizontal">
+  <form method="post" action="/proposals/{proposal._id}?ajax=1" class="form-horizontal">
     <fieldset>
       <input type="hidden" name="_csrf" value="{_csrf}"/>
+
+
+      <!-- Goals -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="firstName">Goals</label>
+
+        <div class="col-sm-8">
+          <input name="proposal[minimumGoal]" type="text" class="form-control input-md" placeholder="Minimum member level" required>
+        </div>
+
+        <div class="col-sm-8">
+          <input name="proposal[currentMembership]" type="text" class="form-control input-md" placeholder="Current membership" required>
+        </div>
+
+        <div class="col-sm-8">
+          <input name="proposal[goalAmount]" type="text" class="form-control input-md" placeholder="Target membership goals" required>
+        </div>
+
+        <div class="col-sm-8">
+          <input name="proposal[closingDate]" type="text" class="form-control input-md" placeholder="Closing date (mm/dd/yy)" required>
+        </div>
+      </div>
 
       <!-- Description -->
       <div class="form-group">
@@ -31,6 +53,24 @@
 
         <div class="col-sm-8">
           <textarea class="form-control" rows="4" name="proposal[teamSummary]" required></textarea>
+        </div>
+      </div>
+
+      <!-- Supporter Enagement -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="proposal[engagement]">Supporter Enagement</label>
+
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="4" name="proposal[engagement]" required></textarea>
+        </div>
+      </div>
+
+      <!-- Perks -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="proposal[perks]">Perks</label>
+
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="4" name="proposal[perks]" required></textarea>
         </div>
       </div>
 

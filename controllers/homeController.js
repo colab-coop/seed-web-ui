@@ -226,6 +226,10 @@ function joinThanks(req, res) {
   res.render('home/joinThanks', {});
 }
 
+function proposalThanks(req, res) {
+  res.render('home/proposalThanks', {});
+}
+
 function completeSignup(req, res) {
   const token = req.body.token;
 
@@ -342,6 +346,7 @@ function addRoutes(router) {
 
   router.post('/join', postJoin);
   router.get('/joinThanks', joinThanks);
+  router.get('/proposalThanks', proposalThanks);
 
   router.get('/afterAuth', afterAuth);
   router.get('/m/:profileId', viewProfile);

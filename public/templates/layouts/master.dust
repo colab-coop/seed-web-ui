@@ -46,7 +46,7 @@
                 {!{#user.hasModeratorAccess}!}
                   {!<li><a href="/admin">Admin</a></li>!}
                 {!{/user.hasModeratorAccess}!}
-                <li><a href="/me">{profile.name} [{profile.memberType} member]</a></li>
+                <li><a href="/me">{profile.name}{! [{profile.memberType} member] !}</a></li>
                 <li><a href="/logout">Log Out</a> </li>
               {:else}
                 <li><a href="/login">Log In</a></li>

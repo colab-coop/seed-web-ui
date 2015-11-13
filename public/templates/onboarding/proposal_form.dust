@@ -32,7 +32,7 @@
         <label class="col-sm-2 control-label" for="proposal[description]">Description</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[description]" required></textarea>
+          <textarea class="form-control" rows="4" name="proposal[description]" required placeholder="Share the background context of your project?"></textarea>
         </div>
       </div>
 
@@ -41,7 +41,8 @@
         <label class="col-sm-2 control-label" for="proposal[impact]">Impact</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[impact]" required></textarea>
+          <textarea class="form-control" rows="4" name="proposal[impact]" required
+                    placeholder="What is the need or problem you intend to address?"></textarea>
         </div>
       </div>
 
@@ -50,7 +51,8 @@
         <label class="col-sm-2 control-label" for="proposal[teamSummary]">Team Summary</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[teamSummary]" required></textarea>
+          <textarea class="form-control" rows="4" name="proposal[teamSummary]" required
+                    placeholder="Who ar the founders and/or steering committee behind the project?"></textarea>
         </div>
       </div>
 
@@ -59,7 +61,8 @@
         <label class="col-sm-2 control-label" for="proposal[engagement]">Supporter Enagement</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[engagement]" required></textarea>
+          <textarea class="form-control" rows="4" name="proposal[engagement]" required
+                    placeholder="Describe the different levels for engagement"></textarea>
         </div>
       </div>
 
@@ -68,7 +71,8 @@
         <label class="col-sm-2 control-label" for="proposal[perks]">Perks</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[perks]" required></textarea>
+          <textarea class="form-control" rows="4" name="proposal[perks]" required
+                    placeholder="Describe the different benefits available at each engagement level"></textarea>
         </div>
       </div>
 

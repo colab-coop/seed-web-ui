@@ -20,6 +20,7 @@ function createProposal(req, res, next) {
   }
 
   function createProposal(profile) {
+    console.log(`createprop profile.id: ${profile._id}`);
     const proposal = new Proposal({
       profileRef: profile._id,
       title: req.body.campaignName,
@@ -31,7 +32,14 @@ function createProposal(req, res, next) {
 
   ensureProfile()
     .then(createProposal)
-    .then((proposal) => res.redirect('/proposals/' + proposal._id))
+    .then((proposal) => {
+      const uri = '/proposals/' + proposal._id;
+      if (req.query.ajax) {
+        res.json({redirect: uri});
+      } else {
+        res.redirect(uri);
+      }
+    })
     .catch(next);
 }
 
@@ -76,6 +84,11 @@ function updateProposal(req, res, next) {
         return offerService.save(offer.id, data);
       });
   }
+
+  //TODO
+  //note: the current ui doesn't sync up with the Offer data model.
+  // for now we should just add fields to the Proposal model for the form fields which don't already correspond
+  // and forget about building related Offer instances
 
   Promise.all([
     proposalService.update(req.params.id, req.body.proposal),

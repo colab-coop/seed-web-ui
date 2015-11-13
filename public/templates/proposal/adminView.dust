@@ -4,6 +4,9 @@
   <h2>Proposal Detail</h2>
 
   {#proposal}
+    Owner: <a href="/admin/profile/{profileRef._id}/view">{profileRef.displayName}</a><br/>
+
+
     {>"proposal/_summary"/}
     {>"proposal/_actions"/}
 

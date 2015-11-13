@@ -37,8 +37,16 @@ function list(req, res) {
 
 function show(req, res) {
   const id = req.param('id');
-  console.log(`show sector - id: ${id}`);
-  ModelService.fetch(id)
+  const profileId = req.param('profileId');
+  console.log(`show user - id: ${id}, profile id: ${profileId}`);
+//  ModelService.fetch(id)
+  return (function() {
+    if (profileId) {
+      return ModelService.fetchByProfile(profileId)
+    } else {
+      return ModelService.fetch(id)
+    }
+  }())
     .then(function(item) {
       const model = {item: item};
       render(res, 'view', model);
@@ -123,6 +131,7 @@ function gotoBaseView(req, res) {
 function addRoutes(router) {
   router.get(uri(''), list);
   router.get(uri('/index'), list);
+  router.get('/admin/profile/:profileId/view', show);
   router.get(uri('/:id/view'), show);
 
   router.get(uri('/:id/edit'), edit);

@@ -93,7 +93,7 @@ function listProposalsView(req, res, view, kind) {
       }
       return count == 0
         ? Promise.resolve([])
-        : Proposal.find(filter, null, {skip: skip, limit: count}).populate('parentRef');  // TODO: confirm if this cascades and if we need to worry about circular refs
+        : Proposal.find(filter, null, {skip: skip, limit: count}).populate('parentRef profileRef');  // TODO: confirm if this cascades and if we need to worry about circular refs
     })
     .then((items) => {
       model.items = items;

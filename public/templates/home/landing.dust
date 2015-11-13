@@ -14,12 +14,14 @@
     <h2 class="heading-1 heading-1--landing-raise"><img src="/images/icons/acorn.svg" alt="" class="heading-graphic-acorn" width="34">Raise money from your community</h2>
     <p class="sub-heading">Seed is enabling the corporate movement to scale into the digital age. Anyone can master their own destiny. Find out how.</p>
 
-    <div class="btn btn-primary btn-more btn-more--landing-raise">
-      <a id="seedMore" href="#learn_more">Learn More</a>
-      <span class="fa fa-caret-down"></span></div>
-  </div>
+    <div>
+      <a id="seedMore" class="btn btn-primary btn-more btn-more--landing-raise" href="#learn_more">
+      Learn More
+      <span class="fa fa-caret-down"></span>
+      </a>
+    </div>
 
-  <did id="moreInfo"></did>
+  <div id="moreInfo"></div>
 
   {!NOTE, it is assumed that there is a single proposal with sub type: 'seedcoop'.  !}
   {!that campaign is populated into this attribute!}

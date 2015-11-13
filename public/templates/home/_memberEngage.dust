@@ -1,11 +1,11 @@
 {!assumes a proposal context with membership typed offers!}
 
-<h4>Get Involved</h4>
+<h3>Get Involved</h3>
 <form id="getInvolvedForm" method="POST" action="/p/{_id}/member?ajax=1">
   <input type="hidden" name="pid" value="{_id}">
   <input type="hidden" name="_csrf" value="{_csrf}">
 
-  How Will You Contribute?<br/>
+  HOW WILL YOU CONTRIBUTE?<br/>
   {#memberships}
     <input type="checkbox" name="memberships" value="{_id}">[{title}] &nbsp; {description}
     {!${minimumContributionAmount} {?contributionInterval} / {contributionInterval}{/contributionInterval}!}

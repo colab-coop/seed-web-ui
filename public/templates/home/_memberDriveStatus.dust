@@ -1,14 +1,12 @@
-<ul>
-  <li>
-    Member Goal: {goalAmount}
-  </li>
-  <li>
-    Members So Far: {supporterCount}
-  </li>
-  <li>
-    {?closingDate}
-      Closing: {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}
-    {/closingDate}
-  </li>
-</ul>
+<div class="h3">
+  Goal: {goalAmount} Members
+</div>
+<div class="h3">
+  Current Membership: {supporterCount}
+</div>
+<div class="h3">
+  {?closingDate}
+    Ends: {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}
+  {/closingDate}
+</div>
 

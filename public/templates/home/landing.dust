@@ -11,8 +11,8 @@
   </div>
 
   <div class="container">
-    <h2 class="heading-1 heading-1--landing-raise"><img src="/images/icons/acorn.svg" alt="" class="heading-graphic-acorn" width="34">Raise money from your community</h2>
-    <p class="sub-heading">Seed is enabling the corporate movement to scale into the digital age. Anyone can master their own destiny. Find out how.</p>
+    <h2 class="heading-1 heading-1--landing-raise"><img src="/images/icons/acorn.svg" alt="" class="heading-graphic-acorn" width="34">let’s build the Next Economy together</h2>
+    <p class="sub-heading">The Seed.Coop platform connects members to build sustainable and just cooperatives.</p>
 
     <div>
       <a id="seedMore" class="btn btn-primary btn-more btn-more--landing-raise" href="#learn_more">

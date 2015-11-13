@@ -19,7 +19,8 @@
       <a id="seedMore" class="btn btn-primary btn-more btn-more--landing-raise" href="#learn_more">
       Learn More
       <span class="fa fa-caret-down"></span>
-      </a> <a href="/seedMoreTmp">[tmp]</a>
+      </a>
+      {!<a href="/seedMoreTmp">[tmp]</a>!}
     </div>
   </div>
 

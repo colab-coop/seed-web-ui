@@ -73,6 +73,7 @@ function postMember(req, res) {
           , amount: offer.minimumContributionAmount
           , successMethodName: 'handleContributionPaymentSuccess'
         };
+        //todo: factor out this pattern
         if (ajax) {
           res.json({redirect: '/pay/stripeInfo'});
         } else {

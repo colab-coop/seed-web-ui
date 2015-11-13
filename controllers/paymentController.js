@@ -90,7 +90,7 @@ function showStripeInfo(req, res) {
   model.publicKey = stripe.config.publicKey;
   model.messages = req.flash('error');
   model.pageTitle = model.pageTitle || 'Payment Information';
-  res.render('payment/stripeInfo', model);
+  res.render('payment/stripeInfoForm', model);
 }
 
 

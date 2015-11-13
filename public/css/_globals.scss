@@ -1,4 +1,16 @@
 /*
+  Floats
+*/
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+/*
   Banners: Full-width
 */
 
@@ -37,4 +49,13 @@
 		position: relative;
 		top: -3px;
 	}
+}
+
+/*
+  Thick left border
+*/
+
+.graphic-left-border-block {
+	border-left: 15px solid $blue-teal;
+	padding-left: ($spacing * 2.5);
 }

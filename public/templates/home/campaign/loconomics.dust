@@ -1,8 +1,65 @@
 
-<h2>Loconomics</h2>
 
-loconomics campaign details
-<br/><br/>
+<div class="campaign-block">
+  <div class="clearfix">
+	  <img src="http://placehold.it/350x350" class="img-responsive campaign-img-main">
+		<div class="campaign-desc-block">
+			<h3 class="campaign-block-title">Loconomics</h3>
+		  <p>loconomics campaign details</p>
+		</div>
+	</div>
+  <br><br>
+
+	<div>
+	  <h3>The Team</h3>
+	  <br>
+		<div class="row">
+		  <div class="campaign-team-each col-sm-6">
+		    <img src="http://placehold.it/250x250" class="img-responsive">
+		    <br>
+		    <p><strong>Name: Designation</strong></p>
+		    <p>Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate, has dicam dicunt et. Cum te semper forensibus, unum doctus interpretaris ut pri.</p>
+		  </div>
+
+		  <div class="campaign-team-each col-sm-6">
+		    <img src="http://placehold.it/250x250" class="img-responsive">
+		    <br>
+		    <p><strong>Name: Designation</strong></p>
+		    <p>Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+		  </div>
+		</div>
+	</div>
+
+	<img src="http://placehold.it/1000x300" class="img-responsive">
+	<br>
+
+	<h3>In Detail</h3>
+	<p>Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate. Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+ 
+  <br><br>
+  <h3>The Benefits</h3>
+	<div class="graphic-left-border-block">
+	  <div class="campaign-block-list-each">
+	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+	  </div>
+
+	  <div class="campaign-block-list-each">
+	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+	  </div>
+
+	  <div class="campaign-block-list-each">
+	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+	  </div>
+
+	  <div class="campaign-block-list-each">
+	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+	  </div>
+
+	  <div class="campaign-block-list-each">
+	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+	  </div>
+	</div>
+</div>
 
 {#proposal}
 

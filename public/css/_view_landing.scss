@@ -80,5 +80,39 @@
 	margin-bottom: $spacing-6;
 }
 
+/*
+  Campaign: Each
+*/
 
+.campaign-block {
+	background-color: $red-whitish;
+	border: 1px solid $grey-cloud;
+	padding: $spacing-3;
+}
 
+.campaign-block-title {
+	margin-top: 0;
+}
+
+.campaign-img-main {
+	float: left;
+	max-width: 100%;
+	height: auto;
+}
+
+.campaign-desc-block {
+	float: left;
+	padding-left: $grid-gutter-width;
+}
+
+.campaign-team-each {
+	margin-bottom: $spacing-4;
+
+	&:nth-of-type(2n + 1) {
+		clear: both;
+	}
+}
+
+.campaign-block-list-each {
+	margin-top: $spacing-3;
+}

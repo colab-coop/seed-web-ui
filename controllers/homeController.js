@@ -231,23 +231,20 @@ function proposalThanks(req, res) {
 }
 
 function completeSignup(req, res) {
-  const token = req.body.token;
+  const token = req.query.token;
 
   return User
     .findOne({ passwordResetToken: token })
     .populate('defaultProfileRef')
     .then((user) => {
       if (user) {
-        UserService.login(req, user);
+        res.render('reset_password', {
+          token: req.query.token
+        });
       } else {
         Promise.resolve(null);
       }
-    })
-    .then(()=>{
-      res.render('reset_password', {
-        token: token
-      });
-    })
+    });
 }
 
 function viewMyProfile(req, res) {

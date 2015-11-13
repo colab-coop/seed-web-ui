@@ -4,6 +4,10 @@ module.exports = {
 
   ajaxify: function(form, done = null) {
     form.submit((e) => {
+
+      // ugly hack to prevent provisional signup with disabled submit button (by way of validator)
+      if ($('#save')[0].classList.contains('disabled')) return;
+
       e.preventDefault();
       const jqxhr = $(e.target).ajaxSubmit().data('jqxhr');
       jqxhr.done((data, textStatus, jqXHR) => {

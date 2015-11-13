@@ -14,7 +14,16 @@ module.exports = {
           }
         });
       }).fail((data, textStatus, jqXHR) => {
-        console.log(`Got ${status} from POST to ${e.target.action}`);
+        console.log(`Got ${data.status} from POST to ${e.target.action}`, data);
+
+        const response = data.responseJSON || {};
+
+        if (response.error === 'validation') {
+          const messages = response.messages || ['Validation failed'];
+          alert(messages.join('\n'));
+        } else {
+          alert('There was an unexpected error');
+        }
       })
     })
   }

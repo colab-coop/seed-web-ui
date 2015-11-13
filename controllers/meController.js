@@ -17,25 +17,6 @@ function editMyProfile(req, res) {
   res.render('me/profile_edit', { profile: req.user.profile });
 }
 
-function validationMessages(err) {
-  const messages = [];
-
-  const reasons = {
-    required: '% is required',
-    // todo: handle other kinds of validation errors
-    unknown: '% is invalid'
-  };
-
-  for (var attr in err.errors) {
-    const error = err.errors[attr];
-    const name = _.startCase(attr);
-    const reason = reasons[error.kind] || reasons.unknown;
-    messages.push(reason.replace(/%/, _.startCase(attr)));
-  }
-
-  return messages;
-}
-
 function updateMyProfile(req, res, next) {
   var profile = req.user.profile;
 
@@ -51,7 +32,7 @@ function updateMyProfile(req, res, next) {
     .then(() => res.redirect('/me'))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        render(validationMessages(err));
+        render(helpers.validationMessages(err));
       } else if (err.type === 'validation') {
         render(err.message);
       } else {

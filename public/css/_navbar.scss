@@ -23,7 +23,11 @@ $colHighlight: $grey-soot;
 $dropDown: false;
 
 .navbar {
-  min-height: $header-height-lg;
+  min-height: $header-height;
+  
+  @media (min-width: $screen-sm-min) {
+    min-height: $header-height-lg;
+  }
 }
 
 .navbar-custom {
@@ -31,29 +35,24 @@ $dropDown: false;
   border-color: $bgHighlight;
   padding-top: 10px;
   padding-bottom: 5px;
-  .navbar-brand {
+  /*.navbar-brand {
     color: $colDefault;
     &:hover, &:focus {
       color: $colHighlight;
     }
-  }
-  .navbar-text {
+  }*/
+  /*.navbar-text {
     color: $colDefault;
-  }
+  }*/
   .navbar-nav {
-    /*.navbar-logo {
-      top: 0px;
-    }*/
+    @media (min-width: $screen-sm-min) {
+      margin-top: 24px;
+    }
+
     > li {
       top: 17px;
-      //font-family: MonserratRegular;
       font-size: 16px;
-      > a {
-        color: $colDefault;
-        &:hover, &:focus {
-          color: $colHighlight;
-        }
-      }
+
       @if $dropDown {
         > .dropdown-menu {
           background-color: $bgDefault;
@@ -84,24 +83,24 @@ $dropDown: false;
     }
   }
   .navbar-toggle {
-    border-color: $bgHighlight;
+    transition: all 0.2s ease-in;
+    margin-right: 0;
+
     &:hover, &:focus {
-      background-color: $bgHighlight;
-    }
-    .icon-bar {
-      background-color: $colDefault;
+      transition: all 0.2s ease-in;
     }
   }
+
   .navbar-collapse,
   .navbar-form {
-    border-color: $colDefault;
+    border-color: rgba($black, 0.25);
   }
-  .navbar-link {
+  /*.navbar-link {
     color: $colDefault;
     &:hover {
       color: $colHighlight;
     }
-  }
+  }*/
 }
 
 .navbar-logo {
@@ -111,21 +110,19 @@ $dropDown: false;
 }
 
 .navbar-logo .logo {
-  width: 130px;
+  width: 100px;
+  padding-right: ($spacing * 1.5);
 
   path {
     fill: $white; 
   }
-}
 
-@media (min-width: $screen-sm-min) {
-  .navbar {
-    height: $header-height-lg;
+  @media (min-width: $screen-sm-min) {
+    width: 140px;
   }
-
 }
 
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu {
     > li > a {
       color: $colDefault;
@@ -140,4 +137,4 @@ $dropDown: false;
       }
     }
   }
-}
+}*/

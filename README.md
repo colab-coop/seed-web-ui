@@ -61,6 +61,18 @@ $ npm start
 # may also wish to copy and use the dev-start-example.sh
 ```
 
+### Data setup
+important note for devs.  the latest code is using some data filters to control which campaigns are shown on the landing page
+there are few steps needed to populate you data.  i'll list them here and then update the readme
+first you'll need to promote your logged user to be an admin.  once logged in, you can hit this url:  http://local.coop:8000/me/setAdmin
+note, there is a new config var:  admin_bootstrapKey=   which can be used to make this secure in production, but by default is open in dev
+see the dotenv-example for more notes
+once you're an admin, you'll see an 'ADMIN' link in the menu bar
+form the admin menu, you'll need to go to 'all proposal types' and choose 'new campaign'.  this is how campaigns are currently created in the system
+you'll want to make sure the type is set to 'campaign'.  and there are two special sub types to note:
+'seedcoop' designates the special first campaign on the landing page
+'featured' designates the campaigns displayed lower down on the page.  (this can be a list)
+
 ### Testing
 
 TBD

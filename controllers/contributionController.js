@@ -4,6 +4,7 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const ContributionService = require('../lib/contributionService');
 const ProposalService = require('../lib/proposalService');
+const OfferService = require('../lib/offerService');
 const UserService = require('../lib/userService');
 const Contribution = require('../models/contribution');
 const Proposal = require('../models/proposal');
@@ -26,84 +27,62 @@ function render(res, view, model) {
 // new flows
 //
 
-function postSeedPledge(req, res) {
-}
-//  //const proposalId = req.body.pid;
-//  //console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
-//  const wasAuthenticated = !!req.user;
-//  const userData = {
-//    profileId: wasAuthenticated ? req.user.profile._id : null
-//    , firstName: req.body.firstName
-//    , lastName:  req.body.lastName
-//    , orgName: req.body.orgName
-//    , email: req.body.email
-//  };
-//
-//  return (function() {
-//    if (userData.profileId) {
-//      pledgeData.profileRef = userData.profileId;
-//      return Promise.resolve('skip');
-//    } else {
-//      userData.password = 'xxxxxx';  //tmp hack, should leave password undefined once we have reset flow
-//      userData.memberType = pledgeData.seedcoopInterest ? Profile.MEMBERSHIP_TYPES.provisional : Profile.MEMBERSHIP_TYPES.visitor;
-//      console.log(`auto signup of new user: ${_.inspect(userData)}`);
-//      return UserService.createUser(userData);
-//    }
-//  }())
-//    .then((user) => {
-//
-//
-//
-//      .then(() => {
-//    req.session.cart = {
-//      kind: 'contribution'
-//      , pageTitle: 'Can you contribute now?'
-//      , description: 'Capital Contribution'  // in support of ...'
-//      , amount: pledgeData.pledgedCapital
-//      , successMethodName: 'handleContributionPaymentSuccess'
-//    };
-////      res.redirect(uri(`/${resultMap.contribution._id}/pay`));
-//    res.redirect('/pay/stripeInfo');
-//  })
-//    .catch(curriedHandleError(req, res));
-//
-//
-//  const pledgeData = {
-//    pledgedCapital: Number(req.body.amount) || 0
-//    , patron: Boolean(req.body.patron)
-//    , member: Boolean(req.body.member)
-//    , funder: Boolean(req.body.funder)
-//    , payNow: Boolean(req.body.payNow)
-//    , pledge: Boolean(req.body.pledge)
-//    , seedcoopInterest: Boolean(req.body.seedcoop)
-//    , memberships: req.body.memberships
-//    , perks: req.body.perks
-//  };
-//  let resultMap;
-//  ContributionService.createPledge(proposalId, userData, pledgeData)
-//    .then((result) => {
-//      resultMap = result;
-//      console.log(`createPledge result: ${_.inspect(result)}`);
-//      if (!wasAuthenticated) {
-//        return UserService.login(req, resultMap.user);
-//      } else {
-//        return Promise.resolve(null); //nop
-//      }
-//    })
-//    .then(() => {
-//      req.session.cart = {
-//        kind: 'contribution'
-//        , pageTitle: 'Can you contribute now?'
-//        , description: 'Capital Contribution'  // in support of ...'
-//        , amount: pledgeData.pledgedCapital
-//        , successMethodName: 'handleContributionPaymentSuccess'
-//      };
-////      res.redirect(uri(`/${resultMap.contribution._id}/pay`));
-//      res.redirect('/pay/stripeInfo');
-//    })
-//    .catch(curriedHandleError(req, res));
-//}
 
+function postMember(req, res) {
+  const proposalId = req.body.pid;
+  console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
+  const wasAuthenticated = !!req.user;
+  const userData = {
+    profileId: wasAuthenticated ? req.user.profile._id : null
+    , displayName: req.body.displayName
+    , firstName: req.body.firstName
+    , lastName:  req.body.lastName
+    , orgName: req.body.orgName
+    , email: req.body.email
+  };
+  const pledgeData = {
+      amount: req.body.amount  // not currently used
+    , pledgedCapital: 0
+    , member: true
+    , memberships: req.body.memberships
+  };
+  console.log(`membership offer id: ${pledgeData.memberships}`);
+  let resultMap;
+  let contribution;
+  ContributionService.createPledge(proposalId, userData, pledgeData)
+    .then((result) => {
+      contribution = result.contribution;
+      resultMap = result;
+      console.log(`createPledge result: ${_.inspect(result)}`);
+      if (!wasAuthenticated) {
+        return UserService.login(req, resultMap.user);
+      } else {
+        return Promise.resolve(null); //nop
+      }
+    })
+    .then(() => {
+      return OfferService.fetch(pledgeData.memberships);
+    })
+    .then((offer) => {
+      if (offer && offer.minimumContributionAmount) {
+        req.session.cart = {
+          kind: 'contribution'
+          , pageTitle: 'Payment information'
+          , description: `${offer.proposalRef.title} Member Fee`
+          , amount: offer.minimumContributionAmount
+          , successMethodName: 'handleContributionPaymentSuccess'
+        };
+        res.redirect('/pay/stripeInfo');
+      } else {
+        gotoThanks(req, res, contribution);
+      }
+    })
+    .catch(curriedHandleError(req, res));
+}
+
+function thanks(req, res) {
+  res.render('home/thanks', {});
+}
 
 
 function postPledge(req, res) {
@@ -222,8 +201,9 @@ function uri(tail) {
 
 function addRoutes(router) {
 
-  router.post('/p/seed/pledge', postSeedPledge);
+  //router.post('/p/seed/pledge', postSeedPledge);
   router.post('/p/:proposalId/pledge', postPledge);
+  router.post('/p/:proposalId/member', postMember);
   //router.get(uri('/:contributionId/pay'), showPay);
   //router.post(uri('/:contributionId/water'), postWater);
 
@@ -240,7 +220,7 @@ function addRoutes(router) {
   router.get('/c/contribute', old_showContribute);
   router.get('/p/:pid/contribute', old_showContribute);
   router.post('/c/contribute', old_postContribute);
-  router.get('/c/:cid/thanks', function (req, res) { res.render('contribution/thanks', {}) });
+  router.get('/c/:cid/thanks', thanks);
 }
 
 

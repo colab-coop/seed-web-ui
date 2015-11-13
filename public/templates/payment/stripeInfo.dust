@@ -1,6 +1,6 @@
-{>"layouts/master" /}
+{!{>"layouts/master" /}!}
 
-{<body}
+{!{<body}!}
   <h2>Payment Information</h2>
 
   <b>Please provide your credit card information.</b><br>
@@ -22,8 +22,8 @@
     <input type="hidden" name="_csrf" value="{_csrf}">
   </form>
 
-  <br>
-  <a href="/c/payment">[back]</a>
+  {!<br>!}
+  {!<a href="/c/payment">[back]</a>!}
 
 
-{/body}
+{!{/body}!}

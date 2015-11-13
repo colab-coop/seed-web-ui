@@ -1,15 +1,57 @@
 {>"layouts/master" /}
 
 {<body}
-  <div class="row">
-    <div>
-      <h2>
-        How it Works
-      </h2>
+  <div class="container">
+    <h1 class="heading-1">
+      How it Works
+    </h1>
+
+    <div class="how-steps-block">
+      <div class="row">
+	      <div class="how-steps-each col-md-6">
+	        <img src="images/icons/upload.svg" width="100">
+	        <div class="h2">Step 1: </div>
+	        <div class="h4">Submit your project.</div>
+        </div>
+
+	      <div class="how-steps-each col-md-6">
+	        <img src="images/icons/user-check.svg" width="100">
+	        <div class="h2">Step 2: </div>
+	        <div class="h4">Our team will work with you to get your campaign ready.</div>
+	      </div>
+  
+        <div class="how-steps-each col-md-6">
+	        <img src="images/icons/check.svg" width="100">
+	        <div class="h2">Step 3: </div>
+	        <div class="h4">Check your email. <br>Approve campaign to go live</div>
+	      </div>
+
+        <div class="how-steps-each col-md-6">
+	        <img src="images/icons/chat-person.svg" width="100">
+	        <div class="h2">Step 4: </div>
+	        <div class="h4">Once approved, launch your campaign.</div>
+	      </div>
+
+	      <div class="how-steps-each col-md-6">
+	        <img src="images/icons/people.svg" width="100">
+	        <div class="h2">Step 5: </div>
+	        <div class="h4">Seed coop community members pledge to join and recruit others.</div>
+	      </div>
+
+	      <div class="how-steps-each col-md-6">
+	        <img src="images/icons/credit-card.svg" width="100">
+	        <div class="h2">Step 6: </div>
+	        <div class="h4">Once you reach your goal, members are billed and they join your coop.</div>
+	      </div>
+
+
+        <div class="how-steps-each col-md-6">
+	        <img src="images/icons/money.svg" width="100">
+	        <div class="h2">Step 7: </div>
+	        <div class="h4">Import members into your platform with support from the Seed.coop team.</div>
+	      </div>	      
+      </div>
     </div>
-
-    blah blah blah<br>
-
   </div>
 
 {/body}

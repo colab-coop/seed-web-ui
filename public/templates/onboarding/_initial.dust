@@ -1,81 +1,87 @@
-<h3>Start Your Project Here</h3>
+<div class="row">
+  <div class="landing-member-action-block col-xs-10">
+    <div class="col-md-offset-2">
+      <h3>Start Your Project Here</h3>
 
-<form method="post" id="startYourProjectForm" action="/proposals?ajax=1" class="form-horizontal">
-  <fieldset>
-    <input type="hidden" name="_csrf" value="{_csrf}"/>
+      <form method="post" id="startYourProjectForm" action="/proposals?ajax=1" class="form-horizontal">
+        <fieldset>
+          <input type="hidden" name="_csrf" value="{_csrf}"/>
 
-    <!-- Coop Name -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="orgName">Coop Name</label>
+          <!-- Coop Name -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="orgName">Coop Name</label>
 
-      <div class="col-sm-8">
-        <input value="{item.orgName}" name="orgName" type="text" class="form-control input-md"
-               placeholder="Coop name">
-        <span class="help-block">Required</span>
-      </div>
+            <div class="col-sm-8">
+              <input value="{item.orgName}" name="orgName" type="text" class="form-control input-md"
+                     placeholder="Coop name">
+              <span class="help-block">Required</span>
+            </div>
+          </div>
+
+          <!-- Campaign Name -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="campaignName">Campaign Name</label>
+
+            <div class="col-sm-8">
+              <textarea class="form-control" rows="4" name="campaignName"
+                        placeholder="Campaign (proposal title)"></textarea>
+              <span class="help-block">Required</span>
+            </div>
+          </div>
+
+
+          <!-- Tagline -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="tagline">Tagline</label>
+
+            <div class="col-sm-8">
+              <textarea class="form-control" rows="4" name="tagline" placeholder="What you’re doing in 50 words" ></textarea>
+              <span class="help-block">Required</span>
+            </div>
+          </div>
+
+          <!-- First Name -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="firstName">First Name</label>
+
+            <div class="col-sm-8">
+              <input value="{item.firstName}" name="firstName" type="text" class="form-control input-md" >
+              <span class="help-block">Required</span>
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="lastName">Last Name</label>
+
+            <div class="col-sm-8">
+              <input value="{item.lastName}" name="lastName" type="text" class="form-control input-md" >
+              <span class="help-block">Required</span>
+            </div>
+          </div>
+
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="title">Email</label>
+
+            <div class="col-sm-8">
+              <input value="{item.email}" name="email" type="email" class="form-control input-md" >
+              <span class="help-block">Required</span>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="save"></label>
+
+            <div class="col-sm-8">
+              <button type="submit" name="save" class="btn btn-default btn-lrg">On to step 2</button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
     </div>
-
-    <!-- Campaign Name -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="campaignName">Campaign Name</label>
-
-      <div class="col-sm-8">
-        <textarea class="form-control" rows="4" name="campaignName"
-                  placeholder="Campaign (proposal title)"></textarea>
-        <span class="help-block">Required</span>
-      </div>
-    </div>
-
-
-    <!-- Tagline -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="tagline">Tagline</label>
-
-      <div class="col-sm-8">
-        <textarea class="form-control" rows="4" name="tagline" placeholder="What you’re doing in 50 words" ></textarea>
-        <span class="help-block">Required</span>
-      </div>
-    </div>
-
-    <!-- First Name -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="firstName">First Name</label>
-
-      <div class="col-sm-8">
-        <input value="{item.firstName}" name="firstName" type="text" class="form-control input-md" >
-        <span class="help-block">Required</span>
-      </div>
-    </div>
-
-    <!-- Last Name -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="lastName">Last Name</label>
-
-      <div class="col-sm-8">
-        <input value="{item.lastName}" name="lastName" type="text" class="form-control input-md" >
-        <span class="help-block">Required</span>
-      </div>
-    </div>
-
-
-    <!-- Email -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="title">Email</label>
-
-      <div class="col-sm-8">
-        <input value="{item.email}" name="email" type="email" class="form-control input-md" >
-        <span class="help-block">Required</span>
-      </div>
-    </div>
-
-    <!-- Submit -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="save"></label>
-
-      <div class="col-sm-8">
-        <button type="submit" name="save" class="btn btn-primary btn-lrg">ON TO STEP 2</button>
-      </div>
-    </div>
-
-  </fieldset>
-</form>
+  </div>
+</div>

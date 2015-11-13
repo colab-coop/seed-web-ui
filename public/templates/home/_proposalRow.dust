@@ -1,5 +1,5 @@
 <div id="proposal_list_item_{_id}">
-  <div id="expanded_view_{_id}" class="proposal_list_item" {#isLast}data-is-last="true"{/isLast}>
+  <div id="expanded_view_{_id}" class="proposal_list_item row" {#isLast}data-is-last="true"{/isLast}>
       <div class="proposal_image">
         <img src="/{image.name}">
       </div>

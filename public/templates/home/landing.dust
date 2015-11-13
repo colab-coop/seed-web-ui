@@ -48,9 +48,10 @@
   </div>
 
 
-  <h2>Support Existing Coops</h2>
-  <br>
-
+  <div class="row">
+    <h2 class="landing-support-heading col-md-5">Support Existing Coops</h2>
+  </div>
+  
 
   {!NOTE, the 'items' attribute used by this partial is populated by proposals with subtype 'featured'  !}
   {!{> "proposal/_list_items" /}!}
@@ -58,7 +59,7 @@
   <div id="existingCoopsmoreInfo"></div>
   <div class="container">
     <div id="existingCoops" class="row" >
-      <div class="col-xs-12" id="proposals_list">
+      <div class="col-xs-10" id="proposals_list">
         {#items}
           {>"home/_proposalRow"/}
         {/items}

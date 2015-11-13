@@ -1,48 +1,6 @@
 {!assumes a proposal context with membership typed offers!}
 
-<<<<<<< HEAD
 <h3>Get Involved</h3>
-<form id="getInvolvedForm" method="POST" action="/p/{_id}/member?ajax=1">
-  <input type="hidden" name="pid" value="{_id}">
-  <input type="hidden" name="_csrf" value="{_csrf}">
-
-  HOW WILL YOU CONTRIBUTE?<br/>
-  {#memberships}
-    <input type="checkbox" name="memberships" value="{_id}">[{title}] &nbsp; {description}
-    {!${minimumContributionAmount} {?contributionInterval} / {contributionInterval}{/contributionInterval}!}
-    <br>
-  {/memberships}
-
-  {!Amount: <input type="text" name="amount" size="5"/><br/>!}
-
-  {?user}
-  {!Name: {profile.firstName} {profile.lastName}<br>!}
-  {!Organization: {profile.orgName}<br>!}
-    Name: {user.profile.displayName}<br>
-    Email: {user.profile.email}<br>
-    [not you?, please <a href="/logout">signout</a> first]<br>
-  {:else}
-  {!First Name: <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">!}
-  {!&nbsp &nbsp Last Name: <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>!}
-  {!Organization: <input type="text" name="orgName" value="{profile.orgName}" placeholder="Organization"><br>!}
-    <div class="form-group">    
-      <div class="row">
-        <div class="col-md-6">
-          <input type="text" name="displayName" value="{profile.displayName}" placeholder="Name" aria-label="Name" class="form-control">
-        </div>
-        <div class="col-md-6">
-          <input class="proposal-seed-input form-control" type="text" name="email" value="{profile.email}" placeholder="Email" aria-label="Email">
-        </div>
-      </div>
-    </div>    
-  {/user}
-
-  <div class="form-group">
-    <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg-x btn-block">Pledge</button>
-  </div>
-=======
-<h4>Get Involved</h4>
->>>>>>> Added client-side validation to pledge form
 
 <form method="post" id="getInvolvedForm" action="/p/{_id}/member?ajax=1" class="form-horizontal" data-toggle="validator">
   <fieldset>
@@ -51,7 +9,7 @@
 
     <!-- Memberships -->
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="memberships">How Will You Contribute?</label>
+      HOW WILL YOU CONTRIBUTE?<br/>
 
       <div class="col-sm-8">
         {#memberships}
@@ -67,34 +25,21 @@
       Email: {user.profile.email}<br>
       [not you?, please <a href="/logout">signout</a> first]<br>
     {:else}
-    <!-- Name -->
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="displayName">Name</label>
-
-      <div class="col-sm-8">
-        <input value="{profile.displayName}" name="displayName" type="text" class="form-control input-md" required>
+      <div class="col-sm-6">
+        <input type="text" name="displayName" value="{profile.displayName}" placeholder="Name" aria-label="Name" class="form-control" required>
         <span class="help-block with-errors">Required</span>
       </div>
-    </div>
 
-    <!-- Email -->
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="title">Email</label>
-
-      <div class="col-sm-8">
-        <input value="{profile.email}" name="email" type="email" class="form-control input-md" required>
+      <div class="col-sm-6">
+        <input class="proposal-seed-input form-control" type="text" name="email" value="{profile.email}" placeholder="Email" aria-label="Email" required>
         <span class="help-block with-errors">Required</span>
       </div>
     </div>
     {/user}
 
-    <!-- Submit -->
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="save"></label>
-
-      <div class="col-sm-8">
-        <button type="submit" name="pledge" class="btn btn-default btn-lrg">Pledge</button>
-      </div>
+      <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg-x btn-block">Pledge</button>
     </div>
 
   </fieldset>

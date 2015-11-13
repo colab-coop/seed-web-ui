@@ -5,17 +5,17 @@ module.exports = {
     const seedMore = $("#seedMore");
     seedMore.click((e) => {
         e.preventDefault();
-        $("#moreInfo").load("/seedMore", () => $.scrollTo(seedMore, 1000))
+        $("#moreInfo").load("/seedMore", () => $.scrollTo(seedMore, 1000));
       }
     );
 
     $(".learn_more").click((e) => {
         e.preventDefault();
-        $("#existingCoops").load(e.target.href, () => $.scrollTo($("#existingCoopsmoreInfo"), 750))
+        const target = $(e.target);
+        const expandedDiv = $(`#${target.data('expanded-id')}`);
+        const containerDiv = $(`#${target.data('container-id')}`);
+        expandedDiv.load(e.target.href, () => $.scrollTo(containerDiv, 1000));
       }
     );
-
   }
 };
-
-

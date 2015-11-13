@@ -30,7 +30,9 @@ module.exports = {
         const containerDiv = $(`#${target.data('container-id')}`);
         $.get(e.target.href, (data) => {
           expandedDiv.replaceWith(data);
-          ajaxify($("#getInvolvedForm"), () =>
+          const form = $('#getInvolvedForm');
+          form.validator();
+          ajaxify(form, () =>
             ajaxify($("#payment-form"))
           );
           $.scrollTo(containerDiv, 1000);

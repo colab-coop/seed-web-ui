@@ -182,11 +182,11 @@ div.proposal_list_item {
   border-color: $grey-cloud;
   background-color: $white;
 
-  width: 520px;
-  height: 290px;
+  //width: 520px;
+  //height: 290px;
 
-  float: left;
-  margin: 15px;
+  //float: left;
+  //margin: 15px;
   padding: 15px;
   overflow: hidden;
 
@@ -221,22 +221,22 @@ div.proposal_list_item {
     }
 
     div.proposal_summary {
-      height: 160px;
+      //height: 160px;
       text-align: left;
       font-size: 16px;
       line-height: 115%;
-      font-family: MonserratRegular;
+      //font-family: MonserratRegular;
       color: $grey-gravel;
       margin-bottom: 15px;
     }
 
-    div.learn_more {
+    /*div.learn_more {
       a {
         width: 100%;
         font-family: Museo;
         font-size: 16px;
       }
-    }
+    }*/
   }
 }
 

@@ -12,8 +12,8 @@
       <div class="proposal_summary">{summary}</div>
 
       <div class="learn_more">
-        <a class="btn btn-default btn-sm learn_more" data-container-id="proposal_list_item_{_id}" data-expanded-id="expanded_view_{_id}"
-           href="/p/{_id}/more?wrap=true" target="_blank">LEARN MORE</a>
+        <a class="btn btn-primary btn-more learn_more" data-container-id="proposal_list_item_{_id}" data-expanded-id="expanded_view_{_id}"
+           href="/p/{_id}/more?wrap=true" target="_blank">Learn More <span class="fa fa-caret-down"></span></a>
       </div>
 
     </div>

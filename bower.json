@@ -28,7 +28,8 @@
     "typeahead-addresspicker": "~0.1.4",
     "summernote": "~0.6.16",
     "jquery.scrollTo": "~2.1.2",
-    "bootstrap-select": "~1.7.5"
+    "bootstrap-select": "~1.7.5",
+    "jquery-form": "~3.46.0"
   },
   "overrides": {
     "bootstrap": {

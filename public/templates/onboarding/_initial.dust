@@ -1,6 +1,6 @@
 <h3>Start Your Project Here</h3>
 
-<form method="post" action="/proposals?ajax=1" class="form-horizontal">
+<form method="post" id="startYourProjectForm" action="/proposals?ajax=1" class="form-horizontal">
   <fieldset>
     <input type="hidden" name="_csrf" value="{_csrf}"/>
 

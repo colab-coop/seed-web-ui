@@ -95,7 +95,7 @@ function voteView(req, res) {
 function deleteVote(req, res) {
   const id = req.param('id');
   VoteService(id)
-    .then(() => res.redirect('/p') )
+    .then(() => res.redirect('/') )
     .catch( curriedHandleError(req, res) );
 }
 

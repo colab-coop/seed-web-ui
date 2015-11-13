@@ -20,6 +20,7 @@
       <span class="fa fa-caret-down"></span>
       </a>
     </div>
+  </div
 
   <div id="moreInfo"></div>
 
@@ -55,11 +56,13 @@
   {!{> "proposal/_list_items" /}!}
 
   <div id="existingCoopsmoreInfo"></div>
-  <div id="existingCoops" class="row" >
-    <div class="col-xs-12" id="proposals_list">
-      {#items}
-        {>"home/_proposalRow"/}
-      {/items}
+  <div class="container">
+    <div id="existingCoops" class="row" >
+      <div class="col-xs-12" id="proposals_list">
+        {#items}
+          {>"home/_proposalRow"/}
+        {/items}
+      </div>
     </div>
   </div>
 

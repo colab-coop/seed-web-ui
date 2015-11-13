@@ -15,6 +15,14 @@ module.exports = {
       }
     );
 
+    const signupLink = $('#toSimpleSignup');
+    signupLink.click((e) => {
+      e.preventDefault();
+      const seedMore = $("#seedMore");
+      const signupLink = $('#signupLink');
+      $.scrollTo(seedMore, 1000);
+    });
+
     $(".learn_more").click((e) => {
         e.preventDefault();
         const target = $(e.target);

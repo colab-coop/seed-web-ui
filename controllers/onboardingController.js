@@ -53,37 +53,28 @@ function proposalForm(req, res, next) {
     });
 }
 
-function followUpForm(req, res, next) {
-  proposalService
-    .fetchLite(req.params.id)
-    .then((proposal) => {
-      res.render('onboarding/follow_up_form', {
-        proposal: proposal
-      });
-    });
-}
 
 function updateProposal(req, res, next) {
   var proposal;
 
-  function offerForProposal(proposalRef) {
-    return Offer
-      .findOne({ proposalRef: proposalRef })
-      .then((offer) => {
-        if (offer) {
-          return Promise.resolve(offer);
-        } else {
-          return offerService.create({ _id: proposalRef }, {});
-        }
-      });
-  }
-
-  function updateOffer(proposalRef, data) {
-    return offerForProposal(req.params.id)
-      .then((offer) => {
-        return offerService.save(offer.id, data);
-      });
-  }
+  //function offerForProposal(proposalRef) {
+  //  return Offer
+  //    .findOne({ proposalRef: proposalRef })
+  //    .then((offer) => {
+  //      if (offer) {
+  //        return Promise.resolve(offer);
+  //      } else {
+  //        return offerService.create({ _id: proposalRef }, {});
+  //      }
+  //    });
+  //}
+  //
+  //function updateOffer(proposalRef, data) {
+  //  return offerForProposal(req.params.id)
+  //    .then((offer) => {
+  //      return offerService.save(offer.id, data);
+  //    });
+  //}
 
   //TODO
   //note: the current ui doesn't sync up with the Offer data model.
@@ -91,16 +82,13 @@ function updateProposal(req, res, next) {
   // and forget about building related Offer instances
 
   Promise.all([
-    proposalService.update(req.params.id, req.body.proposal),
-    updateOffer(req.params.id, req.body.offer)
+    proposalService.update(req.params.id, req.body.proposal),  // todo: other fields
+    //updateOffer(req.params.id, req.body.offer)
   ]).then(() => {
-
-    // if we have payment details, then we're doing the follow-up form
-    if (req.body.proposal.paymentDetails) {
-      res.redirect('/p');
+    if (req.query.ajax) {
+      res.json({redirect: '/proposalThanks'});
     } else {
-      // otherwise we're on "step 2", and we want to proceed to follow-up form
-      res.redirect('/follow-up/' + req.params.id);
+      res.redirect('/proposalThanks');
     }
   }).catch(next);
 }
@@ -109,7 +97,6 @@ function addRoutes(router) {
   router.post('/proposals', createProposal);
   router.get('/proposals/:id', proposalForm);
   router.post('/proposals/:id', updateProposal);
-  router.get('/follow-up/:id', followUpForm);
 }
 
 module.exports = {

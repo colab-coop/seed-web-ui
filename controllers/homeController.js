@@ -238,7 +238,7 @@ function completeSignup(req, res) {
     .populate('defaultProfileRef')
     .then((user) => {
       if (user) {
-        renderShowSignup(req, res, {firstName: user.defaultProfileRef.name, email: user.email}); // TODO: why doesn't user model have firstname?
+        editMyProfile(req, res);
       } else {
         Promise.resolve(null);
       }

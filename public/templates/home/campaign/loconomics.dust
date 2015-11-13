@@ -1,70 +1,173 @@
 
 
 <div class="campaign-block">
-  <div class="clearfix">
-	  <img src="http://placehold.it/350x350" class="img-responsive campaign-img-main">
-		<div class="campaign-desc-block">
-			<h3 class="campaign-block-title">Loconomics</h3>
-		  <p>loconomics campaign details</p>
-		</div>
-	</div>
-  <br><br>
+  <div class="row">
+    <div class="col-sm-6">
+      <img src="/images/loconomics-logo.png" class="img-responsive campaign-img-main">
+    </div>
 
-	<div>
-	  <h3>The Team</h3>
-	  <br>
-		<div class="row">
-		  <div class="campaign-team-each col-sm-6">
-		    <img src="http://placehold.it/250x250" class="img-responsive">
-		    <br>
-		    <p><strong>Name: Designation</strong></p>
-		    <p>Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate, has dicam dicunt et. Cum te semper forensibus, unum doctus interpretaris ut pri.</p>
-		  </div>
+    <div class="col-sm-6">
+      <h3>Loconomics</h3>
 
-		  <div class="campaign-team-each col-sm-6">
-		    <img src="http://placehold.it/250x250" class="img-responsive">
-		    <br>
-		    <p><strong>Name: Designation</strong></p>
-		    <p>Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
-		  </div>
-		</div>
-	</div>
+      <p>
+        Our mission is to use technology, shared ownership, and community to grow local economies. We provide our owners, local service professionals, the tools, marketplace, and community that empower them to thrive in their work. We provide their clients an on-demand marketplace where they can discover and directly book local service professionals safely, and easily without middle-men.
+      </p>
+    </div>
+  </div>
 
-	<img src="http://placehold.it/1000x300" class="img-responsive">
-	<br>
+  <div class="row">
+    <h3>The Team</h3>
+    <div class="col-sm-6">
+      <h4>Joshua Danielson – Co-founder and CEO</h4>
+      <p>
+        As an early adopter of the “sharing” economy (an Airbnb host since 2010, an owner on car-sharing platforms, and user of many others), Joshua understands both the inner workings of and the power these platforms possess to create economic empowerment for their users. His professional background includes pricing and revenue management, analytics, product strategy and management, contract negotiations, and voice of the customer programs primarily in the travel industry. He holds an MBA from IESE Business School (Barcelona) and a Bachelor of Science in Business from the University of Minnesota Carlson School of Management.
+      </p>
+    </div>
 
-	<h3>In Detail</h3>
-	<p>Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate. Lorem ipsum dolor sit amet, ex mei laudem repudiare contentiones. Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
- 
-  <br><br>
-  <h3>The Benefits</h3>
-	<div class="graphic-left-border-block">
+    <div class="col-sm-6">
+      <h4>Iago Lorenzo – Co-founder and CTO</h4>
+      <p>
+        Iago has been a freelance web developer since 2012 after working six years in various IT and software engineering positions in the corporate world. He has brought Loconomics to life helping build the original desktop version and creating the mobile app from scratch. He’s based in Vigo, Spain.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Janelle Orsi – Board Member</h4>
+      <p>
+        Janelle is a lawyer, advocate, writer, and cartoonist focused on cooperatives, the sharing economy, urban agriculture, shared housing, local currencies, and community-supported enterprises. She is Co-founder and Executive Director of the Sustainable Economies Law Center (SELC), which facilitates the growth of more sustainable and localized economies through education, research, and advocacy. Janelle has also worked in private law practice at the Law Office of Janelle Orsi, focusing on sharing economy law since 2008. Janelle is the author of Practicing Law in the Sharing Economy: Helping People Build Cooperatives, Social Enterprise, and Local Sustainable Economies (ABA Books 2012), and co-author of The Sharing Solution: How to Save Money, Simplify Your Life & Build Community (Nolo Press 2009), a practical and legal guide to cooperating and sharing resources of all kinds.
+      </p>
+    </div>
+
+    <div class="col-sm-6">
+      <h4>Christopher Tellez – Board Member</h4>
+      <p>
+        Christopher is the owner of SF REIKI CENTER. He has been practicing Reiki since 2010 and studying under Brian Brunius of NYC REIKI CENTER. He is currently a Reiki Master Candidate following the standards of Hawayo Takata and the discipline of Usui Shiki Ryoho with Brian Brunius and will become Reiki Master in 2016. He has worked in the social work profession for over a decade and holds a masters degree from Columbia University School of Social Work. Christopher had been featured in Dot429 and Seven Ponds magazine. Christopher also volunteers with Shanti’s Breast Cancer Program and has been funded by the The U'ilani Fund to give Reiki to Breast Cancer survivors.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <img src="/images/loconomics-banner.png" class="img-responsive">
+  </div>
+
+  <div class="row">
+    <h3>In Detail</h3>
+    <p>
+      For local service professionals who want to build, grow or manage their personal brand and business, Loconomics is a platform that offers the tools, marketplace, and community to help them focus on providing great services and empower them to achieve their financial goals. Unlike other marketplaces and software, the platform is cooperatively owned by the service professionals, which allows them to make decisions and products benefiting both them and their clients.
+    </p>
+  </div>
+
+  <div class="row">
+    <h3>The Benefits</h3>
+    <div class="graphic-left-border-block">
 	  <div class="campaign-block-list-each">
-	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+        <p>
+          <strong>Ownership:</strong>
+          In addition to electing our board, suggest new features that help you with your business, share in profits, and have a voice in decisions that affect you
+        </p>
 	  </div>
 
-	  <div class="campaign-block-list-each">
-	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Community:</strong>
+          We’re stronger in numbers and can learn from each other No commissions, no bidding: You have complete control of your pricing & there is no markup to clients.
+        </p>
 	  </div>
 
-	  <div class="campaign-block-list-each">
-	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Build and grow your client base:</strong>
+          Whether you’re an established pro or just starting out, we’ll help get you the best clients.
+        </p>
 	  </div>
 
-	  <div class="campaign-block-list-each">
-	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Personal branding:</strong>
+          All services are not created equal. Tailor your offering & let reviews speak for themselves.
+        </p>
 	  </div>
 
-	  <div class="campaign-block-list-each">
-	    <p><strong>Title:</strong> Ad congue ubique vocibus eos, per erant albucius rationibus ad. His numquam sensibus no, cu dico ipsum mea. Ei mei omittam partiendo suavitate.</p>
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Ownership:</strong>
+          In addition to electing our board, suggest new features that help you with your business, share in profits, and have a voice in decisions that affect you
+        </p>
+          </div>
+
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Online scheduler:</strong>
+          New & existing clients can book you 24/7 from your website or marketplace profile.
+        </p>
+          </div>
+
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Client management:</strong>
+          Keep track of client info, booking history & notes. Clients get automatic app’t reminders.
+        </p>
+          </div>
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Goal & performance tracking:</strong>
+          Set & achieve weekly, monthly, & annual goals to ensure a healthy work/life balance.
+        </p>
+          </div>
+
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Your own website:</strong>
+          Clients find your profile in our marketplace, custom URL, via search engines & social media
+        </p>
+          </div>
+
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Fast & easy payments:</strong>
+          Get paid quickly & easily with a processing fee of 2.9% plus $.30 per transaction.
+        </p>
+          </div>
+
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Fair background checks:</strong>
+          Our Background Check Policy is designed to help you get to work & keep your clients safe.
+        </p>
+          </div>
+
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>Access to insurance:</strong>
+          Health, dental, vision, and professional liability plans through Freelancers Union
+        </p>
+          </div>
+
+      <div class="campaign-block-list-each">
+        <p>
+          <strong>New features:</strong>
+          Have an idea to help you do your work better? As an owner, you’ll help decide what we build.
+        </p>
 	  </div>
-	</div>
-</div>
+    </div>
+  </div>
 
-{#proposal}
+  {#proposal}
 
-{>"home/_memberDriveStatus"/}
+    {>"home/_memberDriveStatus"/}
 
-{>"home/_memberEngage"/}
+    {>"home/_memberEngage"/}
 
-{/proposal}
+  {/proposal}

@@ -4,14 +4,23 @@ module.exports = {
   onLandingPageLoad: function () {
     const ajaxify = require('/public/js/formHelpers').ajaxify;
 
+    const handleGetInvolvedForm = (data, expandedDiv, containerDiv) => {
+      const proposalId = data.match(/id=\"getInvolvedForm_(\w+)\"/)[1];
+      expandedDiv.replaceWith(data);
+      const form = $(`#getInvolvedForm_${proposalId}`);
+      form.validator();
+      ajaxify(form, () =>
+        ajaxify($("#payment-form"))
+      );
+      $.scrollTo(containerDiv, 1000);
+    }
+
+
     const seedMore = $("#seedMore");
     seedMore.click((e) => {
         e.preventDefault();
         $.get("/seedMore", (data) => {
-          const proposalId = data.match(/id=\"getInvolvedForm_(\w+)\"/)[1];
-          $("#moreInfo").replaceWith(data);
-          ajaxify($(`#getInvolvedForm_${proposalId}`));
-          $.scrollTo(seedMore, 1000);
+          handleGetInvolvedForm(data, $("#moreInfo"), seedMore);
         });
       }
     );
@@ -39,14 +48,7 @@ module.exports = {
         const expandedDiv = $(`#${target.data('expanded-id')}`);
         const containerDiv = $(`#${target.data('container-id')}`);
         $.get(e.target.href, (data) => {
-          const proposalId = data.match(/id=\"getInvolvedForm_(\w+)\"/)[1];
-          expandedDiv.replaceWith(data);
-          const form = $(`#getInvolvedForm_${proposalId}`);
-          form.validator();
-          ajaxify(form, () =>
-            ajaxify($("#payment-form"))
-          );
-          $.scrollTo(containerDiv, 1000);
+          handleGetInvolvedForm(data, expandedDiv, containerDiv);
         });
       }
     );

@@ -1,7 +1,7 @@
 
   <h2>{proposal.title}</h2>
 
-  <form method="post" action="/proposals/{proposal._id}?ajax=1" class="form-horizontal">
+  <form id="proposalForm" method="post" action="/proposals/{proposal._id}?ajax=1" class="form-horizontal">
     <fieldset>
       <input type="hidden" name="_csrf" value="{_csrf}"/>
 

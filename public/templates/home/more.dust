@@ -18,6 +18,9 @@
 {@eq key=template value="loconomics"}
   {>"home/campaign/loconomics"/}
 {/eq}
+{@eq key=template value="coopify"}
+  {>"home/campaign/coopify"/}
+{/eq}
 
 {?wrap}
   </body></html>

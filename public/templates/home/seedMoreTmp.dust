@@ -1,0 +1,9 @@
+{>"layouts/master" /}
+
+{<body}
+
+{#seedcoop}
+  {>"home/campaign/seedcoop"/}
+{/seedcoop}
+
+{/body}

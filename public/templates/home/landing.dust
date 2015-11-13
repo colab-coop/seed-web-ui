@@ -18,7 +18,7 @@
       <a id="seedMore" class="btn btn-primary btn-more btn-more--landing-raise" href="#learn_more">
       Learn More
       <span class="fa fa-caret-down"></span>
-      </a>
+      </a> <a href="/seedMoreTmp">[tmp]</a>
     </div>
   </div
 
@@ -51,7 +51,7 @@
   <div class="row">
     <h2 class="landing-support-heading col-md-5">Support Existing Coops</h2>
   </div>
-  
+
 
   {!NOTE, the 'items' attribute used by this partial is populated by proposals with subtype 'featured'  !}
   {!{> "proposal/_list_items" /}!}

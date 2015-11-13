@@ -2,7 +2,7 @@
 // Ask Ralph for a better down caret for learn more button
 
 @import "_colors";
-@import "_bootstrap_variable_overrides";
+@import "_variables_bootstrap_overrides";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../bower_components/bootstrap-fileinput/css/fileinput";
 @import "../../bower_components/summernote/dist/summernote-bs3";
@@ -10,7 +10,7 @@
 @import "../../bower_components/font-awesome/css/font-awesome"; // Summernote
 
 
-@import "_variables";
+@import "_variables_custom";
 @import "_mixins";
 @import "_fonts";
 @import "_globals";

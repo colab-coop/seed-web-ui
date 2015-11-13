@@ -15,9 +15,11 @@
     <p class="sub-heading">Seed is enabling the corporate movement to scale into the digital age. Anyone can master their own destiny. Find out how.</p>
 
     <div class="btn btn-primary btn-more btn-more--landing-raise">
-      <a href="/seedMore" target="_blank">Learn More</a>
+      <a id="seedMore" href="#learn_more">Learn More</a>
       <span class="fa fa-caret-down"></span></div>
   </div>
+
+  <did id="moreInfo"></did>
 
   {!NOTE, it is assumed that there is a single proposal with sub type: 'seedcoop'.  !}
   {!that campaign is populated into this attribute!}
@@ -50,7 +52,8 @@
   {!NOTE, the 'items' attribute used by this partial is populated by proposals with subtype 'featured'  !}
   {!{> "proposal/_list_items" /}!}
 
-  <div class="row" >
+  <div id="existingCoopsmoreInfo"></div>
+  <div id="existingCoops" class="row" >
     <div class="col-12-md" id="proposals_list">
       {#items}
         {>"home/_proposalRow"/}
@@ -62,5 +65,10 @@
   {>"onboarding/_initial" /}
 
 
+  <script>
+    document.addEventListener( "DOMContentLoaded", function(e) {
+      require('public/js/landing').onLandingPageLoad()
+    }, false);
+  </script>
 
 {/body}

@@ -53,6 +53,15 @@ function seedMore(req, res) {
     .catch(curriedHandleError(req, res));
 }
 
+function seedMoreTmp(req, res) {
+  const model = {};
+  ProposalService.fetchOneByFilter({subType: 'seedcoop'}) // the one special seedcoop campaign
+    .then((result) => {
+      model.seedcoop = result;
+      res.render('home/seedMoreTmp', model);
+    })
+    .catch(curriedHandleError(req, res));
+}
 
 
 function listProposals(req, res) {
@@ -292,6 +301,7 @@ function addRoutes(router) {
 
   router.get(uri('/:id/more'), showMore);
   router.get('/seedMore', seedMore);
+  router.get('/seedMoreTmp', seedMoreTmp);
 
   //router.get(uri('/:id/view'), showProposal);
 

@@ -30,11 +30,14 @@ module.exports = {
       }
     );
 
-    ajaxify($("#startYourProjectForm"), () =>
+    ajaxify($("#startYourProjectForm"), () => {
+
+      // turn on validator here... because reasons
+      $('#proposalForm').validator();
+
       ajaxify($("#proposalForm"))
-    );
+    });
     ajaxify($("#joinForm"));
 
   }
 };
-

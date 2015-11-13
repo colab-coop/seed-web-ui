@@ -3,13 +3,13 @@
     <div class="col-md-offset-2">
       <h3>Become a provisional member of Seed.Coop</h3>
       <p>Very non committal. We'll send you more details and you can decide later.</p>
-      <form class="form-horizontal dropzone" id='joinForm' method="POST" action="/join?ajax=1">
+      <form class="form-horizontal dropzone" id='joinForm' method="POST" action="/join?ajax=1" data-toggle="validator">
         <div class="form-group">
           <div class="col-md-4">
-            <input type="text" name="name" placeholder="Name" aria-label="Name" class="form-control">
+            <input type="text" name="name" placeholder="Name" aria-label="Name" class="form-control" required>
           </div>
           <div class="col-md-4">
-            <input type="text" name="email" placeholder="Email" aria-label="Email" class="form-control">
+            <input type="email" name="email" placeholder="Email" aria-label="Email" class="form-control" data-error="Before you wreck yourself" required>
           </div>
           <input type="hidden" name="_csrf" value="{_csrf}"/>
           <div class="col-md-4">

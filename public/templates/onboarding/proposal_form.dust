@@ -1,7 +1,7 @@
 
   <h2>{proposal.title}</h2>
 
-  <form id="proposalForm" method="post" action="/proposals/{proposal._id}?ajax=1" class="form-horizontal">
+  <form id="proposalForm" method="post" action="/proposals/{proposal._id}?ajax=1" class="form-horizontal" data-toggle="validator">
     <fieldset>
       <input type="hidden" name="_csrf" value="{_csrf}"/>
 
@@ -9,21 +9,30 @@
       <!-- Goals -->
       <div class="form-group">
         <label class="col-sm-2 control-label" for="firstName">Goals</label>
-
         <div class="col-sm-8">
-          <input name="proposal[minimumMembership]" type="text" class="form-control input-md" placeholder="Minimum member level" required>
+          <input name="proposal[minimumMembership]" type="number" min=1 class="form-control input-md" placeholder="Minimum member level" required>
+          <span class="help-block with-errors">Required</span>
         </div>
+      </div>
 
+      <div class="form-group">
         <div class="col-sm-8">
-          <input name="proposal[currentMembership]" type="text" class="form-control input-md" placeholder="Current membership" required>
+          <input name="proposal[currentMembership]" type="number" min=0 class="form-control input-md" placeholder="Current membership" required>
+          <span class="help-block with-errors">Required</span>
         </div>
+      </div>
 
+      <div class="form-group">
         <div class="col-sm-8">
-          <input name="proposal[goalMembership]" type="text" class="form-control input-md" placeholder="Target membership goals" required>
+          <input name="proposal[goalMembership]" type="number" min=1 class="form-control input-md" placeholder="Target membership goals" required>
+          <span class="help-block with-errors">Required</span>
         </div>
+      </div>
 
+      <div class="form-group">
         <div class="col-sm-8">
           <input name="proposal[closingDate]" type="text" class="form-control input-md" placeholder="Closing date (mm/dd/yy)" required>
+          <span class="help-block with-errors">Required</span>
         </div>
       </div>
 
@@ -32,7 +41,8 @@
         <label class="col-sm-2 control-label" for="proposal[description]">Description</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[description]" required placeholder="Share the background context of your project?"></textarea>
+          <textarea class="form-control" rows="4" name="proposal[description]" data-minlength="10" data-maxlength="140" placeholder="Share the background context of your project?" required></textarea>
+          <span class="help-block with-errors">Required, between 10 and 140 characters</span>
         </div>
       </div>
 
@@ -41,8 +51,8 @@
         <label class="col-sm-2 control-label" for="proposal[impact]">Impact</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[impact]" required
-                    placeholder="What is the need or problem you intend to address?"></textarea>
+          <textarea class="form-control" rows="4" name="proposal[impact]" data-minlength="10" data-maxlength="140" required placeholder="What is the need or problem you intend to address?"></textarea>
+          <span class="help-block with-errors">Required, between 10 and 140 characters</span>
         </div>
       </div>
 
@@ -51,8 +61,8 @@
         <label class="col-sm-2 control-label" for="proposal[teamSummary]">Team Summary</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[teamSummary]" required
-                    placeholder="Who ar the founders and/or steering committee behind the project?"></textarea>
+          <textarea class="form-control" rows="4" name="proposal[teamSummary]" data-minlength="10" data-maxlength="140" placeholder="Who are the founders and/or steering committee behind the project?" required></textarea>
+          <span class="help-block with-errors">Required, between 10 and 140 characters</span>
         </div>
       </div>
 
@@ -61,8 +71,8 @@
         <label class="col-sm-2 control-label" for="proposal[engagement]">Supporter Enagement</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[engagement]" required
-                    placeholder="Describe the different levels for engagement"></textarea>
+          <textarea class="form-control" rows="4" name="proposal[engagement]" data-minlength="10" data-maxlength="140" placeholder="Describe the different levels for engagement" required></textarea>
+          <span class="help-block with-errors">Required, between 10 and 140 characters</span>
         </div>
       </div>
 
@@ -71,8 +81,8 @@
         <label class="col-sm-2 control-label" for="proposal[perks]">Perks</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="proposal[perks]" required
-                    placeholder="Describe the different benefits available at each engagement level"></textarea>
+          <textarea class="form-control" rows="4" name="proposal[perks]" data-minlength="10" data-maxlength="140" placeholder="Describe the different benefits available at each engagement level" required></textarea>
+          <span class="help-block with-errors">Required, between 10 and 140 characters</span>
         </div>
       </div>
 

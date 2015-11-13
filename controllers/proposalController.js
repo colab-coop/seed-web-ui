@@ -285,15 +285,15 @@ function gotoBaseAdminView(req, res) {
 function addRoutes(router) {
   router.get('/', home);
 
-  router.get(uri(''), listProposals);
-  router.get(uri('/items'), listProposalItems);
-  router.get(uri('/last'), showLastProposal);
-  router.get(uri('/view'), showProposal);
+  //router.get(uri(''), listProposals);
+  //router.get(uri('/items'), listProposalItems);
+  //router.get(uri('/last'), showLastProposal);
+  //router.get(uri('/view'), showProposal);
 
   router.get(uri('/:id/more'), showMore);
   router.get('/seedMore', seedMore);
 
-  router.get(uri('/:id/view'), showProposal);
+  //router.get(uri('/:id/view'), showProposal);
 
   router.post(uri('/newVision'), newVision);
 

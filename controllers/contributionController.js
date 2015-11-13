@@ -213,7 +213,7 @@ function uri(tail) {
 function addRoutes(router) {
 
   //router.post('/p/seed/pledge', postSeedPledge);
-  router.post('/p/:proposalId/pledge', postPledge);
+  //router.post('/p/:proposalId/pledge', postPledge);
   router.post('/p/:proposalId/member', postMember);
   //router.get(uri('/:contributionId/pay'), showPay);
   //router.post(uri('/:contributionId/water'), postWater);
@@ -223,14 +223,14 @@ function addRoutes(router) {
   router.get('/c/:pid/view', view);
 
 
-  router.get('/p/:pid/seed', showSeed);     // form to indicate support
-//  router.post('/p/:pid/seed', postSeed);
-  router.get('/c/pledge', old_showPledge);
-  router.get('/p/:pid/pledge', old_showPledge);
-  router.post('/c/pledge', old_postPledge);
-  router.get('/c/contribute', old_showContribute);
-  router.get('/p/:pid/contribute', old_showContribute);
-  router.post('/c/contribute', old_postContribute);
+//  router.get('/p/:pid/seed', showSeed);     // form to indicate support
+////  router.post('/p/:pid/seed', postSeed);
+//  router.get('/c/pledge', old_showPledge);
+//  router.get('/p/:pid/pledge', old_showPledge);
+//  router.post('/c/pledge', old_postPledge);
+//  router.get('/c/contribute', old_showContribute);
+//  router.get('/p/:pid/contribute', old_showContribute);
+//  router.post('/c/contribute', old_postContribute);
   router.get('/c/:cid/thanks', thanks);
 }
 

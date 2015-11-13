@@ -1,9 +1,12 @@
 const _ = require('lodash');
+const helpers = require('../lib/helpers');
 const offerService = require('../lib/offerService');
 const proposalService = require('../lib/proposalService');
 const userService = require('../lib/userService');
 const Offer = require('../models/offer');
 const Proposal = require('../models/proposal');
+
+const curriedHandleError = _.curry(helpers.handleError);
 
 function createProposal(req, res, next) {
   function ensureProfile() {
@@ -40,7 +43,10 @@ function createProposal(req, res, next) {
         res.redirect(uri);
       }
     })
-    .catch(next);
+
+    // todo: handle the error in an app-level middelware so that this can just become
+    // .catch(next)
+    .catch(curriedHandleError(req, res));
 }
 
 function proposalForm(req, res, next) {

@@ -4,18 +4,16 @@
   <div class="row">
     <div class="banner-full-block banner-full-block--landing">
       <div class="banner-full-content container">
-        <h1>Seed a coop,<br>
-        <a href="/how_it_works">grow a movement</a></h1>
+        <h1>Our mission is to help birth a new generation of cooperatives.</h1>
       </div>
     </div>
   </div>
 
   <div class="container">
-    <h2 class="heading-1 heading-1--landing-raise"><img src="/images/icons/acorn.svg" alt="" class="heading-graphic-acorn" width="34">Our mission is to help birth a new generation of cooperatives.</h2>
-    <p class="sub-heading">The Seed.Coop platform connects members to build sustainable and just cooperatives.</p>
-    <p class="sub-heading">Cooperatives can use Seed.Coop to kickstart membership, raise funds, and drive social engagement.</p>
+    <h2 class="heading-1 heading-1--landing-raise"><img src="/images/icons/acorn.svg" alt="" class="heading-graphic-acorn" width="34">Let’s build the next economy together</h2>
+    <p class="sub-heading">The Seed.Coop platform connects members to build sustainable and just cooperatives.</p><br>
+    <p class="sub-heading">Cooperatives can use Seed.Coop to kickstart membership, raise funds, and drive social engagement.</p><br>
     <p class="sub-heading">Supporters discover innovative coops while building community around shared vision and needs.</p>
-    <p class="sub-heading">Let’s build the Next Economy together.</p>
 
     <div>
       <a id="seedMore" class="btn btn-primary btn-more btn-more--landing-raise" href="#learn_more">

@@ -12,8 +12,8 @@
       {>"shared/_select_kind" /}
       <br>
 
-      Title: <input name="title" value="{title}" size="30"> (internal name)<br>
-      Description: <input name="description" value="{description}" size="50"> (displayed)<br>
+      Title: <input name="title" value="{title}" size="30"> (button label)<br>
+      Description: <input name="description" value="{description}" size="50"> (displayed to the side of the button)<br>
       Minimum Contribution Amount: <input name="minimumContributionAmount" value="{minimumContributionAmount}"><br>
       Contribution Interval: <input name="contributionInterval" value="{contributionInterval}"><br>
       Number Offered: <input name="limit" value="{limit}"><br>

@@ -74,6 +74,12 @@ there are few steps needed to populate you data:
 * you'll want to make sure the type is set to 'campaign'.  and there are two special sub types to note:
 * 'seedcoop' designates the special first campaign on the landing page, you'll also want to assign the 'view template' for this one to 'seedcoop'
 * 'featured' designates the campaigns displayed lower down on the page.  (this can be a list)  you can also assign the 'loconomics' view template for one of those
+* next is to create the membership offers:
+* from the admin proposal list, choose 'admin view' for a campaign
+* click 'create new offer'
+* type needs to be 'membership'
+* optionally enter a 'minimum contribution amount'.  note if present, then credit card info flow enabled when an option is chosen with an amount here
+* it's good to create a free and paid membership offers per landing page campaign  (i.e. seedcoop and loconomics)
 
 ### Testing
 

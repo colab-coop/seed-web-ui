@@ -1,8 +1,7 @@
 {!assumes a proposal context with membership typed offers!}
 
 <h3>Get Involved</h3>
-
-<form method="post" id="getInvolvedForm" action="/p/{_id}/member?ajax=1" class="form-horizontal" data-toggle="validator">
+<form method="post" id="getInvolvedForm_{_id}" action="/p/{_id}/member?ajax=1" class="form-horizontal" data-toggle="validator">
   <fieldset>
     <input type="hidden" name="_csrf" value="{_csrf}"/>
     <input type="hidden" name="pid" value="{_id}">
@@ -34,8 +33,8 @@
       <div class="col-sm-6">
         <input class="proposal-seed-input form-control" type="text" name="email" value="{profile.email}" placeholder="Email" aria-label="Email" required>
         <span class="help-block with-errors">Required</span>
+
       </div>
-    </div>
     {/user}
 
     <div class="form-group">

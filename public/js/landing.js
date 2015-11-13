@@ -8,8 +8,9 @@ module.exports = {
     seedMore.click((e) => {
         e.preventDefault();
         $.get("/seedMore", (data) => {
+          const proposalId = data.match(/id=\"getInvolvedForm_(\w+)\"/)[1];
           $("#moreInfo").replaceWith(data);
-          ajaxify($("#getInvolvedForm"));
+          ajaxify($(`#getInvolvedForm_${proposalId}`));
           $.scrollTo(seedMore, 1000);
         });
       }
@@ -38,8 +39,9 @@ module.exports = {
         const expandedDiv = $(`#${target.data('expanded-id')}`);
         const containerDiv = $(`#${target.data('container-id')}`);
         $.get(e.target.href, (data) => {
+          const proposalId = data.match(/id=\"getInvolvedForm_(\w+)\"/)[1];
           expandedDiv.replaceWith(data);
-          const form = $('#getInvolvedForm');
+          const form = $(`#getInvolvedForm_${proposalId}`);
           form.validator();
           ajaxify(form, () =>
             ajaxify($("#payment-form"))

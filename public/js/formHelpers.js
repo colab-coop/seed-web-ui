@@ -2,7 +2,9 @@
 
 module.exports = {
 
-  ajaxify: function(form, done = null) {
+  ajaxify: function (form, done = null) {
+    console.log(`Ajaxifying ${form.selector}`);
+
     form.validator().on('submit', (e) => {
       if (e.isDefaultPrevented()) return; // invalid
 
@@ -27,7 +29,6 @@ module.exports = {
           alert('There was an unexpected error');
         }
       })
-    })
+    });
   }
-
-};
+}

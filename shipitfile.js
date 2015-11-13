@@ -30,8 +30,7 @@ module.exports = function (shipit) {
       port: 8108,
       brunch: '~/.nvm/versions/node/v4.2.1/bin/brunch',
       krakenConfig: 'config/config-staging.json',
-      tmp: '~/seedbomb/tmp',
-      storage:'S3',
+      tmp: '~/seedbomb/tmp'
     },
     production: {
       servers: 'seed@seed.colab.coop',

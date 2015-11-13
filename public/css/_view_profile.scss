@@ -1,11 +1,10 @@
 .signin-panel {
   max-width: 350px;
-  padding: 40px 40px;
+  padding: $spacing-4;
   background-color: $white;
   border-color: $grey-dusty;
   margin: 0 auto;
-  margin-top: 50px;
-  border-radius: 2px;
+  margin-top: $spacing-5;
 
   input {
     margin-bottom: 10px;

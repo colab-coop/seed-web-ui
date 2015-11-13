@@ -2,7 +2,7 @@
 
 {<body}
 
-  <h2>Log in</h2>
+  <h1 class="heading-1 text-center">Log in</h1>
 
   {?messages}
     <ul>
@@ -27,7 +27,7 @@
       {!</label>!}
       {!</div>!}
 
-      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Log In</button>
+      <button class="btn btn-lg btn-default btn-block btn-signin" type="submit">Log In</button>
     </form><!-- /form -->
     <a href="/forgotPassword" class="forgot-password">Forgot your password?</a>
   </div>

@@ -22,16 +22,19 @@ module.exports = {
         const containerDiv = $(`#${target.data('container-id')}`);
         $.get(e.target.href, (data) => {
           expandedDiv.replaceWith(data);
-          ajaxify($("#getInvolvedForm"));
+          ajaxify($("#getInvolvedForm"), () =>
+            ajaxify($("#payment-form"))
+          );
           $.scrollTo(containerDiv, 1000);
         });
       }
     );
 
-    ajaxify($("#startYourProjectForm"), () => {
-      ajaxify($("#proposalForm"));
-    });
+    ajaxify($("#startYourProjectForm"), () =>
+      ajaxify($("#proposalForm"))
+    );
     ajaxify($("#joinForm"));
 
   }
 };
+

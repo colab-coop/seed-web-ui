@@ -10,6 +10,10 @@
   details
 */
 
+.proposals_list {
+  margin-top: $spacing-6;
+}
+
 div.proposal_container {
   width: 684px;
   background-color: $white;
@@ -125,6 +129,7 @@ div.proposal_info_card {
       object-fit: cover;
     }
   }
+  
   div.proposal_info {
     //background-color: violet;
     width: 270px;
@@ -176,55 +181,80 @@ div.proposal_info_card {
   list item
 */
 
-div.proposal_list_item {
-  border-radius: 6px 6px 6px 6px;
-  border: 1px solid;
-  border-color: $grey-cloud;
-  background-color: $white;
-
+.proposal_list_item {
+  margin-bottom: $spacing-5;
+  //border-radius: 6px 6px 6px 6px;
   //width: 520px;
   //height: 290px;
 
   //float: left;
   //margin: 15px;
-  padding: 15px;
+  //padding: 15px;
   overflow: hidden;
 
-  div.proposal_image {
-    width: 250px;
-    height: 250px;
-    float: left;
+  @media (min-width: $screen-sm-min) {
+    background-color: $red-whitish;
+    border: 1px solid $grey-cloud;
+  }
+
+  .proposal_image {
+    width: $img-proposal;
+    height: $img-proposal;
+
+    @media (min-width: $screen-sm-min) {
+      float: left;
+    }
 
     img {
-      border-radius: 4px 4px 4px 4px;
-      border: 1px solid;
-      border-color: $grey-cloud;
-      width: 250px;
-      height: 250px;
+      //border-radius: 4px 4px 4px 4px;
+      border: 1px solid $grey-cloud;
+      width: $img-proposal;
+      height: $img-proposal;
       object-fit: cover;
     }
   }
-  div.proposal_info {
-    width: 223px;
-    margin-left: 15px;
-    overflow: hidden;
-    float: left;
 
-    div.title {
-      height: 32px;
-      white-space: nowrap;
+  .proposal_info {
+    //width: 223px;
+    //margin-left: 15px;
+    overflow: hidden;
+    padding: $spacing-2 0 0 0;
+    position: relative;
+
+    @media (min-width: $screen-sm-min) {
+      padding: $spacing-3;
+      width: calc(100% - #{$img-proposal});
+      min-height: $img-proposal;
+      float: left;
+    }
+
+    .btn-more {
+      @media (min-width: $screen-sm-min) {
+        position: absolute;
+        right: $spacing-3;
+        bottom: $spacing-3;
+      }
+    }
+
+    .btn-more .fa {
+      font-size: inherit;
+    }
+
+    .title {
+      //height: 32px;
+      //white-space: nowrap;
       text-align: left;
       font-size: 22px;
       font-family: MonserratBold;
       color: $grey-soot;
-      margin-bottom: 7px;
+      margin-bottom: $spacing;
     }
 
-    div.proposal_summary {
+    .proposal_summary {
       //height: 160px;
-      text-align: left;
-      font-size: 16px;
-      line-height: 115%;
+      //text-align: left;
+      //font-size: 16px;
+      //line-height: 115%;
       //font-family: MonserratRegular;
       color: $grey-gravel;
       margin-bottom: 15px;

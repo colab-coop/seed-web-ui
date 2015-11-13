@@ -59,7 +59,7 @@
   <div id="existingCoopsmoreInfo"></div>
   <div class="container">
     <div id="existingCoops" class="row" >
-      <div class="col-xs-10" id="proposals_list">
+      <div class="col-xs-10 col-xs-offset-1" id="proposals_list">
         {#items}
           {>"home/_proposalRow"/}
         {/items}

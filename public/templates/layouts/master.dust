@@ -17,7 +17,7 @@
       <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom" role="navigation">
         <div class="container-fluid">
           <a href="/" class="navbar-logo">
-            <img src="/images/seedcooplogo.png" alt="Home" />
+            {>"shared/logo_seed_coops"/}
           </a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>

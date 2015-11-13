@@ -104,14 +104,25 @@ $dropDown: false;
   }
 }
 
-@media (min-width: $screen-sm-min) {
-  .navbar {
-    min-height: $header-height-lg;
-  }
-
-  .navbar-logo {
+.navbar-logo {
+  @media (min-width: $screen-sm-min) {
     float: left;
   }
+}
+
+.navbar-logo .logo {
+  width: 130px;
+
+  path {
+    fill: $white; 
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .navbar {
+    height: $header-height-lg;
+  }
+
 }
 
 @media (max-width: 767px) {

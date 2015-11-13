@@ -15,3 +15,67 @@ form .btn {
 		box-shadow: 2px 2px 2px rgba($black, 0.1);
 	}
 }
+
+
+/*
+  Custom Radios and Checkboxes
+*/
+
+.checkbox-inline, .radio-inline {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: $spacing;
+}
+
+.input-checkbox, .input-radio {
+  opacity: 0;
+  position: absolute;
+}
+
+.input-checkbox, .radio-checkbox, .input-checkbox-label, .radio-checkbox-label {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.input-checkbox-label, .input-radio-label {
+  position: relative;
+  cursor: pointer;
+}
+
+.input-checkbox + .input-checkbox-label:before, .input-radio + .input-radio-label:before {
+  background: $white;
+  background: rgba($black, 0.05);
+  color: $purple-grape;
+  border: 2px solid $green-forest;
+  content: "";
+  font-size: 15px;
+  line-height: 1.1;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  text-align: center;
+  margin-right: $spacing;
+  position: relative;
+  top: -1px;
+  transition: background 0.1s ease-in;
+}
+
+.input-checkbox:checked + .input-checkbox-label:before {
+    content: "\f00c";
+    font-family: "FontAwesome";
+    transition: background 0.1s ease-in;
+}
+
+.input-radio + .input-radio-label:before  {
+  border-radius: 50%;
+}
+
+.input-radio:checked + .input-radio-label:before {
+  background: $purple-grape;
+  -webkit-box-shadow: inset 0px 0px 0px 4px $white;
+  box-shadow: inset 0px 0px 0px 4px $white;
+  transition: all 0.1s ease-in;
+}

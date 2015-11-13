@@ -1,10 +1,10 @@
 {!assumes a proposal context with membership typed offers!}
 
+<h4>Get Involved</h4>
 <form method="POST" action="/p/{_id}/member?ajax=1">
   <input type="hidden" name="pid" value="{_id}">
   <input type="hidden" name="_csrf" value="{_csrf}">
 
-  <h4>Get Involved</h4>
   How Will You Contribute?<br/>
   {#memberships}
     <input type="checkbox" name="memberships" value="{_id}">[{title}] &nbsp; {description}

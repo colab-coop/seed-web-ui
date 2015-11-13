@@ -234,15 +234,20 @@ function completeSignup(req, res) {
   const token = req.body.token;
 
   return User
-    .findOne({ completeSignupToken: token })
+    .findOne({ passwordResetToken: token })
     .populate('defaultProfileRef')
     .then((user) => {
       if (user) {
-        editMyProfile(req, res);
+        UserService.login(req, user);
       } else {
         Promise.resolve(null);
       }
-    });
+    })
+    .then(()=>{
+      res.render('reset_password', {
+        token: token
+      });
+    })
 }
 
 function viewMyProfile(req, res) {

@@ -9,7 +9,7 @@
             <input type="text" name="name" placeholder="Name" aria-label="Name" class="form-control" required>
           </div>
           <div class="col-md-4">
-            <input type="email" name="email" placeholder="Email" aria-label="Email" class="form-control" data-error="Before you wreck yourself" required>
+            <input type="email" name="email" placeholder="Email" aria-label="Email" class="form-control" required>
           </div>
           <input type="hidden" name="_csrf" value="{_csrf}"/>
           <div class="col-md-4">

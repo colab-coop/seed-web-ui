@@ -26,11 +26,8 @@ const attributes = _.merge({
   , title: String
   , summary: String  // shown in list views, html
   , location: String
-  , description: String   // rename this to 'story'?
   , viewTemplate: String  // custom dust template to use to render the 'learn more' view for this campaign
 
-  , impact: String
-  , teamSummary: String
   , paymentDetails: String // ? not sure what this needs to be... account? stripe?
 
   , socialMediaLinks: mongoose.Schema.Types.Mixed   // future
@@ -44,7 +41,21 @@ const attributes = _.merge({
   , startingDate: Date  //needed?
   , closingDate: Date
   , needsTip: Boolean  // if true, then campaign succeeds or fails based on pledged vs goal. if false
-  , goalAmount: Number
+
+  , minimumGoal: {type: Number, default: 0}
+  , goalAmount: {type: Number, default: 0}
+
+  // from form part 2... proposal_form.dust
+  , minimumMembership: {type: Number, default: 1}
+  , currentMembership: {type: Number, default: 0}
+  , goalMembership: {type: Number, default: 1}
+  , closingDate: String // should we use a datepicker here? Date data type? probably yes...
+  , description: String   // rename this to 'story'?
+  , impact: String
+  , teamSummary: String
+  , engagement: String
+  , perks: String
+
   , goalUnits: String  //to support campaigns for # of units pre-sold, etc
   , merchantConfigRef: {type: String, ref: 'MerchantConfig'}
   , pledgedCapitalTotal: {type: Number, default: 0}

@@ -15,7 +15,7 @@
    {! nav bar !}
     <div class="row navigation-bar">
       <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom" role="navigation">
-        <div class="container-fluid">
+        <div class="container">
           <a href="/" class="navbar-logo">
             {>"shared/logo_seed_coops"/}
           </a>
@@ -46,7 +46,7 @@
                 {!{#user.hasModeratorAccess}!}
                   {!<li><a href="/admin">Admin</a></li>!}
                 {!{/user.hasModeratorAccess}!}
-                <li><a href="/me">{profile.name}{! [{profile.memberType} member] !}</a></li>
+                <li class="navbar-logged-user"><a href="/me"><span class="fa fa-user icon-left"></span>{profile.name}{! [{profile.memberType} member] !}</a></li>
                 <li><a href="/logout">Log Out</a> </li>
               {:else}
                 <li><a href="/login">Log In</a></li>

@@ -8,15 +8,21 @@
 
 .banner-full-block--landing {
 	background-image: url("https://unsplash.it/2000/600?image=846");
-	padding-top: 220px;
-	padding-bottom: 200px;
+	padding-top: 120px;
+	padding-bottom: 120px;
+	
+  @media (min-width: $screen-sm-min) {
+		padding-top: 210px;
+		padding-bottom: 210px;
+	}
 }
 
 	h1 {
+		color: $black;
 		font-size: 320%;
 		font-family: $font-family-slab;
 		line-height: 1.2;
-		color: $black;
+		margin: 0;
 		
 		a, a:hover {
 			color: inherit;

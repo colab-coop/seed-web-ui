@@ -14,7 +14,7 @@
   margin-top: $spacing-6;
 }
 
-div.proposal_container {
+.proposal_container {
   width: 684px;
   background-color: $white;
   border-radius: 4px 4px 4px 4px;
@@ -25,7 +25,7 @@ div.proposal_container {
   padding-top: 40px;
   overflow: auto;
 
-  div.proposal_metrics {
+  .proposal_metrics {
     float: left;
     background-color: $brown-clay;
     box-shadow: $grey-dusty 0px 0px 0px 1px;
@@ -113,8 +113,8 @@ div.proposal_container {
 info card
 */
 
-div.proposal_info_card {
-  div.proposal_image {
+.proposal_info_card {
+  .proposal_image {
     width: 308px;
     height: 308px;
     //background-color: yellow;
@@ -130,7 +130,7 @@ div.proposal_info_card {
     }
   }
   
-  div.proposal_info {
+  .proposal_info {
     //background-color: violet;
     width: 270px;
     // height: 308px;
@@ -138,7 +138,7 @@ div.proposal_info_card {
     overflow: hidden;
     float: left;
 
-    div.title {
+    .title {
       //background-color: red;
       height: 34px;
       white-space: nowrap;
@@ -149,7 +149,7 @@ div.proposal_info_card {
       margin-bottom: 7px;
     }
 
-    div.proposal_summary {
+    .proposal_summary {
       //background-color: #green;
       height: 150px;
       text-align: left;
@@ -159,7 +159,7 @@ div.proposal_info_card {
       color: $grey-gravel;
     }
 
-    div.proposal_data {
+    .proposal_data {
       ul {
         list-style: none outside none;
         padding: 0;

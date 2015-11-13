@@ -9,7 +9,7 @@
       <label class="col-sm-2 control-label" for="orgName">Coop Name</label>
 
       <div class="col-sm-8">
-        <input value="{item.orgName}" name="orgName" type="text" class="form-control input-md" required>
+        <input value="{item.orgName}" name="orgName" type="text" class="form-control input-md" >
         <span class="help-block">Required</span>
       </div>
     </div>
@@ -19,7 +19,7 @@
       <label class="col-sm-2 control-label" for="campaignName">Campaign Name</label>
 
       <div class="col-sm-8">
-        <textarea class="form-control" rows="4" name="campaignName" required></textarea>
+        <textarea class="form-control" rows="4" name="campaignName" ></textarea>
         <span class="help-block">Required</span>
       </div>
     </div>
@@ -30,7 +30,7 @@
       <label class="col-sm-2 control-label" for="tagline">Tagline</label>
 
       <div class="col-sm-8">
-        <textarea class="form-control" rows="4" name="tagline" placeholder="What you’re doing in 50 words" required></textarea>
+        <textarea class="form-control" rows="4" name="tagline" placeholder="What you’re doing in 50 words" ></textarea>
         <span class="help-block">Required</span>
       </div>
     </div>
@@ -40,7 +40,7 @@
       <label class="col-sm-2 control-label" for="firstName">First Name</label>
 
       <div class="col-sm-8">
-        <input value="{item.firstName}" name="firstName" type="text" class="form-control input-md" required>
+        <input value="{item.firstName}" name="firstName" type="text" class="form-control input-md" >
         <span class="help-block">Required</span>
       </div>
     </div>
@@ -50,7 +50,7 @@
       <label class="col-sm-2 control-label" for="lastName">Last Name</label>
 
       <div class="col-sm-8">
-        <input value="{item.lastName}" name="lastName" type="text" class="form-control input-md" required>
+        <input value="{item.lastName}" name="lastName" type="text" class="form-control input-md" >
         <span class="help-block">Required</span>
       </div>
     </div>
@@ -61,7 +61,7 @@
       <label class="col-sm-2 control-label" for="title">Email</label>
 
       <div class="col-sm-8">
-        <input value="{item.email}" name="email" type="email" class="form-control input-md" required>
+        <input value="{item.email}" name="email" type="email" class="form-control input-md" >
         <span class="help-block">Required</span>
       </div>
     </div>

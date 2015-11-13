@@ -1,7 +1,5 @@
-{>"layouts/master" /}
 
-{<body}
-  <h2>Building For Success</h2>
+  <h2>{proposal.title}</h2>
 
   <form method="post" action="/proposals/{proposal._id}?ajax=1" class="form-horizontal">
     <fieldset>
@@ -84,5 +82,3 @@
       </div>
 
     </fieldset>
-  </form>
-{/body}

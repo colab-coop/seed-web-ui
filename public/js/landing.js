@@ -2,10 +2,16 @@
 
 module.exports = {
   onLandingPageLoad: function () {
+    const ajaxify = require('/public/js/formHelpers').ajaxify;
+
     const seedMore = $("#seedMore");
     seedMore.click((e) => {
         e.preventDefault();
-        $("#moreInfo").load("/seedMore", () => $.scrollTo(seedMore, 1000));
+        $.get("/seedMore", (data) => {
+          $("#moreInfo").replaceWith(data);
+          ajaxify($("#getInvolvedForm"));
+          $.scrollTo(seedMore, 1000);
+        });
       }
     );
 
@@ -14,21 +20,16 @@ module.exports = {
         const target = $(e.target);
         const expandedDiv = $(`#${target.data('expanded-id')}`);
         const containerDiv = $(`#${target.data('container-id')}`);
-        expandedDiv.load(e.target.href, () => $.scrollTo(containerDiv, 1000));
+        $.get(e.target.href, (data) => {
+          expandedDiv.replaceWith(data);
+          ajaxify($("#getInvolvedForm"));
+          $.scrollTo(containerDiv, 1000);
+        });
       }
     );
 
-    const startYourProjectForm = $("#startYourProjectForm");
-    startYourProjectForm.submit((e) => {
-      e.preventDefault();
-      const form = $(e.target).ajaxSubmit();
-      form.data('jqxhr').done((data, textStatus, jqXHR) => {
-        startYourProjectForm.load(data.redirect);
-      }).fail((data, textStatus, jqXHR) => {
-        console.log(`Got ${status} from POST to ${e.target.action}`);
-      })
-    })
-
+    ajaxify($("#startYourProjectForm"));
+    ajaxify($("#joinForm"));
 
   }
 };

@@ -28,7 +28,9 @@ module.exports = {
       }
     );
 
-    ajaxify($("#startYourProjectForm"));
+    ajaxify($("#startYourProjectForm"), () => {
+      ajaxify($("#proposalForm"));
+    });
     ajaxify($("#joinForm"));
 
   }

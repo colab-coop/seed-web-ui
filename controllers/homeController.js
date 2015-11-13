@@ -85,7 +85,7 @@ function afterAuth(req, res) {
   if (contributionController.handlePending(req, res)) {
     return
   }
-  res.redirect('/p');
+  res.redirect('/');
 }
 
 

@@ -24,7 +24,7 @@ function handleMissingState(req, res, next) {
     next(); // proceed with normal flow
   } else {
     console.error("payment flow - missing pending state");
-    res.redirect('/p');
+    res.redirect('/');
   }
 }
 

@@ -26,6 +26,15 @@
   </div>
 </div>
 
+<!-- viewTemplate -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="subType">Name of custom .dust view template</label>
+
+  <div class="col-sm-8">
+    <input id="viewTemplate" value="{item.viewTemplate}" name="viewTemplate" type="text"
+           class="form-control input-md">
+  </div>
+</div>
 
 <!-- Sector selector -->
 <div class="form-group">

@@ -1,0 +1,13 @@
+{#proposal}
+
+  <h2>{title}</h2>
+
+  summary: {summary}<br/>
+  description: {description}<br/>
+  <br/><br/>
+
+  {>"home/_memberDriveStatus"/}
+
+  {>"home/_memberEngage"/}
+
+{/proposal}

@@ -27,6 +27,7 @@ const attributes = _.merge({
   , summary: String  // shown in list views, html
   , location: String
   , description: String   // rename this to 'story'?
+  , viewTemplate: String  // custom dust template to use to render the 'learn more' view for this campaign
 
   , impact: String
   , teamSummary: String
@@ -76,7 +77,7 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
 
 // fields to directly populate from edit forms
 const PARAM_FIELDS = [
-  'kind', 'subType', 'parentRef', 'title', 'summary', 'location', 'description'
+  'kind', 'subType', 'parentRef', 'title', 'summary', 'location', 'description', 'viewTemplate'
   , 'patronEnabled', 'memberEnabled', 'funderEnabled', 'merchantConfigRef'
 ];
 

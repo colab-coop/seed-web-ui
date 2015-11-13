@@ -4,8 +4,20 @@
   <html><body>
 {/wrap}
 
+{!template: {template}<br/>!}
+{!templatePath: {templatePath}<br>!}
 
+{!todo: is there a better way????!}
+
+{@eq key=template value="default"}
+  {>"home/campaign/default"/}
+{/eq}
+{@eq key=template value="seedcoop"}
+  {>"home/campaign/seedcoop"/}
+{/eq}
+{@eq key=template value="loconomics"}
   {>"home/campaign/loconomics"/}
+{/eq}
 
 {?wrap}
   </body></html>

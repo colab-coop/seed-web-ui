@@ -138,6 +138,9 @@ function showProposalForId(req, res, viewPath, id) {
   ProposalService.fetch(id)
     .then((proposal) => {
       model.proposal = proposal;
+      const template = model.viewTemplate ? model.viewTemplate : 'default';
+      model.template = template;
+      model.templatePath = `home/campaign/${template}`;
       res.render(viewPath, model);
     })
     .catch( curriedHandleError(req, res) );

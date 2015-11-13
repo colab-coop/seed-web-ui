@@ -2,7 +2,7 @@ label {
 	font-weight: normal;
 }
 
-form .btn {
+form .btn:not(.btn-lg-x) {
 	border: none;
 	text-transform: uppercase;
 	height: $input-height-base; // to match input height

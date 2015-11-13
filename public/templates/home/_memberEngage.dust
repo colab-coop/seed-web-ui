@@ -24,12 +24,20 @@
   {!First Name: <input type="text" name="firstName" value="{profile.firstName}" placeholder="First Name">!}
   {!&nbsp &nbsp Last Name: <input type="text" name="lastName" value="{profile.lastName}" placeholder="Last Name"><br>!}
   {!Organization: <input type="text" name="orgName" value="{profile.orgName}" placeholder="Organization"><br>!}
-    Name: <input type="text" name="displayName" value="{profile.displayName}" placeholder="Name">
-    Email: <input class="proposal-seed-input" type="text" name="email" value="{profile.email}" size="40"><br>
+    <div class="form-group">    
+      <div class="row">
+        <div class="col-md-6">
+          <input type="text" name="displayName" value="{profile.displayName}" placeholder="Name" aria-label="Name" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <input class="proposal-seed-input form-control" type="text" name="email" value="{profile.email}" placeholder="Email" aria-label="Email">
+        </div>
+      </div>
+    </div>    
   {/user}
 
-  <div>
-    <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg">Pledge</button>
+  <div class="form-group">
+    <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg-x btn-block">Pledge</button>
   </div>
 
 </form>

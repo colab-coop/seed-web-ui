@@ -8,7 +8,7 @@
   if the campaign reaches it's goal<br>
   <br>
 
-  <form action="/pay/stripeInfo" method="POST">
+  <form action="/pay/stripeInfo?ajax=1" method="POST">
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{publicKey}"
             data-amount="{amountCents}"

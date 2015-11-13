@@ -1,6 +1,6 @@
 {!assumes a proposal context with membership typed offers!}
 
-<form method="POST" action="/p/{_id}/member">
+<form method="POST" action="/p/{_id}/member?ajax=1">
   <input type="hidden" name="pid" value="{_id}">
   <input type="hidden" name="_csrf" value="{_csrf}">
 

@@ -29,6 +29,7 @@ function render(res, view, model) {
 
 
 function postMember(req, res) {
+  const ajax = req.query.ajax;
   const proposalId = req.body.pid;
   console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
   const wasAuthenticated = !!req.user;
@@ -72,9 +73,13 @@ function postMember(req, res) {
           , amount: offer.minimumContributionAmount
           , successMethodName: 'handleContributionPaymentSuccess'
         };
-        res.redirect('/pay/stripeInfo');
+        if (ajax) {
+          res.json({redirect: '/pay/stripeInfo'});
+        } else {
+          res.redirect('/pay/stripeInfo');
+        }
       } else {
-        gotoThanks(req, res, contribution);
+        gotoThanks(req, res, contribution, ajax);
       }
     })
     .catch(curriedHandleError(req, res));
@@ -181,9 +186,14 @@ function handleContributionPaymentSuccess(req, res) {
 require('./paymentController').mapMethod('handleContributionPaymentSuccess', handleContributionPaymentSuccess);
 
 
-function gotoThanks(req, res, contribution) {
+function gotoThanks(req, res, contribution, ajax) {
   delete req.session.cart;
-  res.redirect('/c/' + contribution._id + '/thanks');
+  const uri = `/c/${contribution._id}/thanks`;
+  if (ajax || req.query.ajax) {
+    res.json({redirect: uri});
+  } else {
+    res.redirect(uri);
+  }
 }
 
 

@@ -96,6 +96,7 @@ function showStripeInfo(req, res) {
 
 
 function postStripeInfo(req, res) {
+  console.log(`poststrip ajax: ${req.query.ajax}`);
   var amountCents = req.body.amountCents;
   var description = req.body.description;
   var stripeToken = req.body.stripeToken;
@@ -280,7 +281,11 @@ function handleSuccess(req, res) {
     }
   } else if (req.session.cart.successUrl) {
     console.log('handle successUrl:' + req.session.cart.successUrl);
-    res.redirect(req.session.cart.successUrl);
+    if (req.query.ajax) {
+      res.json({redirect: req.session.cart.successUrl});
+    } else {
+      res.redirect(req.session.cart.successUrl);
+    }
   } else {
     throw new Error('missing success hook - cart');
     //if (req.session.cart.kind == 'contribution') {

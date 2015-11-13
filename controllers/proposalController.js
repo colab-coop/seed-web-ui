@@ -138,7 +138,7 @@ function showProposalForId(req, res, viewPath, id) {
   ProposalService.fetch(id)
     .then((proposal) => {
       model.proposal = proposal;
-      const template = model.viewTemplate ? model.viewTemplate : 'default';
+      const template = proposal.viewTemplate ? proposal.viewTemplate : 'default';
       model.template = template;
       model.templatePath = `home/campaign/${template}`;
       res.render(viewPath, model);

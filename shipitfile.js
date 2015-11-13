@@ -39,12 +39,11 @@ module.exports = function (shipit) {
       branch: 'develop',
       port: 8108,
       dotEnv: '.env.production',
-      tmp: '~/seedbomb/tmp',
+      tmp: '/opt/www/seed/tmp',
       npm: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/npm',
       bower: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/bower',
       brunch: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/brunch',
-      grunt: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/grunt',
-      storage:'S3',
+      grunt: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/grunt'
     }
   });
 

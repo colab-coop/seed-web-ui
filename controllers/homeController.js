@@ -213,10 +213,17 @@ function postJoin(req, res) {
       UserService.sendWelcomeEmail(req.body.email, userData.firstName);
     })
     .then(() => {
-      //res.redirect('/afterAuth');  //todo: need something better to do here
-      res.redirect('/');
+      if (req.query.ajax) {
+        res.json({redirect: '/joinThanks'});
+      } else {
+        res.redirect('/joinThanks');
+      }
     })
     .catch(curriedHandleError(req, res));
+}
+
+function joinThanks(req, res) {
+  res.render('home/joinThanks', {});
 }
 
 function completeSignup(req, res) {
@@ -332,7 +339,10 @@ function addRoutes(router) {
   router.get('/completeSignup', completeSignup);
   router.get('/signup', showSignup);
   router.post('/signup', postSignup);
+
   router.post('/join', postJoin);
+  router.get('/joinThanks', joinThanks);
+
   router.get('/afterAuth', afterAuth);
   router.get('/m/:profileId', viewProfile);
   router.get('/logout', logout);

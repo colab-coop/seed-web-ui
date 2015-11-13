@@ -16,12 +16,21 @@ module.exports = {
     );
 
     const signupLink = $('#toSimpleSignup');
-    signupLink.click((e) => {
-      e.preventDefault();
+
+    const scrollToSignup = () => {
       const seedMore = $("#seedMore");
       const signupLink = $('#signupLink');
       $.scrollTo(seedMore, 1000);
+    };
+
+    signupLink.click((e) => {
+      e.preventDefault();
+      scrollToSignup();
     });
+
+    if (window.location.hash === '#join') {
+      scrollToSignup();
+    }
 
     $(".learn_more").click((e) => {
         e.preventDefault();

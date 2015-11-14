@@ -17,8 +17,8 @@ module.exports = function (shipit) {
       brunch: 'brunch',
       grunt: 'grunt',
       tmp: '/tmp',
-      storage:'LocalFS',
-      LocalFSFolder: 'u'
+      storage: 'LocalFS', // TODO: this value is duplicated in the .env file, this script should get it from there
+      LocalFSFolder: 'u', // TODO: this value is duplicated in the .env file, this script should get it from there
     },
     vagrant: {
       servers: 'deploy@127.0.0.1:2222'
@@ -51,63 +51,103 @@ module.exports = function (shipit) {
   });
 
   shipit.task('post-deploy', function () {
+    var currentFolder = shipit.config.deployTo + '/current/';
+    var sharedFolder = shipit.config.deployTo + '/shared/';
 
-    return shipit.remote('cd ' + shipit.config.deployTo + '/current &&  ' + shipit.config.npm + ' install')
+    return runInFolder(currentFolder, shipit.config.npm + ' install')
       .then(function (res) {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && ' + shipit.config.bower + ' install')
+        return runInFolder(currentFolder, shipit.config.bower + ' install')
       })
       .then(function (res) {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && ' + shipit.config.brunch + ' build');
+        return runInFolder(currentFolder, shipit.config.brunch + ' build');
       })
       .then(function (res) {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && ' + shipit.config.grunt + ' dustjs');
+        return runInFolder(currentFolder, shipit.config.grunt + ' dustjs');
       })
       .then(function (res) { // create the shared folder
-        return shipit.remote('mkdir -p ' + shipit.config.deployTo + '/shared');
+        return shipit.remote('mkdir -p ' + sharedFolder);
       })
       .then(function (res) { // check if there already is a shared .env file
-        return shipit.remote('test -e ' + shipit.config.deployTo + '/shared/.env && echo \"found\" || echo \"not found\"');
+        return shipit.remote('test -e ' + sharedFolder + '.env && echo \"found\" || echo \"not found\"');
       })
       .then(function (res) { // copy the .env example if there is no .env file in the shared folder
         if (res[0].stdout.trim() === 'not found') {
-          console.log(("[IMPORTANT] edit the " + shipit.config.deployTo + '/shared/.env file with the correct values before starting the server').red)
-          return shipit.remoteCopy('dotenv-example', shipit.config.deployTo + '/shared/.env');
+          console.log(("[IMPORTANT] edit the " + sharedFolder + '.env file with the correct values before starting the server').red)
+          return shipit.remoteCopy('dotenv-example', sharedFolder + '.env');
         } else {
-          return Promise.resolve(true);
+          return next();
         }
       })
       .then(function (res) { // link the shared .env file in the current folder
-        return shipit.remote('ln -sf ' + shipit.config.deployTo + '/shared/.env ' + shipit.config.deployTo + '/current/.env');
+        return shipit.remote('ln -sf ' + sharedFolder + '.env ' + currentFolder + '.env');
       })
       .then(function (res) { // set up the shared folder with an upload folder if necessary
         if (shipit.config.storage == 'LocalFS') {
-          return shipit.remote('mkdir -p ' + shipit.config.deployTo + '/shared/' + shipit.config.LocalFSFolder)
+          return shipit.remote('mkdir -p ' + sharedFolder + shipit.config.LocalFSFolder)
             .then(function (res) {
-              return shipit.remote('ln -fs ' + shipit.config.deployTo + '/shared/' + shipit.config.LocalFSFolder + '/ ' + shipit.config.deployTo + '/current/' + shipit.config.LocalFSFolder);
+              return shipit.remote('ln -fs ' + sharedFolder + shipit.config.LocalFSFolder + '/ ' + currentFolder + shipit.config.LocalFSFolder);
             })
         } else {
-          return Promise.resolve(true);
+          return next;
         }
       })
       .then(function (res) {
         if (shipit.config.krakenConfig) {
-          return shipit.remote('cp ' + shipit.config.deployTo + '/current/' + shipit.config.krakenConfig + ' ' + shipit.config.deployTo + '/current/config/config.json');
+          return shipit.remote('cp ' + currentFolder + shipit.config.krakenConfig + ' ' + currentFolder + 'config/config.json');
         } else {
-          return Promise.resolve(true);
+          return next;
         }
       })
   });
 
   shipit.task('start', function () {
-    return shipit.remote('cd ' + shipit.config.deployTo + '/current && TMP=' + shipit.config.tmp + ' NODE_ENV=production PORT=' + shipit.config.port + ' forever --append --uid \"seedbomb\" start server.js')
+    return start()
   });
 
   shipit.task('stop', function () {
-    return shipit.remote('forever stop seedbomb')
+    return stop()
+  });
+
+  shipit.task('restart', function () {
+    return isRunning().then(function (isRunning) {
+      return isRunning
+        ? stop().then(function (res) { return start() })
+        : start()
+    })
   });
 
   shipit.task('status', function () {
-    return shipit.remote('forever list')
+    return status()
   });
+
+  /*
+   * Helpers
+   */
+
+  function runInFolder(folder, command) {
+    return shipit.remote('cd ' + folder + ' && ' + command)
+  }
+
+  function stop() {
+    return shipit.remote('forever stop seedbomb');
+  }
+
+  function start() {
+    return shipit.remote('cd ' + shipit.config.deployTo + '/current && TMP=' + shipit.config.tmp + ' NODE_ENV=production PORT=' + shipit.config.port + ' forever --append --uid \"seedbomb\" start server.js');
+  }
+
+  function status() {
+    return shipit.remote('forever list');
+  }
+
+  function isRunning() {
+    return status().then(function (rawStatus) {
+      return Promise.resolve(rawStatus[0].stdout.match(/seedbomb/) != null)
+    })
+  }
+
+  function next() {
+    return Promise.resolve(true);
+  }
 
 };

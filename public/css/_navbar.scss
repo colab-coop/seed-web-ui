@@ -120,15 +120,20 @@ $dropDown: false;
 
 .navbar-logo .logo {
   width: 100px;
-  padding-right: ($spacing * 1.5);
+  padding-right: ($spacing / 2);
 
   path {
     fill: $white; 
   }
 
   @media (min-width: $screen-sm-min) {
-    width: 140px;
+    width: 120px;
   }
+}
+
+.logo-beta-icon {
+  vertical-align: top;
+
 }
 
 .navbar-nav .navbar-logged-user {

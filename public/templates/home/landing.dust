@@ -11,7 +11,7 @@
 
   <div class="container">
     <div class="row">
-      <h2 class="heading-1 heading-1--landing-raise"><img src="/images/icons/acorn.svg" alt="" class="heading-graphic-acorn" width="34">Let’s build the next economy together</h2>
+      <h2 class="heading-1 heading-1--landing-raise">{>"shared/acorn"/} Let’s build the next economy together</h2>
       <p class="sub-heading">The Seed.Coop platform connects members to build sustainable and just cooperatives.</p><br>
       <p class="sub-heading">Cooperatives can use Seed.Coop to kickstart membership, raise funds, and drive social engagement.</p><br>
       <p class="sub-heading">Supporters discover innovative coops while building community around shared vision and needs.</p>

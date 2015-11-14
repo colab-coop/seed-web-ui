@@ -98,12 +98,16 @@ $ cd vagrant && vagrant up
 
 ### Deploying and running
 We are using Shipit ([https://github.com/shipitjs/shipit](https://github.com/shipitjs/shipit)) for automatic deploys in the different environments.
-Currently available environments are __staging__ and __vagrant__.
+Currently available environments are `staging`, `production`, and `vagrant`.
 
 #### Deploying
 ```
 $ shipit <environment> deploy
 ```
+
+Note that the deploy script does not restart the app, you need to do that using
+`shipit ... stop; shipit ... start`.
+
 #### Rollback
 ```
 $ shipit <environment> rollback

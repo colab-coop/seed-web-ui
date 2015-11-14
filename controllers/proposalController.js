@@ -36,7 +36,7 @@ function home(req, res) {
   ProposalService.fetchOneByFilter({subType: 'seedcoop'}) // the one special seedcoop campaign
     .then((result) => {
       model.seedcoop = result;
-      return Proposal.find({subType: 'featured'});  // the list of campaings to show on the landing page
+      return Proposal.find({subType: 'featured'}).sort({'title': -1});  // the list of campaings to show on the landing page
     })
     .then((results) => {
       model.items = results;

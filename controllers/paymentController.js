@@ -90,44 +90,76 @@ function showStripeInfo(req, res) {
   model.publicKey = stripe.config.publicKey;
   model.messages = req.flash('error');
   model.pageTitle = model.pageTitle || 'Payment Information';
-  res.render('home/stripeInfoForm', model);
+  res.render('home/stripeInfoFormNoAjax', model);
 }
 
 
 
+//return (function() {
+//  if (bool) {
+//    return Promise.resolve('skip');
+//  } else {
+//    return UserService.createUser(userData);
+//  }
+//}())
+
 function postStripeInfo(req, res) {
   console.log(`poststrip ajax: ${req.query.ajax}`);
-  var amountCents = req.body.amountCents;
-  var description = req.body.description;
+  console.log(`body: ${_.inspect(req.body)}`);
   var stripeToken = req.body.stripeToken;
-  var stripeTokenType = req.body.stripeTokenType;
-  var stripeEmail = req.body.stripeEmail;
-  console.log('postStripe - token: ' + stripeToken + ', type: ' + stripeTokenType + ', emai: ' + stripeEmail);
+  //var stripeTokenType = req.body.stripeTokenType;
+  //var stripeEmail = req.body.stripeEmail;
+  console.log('postStripe - token: ' + stripeToken); // + ', type: ' + stripeTokenType + ', email: ' + stripeEmail);
 
-  //todo, refactor this into promise api on stripe.js
-  stripe.customers.create({
-    description: 'test customer description'
-    , source: stripeToken
-  }, function(err, customer) {
-    console.log('stripe create customer response - err: ' + err + ', charge: ' + _.inspect(customer));
-    if (err && err.type === 'StripeCardError') {
-      // The card has been declined
-      req.flash('error', "Sorry, that card has been declined");
-      res.redirect('/pay/stripeInfo');
-    } else if (customer) {
-      const customerId = customer.id;
-      console.log(`captured stripg customer id: ${customerId}`);
-      const profileId = req.user.profile._id;
-      ProfileService.updateStripeCustomerId(profileId, customerId)
-      .then(() => {
-          handleSuccess(req, res);
-        })
-        .catch(curriedHandleError(req, res));
+  // need to make sure we have a stripe customer created corresponding to our profile id
+  const profile = req.user.profile;
+  const profileId = profile._id;
+  (function() {
+    if (profile.stripeCustomerId) {
+      return Promise.resolve('skip');
     } else {
-      req.flash('error', 'Sorry, there was an unexpected error: ' + err);
-      res.redirect('/pay/stripeInfo');
+      return createStripeCustomer(profileId, profile.email, profile.displayName)
+      .then((result) => {
+          console.log(`stripe create custoomer result: ${_.inspect(result)}`);
+          return ProfileService.updateStripeCustomerId(profileId, profileId);
+        })
     }
-  });
+  }())
+    .then((result) => {
+      console.log(`update cust id result: ${_.inspect(result)}`);
+      // associate our captured payment information as the default payment source for the customer record
+      return storeStripPaymentSource(profileId, stripeToken);
+    })
+    .then((result) => {
+      console.log(`stripe store payment result: ${_.inspect(result)}`);
+      handleSuccess(req, res);
+    })
+    .catch(curriedHandleError(req, res));
+
+  ////todo, refactor this into promise api on stripe.js
+  //stripe.customers.create({
+  //  description: 'test customer description'
+  //  , source: stripeToken
+  //}, function(err, customer) {
+  //  console.log('stripe create customer response - err: ' + err + ', charge: ' + _.inspect(customer));
+  //  if (err && err.type === 'StripeCardError') {
+  //    // The card has been declined
+  //    req.flash('error', "Sorry, that card has been declined");
+  //    res.redirect('/pay/stripeInfo');
+  //  } else if (customer) {
+  //    const customerId = customer.id;
+  //    console.log(`captured stripg customer id: ${customerId}`);
+  //    const profileId = req.user.profile._id;
+  //    ProfileService.updateStripeCustomerId(profileId, customerId)
+  //    .then(() => {
+  //        handleSuccess(req, res);
+  //      })
+  //      .catch(curriedHandleError(req, res));
+  //  } else {
+  //    req.flash('error', 'Sorry, there was an unexpected error: ' + err);
+  //    res.redirect('/pay/stripeInfo');
+  //  }
+  //});
 }
 
 // perform charge against existing customer record
@@ -163,8 +195,80 @@ function stripeCharge(req, res) {
 
 }
 
+function createStripeCustomer(customerId, email, description) {
+  return new Promise(function (resolve, reject) {
+    stripe.customers.create({
+      id: customerId
+      , email: email
+      , description: description
+    }, function (err, result) {
+      console.log('stripe create customer response - err: ' + err + ', charge: ' + _.inspect(result));
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 
-function showBraintree(req, res) {
+function storeStripPaymentSource(customerId, stripeToken) {
+  console.log(`store payment: cusotmerId: ${customerId}, token: ${stripeToken}`);
+  return new Promise(function (resolve, reject) {
+    stripe.customers.createSource(
+      customerId
+      , {source: stripeToken}
+      , function(err, result) {
+        console.log('stripe store payment source - err: ' + err + ', charge: ' + _.inspect(result));
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+  });
+}
+
+
+
+function test1(req, res) {
+  stripe.customers.create({
+    id: 'test1'
+    , description: 'newtest1'
+    , email: 'test1@pobox.com'
+  }, function(err, customer) {
+    console.log('stripe create customer response - err: ' + err + ', charge: ' + _.inspect(customer));
+    if (err && err.type === 'StripeCardError') {
+      // The card has been declined
+      res.send('error: ' + err);
+    } else if (customer) {
+      res.send(`customer id: ${customer.id}`);
+    } else {
+      res.send('Sorry, there was an unexpected error: ' + err);
+    }
+  });
+}
+
+function showTest(req, res) {
+  res.render('payment/test', {amount: 125, publicKey: stripe.config.publicKey});
+}
+
+function postTest(req, res) {
+  var stripeToken = req.body.stripeToken;
+  var stripeTokenType = req.body.stripeTokenType;
+  console.log(`token: ${stripeToken}, type: ${stripeTokenType}`);
+  stripe.customers.createSource(
+    'test1', {source: stripeToken},
+    function(err, result) {
+    if (err)
+      res.send(err);
+    else
+      res.json(result);
+  });
+}
+
+
+  function showBraintree(req, res) {
   var model = req.session.cart;
   model.messages = req.flash('error');
   var clientToken;
@@ -423,6 +527,9 @@ function addRoutes(router) {
   router.get('/api/binbase/:bin', fetchBinbase);
   router.get('/api/estimateFee', estimateFee);
 
+  router.get('/test1', test1);
+  router.get('/pay/test', showTest);
+  router.post('/pay/test', postTest);
 }
 
 

@@ -1,7 +1,19 @@
 .how-steps-each {
 	margin-bottom: $spacing-6;
 
-	&:nth-of-type(2n + 1) {
-		clear: both;
+  @media (min-width: $screen-sm-min) {
+		&:nth-of-type(2n + 1) {
+			clear: both;
+		}
+	}
+
+  @media (min-width: $screen-md-min) {
+  	&:nth-of-type(2n + 1) {
+			clear: none;
+		}
+
+		&:nth-of-type(3n + 1) {
+			clear: both;
+		}
 	}
 }

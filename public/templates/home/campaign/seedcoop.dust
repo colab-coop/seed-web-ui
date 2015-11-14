@@ -1,16 +1,85 @@
 <div class="container">
-  <div class="campaign-block row">
-		<div class="embed-responsive embed-responsive-16by9">
+  <div class="row">
+    <p>Help us build a foundation for the platform cooperative movement.</p> 
+
+		<p>The mission of the project is to help birth a new generation of cooperatives using crowdfunding technology that enables supporters to seed cooperatives with new members and fresh capital.</p>
+
+		<p>Our plan is to help usher in a new era of social venture funding where investments are people-powered and our economic systems are cooperatively owned.</p>
+
+		<!--<div class="embed-responsive embed-responsive-16by9">
 		  <iframe width="560" height="315"
 		        src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
 		        class="embed-responsive-item" allowfullscreen></iframe>
-		</div>
+		</div>-->
 
-		<h3>Seed Coop</h3>
+    <div class="how-steps-block">
+    	<div class="heading-1">How it works</div>
+      <div class="row">
+	      <div class="how-steps-each col-sm-6 col-md-4">
+	        <img src="images/icons/upload.svg" width="80">
+	        <div class="h3">Step 1: </div>
+	        <div class="h6">Submit your project.</div>
+        </div>
 
-		<p>campaign detail information</p>
-		<div class="logo-seed-campaign">{>"shared/logo_seed_coops"/}</div>
-		<p>campaign detail information</p>
+	      <div class="how-steps-each col-sm-6 col-md-4">
+	        <img src="images/icons/user-check.svg" width="80">
+	        <div class="h3">Step 2: </div>
+	        <div class="h6">Our team will work with you to get your campaign ready.</div>
+	      </div>
+  
+	      <div class="how-steps-each col-sm-6 col-md-4">
+	        <img src="images/icons/check.svg" width="80">
+	        <div class="h3">Step 3: </div>
+	        <div class="h6">Check your email. <br>Approve campaign to go live</div>
+	      </div>
+
+	      <div class="how-steps-each col-sm-6 col-md-4">
+	        <img src="images/icons/chat-person.svg" width="80">
+	        <div class="h3">Step 4: </div>
+	        <div class="h6">Once approved, launch your campaign.</div>
+	      </div>
+
+	      <div class="how-steps-each col-sm-6 col-md-4">
+	        <img src="images/icons/people.svg" width="80">
+	        <div class="h3">Step 5: </div>
+	        <div class="h6">Seed coop community members pledge to join and recruit others.</div>
+	      </div>
+
+	      <div class="how-steps-each col-sm-6 col-md-4">
+	        <img src="images/icons/credit-card.svg" width="80">
+	        <div class="h3">Step 6: </div>
+	        <div class="h6">Once you reach your goal, members are billed and they join your coop.</div>
+	      </div>
+
+	      <div class="how-steps-each col-sm-6 col-md-4">
+	        <img src="images/icons/money.svg" width="80">
+	        <div class="h3">Step 7: </div>
+	        <div class="h6">Import members into your platform with support from the Seed.coop team.</div>
+	      </div>	      
+      </div>
+
+  		<div class="row">
+	      <div class="col-sm-6 logo-seed-campaign">
+	        {>"shared/logo_seed_coops"/}
+	      </div>
+
+	      <div class="col-sm-6">
+					<h3>Seed Coop</h3>
+					<p>Seed.coop is itself in the process of being organized as a cooperatively owned fundraising platform guided by a steering committee committed to economic justice and sustainability. A healthy portion of the proceeds from the Seed.Coop platform's activities will be reinvested into cooperative ventures selected for funding by the members of the cooperative themselves. The balance of funds will be used to support the development and maintenance of the Seed.Coop open-source platform. Initially, funds raised in the name of Seed.coop, will be held in Trust by CoLab.Coop for future use by Seed.coop upon its timely formation.</p> 
+	      </div>
+     </div>
+
+    <h3>The Team</h3>
+    <p>Seed.coop is volunteer-powered, open source project, sponsored by the kind folks at <a href="https://colab.coop/">CoLab Coop</a> and steered by a committee of cooperative development experts with deep roots in economic and social justice movements.</p>
+
+		<p>The technical development team has experience building a diverse array of IT systems from enterprise financial and commodities trading platforms for the likes of Suisse Bank and JP Morgan to building economic justice and community-advocacy platforms for the likes of Human Rights Campaign, NRDC Action Fund and the Unitarian Universalist Association.</p>
+
+		<p>The cooperative development team hails from leading cooperative development organizations like the <a href="http://www.theselc.org/">Sustainable Economies Law Center</a>, the <a href="http://institute.coop/">Democracy at Work Institute</a>, <a href="http://www.lifteconomy.com/">LIFT Economy</a> and the <a href="https://usworker.coop/">US Federation of Worker Coops</a>.</p>
+
+    <p>You can be a part of shaping the future of the Seed.Coop by pledging to become a member today.</p>
+
+    </div>
+
 
 		{>"home/_memberDriveStatus"/}
 

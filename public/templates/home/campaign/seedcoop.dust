@@ -5,11 +5,12 @@
 	        class="embed-responsive-item" allowfullscreen></iframe>
 	</div>
 
-	<h2>Seed Coop</h2>
+	<h3>Seed Coop</h3>
 
-	campaign detail information
-	<br/><br>
-
+	<p>campaign detail information</p>
+	<div class="logo-seed-campaign">{>"shared/logo_seed_coops"/}</div>
+	<p>campaign detail information</p>
+	
 	{>"home/_memberDriveStatus"/}
 
 	{>"home/_memberEngage"/}

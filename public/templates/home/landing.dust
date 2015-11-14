@@ -45,14 +45,15 @@
 
 
   <div class="container landing-section">
-    <h2 class="heading-1">What future do you want to SEED?</h2>
-    <div class="sub-heading">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus labore optio quae unde eaque perferendis iste accusantium vel.</div>
+    <h2 class="heading-1">What future do you want to seed?</h2>
+    <div class="sub-heading">
+        These coops are building the platforms of the future. You can learn
+    more about their work, connect with them as they grow, and pledge to join
+    as part of their membership drives. When emerging coops get the pledges
+    they need to succeed, your dues will be processed and a brighter future seeded.
+    </div>
   </div>
 
-
-  <div class="row">
-    <h2 class="landing-support-heading col-md-5">Featured Coops</h2>
-  </div>
 
   {!NOTE, the 'items' attribute used by this partial is populated by proposals with subtype 'featured'  !}
   {!{> "proposal/_list_items" /}!}

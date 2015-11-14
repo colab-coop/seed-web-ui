@@ -396,7 +396,7 @@ function scratch(req, res) {
 
 function testWelcomeEmail(req, res) {
   console.log(`email: ${req.user.profile.email}`);
-  userLib.emailUser(req.user.profile.email, req.user.profile.name)
+  userLib.sendWelcomeEmail(req.user._id) //profile.email, req.user.profile.name)
     .then( (status) => res.json(200, {status: status}) )
     .catch(curriedHandleError(req, res));
 }

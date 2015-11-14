@@ -16,7 +16,7 @@
     <p class="sub-heading">Supporters discover innovative coops while building community around shared vision and needs.</p>
 
     <div>
-      <a id="seedMore" class="btn btn-primary btn-more btn-more--landing-raise" href="#learn_more">
+      <a id="seedMore" class="btn btn-primary btn-more btn-more--landing-raise" href="#learn_more" onClick="ga('send', 'event', { eventCategory: 'Campaign', eventAction: 'Seed Coop', eventLabel: 'More'});">
       Learn More
       <span class="fa fa-caret-down"></span>
       </a>

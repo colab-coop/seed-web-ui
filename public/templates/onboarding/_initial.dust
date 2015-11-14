@@ -76,7 +76,9 @@
             <label class="col-sm-2 control-label" for="save"></label>
 
             <div class="col-sm-8">
-              <button type="submit" name="save" class="btn btn-default btn-lrg">On to step 2</button>
+              <button type="submit" name="save" class="btn btn-default btn-lrg"
+                      onClick="ga('send', 'event', { eventCategory: 'Start Project', eventAction: 'Form Submit', eventLabel: 'On To Step 2'});">
+                On to step 2</button>
             </div>
           </div>
 

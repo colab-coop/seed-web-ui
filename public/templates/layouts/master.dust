@@ -32,7 +32,7 @@
         <div class="container">
           <a href="/" class="navbar-logo">
             {>"shared/logo_seed_coops"/}
-            <img src="images/icons/beta.png" width="10" class="logo-beta-icon">
+            <img src="/images/icons/beta.png" width="10" class="logo-beta-icon">
           </a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -81,9 +81,9 @@
     <div class="container-fluid">
       <div class="row">
         <footer class="footer">
-          {>"shared/acorn"/}  
+          {>"shared/acorn"/}
           <div class="text-uppercase">Sponsored with {>"shared/logo-colab"/} by <a href="https://colab.coop">Colab</a></div>
-        </footer>  
+        </footer>
       </div>
     </div>
 

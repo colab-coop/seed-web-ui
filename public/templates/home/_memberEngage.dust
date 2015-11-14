@@ -35,10 +35,13 @@
         <span class="help-block with-errors">Required</span>
 
       </div>
+    </div>
     {/user}
 
     <div class="form-group">
-      <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg-x btn-block">Pledge</button>
+      <div class="col-sm-12">
+        <button id="pledge" type="submit" name="pledge" value="true" class="btn btn-pledge btn-lg-x btn-block">Pledge</button>
+      </div>
     </div>
 
   </fieldset>

@@ -1,12 +1,13 @@
-<div class="h3">
-  Goal: {goalAmount} Members
+<div class="spacing-2">
+  <div class="h3">
+    Goal: {goalAmount} Members
+  </div>
+  <div class="h3">
+    Current Membership: {supporterCount}
+  </div>
+  <div class="h3">
+    {?closingDate}
+      Ends: {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}
+    {/closingDate}
+  </div>
 </div>
-<div class="h3">
-  Current Membership: {supporterCount}
-</div>
-<div class="h3">
-  {?closingDate}
-    Ends: {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}
-  {/closingDate}
-</div>
-

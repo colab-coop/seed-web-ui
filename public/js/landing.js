@@ -71,11 +71,10 @@ module.exports = {
     );
 
     ajaxify($("#startYourProjectForm"), null, () => {
-
       // turn on validator here... because reasons
-      $('#proposalForm').validator();
-
-      ajaxify($("#proposalForm"))
+      const proposalForm = $('#proposalForm');
+      proposalForm.validator();
+      ajaxify(proposalForm);
     });
     ajaxify($("#joinForm"));
 

@@ -36,8 +36,8 @@
                   <img src="/images/seedcooplogo.png" alt="Home" />
                 </a>
               </li> -->
-              <li><a href="/how_it_works">How it works</a></li>
-              <li><a href="/who_we_are">Who we are</a></li>
+                <!--               <li><a href="/how_it_works">How it works</a></li>
+                <li><a href="/who_we_are">Who we are</a></li> -->
             </ul>
              <ul class="nav navbar-nav navbar-right">
               {#user}

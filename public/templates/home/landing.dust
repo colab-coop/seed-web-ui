@@ -51,9 +51,8 @@
 
 
   <div class="row">
-    <h2 class="landing-support-heading col-md-5">Support Existing Coops</h2>
+    <h2 class="landing-support-heading col-md-5">Featured Coops</h2>
   </div>
-
 
   {!NOTE, the 'items' attribute used by this partial is populated by proposals with subtype 'featured'  !}
   {!{> "proposal/_list_items" /}!}

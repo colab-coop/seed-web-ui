@@ -75,6 +75,11 @@
 	}
 }
 
+.landing-member-controls.form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
 /*
   Section: Get involved: Seed Coop
 */
@@ -131,6 +136,7 @@
 	background-color: $red-whitish;
 	border: 1px solid $grey-cloud;
 	padding: $spacing-3;
+	margin-bottom: $spacing-4;
 }
 
 .campaign-block-title {

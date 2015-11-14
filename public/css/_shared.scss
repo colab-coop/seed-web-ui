@@ -19,3 +19,47 @@ body {
   float: left;
 }
 
+/*
+ Footer
+*/
+
+.footer {
+	color: $white;
+	background-color: $brown-clay;
+	text-align: center;
+	font-size: 90%;
+	padding: $spacing-4 0 $spacing-6 0; // big padding for overlapping help link
+
+	@media (min-width: $screen-sm-min) {
+		padding-bottom: $spacing-4;
+	}
+
+	.icon-acorn {
+		width: 36px;
+		display: block;
+		margin: 0 auto $spacing-2;
+
+	}
+
+	.icon-colab {
+		width: 20px;
+		position: relative;
+		top: 2px;
+		padding: 0 2px;
+	}
+}
+
+.footer a {
+	color: rgba($white, 0.5);
+
+	&:hover, &:focus {
+		color: $white;
+	}
+}
+
+.footer svg {
+	path, polyline {
+		fill: currentColor;
+	}
+}
+

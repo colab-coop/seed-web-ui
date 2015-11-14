@@ -77,7 +77,12 @@
     <div id="wrapper">
       {+body /}
     </div>
-
+    <div class="row">
+      <footer class="footer">
+        {>"shared/acorn"/}  
+        <div class="text-uppercase">Sponsored with {>"shared/logo-colab"/} by <a href="https://colab.coop">Colab</a></div>
+      </footer>  
+    </div>
   </div>
 
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

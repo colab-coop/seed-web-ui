@@ -1,22 +1,23 @@
 <div class="row">
-  <div class="landing-member-action-block col-xs-9">
+  <div class="landing-member-action-block col-sm-9">
     <div class="col-md-offset-2">
       <h3>Join Seed.Coop</h3>
       <p>Help build a foundation for the cooperative future.</p>
       <form class="form-horizontal dropzone" id='joinForm' method="POST" action="/join?ajax=1" data-toggle="validator">
-        <div class="form-group">
-          <div class="col-md-4">
-            <input type="text" name="name" placeholder="Name" aria-label="Name" class="form-control" required>
-          </div>
-          <div class="col-md-4">
-            <input type="email" name="email" placeholder="Email" aria-label="Email" class="form-control" required>
-          </div>
-          <input type="hidden" name="_csrf" value="{_csrf}"/>
-          <div class="col-md-4">
-            <button id="save" type="submit" name="signup" class="btn btn-default"
-                    onClick="ga('send', 'event', { eventCategory: 'Join Seed.Coop', eventAction: 'Form Submit', eventLabel: 'Submit'});">
-              Submit</button>
-          </div>
+      	<div class="row">
+	        <div class="form-group col-md-4 landing-member-controls">
+	          <input type="text" name="name" placeholder="Name" aria-label="Name" class="form-control" required>
+	        </div>
+	        <div class="form-group col-md-4 landing-member-controls">
+	          <input type="email" name="email" placeholder="Email" aria-label="Email" class="form-control" required>
+	        </div>
+	          <input type="hidden" name="_csrf" value="{_csrf}"/>
+	        <div class="form-group col-md-4 landing-member-controls">
+	          <button id="save" type="submi landing-member-controlst" name="signup" class="btn btn-default"
+	                    onClick="ga('send', 'event', { eventCategory: 'Join Seed.Coop', eventAction: 'Form Submit', eventLabel: 'Submit'});">
+	              Submit</button>
+		        </div>
+		      </div>
         </div>
       </form>
     </div>

@@ -1,13 +1,16 @@
-<iframe width="560" height="315"
-        src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
-        frameborder="0" allowfullscreen></iframe>
+<div class="container">
+	<div class="embed-responsive embed-responsive-16by9">
+	  <iframe width="560" height="315"
+	        src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
+	        class="embed-responsive-item" allowfullscreen></iframe>
+	</div>
 
-<h2>Seed Coop</h2>
+	<h2>Seed Coop</h2>
 
-campaign detail information
-<br/><br>
+	campaign detail information
+	<br/><br>
 
-{>"home/_memberDriveStatus"/}
+	{>"home/_memberDriveStatus"/}
 
-{>"home/_memberEngage"/}
-
+	{>"home/_memberEngage"/}
+</div>

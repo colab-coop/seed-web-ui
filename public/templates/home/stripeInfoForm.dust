@@ -10,15 +10,6 @@
 
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
-  <!-- needed??  -->
-  {!<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>!}
-
-
-  <script>
-    document.addEventListener( "DOMContentLoaded", function(e) {
-      require('public/js/payment').onStripeInfoFormLoad('{publicKey}')
-    }, false);
-  </script>
 
   <form action="/pay/stripeInfo?ajax=1" method="POST" id="payment-form">
     <input type="hidden" name="_csrf" value="{_csrf}">

@@ -2,14 +2,11 @@
 
 module.exports = {
 
-  ajaxify: function (form, done = null) {
+  ajaxify: function (form, preprocessor = null, done = null) {
     console.log(`Ajaxifying ${form.selector}`);
 
-    form.validator().on('submit', (e) => {
-      if (e.isDefaultPrevented()) return; // invalid
-
-      e.preventDefault();
-      const jqxhr = $(e.target).ajaxSubmit().data('jqxhr');
+    function doSubmit(e) {
+      const jqxhr = form.ajaxSubmit().data('jqxhr');
       jqxhr.done((data, textStatus, jqXHR) => {
         $.get(data.redirect, (data) => {
           form.replaceWith(data);
@@ -29,6 +26,17 @@ module.exports = {
           alert('There was an unexpected error');
         }
       })
+    }
+
+    form.validator().on('submit', (e) => {
+      if (e.isDefaultPrevented()) return; // invalid
+      e.preventDefault();
+
+      if (preprocessor) {
+        preprocessor(form, () =>  doSubmit(e))
+      } else {
+        doSubmit(e);
+      }
     });
   }
-}
+};

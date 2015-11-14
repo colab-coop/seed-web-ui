@@ -24,6 +24,8 @@
 		font-family: $font-family-slab;
 		line-height: 1.2;
 		margin: 0;
+		position: relative;
+		top: -60px;
 
 		a, a:hover {
 			color: inherit;

@@ -6,13 +6,10 @@
   <div class="clearfix">
     <p><b>Please provide your credit card information.</b></p>
     <p class="help-block help-block--credid-card col-xs-9">Note, if the campaign reaches its goal,
-    your card will automatically be billed {offer.contributionInterval} for
-    {@formatNumber val=amount style="currency" currency="USD"/}
-    starting on
-    {?proposal.closingDate}
+    your card will automatically be billed {offer.contributionInterval} for {@formatNumber val=amount style="currency" currency="USD"/} starting
+    on {?proposal.closingDate}
       {@formatDate date="{proposal.closingDate}" format="MM/DD/YYYY" lan="en-US"/}
-    {/proposal.closingDate}.
-      You can cancel the automatic billing at any time from your profile page.
+    {/proposal.closingDate}. You can cancel the automatic billing at any time from your profile page.
     </p>
   </div>
 

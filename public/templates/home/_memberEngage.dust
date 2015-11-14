@@ -8,15 +8,20 @@
 
     <!-- Memberships -->
     <p>HOW WILL YOU CONTRIBUTE?</p>
-    <div class="form-group">
 
-      <div class="col-sm-8">
-        {#memberships}
-          <input type="checkbox" name="memberships" value="{_id}" id="contri_{_id}" class="input-checkbox-button"><label class="input-checkbox-button-label" for="contri_{_id}">{title}</label> &nbsp; <span>{description}</span>
+    <div class="col-sm-8">
+      {#memberships}
+      <div class="form-group spacing">
+        <div class="campaign-contrib-button">
+          <input type="checkbox" name="memberships" value="{_id}" id="contri_{_id}" class="input-checkbox-button"><label class="input-checkbox-button-label" for="contri_{_id}">{title}</label>
+        </div>
+
+        <div class="campaign-contrib-info">  
+          <div>{description}</div>
           {!${minimumContributionAmount} {?contributionInterval} / {contributionInterval}{/contributionInterval}!}
-          <br>
-        {/memberships}
+        </div>
       </div>
+      {/memberships}
     </div>
 
     {?user}

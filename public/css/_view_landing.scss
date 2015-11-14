@@ -88,6 +88,25 @@
 	padding: 0 0 $spacing-2 0;
 }
 
+.campaign-contrib-button {
+  @media (min-width: $screen-sm-min) {
+		float: left;
+  }
+
+	.input-checkbox-button-label {
+		width: 150px;
+		text-transform: uppercase;
+	}
+}
+
+.campaign-contrib-info {
+  @media (min-width: $screen-sm-min) {
+		float: left;
+		width: calc(100% - 150px); // match top checkbox
+		padding-left: $grid-gutter-width;
+  }
+}
+
 /*
   Section: Campaign Proposal List
 */

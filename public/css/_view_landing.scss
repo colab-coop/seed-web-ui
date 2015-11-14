@@ -20,7 +20,7 @@
 
 	h1 {
 		color: $black;
-		font-size: 320%;
+		font-size: 260%;
 		font-family: $font-family-slab;
 		line-height: 1.2;
 		margin: 0;
@@ -29,6 +29,10 @@
 			color: inherit;
 			border-bottom: 1px solid rgba($black, 0.4);
 		}
+
+	  @media (min-width: $screen-sm-min) {
+			font-size: 320%;
+	  }
 	}
 
 

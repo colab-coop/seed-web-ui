@@ -16,7 +16,7 @@
           <input type="checkbox" name="memberships" value="{_id}" id="contri_{_id}" class="input-checkbox-button"><label class="input-checkbox-button-label" for="contri_{_id}">{title}</label>
         </div>
 
-        <div class="campaign-contrib-info">  
+        <div class="campaign-contrib-info">
           <div>{description}</div>
           {!${minimumContributionAmount} {?contributionInterval} / {contributionInterval}{/contributionInterval}!}
         </div>
@@ -25,9 +25,9 @@
     </div>
 
     {?user}
-      Name: {user.profile.displayName}<br>
-      Email: {user.profile.email}<br>
-      [not you?, please <a href="/logout">signout</a> first]<br>
+      {!Name: {user.profile.displayName}<br>!}
+      {!Email: {user.profile.email}<br>!}
+      {![not you?, please <a href="/logout">signout</a> first]<br>!}
     {:else}
     <div class="form-group">
       <div class="col-sm-6">

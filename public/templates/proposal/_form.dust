@@ -75,9 +75,9 @@
   <label class="col-sm-2 control-label" for="short_description">Summary</label>
 
   <div class="col-sm-8">
-    <textarea class="form-control" id="summary" name="summary" data-minlength="2" data-maxlength="140"
+    <textarea class="form-control" id="summary" name="summary"
               required>{item.summary}</textarea>
-    <span class="help-block">Required, between 2 and 140 characters</span>
+    {!<span class="help-block">Required, between 2 and 140 characters</span>data-minlength="2" data-maxlength="140"!}
   </div>
 </div>
 
@@ -116,8 +116,8 @@
   <label class="col-sm-2 control-label" for="description">Description</label>
 
   <div class="col-sm-8">
-      <textarea class="form-control" id="description" name="description" data-minlength="20" data-maxlength="140"
-      required>{item.description}</textarea>
+      <textarea class="form-control" id="description" name="description">{item.description}</textarea>
+    {!data-minlength="20" data-maxlength="140" required!}
   </div>
 </div>
 

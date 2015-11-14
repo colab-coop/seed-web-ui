@@ -110,6 +110,9 @@ $dropDown: false;
 }*/
 
 .navbar-logo {
+  position: relative;
+  z-index: ($zindex-navbar-fixed + 1);
+
   @media (min-width: $screen-sm-min) {
     float: left;
   }
@@ -131,7 +134,7 @@ $dropDown: false;
 .navbar-nav .navbar-logged-user {
   @media (min-width: $screen-sm-min) {
     position: absolute;
-    top: 0;
+    top: -10px;
     right: 0;
     font-size: 90%;
   }

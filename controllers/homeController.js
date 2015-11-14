@@ -89,6 +89,7 @@ function afterAuth(req, res) {
 }
 
 
+//todo move proposalController.home() over to this controller
 
 /**
  * Display the login page. We also want to display any error messages that result from a failed login attempt.

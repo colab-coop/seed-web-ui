@@ -85,6 +85,12 @@ function postMemberPay(req, res) {
   }
 }
 
+function resetPaymentInfo(req, res) {
+  ProfileService.updateStripeCustomerId(req.user.profile._id, '')
+    .then(() => res.redirect('/me/edit'))
+    .catch( curriedHandleError(req, res) );
+}
+
 require('./paymentController').mapMethod('handleMembershipPaymentSuccess', handleMembershipPaymentSuccess);
 
 function handleMembershipPaymentSuccess(req, res) {
@@ -115,6 +121,7 @@ function addRoutes(router) {
   router.post('/me/edit', updateMyProfile);
   router.get('/me/pay', showMemberPay);
   router.post('/me/pay', postMemberPay);
+  router.get('/me/resetPaymentInfo', resetPaymentInfo);
   router.get('/me/thanks', membershipThanks);
   router.get('/me/password', editPassword);
   router.post('/me/password', updatePassword);

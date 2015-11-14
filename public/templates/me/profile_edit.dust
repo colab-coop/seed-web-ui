@@ -101,12 +101,10 @@
             <label class="col-sm-2 control-label" for="description">Address:</label>
 
             <div class="col-sm-8">
-              <textarea class="form-control" id="about" name="about"
-                        placeholder="Your mailing address">{about}</textarea>
+              <textarea class="form-control" id="address" name="address"
+                        placeholder="Your mailing address">{address}</textarea>
             </div>
           </div>
-
-        {/profile}
 
         <div class="form-group">
           <label class="col-sm-2 control-label" for="save"></label>
@@ -119,9 +117,19 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="changePassword"></label>
           <div class="col-sm-8">
-            <a href="/me/password">[change password]</a> &nbsp;
-            </div>
+            <a href="/me/password">[change password]</a> &nbsp; <br>
+            {?stripeCustomerId}
+              <a href="/me/resetPaymentInfo">[clear stored payment information]</a>
+            {:else}
+              {!payment information not on file!}
+            {/stripeCustomerId}
+
+          </div>
         </div>
+
+
+        {/profile}
+
 
 
       </fieldset>
@@ -142,6 +150,7 @@
       Membership Payments: {membershipPayments}<br>
     {/profile}
     <br>
+    <a href="/me">[view profile]</a> &nbsp;
     <a href="/me/pay">[pay co-op membership]</a> &nbsp;
   {/user.isAdmin}
 

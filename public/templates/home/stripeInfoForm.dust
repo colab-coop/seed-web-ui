@@ -4,8 +4,14 @@
   {!<h2>Payment Information</h2>!}
 
   <b>Please provide your credit card information.</b><br>
-  Note, your card will automatically be billed for {amount} on 12/31/2015
-  if the campaign reaches it's goal<br>
+  Note, if the campaign reaches its goal,
+  your card will automatically be billed {period} for
+  {@formatNumber val=amount style="currency" currency="USD"/}
+  starting on
+  {?closingDate}
+    {@formatDate date="{closingDate}" format="MM/DD/YYYY" lan="en-US"/}
+  {/closingDate}
+  [todo, describe how to cancel].
   <br>
 
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -38,7 +44,7 @@
       <input type="text" size="4" data-stripe="exp-year"/>
     </div>
 
-    <button type="submit">Submit Payment</button>
+    <button type="submit">Submit Payment Information</button>
   </form>
 
   {!<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"!}

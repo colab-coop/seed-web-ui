@@ -9,6 +9,8 @@ const ContributionService = require('../lib/contributionService');
 const Profile = require('../models/profile');
 const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
+const stripe = require('../lib/stripe').instance();
+
 
 const ProposalService = require('../lib/proposalService');
 const UserService = require('../lib/userService');
@@ -38,6 +40,7 @@ function home(req, res) {
     })
     .then((results) => {
       model.items = results;
+      model.stripePublicKey = stripe.config.publicKey;
       res.render('home/landing', model);
     })
     .catch(curriedHandleError(req, res));

@@ -75,7 +75,7 @@
 
   <script>
     document.addEventListener( "DOMContentLoaded", function(e) {
-      require('public/js/landing').onLandingPageLoad()
+      require('public/js/landing').onLandingPageLoad('{stripePublicKey}')
     }, false);
   </script>
 

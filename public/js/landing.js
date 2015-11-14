@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  onLandingPageLoad: function () {
+  onLandingPageLoad: function (stripePublicKey) {
     const ajaxify = require('/public/js/formHelpers').ajaxify;
 
     const handleGetInvolvedForm = (data, expandedDiv, containerDiv) => {
@@ -9,11 +9,28 @@ module.exports = {
       expandedDiv.replaceWith(data);
       const form = $(`#getInvolvedForm_${proposalId}`);
       form.validator();
-      ajaxify(form, () =>
-        ajaxify($("#payment-form"))
+      ajaxify(form, null, () =>
+        ajaxify($("#payment-form"), (form, done) => {
+          form.find('button').prop('disabled', true);
+          Stripe.setPublishableKey(stripePublicKey);
+          Stripe.card.createToken(form, function (status, response) {
+            if (response.error) {
+              // Show the errors on the form
+              form.find('.payment-errors').text(response.error.message);
+              form.find('button').prop('disabled', false);
+            } else {
+              // response contains id and card, which contains additional card details
+              const token = response.id;
+              // Insert the token into the form so it gets submitted to the server
+              form.append($('<input type="hidden" name="stripeToken" />').val(token));
+              // and submit
+              done();
+            }
+          });
+        })
       );
       $.scrollTo(containerDiv, 1000);
-    }
+    };
 
 
     const seedMore = $("#seedMore");
@@ -53,7 +70,7 @@ module.exports = {
       }
     );
 
-    ajaxify($("#startYourProjectForm"), () => {
+    ajaxify($("#startYourProjectForm"), null, () => {
 
       // turn on validator here... because reasons
       $('#proposalForm').validator();

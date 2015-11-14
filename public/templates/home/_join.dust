@@ -13,7 +13,9 @@
           </div>
           <input type="hidden" name="_csrf" value="{_csrf}"/>
           <div class="col-md-4">
-            <button id="save" type="submit" name="signup" class="btn btn-default">Submit</button>
+            <button id="save" type="submit" name="signup" class="btn btn-default"
+                    onClick="ga('send', 'event', { eventCategory: 'Join Seed.Coop', eventAction: 'Form Submit', eventLabel: 'Submit'});">
+              Submit</button>
           </div>
         </div>
       </form>

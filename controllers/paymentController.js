@@ -8,6 +8,8 @@ const Vote = require('../models/vote');
 const helpers = require('../lib/helpers');
 const userService = require('../lib/userService');
 const ProfileService = require('../lib/profileService');
+const ProposalService = require('../lib/proposalService');
+const OfferService = require('../lib/offerService');
 const curriedHandleError = _.curry(helpers.handleError);
 
 const stripe = require('../lib/stripe').instance();
@@ -52,7 +54,19 @@ function showStripe(req, res) {
   model.amountCents = model.amount * 100;
   model.publicKey = stripe.config.publicKey;
   model.messages = req.flash('error');
-  res.render('payment/stripe', model);
+  if (model.proposalId) {
+    ProposalService.fetch(model.proposalId)  //should make this safe even if missing  proposalid
+      .then((proposal) => {
+        model.proposal = proposal;
+        return OfferService.fetch(model.offerId);
+      })
+    .then((offer) => {
+        model.offer = offer;
+        res.render('payment/stripe', model);
+      });
+  } else {
+    res.render('payment/stripe', model);
+  }
 }
 
 function postStripe(req, res) {
@@ -90,7 +104,22 @@ function showStripeInfo(req, res) {
   model.publicKey = stripe.config.publicKey;
   model.messages = req.flash('error');
   model.pageTitle = model.pageTitle || 'Payment Information';
-  res.render('home/stripeInfoForm', model);
+
+
+  if (model.proposalId) {
+    ProposalService.fetch(model.proposalId)  //should make this safe even if missing  proposalid
+      .then((proposal) => {
+        model.proposal = proposal;
+        return OfferService.fetch(model.offerId);
+      })
+      .then((offer) => {
+        model.offer = offer;
+        res.render('home/stripeInfoForm', model);
+      });
+  } else {
+    res.render('home/stripeInfoForm', model);
+  }
+
 }
 
 

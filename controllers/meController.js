@@ -29,7 +29,7 @@ function updateMyProfile(req, res, next) {
 
   profileLib
     .updateProfile(profile, req.body)
-    .then(() => res.redirect('/me'))
+    .then(() => res.redirect('/me/edit'))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         render(helpers.validationMessages(err));
@@ -53,7 +53,7 @@ function updatePassword(req, res, next) {
 
   userLib
     .updatePassword(req.user, req.body.password)
-    .then(() => res.redirect('/me'))
+    .then(() => res.redirect('/me/edit'))
     .catch(next);
 }
 

@@ -33,7 +33,7 @@
                   <img src="/images/seedcooplogo.png" alt="Home" />
                 </a>
               </li> -->
-              {!<li><a href="/p">Proposals</a></li>!}
+              <li><a href="/">[home]</a></li> <!-- until logo is made clickable again -->
               <li><a href="/how_it_works">How it works</a></li>
               <li><a href="/who_we_are">Who we are</a></li>
             </ul>
@@ -46,7 +46,7 @@
                 {!{#user.hasModeratorAccess}!}
                   {!<li><a href="/admin">Admin</a></li>!}
                 {!{/user.hasModeratorAccess}!}
-                <li class="navbar-logged-user"><a href="/me"><span class="fa fa-user icon-left"></span>{profile.name}{! [{profile.memberType} member] !}</a></li>
+                <li class="navbar-logged-user"><a href="/me/edit"><span class="fa fa-user icon-left"></span>{profile.name}{! [{profile.memberType} member] !}</a></li>
                 <li><a href="/logout">Log Out</a> </li>
               {:else}
                 <li><a href="/login">Log In</a></li>

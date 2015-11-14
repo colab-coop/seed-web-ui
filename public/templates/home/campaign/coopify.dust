@@ -1,13 +1,35 @@
+<div class="campaign-block row">
 
-<h2>Coopify</h2>
+  <div class="row">
+    <div class="col-sm-6">
+      <img src="/images/campaigns/coopify/coopify-logo.png" class="img-responsive campaign-img-main" width="500" alt="Coopify logo">
+    </div>
 
-Coopify campaign details
-<br/><br/>
+    <div class="col-sm-6">
+      <h3>Coopify</h3>
 
-{#proposal}
+      <p>
+        The Goal of Coopify is to create a supportive space to fuel the cooperative movement.</p> 
 
-{>"home/_memberDriveStatus"/}
+			<p>Coopify is a mobile first platform with multilingual support that allows coops world-wide to coordinate their services with ease, accept both cash and credit payments, send referrals, and stay competitive in the digital age.</p>
+    </div>
+  </div>
 
-{>"home/_memberEngage"/}
+  <h3>The Team</h3>
 
-{/proposal}
+	<p>The Coopify team consists of a mix of MBA (Melina Diaconis, Jared Sharfin, and Ron Fisher) and Engineering Masters (Harrison Gregg, and Ashwin Ramanathan) students from Cornell Tech. Tasked with finding a way to leverage the sharing economy to benefit low income workers by the Robin Hood Foundation, the team explored various solutions to the challenge.</p>
+	<p>Through a series of interviews with key stakeholders, the need for a platform to streamline the workflow for worker cooperatives in order to scale their business was identified. The initial prototype for Coopify was built out and demo-ed to coop workers and was received favorably.</p>
+
+  <img src="/images/campaigns/coopify/coopify-team.jpg" class="img-responsive spacing">
+
+  <p>Coopify also helps cooperatives get off the ground by initiating membership drive campaigns designed to help onboard coop members via ‘tipping point’ methodologies. The aim of the platform is to help cooperatives to build the critical membership mass needed to create a viable cooperative organization. It is built to attract all types of members (both consumers and workers) and to scale as membership and participation increases.</p> 
+
+
+	{#proposal}
+
+	{>"home/_memberDriveStatus"/}
+
+	{>"home/_memberEngage"/}
+
+	{/proposal}
+</div>

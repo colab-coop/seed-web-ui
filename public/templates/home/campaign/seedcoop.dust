@@ -1,17 +1,19 @@
 <div class="container">
-	<div class="embed-responsive embed-responsive-16by9">
-	  <iframe width="560" height="315"
-	        src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
-	        class="embed-responsive-item" allowfullscreen></iframe>
+  <div class="campaign-block row">
+		<div class="embed-responsive embed-responsive-16by9">
+		  <iframe width="560" height="315"
+		        src="https://www.youtube.com/embed/xpg4PjGtbu0?list=PL5Qc8ueoLShsagZIDjThmjSabFm7pXQxq"
+		        class="embed-responsive-item" allowfullscreen></iframe>
+		</div>
+
+		<h3>Seed Coop</h3>
+
+		<p>campaign detail information</p>
+		<div class="logo-seed-campaign">{>"shared/logo_seed_coops"/}</div>
+		<p>campaign detail information</p>
+
+		{>"home/_memberDriveStatus"/}
+
+		{>"home/_memberEngage"/}
 	</div>
-
-	<h3>Seed Coop</h3>
-
-	<p>campaign detail information</p>
-	<div class="logo-seed-campaign">{>"shared/logo_seed_coops"/}</div>
-	<p>campaign detail information</p>
-	
-	{>"home/_memberDriveStatus"/}
-
-	{>"home/_memberEngage"/}
 </div>

@@ -211,9 +211,6 @@ function postJoin(req, res) {
       UserService.login(req, user);
     })
     .then(() => {
-      UserService.sendWelcomeEmail(req.body.email, userData.firstName);
-    })
-    .then(() => {
       if (req.query.ajax) {
         res.json({redirect: '/joinThanks'});
       } else {
@@ -332,7 +329,7 @@ function updatePassword(req, res, next) {
       if (!user) {
         req.flash('error', 'Invalid token');
       }
-      res.redirect('/login');
+      res.redirect('/');
     })
     .catch(next);
 }

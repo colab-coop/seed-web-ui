@@ -3,11 +3,10 @@
   padding: $spacing-4;
   background-color: $white;
   border-color: $grey-dusty;
-  margin: 0 auto;
-  margin-top: $spacing-5;
+  margin: $spacing-4 auto;
 
   input {
-    margin-bottom: 10px;
+    margin-bottom: $spacing;
   }
 
   button {
@@ -16,7 +15,7 @@
 
   a {
     display: block;
-    margin-top: 10px;
+    margin-top: $spacing;
   }
 
 }

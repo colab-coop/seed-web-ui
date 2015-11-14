@@ -1,4 +1,6 @@
-<div class="alert alert-success col-sm-8">
-  <p>Thanks for your support!</p>
-  <p>Please share with your friends on social media!</p>
+<div class="clearfix">
+	<div class="alert alert-success col-sm-8">
+	  <p>Thanks for your support!</p>
+	  <p>Please share with your friends on social media!</p>
+	</div>
 </div>

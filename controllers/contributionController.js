@@ -46,6 +46,7 @@ function postMember(req, res) {
     , pledgedCapital: 0
     , member: true
     , memberships: req.body.memberships
+    , proposalId: proposalId
   };
   console.log(`membership offer id: ${pledgeData.memberships}`);
   let resultMap;
@@ -71,6 +72,8 @@ function postMember(req, res) {
           , pageTitle: 'Payment information'
           , description: `${offer.proposalRef.title} Member Fee`
           , amount: offer.minimumContributionAmount
+          , proposalId: proposalId
+          , offerId: offer._id
           , successMethodName: 'handleContributionPaymentSuccess'
         };
         //todo: factor out this pattern

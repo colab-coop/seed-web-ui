@@ -49,7 +49,7 @@ const attributes = _.merge({
   , minimumMembership: {type: Number, default: 1}
   , currentMembership: {type: Number, default: 0}
   , goalMembership: {type: Number, default: 1}
-  , closingDate: String // should we use a datepicker here? Date data type? probably yes...
+//  , closingDate: String // should we use a datepicker here? Date data type? probably yes...
   , description: String   // rename this to 'story'?
   , impact: String
   , teamSummary: String

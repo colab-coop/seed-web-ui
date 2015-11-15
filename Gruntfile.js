@@ -8,13 +8,5 @@ module.exports = function (grunt) {
     configDir: require('path').resolve('tasks')
   });
 
-
-  // Register group tasks
-  //grunt.registerTask('build', ['jshint', 'dustjs', 'less', 'requirejs', 'copyto']);
-  //note, the other js and css assets are built via 'brunch build' into 'static'
-  grunt.registerTask('build', ['dustjs']);  // this precompiles the templates
-
-  //grunt.registerTask('test', ['jshint', 'mochacli']);
-  grunt.registerTask('test', ['mochacli']);
-
+  grunt.registerTask('build', ['dustjs', 'cachebreaker']);
 };

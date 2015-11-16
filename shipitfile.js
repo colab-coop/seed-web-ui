@@ -2,12 +2,19 @@ module.exports = function (shipit) {
   require('shipit-deploy')(shipit);
   var colors = require('colors');
 
+  function getEnv(key, defaultValue) {
+    var value = process.env[key];
+    return value        ? value :
+           defaultValue ? defaultValue :
+           console.log((key + " environment variable required" ).red ) & process.exit(1);
+  }
+
   shipit.initConfig({
     default: {
       workspace: '/tmp/seedbomb',
       deployTo: '~/seedbomb',
       repositoryUrl: 'https://github.com/colab-coop/seed-web-ui.git',
-      branch: 'develop',
+      branch: getEnv('SEED_BRANCH', 'develop'),
       ignores: ['.git', 'node_modules'],
       keepReleases: 2,
       shallowClone: true,
@@ -26,16 +33,15 @@ module.exports = function (shipit) {
     staging: {
       servers: 'seedbombing@seedbombing.dev.colab.coop',
       deployTo: '~/seedbomb',
-      branch: 'develop',
       port: 8108,
       brunch: '~/.nvm/versions/node/v4.2.1/bin/brunch',
       krakenConfig: 'config/config-staging.json',
       tmp: '~/seedbomb/tmp'
     },
     production: {
-      servers: 'seed@seed.colab.coop',
+      servers: 'sed@seed.colab.coop',
       deployTo: '/opt/www/seed/seed-web-ui',
-      branch: 'develop',
+      branch: getEnv('SEED_BRANCH'),
       port: 8108,
       dotEnv: '.env.production',
       tmp: '/opt/www/seed/tmp',
@@ -62,7 +68,7 @@ module.exports = function (shipit) {
         return runInFolder(currentFolder, shipit.config.brunch + ' build');
       })
       .then(function (res) {
-        return runInFolder(currentFolder, shipit.config.grunt + ' dustjs');
+        return runInFolder(currentFolder, shipit.config.grunt + ' build');
       })
       .then(function (res) { // create the shared folder
         return shipit.remote('mkdir -p ' + sharedFolder);
@@ -111,7 +117,9 @@ module.exports = function (shipit) {
   shipit.task('restart', function () {
     return isRunning().then(function (isRunning) {
       return isRunning
-        ? stop().then(function (res) { return start() })
+        ? stop().then(function (res) {
+        return start()
+      })
         : start()
     })
   });

@@ -39,7 +39,7 @@ module.exports = function (shipit) {
       tmp: '~/seedbomb/tmp'
     },
     production: {
-      servers: 'sed@seed.colab.coop',
+      servers: 'seed@seed.colab.coop',
       deployTo: '/opt/www/seed/seed-web-ui',
       branch: getEnv('SEED_BRANCH'),
       port: 8108,

@@ -12,7 +12,7 @@ const Vote = require('../models/vote');
 const Profile = require('../models/profile');
 const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
-
+const stripe = require('../lib/stripe').instance();
 
 const baseTemplatePath = 'contribution';
 
@@ -26,6 +26,50 @@ function render(res, view, model) {
 //
 // new flows
 //
+
+function apiPostPledge(req, res) {
+  console.log(`apipledge - req.param: ${_.inspect(req.param)}, params: ${_.inspect(req.params)}`);
+  let proposalId = req.params.proposalId;
+  proposalId = proposalId || req.body.campaignId;
+  console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
+  const apiData = {
+    apiKey: req.body.apiKey
+    , callback: req.body.callback
+  };
+  const userData = {
+    displayName: req.body.displayName
+    , firstName: req.body.firstName
+    , lastName:  req.body.lastName
+    , orgName: req.body.orgName
+    , email: req.body.email
+  };
+  const pledgeData = {
+    proposalId: proposalId
+    , amount: req.body.amount
+    , pledgedCapital: 0  //todo remove fragility here
+    , recurringInterval: req.body.recurringInterval
+    , recurringCount: req.body.recurringCount
+    , offerId: req.body.offerId // not yet used
+  };
+  // todo verify apikey
+  const response = {};
+  let resultMap;
+  let contribution;
+  ContributionService.apiCreatePledge(proposalId, userData, pledgeData)
+    .then((result) => {
+      console.log(`apiCreatePledge result: ${_.inspect(result)}`);
+      result.stripePublicKey = stripe.config.publicKey;  // stuff in stripe key needed for payment capture
+      response.result = result;
+
+      helpers.renderApiResponse(res, apiData, response);
+    })
+   .catch((err) => {
+      console.log(`apiCreatePledge error: ${err}, stack: ${err.stack}`);
+      response.error = {message: err.toString(), stack: err.stack};
+      helpers.renderApiResponse(res, apiData, response);
+    });
+
+}
 
 
 function postMember(req, res) {
@@ -235,6 +279,8 @@ function addRoutes(router) {
 //  router.get('/p/:pid/contribute', old_showContribute);
 //  router.post('/c/contribute', old_postContribute);
   router.get('/c/:cid/thanks', thanks);
+
+  router.post('/api/v1/campaign/:proposalId/pledge', apiPostPledge);
 }
 
 

@@ -191,6 +191,18 @@ function postStripeInfo(req, res) {
   //});
 }
 
+function apiPostPaymentInfo(req, res) {
+  console.log(`apipayment - params: ${_.inspect(req.params)}, body: ${_.inspect(req.body)}`);
+  const contributionId = req.params.contributionId;
+  const apiData = {
+    apiKey: req.body.apiKey
+    , callback: req.body.callback
+  };
+  const response = {};
+  response.result = {paymentId: contributionId, cancelUrl: 'todo'};
+  helpers.renderApiResponse(res, apiData, response);
+}
+
 // perform charge against existing customer record
 function stripeCharge(req, res) {
   const cart = req.session.cart;
@@ -553,6 +565,9 @@ function addRoutes(router) {
 
   router.get('/pay/success', handleMissingState, handleSuccess);
 
+  router.post('/api/v1/contribution/:contributionId/paymentInfo', apiPostPaymentInfo);
+
+  // todo: need better endpoints
   router.get('/api/binbase/:bin', fetchBinbase);
   router.get('/api/estimateFee', estimateFee);
 

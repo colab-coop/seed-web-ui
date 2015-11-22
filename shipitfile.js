@@ -43,7 +43,6 @@ module.exports = function (shipit) {
       deployTo: '/opt/www/seed/seed-web-ui',
       branch: getEnv('SEED_BRANCH'),
       port: 8108,
-      dotEnv: '.env.production',
       tmp: '/opt/www/seed/tmp',
       npm: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/npm',
       bower: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/bower',

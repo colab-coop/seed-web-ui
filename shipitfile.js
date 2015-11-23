@@ -30,13 +30,20 @@ module.exports = function (shipit) {
     vagrant: {
       servers: 'deploy@127.0.0.1:2222'
     },
-    staging: {
+    old_staging: {
       servers: 'seedbombing@seedbombing.dev.colab.coop',
       deployTo: '~/seedbomb',
       port: 8108,
       brunch: '~/.nvm/versions/node/v4.2.1/bin/brunch',
       krakenConfig: 'config/config-staging.json',
       tmp: '~/seedbomb/tmp'
+    },
+    staging: {
+      servers: 'seed@seed.stage.colab.coop',
+      deployTo: '~/seed-web-ui',
+      port: 8108,
+      brunch: '~/.nvm/versions/node/v4.2.1/bin/brunch',
+      tmp: '~/tmp'
     },
     production: {
       servers: 'seed@seed.colab.coop',

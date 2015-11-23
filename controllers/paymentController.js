@@ -203,6 +203,17 @@ function apiPostPaymentInfo(req, res) {
   helpers.renderApiResponse(res, apiData, response);
 }
 
+function apiSubmitPaymentInfo(req, res) {
+  console.log(`apipayment - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
+  const contributionId = req.params.contributionId;
+  const apiData = {
+    apiKey: req.query.apiKey
+    , callback: req.query.callback
+  };
+  const response = {};
+  response.result = {paymentId: contributionId, cancelUrl: 'todo'};
+  helpers.renderApiResponse(res, apiData, response);
+}
 // perform charge against existing customer record
 function stripeCharge(req, res) {
   const cart = req.session.cart;
@@ -565,7 +576,8 @@ function addRoutes(router) {
 
   router.get('/pay/success', handleMissingState, handleSuccess);
 
-  router.post('/api/v1/contribution/:contributionId/paymentInfo', apiPostPaymentInfo);
+  //router.post('/api/v1/contribution/:contributionId/paymentInfo', apiPostPaymentInfo);
+  router.get('/api/v1/contribution/:contributionId/paymentInfo.submit', apiSubmitPaymentInfo);
 
   // todo: need better endpoints
   router.get('/api/binbase/:bin', fetchBinbase);

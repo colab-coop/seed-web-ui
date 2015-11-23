@@ -1,0 +1,68 @@
+<html><body>
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+<form id="step1Form">
+  First Name: <input type="text" name="firstName"><br>
+  Last Name: <input type="text" name="lastName"><br>
+  Email: <input type="text" name="email"><br>
+  Amount: <input type="text" name="amount"><br>
+  <!--<a onclick="javascript:handleStep1();">click</a>-->
+  <input id="step1Submit" type="submit" value="Next">
+
+</form>
+
+
+<script>
+  $("#step1Form").submit(handleStep1);
+
+  //    var endpoint = 'http://seedbombing.dev.colab.coop/api/v1';
+  //    var campaignId = 'NkvHV25Ql';
+  //    var endpoint = 'http://local.coop:8000';
+  var endpoint = 'http://localhosts:8000';
+  var campaignId = 'VJ7iA5cQg';
+
+  var apiKey = 'w4l';
+
+  function handleStep1() {
+
+    var form = document.getElementById("step1Form");
+    var firstName = form.elements["firstName"].value;
+    var lastName = form.elements["lastName"].value;
+    var email = form.elements["email"].value;
+    var amount = form.elements["amount"].value;
+
+    var data = {apiKey: apiKey, firstName: firstName, lastName: lastName, email: email, amount: amount};
+
+//    return postPledgeDirect(data);
+    return postPledgeJsonp(data);
+  }
+
+  function postPledgeDirect(data) {
+    var endpoint = 'http://local.coop:8000';
+    var url = endpoint + '/api/v1/campaign/' + campaignId + '/pledge';
+
+    $.post(url, data, handlePledgeResponse);
+    return false
+
+  }
+
+  function postPledgeJsonp(data) {
+    var endpoint = 'http://localhosts:8000';
+    var url = endpoint + '/api/v1/campaign/' + campaignId + '/pledge';
+
+    $.post(url, data, handlePledgeResponse, 'jsonp');
+    return false
+
+  }
+
+  function handlePledgeResponse(data) {
+    alert('contributionId: ' + data.result.contributionId);
+
+  }
+
+</script>
+
+
+</body></html>

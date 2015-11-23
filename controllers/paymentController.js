@@ -10,6 +10,7 @@ const userService = require('../lib/userService');
 const ProfileService = require('../lib/profileService');
 const ProposalService = require('../lib/proposalService');
 const OfferService = require('../lib/offerService');
+const ContributionService = require('../lib/contributionService');
 const curriedHandleError = _.curry(helpers.handleError);
 
 const stripe = require('../lib/stripe').instance();
@@ -149,7 +150,7 @@ function postStripeInfo(req, res) {
     } else {
       return createStripeCustomer(profileId, profile.email, profile.displayName)
       .then((result) => {
-          console.log(`stripe create custoomer result: ${_.inspect(result)}`);
+          console.log(`stripe create customer result: ${_.inspect(result)}`);
           return ProfileService.updateStripeCustomerId(profileId, profileId);
         })
     }
@@ -203,6 +204,7 @@ function apiPostPaymentInfo(req, res) {
   helpers.renderApiResponse(res, apiData, response);
 }
 
+const PAYMENT_FIELDS = ['cardNumber','cardExpMonth','cardExpYear','cardCvv','billingZip','description'];
 function apiSubmitPaymentInfo(req, res) {
   console.log(`apipayment - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
   const contributionId = req.params.contributionId;
@@ -210,10 +212,72 @@ function apiSubmitPaymentInfo(req, res) {
     apiKey: req.query.apiKey
     , callback: req.query.callback
   };
+  const paymentData = {};
+  _.assign(paymentData, _.pick(req.query, PAYMENT_FIELDS));
+  _.assignNumericParam(paymentData, req.query, 'amount');
+
+  console.log(`paymentData: ${_.inspect(paymentData)}`);
+  // todo verify apikey
   const response = {};
-  response.result = {paymentId: contributionId, cancelUrl: 'todo'};
-  helpers.renderApiResponse(res, apiData, response);
+
+  handleSubmitPaymentInfo(contributionId, paymentData)
+    .then((result) => {
+      console.log(`apiSubmitPayment result: ${_.inspect(result)}`);
+      response.result = result;
+      helpers.renderApiResponse(res, apiData, response);
+    })
+    .catch((err) => {
+      console.log(`apiSubmitPayment error: ${err}, stack: ${err.stack}`);
+      response.error = {message: err.toString(), stack: err.stack};
+      helpers.renderApiResponse(res, apiData, response);
+    });
 }
+
+function handleSubmitPaymentInfo(contributionId, paymentData) {
+  let contribution;
+  let profile;
+  let stripeCustomerId;
+  return ContributionService.fetch(contributionId)
+    .then((aContribution) => {
+      if (!aContribution) {
+        throw new Error(`contribution record now found for id: ${contributionId}`);
+      }
+      contribution = aContribution;
+      profile = contribution.profileRef;
+      if (!profile) {
+        throw new Error(`profileRef missing for contributionId: ${contributionId}`);
+      }
+      if (profile.stripeCustomerId) {
+        stripeCustomerId = profile.stripeCustomerId;
+        return Promise.resolve('skip');
+      } else {
+        stripeCustomerId = profile._id;
+        return createStripeCustomer(stripeCustomerId, profile.email, profile.displayName)
+          .then((result) => {
+            console.log(`stripe create customer result: ${_.inspect(result)}`);
+            return ProfileService.updateStripeCustomerId(profile._id, stripeCustomerId);
+          }) //todo catch and handle error if strip customer already exists
+      }
+    })
+    .then((result) => {
+      console.log(`update cust id result: ${_.inspect(result)}`);
+      // associate our captured payment information as the default payment source for the customer record
+      return storeStripPaymentSourceData(stripeCustomerId, paymentData);
+    })
+    .then((result) => {
+      console.log(`stripe store payment result: ${_.inspect(result)}`);
+      return performStripeCharge(stripeCustomerId, paymentData.amount, `contribution id: ${contributionId}`);
+    })
+    .then((result) => {
+      console.log(`stripe perform charge result: ${_.inspect(result)}`);
+      // todo store 'transaction' record
+      // todo send confirmation email
+      return {status: 'success'}
+    })
+
+}
+
+
 // perform charge against existing customer record
 function stripeCharge(req, res) {
   const cart = req.session.cart;
@@ -247,6 +311,8 @@ function stripeCharge(req, res) {
 
 }
 
+// now using profile._id for strip stripe customerId.
+// todo: change this api to take a Profile obj
 function createStripeCustomer(customerId, email, description) {
   return new Promise(function (resolve, reject) {
     stripe.customers.create({
@@ -281,7 +347,53 @@ function storeStripPaymentSource(customerId, stripeToken) {
   });
 }
 
+function storeStripPaymentSourceData(customerId, paymentData) {
+  console.log(`store payment: cusotmerId: ${customerId}, paymentData: ${_.inspect(paymentData)}`);
+  return new Promise(function (resolve, reject) {
+    stripe.customers.createSource(
+      customerId
+      , {source: {
+        object: 'card'
+        , number: paymentData.cardNumber
+        , exp_month: paymentData.cardExpMonth
+        , exp_year: paymentData.cardExpYear
+        , cvc: paymentData.cardCvv
+        , address_zip: paymentData.billingZip
+      }}
+      , function(err, result) {
+        console.log('stripe store payment source - err: ' + err + ', charge: ' + _.inspect(result));
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+  });
+}
 
+
+function performStripeCharge(stripeCustomerId, amount, description) {
+  return new Promise(function (resolve, reject) {
+    const amountCents = amount * 100;
+    console.log(`customerid: ${stripeCustomerId}, amount: ${amountCents}, desc: ${description}`);
+    stripe.charges.create({
+      amount: amountCents // amount in cents, again
+      , currency: "usd"
+      , customer: stripeCustomerId
+      , description: description
+    }, function (err, result) {
+      console.log('stripe charge response - err: ' + err + ', charge: ' + _.inspect(result));
+      if (err) {
+//        if (err && err.type === 'StripeCardError') {
+//        req.flash('error', "Sorry, that card has been declined");
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+
+}
 
 function test1(req, res) {
   stripe.customers.create({

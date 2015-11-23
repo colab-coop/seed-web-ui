@@ -4,25 +4,28 @@
 
 Step 1:<br>
 <form id="step1Form">
-  First Name: <input type="text" name="firstName" value="john1"><br>
+  First Name: <input type="text" name="firstName" value="john2"><br>
   Last Name: <input type="text" name="lastName" value="doe"><br>
-  Email: <input type="text" name="email" value="john1@doe.com"><br>
-  Amount: <input type="text" name="amount" value="11"><br>
+  Email: <input type="text" name="email" value="john2@doe.com"><br>
+  Amount: <input id="step1Amount" type="text" name="amount" value="12"><br>
   <input id="step1Submit" type="submit" value="Next">
 </form>
 <br>
 Step 2:
 <form id="step2Form">
   Contribution Id: <input id="contributionId" type="text" name="contributionId"><br>
-  Card Number: <input type="text" name="cardNumber"><br>
-  Card Exp Month: <input type="text" name="cardExpMonth"><br>
-  Card Exp Year: <input type="text" name="cardExpYear"><br>
-  Card CVV: <input type="text" name="cardCvv"><br>
-  Billing Zip: <input type="text" name="billingZip"><br>
+  Amount: <input id="step2Amount" type="text" name="amount"><br>
+  Card Number: <input type="text" name="cardNumber" value="4242424242424242"><br>
+  Card Exp Month: <input type="text" name="cardExpMonth" value="12"><br>
+  Card Exp Year: <input type="text" name="cardExpYear" value="2016"><br>
+  Card CVV: <input type="text" name="cardCvv" value="123"><br>
+  Billing Zip: <input type="text" name="billingZip" value="94102"><br>
+  Charge Description: <input type="text" name="description" value="test"><br>
   <input id="step2Submit" type="submit" value="Submit">
 </form>
 <br>
-Payment Id: <div id="paymentId"></div><br>
+Status: <div id="paymentStatus"></div><br>
+Error: <div id="errorMessage"></div><br>
 
 
 <script>
@@ -31,6 +34,7 @@ Payment Id: <div id="paymentId"></div><br>
 
 //  var endpoint = 'http://seedbombing.dev.colab.coop';
 //  var campaignId = 'NkvHV25Ql';
+
 //  var endpoint = 'http://localhost:8000';
 //  var campaignId = 'VJ7iA5cQg';
 
@@ -51,21 +55,26 @@ Payment Id: <div id="paymentId"></div><br>
     var contributionId = data.result.contributionId;
 //    alert('contributionId: ' + contributionId);
     $('#contributionId').val(contributionId);
+    $('#step2Amount').val( $('#step1Amount').val() );
   }
 
 
   function handleStep2() {
     var form = document.getElementById("step2Form");
     var data = {};
-    copyFormValues(data, form, ['contributionId','cardNumber','cardExpMonth','cardExpYear','cardCvv','billingZip']);
+    copyFormValues(data, form, ['contributionId','amount','cardNumber','cardExpMonth','cardExpYear','cardCvv','billingZip','description']);
     submitPaymentInfo(data, handlePaymentInfoResponse);
     return false;
   }
 
   function handlePaymentInfoResponse(data) {
-    var paymentId = data.result.paymentId;
-//    alert('paymentId: ' + paymentId);
-    $('#paymentId').html(paymentId);
+    alert('payment response: ' + JSON.stringify(data));
+    if (data.result) {
+//      var status = data.result.status;
+      $('#paymentStatus').html(JSON.stringify(data.result));
+    } else if (data.error) {
+      $('#errorMessage').html(JSON.stringify(data.error));
+    }
   }
 
 

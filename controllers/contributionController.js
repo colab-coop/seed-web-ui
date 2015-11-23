@@ -89,7 +89,7 @@ function apiSubmitPledge(req, res) {
   const pledgeData = {
     proposalId: proposalId
     , amount: req.query.amount
-    , pledgedCapital: 0  //todo remove fragility here
+    , pledgedCapital: Number(req.query.amount)
     , recurringInterval: req.query.recurringInterval
     , recurringCount: req.query.recurringCount
     , offerId: req.query.offerId // not yet used

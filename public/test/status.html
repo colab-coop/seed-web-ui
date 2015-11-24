@@ -3,8 +3,7 @@
 <a href="./index.html">home</a><br><br>
 
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!--<script src="./seedapi.js"></script>-->
-<script src="http://local.coop:8000/test/seedapi.js"></script>
+<script src="http://local.coop:8000/test/seedapi.js?v=1"></script>
 <script src="./seedapiconfig.js"></script>
 
 <h3>Donation Status:</h3>
@@ -21,11 +20,6 @@
 
 
 <script>
-
-//  function getParameterByName(name) {
-//    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-//    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-//  }
 
   function populateStatus() {
     var contributionId = SeedApi.getParameterByName('c');
@@ -60,7 +54,6 @@
     if (data.result) {
       $('#status2').html(JSON.stringify(data.result));
     } else if (data.error) {
-//      $('#error2').html('error: ' + data.error.message);
       $('#errorMessage').html('Error: ' + data.error.message);
       $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
     }

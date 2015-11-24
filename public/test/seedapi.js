@@ -10,21 +10,13 @@ var SeedApiSinglton = (function() {
     //SeedApi.setApiKey('w4l');
     //SeedApi.setCampaignId('VJ7iA5cQg');
 
-
-//  var endpoint = 'http://seed.stage.colab.coop';
-//  var campaignId = 'N1bm2FjXx';
-
-  //var endpoint = 'http://seedbombing.dev.colab.coop';
-  //var campaignId = 'NkvHV25Ql';
-
-    var endpoint;// = 'http://localhost:8000';
-    var campaignId;// = 'VJ7iA5cQg';
-    var apiKey; // = 'w4l';
-
-
+    var endpoint;
+    var apiKey;
+    var campaignId;  // the default campaign to use
 
     function submitPledge(data, successHandler) {
-      var uri = '/api/v1/campaign/' + data.campaignId + '/pledge.submit';
+      var campaignId = data.capaignId ? data.campaignId : getCampaignId();
+      var uri = '/api/v1/campaign/' + campaignId + '/pledge.submit';
       invoke(uri, data, successHandler);
     }
 

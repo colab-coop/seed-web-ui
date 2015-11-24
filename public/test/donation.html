@@ -3,8 +3,7 @@
 <a href="./index.html">home</a><br><br>
 
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!--<script src="./seedapi.js"></script>-->
-<script src="http://local.coop:8000/test/seedapi.js"></script>
+<script src="http://local.coop:8000/test/seedapi.js?v=1"></script>
 <script src="./seedapiconfig.js"></script>
 
 Step 1:<br>
@@ -39,20 +38,10 @@ Error: <div id="errorMessage"></div>
   $("#step1Form").submit(handleStep1);
   $("#step2Form").submit(handleStep2);
 
-//  var endpoint = 'http://seedbombing.dev.colab.coop';
-//  var campaignId = 'NkvHV25Ql';
-
-//  var endpoint = 'http://localhost:8000';
-//  var campaignId = 'VJ7iA5cQg';
-//
-////  var endpoint = 'http://seed.stage.colab.coop';
-////  var campaignId = 'N1bm2FjXx';
-//  var apiKey = 'w4l';
-
 
   function handleStep1() {
     var form = document.getElementById("step1Form");
-    var data = {campaignId: SeedApi.getCampaignId()};
+    var data = {};
     SeedApi.copyFormValues(data, form, ['firstName','lastName','email','amount']);
     SeedApi.submitPledge(data, handlePledgeResponse);
     return false;
@@ -87,40 +76,6 @@ Error: <div id="errorMessage"></div>
       $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
     }
   }
-
-
-//  function submitPledge(data, successHandler) {
-//    var uri = '/api/v1/campaign/' + data.campaignId + '/pledge.submit';
-//    invoke(uri, data, successHandler);
-//  }
-//
-//  function submitPaymentInfo(data, successHandler) {
-//    var uri = '/api/v1/contribution/' + data.contributionId + '/paymentInfo.submit';
-//    invoke(uri, data, successHandler);
-//  }
-//
-//  function invoke(uri, data, successHandler) {
-//    var url = endpoint + uri;
-//    data.apiKey = apiKey;
-//    $.ajax({
-//      url: url
-//      , dataType: 'jsonp'
-//      , data: data
-//      , success: successHandler
-//      , error: function(xhr, status, error) { alert(status) }
-//    });
-//  }
-//
-//
-//  function copyFormValues(data, form, fields) {
-//    for (i = 0; i < fields.length; i++) {
-//      data[fields[i]] = formValue(form, fields[i]);
-//    }
-//  }
-//
-//  function formValue(form, field) {
-//    return form.elements[field].value;
-//  }
 
 
 </script>

@@ -56,7 +56,7 @@ exports.config = {
         babel: {},
         assetsmanager: {
             copyTo: {
-                '': ['public/images', 'public/fonts', 'public/favicon.ico', 'bower_components/bootstrap-fileinput/img/*.gif', 'public/test'],
+                '': ['public/images', 'public/fonts', 'public/favicon.ico', 'bower_components/bootstrap-fileinput/img/*.gif', 'public/lib', 'public/reference', 'public/test'],
                 'fonts/bootstrap': ['bower_components/bootstrap-sass/assets/fonts/bootstrap/*'],
                 'fonts': ['bower_components/font-awesome/fonts/*']
             }

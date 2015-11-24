@@ -3,7 +3,8 @@
 <a href="./index.html">home</a><br><br>
 
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="./seedapi.js"></script>
+<!--<script src="./seedapi.js"></script>-->
+<script src="http://local.coop:8000/test/seedapi.js"></script>
 <script src="./seedapiconfig.js"></script>
 
 Step 1:<br>
@@ -51,7 +52,7 @@ Error: <div id="errorMessage"></div>
 
   function handleStep1() {
     var form = document.getElementById("step1Form");
-    var data = {campaignId: SeedApi.campaignId};
+    var data = {campaignId: SeedApi.getCampaignId()};
     SeedApi.copyFormValues(data, form, ['firstName','lastName','email','amount']);
     SeedApi.submitPledge(data, handlePledgeResponse);
     return false;

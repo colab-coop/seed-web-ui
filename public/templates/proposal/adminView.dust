@@ -19,7 +19,8 @@
     <br>
     <b>Pledges/Contributions:</b><br/>
     <table border="1">
-      <th>Supporter</th><th>Patron/Member/Funder</th><th>Perks/Memberships</th><th>Pledged Capital</th><th>Pledged Patronage</th><th>Paid Capital</th><th>Paid Patronage</th><th>ID</th>
+      <th>Supporter</th><th>Patron/Member/Funder</th><th>Perks/Memberships</th><th>Pledged Capital</th><th>Pledged Patronage</th>
+      <th>Paid Capital</th><th>Paid Patronage</th><th>Recurring</th><th>Status</th><th>ID</th>
       {#contributions}
         <tr>
           <td>
@@ -48,6 +49,12 @@
           </td>
           <td>
             {paidPatronage}
+          </td>
+          <td>
+            {isRecurring}  {recurringInterval}
+          </td>
+          <td>
+            {status}
           </td>
           <td>
             {_id}

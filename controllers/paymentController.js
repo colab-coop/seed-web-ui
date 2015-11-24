@@ -270,11 +270,14 @@ function handleSubmitPaymentInfo(contributionId, paymentData) {
     })
     .then((result) => {
       console.log(`stripe store payment result: ${_.inspect(result)}`);
+      //todo: handle recurring payment as auto created plan?
       return performStripeCharge(stripeCustomerId, amount, `contribution id: ${contributionId}`);
     })
     .then((result) => {
       console.log(`stripe perform charge result: ${_.inspect(result)}`);
-      return ContributionService.save(contributionId, {paidCapital: amount, status: 'paid'});
+      const updateData = {paidCapital: amount};
+      updateData.status = contribution.isRecurring ? 'recurring' : 'paid';
+      return ContributionService.save(contributionId, updateData);
     }).then((result) => {
       console.log(`contribution update result: ${_.inspect(result)}`);
       return ContributionService.fetch(contributionId);  // need to refetch to populate relations

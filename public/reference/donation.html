@@ -12,6 +12,7 @@ Step 1:<br>
   Last Name: <input type="text" name="lastName" value="doe"><br>
   Email: <input type="text" name="email" value="john2@doe.com"><br>
   Amount: <input id="step1Amount" type="text" name="amount" value="12"><br>
+  Monthly: <input type="checkbox" name="monthly" value="true"><br>
   <input id="step1Submit" type="submit" value="Next">
 </form>
 <br>
@@ -42,7 +43,7 @@ Error: <div id="errorMessage"></div>
   function handleStep1() {
     var form = document.getElementById("step1Form");
     var data = {};
-    SeedApi.copyFormValues(data, form, ['firstName','lastName','email','amount']);
+    SeedApi.copyFormValues(data, form, ['firstName','lastName','email','amount','monthly']);
     SeedApi.submitPledge(data, handlePledgeResponse);
     return false;
   }

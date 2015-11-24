@@ -94,6 +94,11 @@ function apiSubmitPledge(req, res) {
     , recurringCount: req.query.recurringCount
     , offerId: req.query.offerId // not yet used
   };
+  const monthly = Boolean.parse(req.query.monthly);
+  if (monthly) {
+    pledgeData.isRecurring = true;
+    pledgeData.recurringInterval = 'month';
+  }
   // todo verify apikey
   const response = {};
   let resultMap;
@@ -153,7 +158,6 @@ function fetchContributionStatus(contributionId) {
         , status: contribution.status
         , isReccurring: contribution.isRecuring
         , recurringInterval: contribution.recurringInterval
-        , foo: 'bar'
       };
       return data;
     })
@@ -194,8 +198,12 @@ function handleEndRecurringContribution(contributionId) {
       if (contribution.status !== 'recurring') {
         throw new Error(`not a recurring contribution: ${contributionId}`);
       } else {
-        return {status: 'todo'};
+        const updateData = {status: 'ended'};
+        return ContributionService.save(contributionId, updateData);
       }
+    }).then((result) => {
+      console.log(`contribution update result: ${_.inspect(result)}`);
+      return {status: 'ok'};
     })
 }
 

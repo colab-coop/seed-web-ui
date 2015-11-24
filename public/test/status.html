@@ -3,6 +3,8 @@
 <a href="./index.html">home</a><br><br>
 
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="./seedapi.js"></script>
+<script src="./seedapiconfig.js"></script>
 
 <h3>Donation Status:</h3>
 
@@ -18,19 +20,16 @@
 
 
 <script>
-  var endpoint = 'http://localhost:8000';
-//  var endpoint = 'http://seed.stage.colab.coop';
-  var apiKey = 'w4l';
 
-  function getParameterByName(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-  }
+//  function getParameterByName(name) {
+//    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+//    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+//  }
 
   function populateStatus() {
-    var contributionId = getParameterByName('c');
+    var contributionId = SeedApi.getParameterByName('c');
 //    alert('contrib id: ' + contributionId);
-    fetchContributionStatus({contributionId: contributionId}, handleStatus);
+    SeedApi.fetchContributionStatus({contributionId: contributionId}, handleStatus);
   }
 
   function handleStatus(data) {
@@ -49,9 +48,9 @@
   }
 
   function endRecurring() {
-    var contributionId = getParameterByName('c');
+    var contributionId = SeedApi.getParameterByName('c');
 //    alert('contrib id: ' + contributionId);
-    endRecurringContribution({contributionId: contributionId}, handleEndResult);
+    SeedApi.endRecurringContribution({contributionId: contributionId}, handleEndResult);
     return false;
   }
 
@@ -65,41 +64,6 @@
       $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
     }
   }
-
-
-  function fetchContributionStatus(data, successHandler) {
-    var uri = '/api/v1/contribution/' + data.contributionId + '/status';
-    invoke(uri, data, successHandler);
-  }
-
-  function endRecurringContribution(data, successHandler) {
-    var uri = '/api/v1/contribution/' + data.contributionId + '/endRecurring';
-    invoke(uri, data, successHandler);
-  }
-
-  function invoke(uri, data, successHandler) {
-    var url = endpoint + uri;
-    data.apiKey = apiKey;
-    $.ajax({
-      url: url
-      , dataType: 'jsonp'
-      , data: data
-      , success: successHandler
-      , error: function(xhr, status, error) { alert(status) }
-    });
-  }
-
-
-  function copyFormValues(data, form, fields) {
-    for (i = 0; i < fields.length; i++) {
-      data[fields[i]] = formValue(form, fields[i]);
-    }
-  }
-
-  function formValue(form, field) {
-    return form.elements[field].value;
-  }
-
 
 </script>
 

@@ -60,7 +60,8 @@ const attributes = _.merge({
   , merchantConfigRef: {type: String, ref: 'MerchantConfig'}
   , pledgedCapitalTotal: {type: Number, default: 0}
   , paidCapitalTotal: {type: Number, default: 0}
-  , supporterCount: {type: Number, default: 0}  // total number of pledging users
+  , pledgerCount: {type: Number, default: 0}  // total number of pledging users
+  , supporterCount: {type: Number, default: 0}  // total number of paying users
 }, baseModel.baseAttributes);
 
 

@@ -1,10 +1,46 @@
 <html>
-<body>
+<body onload="populateCampaignStatus();">
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://local.coop:8000/lib/seedapi.js?v=1"></script>
+<script src="./seedapi-config.js"></script>
+
 <h2>Campaign</h2>
 
-Current progress: <br><br>
+Current progress: <div id="campaignStatus"></div><br><br>
+
+<div id="rawStatus"></div><br>
+<div id="errorMessage"></div><br>
+<div id="errorStack"></div><br>
+
+
 
 <a href="./donation.html">Donate</a><br><br>
+
+<script>
+
+  function populateCampaignStatus() {
+    SeedApi.fetchCampaignStatus({}, handleCampaignStatus);
+  }
+
+  function handleCampaignStatus(data) {
+//    alert('status data: ' + JSON.stringify(data));
+    if (data.result) {
+      $('#rawStatus').html('Raw Status: ' + JSON.stringify(data.result));
+      var h = 'Supporter Count: ' + data.result.supporterCount + '<br>' +
+        'Goal Count: ' + data.result.goalCount + '<br>' +
+        'Paid Total: ' + data.result.paidTotal;
+      $('#campaignStatus').html(h);
+    } else if (data.error) {
+//      $('#error').html('error: ' + JSON.stringify(data.error));
+      $('#errorMessage').html('Error: ' + data.error.message);
+      $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
+    }
+    return false;
+  }
+
+</script>
+
 
 </body>
 </html>

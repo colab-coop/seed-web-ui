@@ -276,6 +276,49 @@ function newVision(req, res) {
 }
 
 
+function apiProposalStatus(req, res) {
+  let apiData;
+  try {
+    console.log(`apiProposalStatus - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
+    const proposalId = req.params.proposalId;
+    apiData = {
+      apiKey: req.query.apiKey
+      , callback: req.query.callback
+    };
+    const response = {};
+    fetchProposalStatus(proposalId)
+      .then((result) => {
+        console.log(`fetchProposalStatus result: ${_.inspect(result)}`);
+        response.result = result;
+        helpers.renderApiResponse(res, apiData, response);
+      })
+      .catch((err) => {
+        console.log(`fetchProposalStatus error: ${err}, stack: ${err.stack}`);
+        response.error = {message: err.toString(), stack: err.stack};
+        helpers.renderApiResponse(res, apiData, response);
+      });
+  } catch (err) {
+    console.log(`error: ${err}, stack: ${err.stack}`);
+    const error = {message: err.toString(), stack: err.stack};
+    helpers.renderApiResponse(res, apiData, {error: error});
+  }
+}
+
+function fetchProposalStatus(proposalId) {
+  return ProposalService.fetch(proposalId)
+    .then((result) => {
+      console.log(`fetchProposalStatus raw: ${_.inspect(result)}`);
+      const data = {
+        paidTotal: result.paidCapitalTotal
+        , supporterCount: result.supporterCount
+        , goalCount: result.goalAmount
+        , closingDate: result.closingDate
+        , pledgerCount: result.pledgerCount
+      };
+      return data;
+    })
+}
+
 const baseUriPath = '/p';
 
 function uri(tail) {
@@ -318,6 +361,10 @@ function addRoutes(router) {
 
   router.get('/admin/proposal', adminListProposals);
   router.get(uri('/:id/adminView'), adminShowProposal);
+
+  router.get('/api/v1/campaign/:proposalId/status', apiProposalStatus);
+  router.get('/api/v1/proposal/:proposalId/status', apiProposalStatus);
+
 }
 
 module.exports = {

@@ -50,7 +50,9 @@
           </li>
           <li>
             Pledged to date: {@formatNumber val=pledgedCapitalTotal style="currency" currency="USD"/}<br>
-            Supporters: {supporterCount}
+            Pledger count: {pledgerCount}
+            Paid to date: {@formatNumber val=paidCapitalTotal style="currency" currency="USD"/}<br>
+            Supporter count: {supporterCount}
           </li>
 
       </ul>

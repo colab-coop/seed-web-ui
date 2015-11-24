@@ -239,6 +239,8 @@ function handleSubmitPaymentInfo(contributionId, paymentData) {
   let contribution;
   let profile;
   let stripeCustomerId;
+  let proposal;
+  let amount = paymentData.amount;
   return ContributionService.fetch(contributionId)
     .then((aContribution) => {
       if (!aContribution) {
@@ -268,16 +270,25 @@ function handleSubmitPaymentInfo(contributionId, paymentData) {
     })
     .then((result) => {
       console.log(`stripe store payment result: ${_.inspect(result)}`);
-      return performStripeCharge(stripeCustomerId, paymentData.amount, `contribution id: ${contributionId}`);
+      return performStripeCharge(stripeCustomerId, amount, `contribution id: ${contributionId}`);
     })
     .then((result) => {
       console.log(`stripe perform charge result: ${_.inspect(result)}`);
-      return ContributionService.save(contributionId, {paidCapital: paymentData.amount, status: 'paid'});
+      return ContributionService.save(contributionId, {paidCapital: amount, status: 'paid'});
     }).then((result) => {
       console.log(`contribution update result: ${_.inspect(result)}`);
       return ContributionService.fetch(contributionId);  // need to refetch to populate relations
     }).then((result) => {
       contribution = result;
+      proposal = contribution.proposalRef;
+      proposal.paidCapitalTotal = proposal.paidCapitalTotal ? proposal.paidCapitalTotal : 0;
+      proposal.paidCapitalTotal += amount;
+      proposal.supporterCount = proposal.supporterCount ? proposal.supporterCount : 0;
+      proposal.supporterCount++;
+      console.log(`paid total: ${proposal.paidCapitalTotal}, supporter count: ${proposal.supporterCount}`);
+      return proposal.save();
+    }).then((result) => {
+      console.log(`saved campaign: ${_.inspect(result)}`);
       return sendConfirmationEmail(contribution);
     }).then((result) => {
       console.log(`send confirmation email result: ${_.inspect(result)}`);

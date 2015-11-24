@@ -35,6 +35,13 @@ var SeedApiSinglton = (function() {
       invoke(uri, data, successHandler);
     }
 
+    function fetchCampaignStatus(data, successHandler) {
+      var campaignId = data.capaignId ? data.campaignId : getCampaignId();
+      var uri = '/api/v1/campaign/' + campaignId + '/status';
+      invoke(uri, data, successHandler);
+    }
+
+
     function invoke(uri, data, successHandler) {
       var url = endpoint + uri;
       data.apiKey = apiKey;
@@ -86,6 +93,7 @@ var SeedApiSinglton = (function() {
       submitPaymentInfo: submitPaymentInfo,
       fetchContributionStatus: fetchContributionStatus,
       endRecurringContribution: endRecurringContribution,
+      fetchCampaignStatus: fetchCampaignStatus,
       invoke: invoke,
       copyFormValues: copyFormValues,
       formValue: formValue,

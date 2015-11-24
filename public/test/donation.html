@@ -1,5 +1,7 @@
 <html><body>
 
+<a href="./index.html">home</a><br><br>
+
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 Step 1:<br>
@@ -25,8 +27,10 @@ Step 2:
 </form>
 <br>
 Status: <div id="paymentStatus"></div><br>
-Error: <div id="errorMessage"></div><br>
-
+Error: <div id="errorMessage"></div>
+<div id="errorStack"></div><br>
+<br>
+<div id="statusLink"></div><br>
 
 <script>
   $("#step1Form").submit(handleStep1);
@@ -35,11 +39,11 @@ Error: <div id="errorMessage"></div><br>
 //  var endpoint = 'http://seedbombing.dev.colab.coop';
 //  var campaignId = 'NkvHV25Ql';
 
-//  var endpoint = 'http://localhost:8000';
-//  var campaignId = 'VJ7iA5cQg';
+  var endpoint = 'http://localhost:8000';
+  var campaignId = 'VJ7iA5cQg';
 
-  var endpoint = 'http://seed.stage.colab.coop';
-  var campaignId = 'N1bm2FjXx';
+//  var endpoint = 'http://seed.stage.colab.coop';
+//  var campaignId = 'N1bm2FjXx';
   var apiKey = 'w4l';
 
 
@@ -68,12 +72,16 @@ Error: <div id="errorMessage"></div><br>
   }
 
   function handlePaymentInfoResponse(data) {
-    alert('payment response: ' + JSON.stringify(data));
+//    alert('payment response: ' + JSON.stringify(data));
     if (data.result) {
-//      var status = data.result.status;
-      $('#paymentStatus').html(JSON.stringify(data.result));
+      var status = data.result.status;
+      $('#paymentStatus').html(status);
+      var linkUrl = data.result.statusLink;
+      var linkHtml = '<a href="' + linkUrl + '">' + linkUrl + '</a>';
+      $('#statusLink').html(linkHtml);
     } else if (data.error) {
-      $('#errorMessage').html(JSON.stringify(data.error));
+      $('#errorMessage').html(data.error.message);
+      $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
     }
   }
 

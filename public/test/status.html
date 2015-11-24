@@ -1,0 +1,107 @@
+<html><body onload="populateStatus();">
+
+<a href="./index.html">home</a><br><br>
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<h3>Donation Status:</h3>
+
+<div id="status"></div><br>
+<br>
+<br>
+<a href="javascript:endRecurring()">End Recurring</a><br>
+<div id="status2"></div><br>
+
+<div id="rawStatus"></div><br>
+<div id="errorMessage"></div><br>
+<div id="errorStack"></div><br>
+
+
+<script>
+  var endpoint = 'http://localhost:8000';
+//  var endpoint = 'http://seed.stage.colab.coop';
+  var apiKey = 'w4l';
+
+  function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+  }
+
+  function populateStatus() {
+    var contributionId = getParameterByName('c');
+//    alert('contrib id: ' + contributionId);
+    fetchContributionStatus({contributionId: contributionId}, handleStatus);
+  }
+
+  function handleStatus(data) {
+//    alert('status data: ' + JSON.stringify(data));
+    if (data.result) {
+      $('#rawStatus').html('Raw Status: ' + JSON.stringify(data.result));
+      var h = 'Amount: ' + data.result.amount + '<br>' +
+          'Status: ' + data.result.status;
+      $('#status').html(h);
+    } else if (data.error) {
+//      $('#error').html('error: ' + JSON.stringify(data.error));
+      $('#errorMessage').html('Error: ' + data.error.message);
+      $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
+    }
+    return false;
+  }
+
+  function endRecurring() {
+    var contributionId = getParameterByName('c');
+//    alert('contrib id: ' + contributionId);
+    endRecurringContribution({contributionId: contributionId}, handleEndResult);
+    return false;
+  }
+
+  function handleEndResult(data) {
+//    alert('data: ' + JSON.stringify(data));
+    if (data.result) {
+      $('#status2').html(JSON.stringify(data.result));
+    } else if (data.error) {
+//      $('#error2').html('error: ' + data.error.message);
+      $('#errorMessage').html('Error: ' + data.error.message);
+      $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
+    }
+  }
+
+
+  function fetchContributionStatus(data, successHandler) {
+    var uri = '/api/v1/contribution/' + data.contributionId + '/status';
+    invoke(uri, data, successHandler);
+  }
+
+  function endRecurringContribution(data, successHandler) {
+    var uri = '/api/v1/contribution/' + data.contributionId + '/endRecurring';
+    invoke(uri, data, successHandler);
+  }
+
+  function invoke(uri, data, successHandler) {
+    var url = endpoint + uri;
+    data.apiKey = apiKey;
+    $.ajax({
+      url: url
+      , dataType: 'jsonp'
+      , data: data
+      , success: successHandler
+      , error: function(xhr, status, error) { alert(status) }
+    });
+  }
+
+
+  function copyFormValues(data, form, fields) {
+    for (i = 0; i < fields.length; i++) {
+      data[fields[i]] = formValue(form, fields[i]);
+    }
+  }
+
+  function formValue(form, field) {
+    return form.elements[field].value;
+  }
+
+
+</script>
+
+
+</body></html>

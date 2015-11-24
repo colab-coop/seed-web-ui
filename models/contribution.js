@@ -37,6 +37,7 @@ const attributes = _.merge({
   , recurringInterval: String  // would need to define this
   , recurringStart: Date
   , recurringFinish: Date
+  , status: String  // 'pledged','paid','recurring','ended'
 }, baseModel.baseAttributes);
 
 

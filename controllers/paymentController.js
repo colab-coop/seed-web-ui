@@ -12,6 +12,8 @@ const ProposalService = require('../lib/proposalService');
 const OfferService = require('../lib/offerService');
 const ContributionService = require('../lib/contributionService');
 const curriedHandleError = _.curry(helpers.handleError);
+const mailer = require('../lib/mailer');
+const config = require('../lib/config');
 
 const stripe = require('../lib/stripe').instance();
 const braintree = require('../lib/braintree').instance();
@@ -240,7 +242,7 @@ function handleSubmitPaymentInfo(contributionId, paymentData) {
   return ContributionService.fetch(contributionId)
     .then((aContribution) => {
       if (!aContribution) {
-        throw new Error(`contribution record now found for id: ${contributionId}`);
+        throw new Error(`contribution record not found for id: ${contributionId}`);
       }
       contribution = aContribution;
       profile = contribution.profileRef;
@@ -270,10 +272,63 @@ function handleSubmitPaymentInfo(contributionId, paymentData) {
     })
     .then((result) => {
       console.log(`stripe perform charge result: ${_.inspect(result)}`);
-      // todo store 'transaction' record
-      // todo send confirmation email
-      return {status: 'success'}
+      return ContributionService.save(contributionId, {paidCapital: paymentData.amount, status: 'paid'});
+    }).then((result) => {
+      console.log(`contribution update result: ${_.inspect(result)}`);
+      return ContributionService.fetch(contributionId);  // need to refetch to populate relations
+    }).then((result) => {
+      contribution = result;
+      return sendConfirmationEmail(contribution);
+    }).then((result) => {
+      console.log(`send confirmation email result: ${_.inspect(result)}`);
+      return sendLoggingEmail(contribution);
     })
+    .then((result) => {
+      console.log(`send logging email result: ${_.inspect(result)}`);
+      return {status: 'success', statusLink: buildStatusLink(contribution)};
+    })
+
+}
+
+const W4L_STATUS_URL = config.get('w4l').statusUrl;
+
+function buildStatusLink(contribution) {
+  return `${W4L_STATUS_URL}?c=${contribution._id}`;
+}
+
+function sendConfirmationEmail(contribution) {
+  const to = contribution.profileRef.email;
+  const subject = 'Donation Confirmation';
+  const statusLink = buildStatusLink(contribution);
+  let t = `Thank you ${contribution.profileRef.firstName} for your generation donation.\n`;
+  t += `  amount: \$${contribution.capitalAmount}\n`;
+  t += `  recurrence: ${contribution.recurringInterval}\n\n`;
+  t += `Your status page is:\n`;
+  t += `  ${statusLink}\n`;
+
+  return mailer.sendEmail({
+    //from: theConfig.sender,
+    to: to
+    , subject: subject
+    , text: t
+  });
+
+}
+
+function sendLoggingEmail(contribution) {
+  const to = 'joseph@colab.coop';
+  const subject = 'donation made';
+  const statusLink = buildStatusLink(contribution);
+  let t = `name: ${contribution.profileRef.displayName}\n`;
+  t += `amount: \$${contribution.capitalAmount}\n`;
+  t += `recurrence: ${contribution.recurringInterval}\n`;
+  t += `status page: ${statusLink}\n`;
+
+  return mailer.sendEmail({
+    to: to
+    , subject: subject
+    , text: t
+  });
 
 }
 

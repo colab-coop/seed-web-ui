@@ -304,5 +304,9 @@
     "S3Bucket": "env:S3_bucket",
     "S3Region": "env:S3_region"
   },
+  //todo: move this into campaign hash
+  "w4l": {
+    "statusUrl" : "env:w4l_statusUrl"
+  },
   "dummy":null  // suck up trailing ','
 }

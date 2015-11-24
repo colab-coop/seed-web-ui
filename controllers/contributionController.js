@@ -114,6 +114,93 @@ function apiSubmitPledge(req, res) {
 
 }
 
+//const STATUS_FIELDS = [];
+
+function apiContributionStatus(req, res) {
+  let apiData;
+  try {
+    console.log(`apiContributionStatus - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
+    const contributionId = req.params.contributionId;
+    apiData = {
+      apiKey: req.query.apiKey
+      , callback: req.query.callback
+    };
+    const response = {};
+    fetchContributionStatus(contributionId)
+      .then((result) => {
+        console.log(`apiContributionStatus result: ${_.inspect(result)}`);
+        response.result = result;
+        helpers.renderApiResponse(res, apiData, response);
+      })
+      .catch((err) => {
+        console.log(`apiContributionStatus error: ${err}, stack: ${err.stack}`);
+        response.error = {message: err.toString(), stack: err.stack};
+        helpers.renderApiResponse(res, apiData, response);
+      });
+  } catch (err) {
+    console.log(`error: ${err}, stack: ${err.stack}`);
+    const error = {message: err.toString(), stack: err.stack};
+    helpers.renderApiResponse(res, apiData, {error: error});
+  }
+}
+
+function fetchContributionStatus(contributionId) {
+  return ContributionService.fetch(contributionId)
+    .then((contribution) => {
+      console.log(`fetchContributionStatus raw: ${_.inspect(contribution)}`);
+      const data = {
+        amount: contribution.paidCapital
+        , status: contribution.status
+        , isReccurring: contribution.isRecuring
+        , recurringInterval: contribution.recurringInterval
+        , foo: 'bar'
+      };
+      return data;
+    })
+}
+
+
+
+function apiEndRecurringContribution(req, res) {
+  console.log(`apiEndRecurringContribution - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
+  const contributionId = req.params.contributionId;
+  const apiData = {
+    apiKey: req.query.apiKey
+    , callback: req.query.callback
+  };
+  let contribution;
+  const response = {};
+  handleEndRecurringContribution(contributionId)
+    .then((result) => {
+      console.log(`apiEndRecurring result: ${_.inspect(result)}`);
+      response.result = result;
+      helpers.renderApiResponse(res, apiData, response);
+    })
+    .catch((err) => {
+      console.log(`apiEndRecurring error: ${err}, stack: ${err.stack}`);
+      response.error = {message: err.toString(), stack: err.stack};
+      helpers.renderApiResponse(res, apiData, response);
+    });
+}
+
+function handleEndRecurringContribution(contributionId) {
+  let contribution;
+  return ContributionService.fetch(contributionId)
+    .then((aContribution) => {
+      if (!aContribution) {
+        throw new Error(`contribution record not found for id: ${contributionId}`);
+      }
+      contribution = aContribution;
+      if (contribution.status !== 'recurring') {
+        throw new Error(`not a recurring contribution: ${contributionId}`);
+      } else {
+        return {status: 'todo'};
+      }
+    })
+}
+
+
+
 function postMember(req, res) {
   const ajax = req.query.ajax;
   const proposalId = req.body.pid;
@@ -325,6 +412,8 @@ function addRoutes(router) {
   //router.post('/api/v1/campaign/:proposalId/pledge', apiPostPledge);
   // note, need to use 'get' for cross-site jsonp handling
   router.get('/api/v1/campaign/:proposalId/pledge.submit', apiSubmitPledge);
+  router.get('/api/v1/contribution/:contributionId/status', apiContributionStatus);
+  router.get('/api/v1/contribution/:contributionId/endRecurring', apiEndRecurringContribution);
 }
 
 

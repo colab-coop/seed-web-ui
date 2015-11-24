@@ -283,6 +283,7 @@ function handleSubmitPaymentInfo(contributionId, paymentData) {
       return ContributionService.fetch(contributionId);  // need to refetch to populate relations
     }).then((result) => {
       contribution = result;
+      console.log(`refetched contribution: ${_.inspect(result)}`);
       proposal = contribution.proposalRef;
       proposal.paidCapitalTotal = proposal.paidCapitalTotal ? proposal.paidCapitalTotal : 0;
       proposal.paidCapitalTotal += amount;
@@ -315,7 +316,7 @@ function sendConfirmationEmail(contribution) {
   const subject = 'Donation Confirmation';
   const statusLink = buildStatusLink(contribution);
   let t = `Thank you ${contribution.profileRef.firstName} for your generation donation.\n`;
-  t += `  amount: \$${contribution.capitalAmount}\n`;
+  t += `  amount: \$ ${contribution.paidCapital}\n`;
   t += `  recurrence: ${contribution.recurringInterval}\n\n`;
   t += `Your status page is:\n`;
   t += `  ${statusLink}\n`;
@@ -334,7 +335,7 @@ function sendLoggingEmail(contribution) {
   const subject = 'donation made';
   const statusLink = buildStatusLink(contribution);
   let t = `name: ${contribution.profileRef.displayName}\n`;
-  t += `amount: \$${contribution.capitalAmount}\n`;
+  t += `amount: \$ ${contribution.paidCapital}\n`;
   t += `recurrence: ${contribution.recurringInterval}\n`;
   t += `status page: ${statusLink}\n`;
 

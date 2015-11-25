@@ -14,6 +14,12 @@ var SeedApiSinglton = (function() {
     var apiKey;
     var campaignId;  // the default campaign to use
 
+    function joinMailingList(data, successHandler) {
+      var campaignId = data.capaignId ? data.campaignId : getCampaignId();
+      var uri = '/api/v1/campaign/' + campaignId + '/mailingList.join';
+      invoke(uri, data, successHandler);
+    }
+
     function submitPledge(data, successHandler) {
       var campaignId = data.capaignId ? data.campaignId : getCampaignId();
       var uri = '/api/v1/campaign/' + campaignId + '/pledge.submit';
@@ -89,6 +95,7 @@ var SeedApiSinglton = (function() {
     }
 
     return {
+      joinMailingList: joinMailingList,
       submitPledge: submitPledge,
       submitPaymentInfo: submitPaymentInfo,
       fetchContributionStatus: fetchContributionStatus,

@@ -291,6 +291,11 @@
     "sesAccessKey": "env:email_sesAccessKey",
     "sesSecretKey": "env:email_sesSecretKey"
   },
+  "mailchimp": {
+    "apiKey": "env:mailchimp_apiKey",
+    "enabled": "env:mailchimp_enabled",
+    "defaultListId": "env:mailchimp_defaultListId"
+  },
 
   "admin" : {
     "foo" : "bar",

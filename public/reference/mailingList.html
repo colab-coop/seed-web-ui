@@ -1,0 +1,48 @@
+<html><body>
+
+<a href="./index.html">home</a><br><br>
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://local.coop:8000/lib/seedapi.js?v=1"></script>
+<script src="./seedapi-config.js"></script>
+
+<h3>Join Mailing List</h3>
+
+<form id="mailingListForm">
+  First Name: <input type="text" name="firstName" value="john2"><br>
+  Last Name: <input type="text" name="lastName" value="doe"><br>
+  Email: <input type="text" name="email" value="john2@doe.com"><br>
+  <input id="mailingListSubmit" type="submit" value="Next">
+</form>
+<br>
+Status: <div id="status"></div><br>
+Error: <div id="errorMessage"></div>
+<div id="errorStack"></div><br>
+<br>
+<div id="statusLink"></div><br>
+
+<script>
+  $("#mailingListForm").submit(handleMailingList);
+
+  function handleMailingList() {
+    var form = document.getElementById("mailingListForm");
+    var data = {};
+    SeedApi.copyFormValues(data, form, ['firstName','lastName','email']);
+    SeedApi.joinMailingList(data, handleMailingListResponse);
+    return false;
+  }
+
+  function handleMailingListResponse(data) {
+    if (data.result) {
+      var status = data.result.status;
+      $('#status').html(status);
+    } else if (data.error) {
+      $('#errorMessage').html(data.error.message);
+      $('#errorStack').html('<pre>' + data.error.stack + '</pre>');
+    }
+  }
+
+</script>
+
+
+</body></html>

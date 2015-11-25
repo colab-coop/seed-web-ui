@@ -119,6 +119,48 @@ function apiSubmitPledge(req, res) {
 
 }
 
+const mailchimp = require('../lib/mailchimp');
+
+function apiJoinMailingList(req, res) {
+  let apiData;
+  try {
+    apiData = {
+      apiKey: req.query.apiKey
+      , callback: req.query.callback
+    };
+    console.log(`apiJoinMailingList - req.param: ${_.inspect(req.param)}, params: ${_.inspect(req.params)}`);
+    let proposalId = req.params.proposalId;
+    proposalId = proposalId || req.body.campaignId;
+    console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
+    const userData = {
+      displayName: req.query.displayName
+      , firstName: req.query.firstName
+      , lastName:  req.query.lastName
+      , orgName: req.query.orgName
+      , email: req.query.email
+    };
+    const response = {};
+
+    mailchimp.subscribeToDefaultList(userData)
+      .then((result) => {
+        console.log(`mc sub result: ${_.inspect(result)}`);
+        result.status = 'ok';
+        response.result = result;
+        helpers.renderApiResponse(res, apiData, response);
+      })
+      .catch((err) => {
+        console.log(`apiCreatePledge error: ${err}, stack: ${err.stack}`);
+        response.error = {message: err.toString(), stack: err.stack};
+        helpers.renderApiResponse(res, apiData, response);
+      });
+  } catch (err) {
+    console.log(`error: ${err}, stack: ${err.stack}`);
+    const error = {message: err.toString(), stack: err.stack};
+    helpers.renderApiResponse(res, apiData, {error: error});
+  }
+}
+
+
 //const STATUS_FIELDS = [];
 
 function apiContributionStatus(req, res) {
@@ -419,6 +461,7 @@ function addRoutes(router) {
 
   //router.post('/api/v1/campaign/:proposalId/pledge', apiPostPledge);
   // note, need to use 'get' for cross-site jsonp handling
+  router.get('/api/v1/campaign/:proposalId/mailingList.join', apiJoinMailingList);
   router.get('/api/v1/campaign/:proposalId/pledge.submit', apiSubmitPledge);
   router.get('/api/v1/contribution/:contributionId/status', apiContributionStatus);
   router.get('/api/v1/contribution/:contributionId/endRecurring', apiEndRecurringContribution);

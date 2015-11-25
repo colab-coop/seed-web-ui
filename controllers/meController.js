@@ -115,6 +115,20 @@ function membershipThanks(req, res) {
   res.render('me/thanks', {});
 }
 
+const mailchimp = require('../lib/mailchimp');
+
+function updateMailchimp(req, res) {
+  const profile = req.user.profile;
+  console.log(`profile: ${profile}`);
+  mailchimp.subscribeToDefaultList(profile)
+    .then((result) => {
+      console.log(`mc sub result: ${_.inspect(result)}`);
+      res.json(result);
+    })
+    .catch(curriedHandleError(req, res));
+}
+
+
 function addRoutes(router) {
   router.get('/me', viewMyProfile);
   router.get('/me/edit', editMyProfile);
@@ -125,6 +139,7 @@ function addRoutes(router) {
   router.get('/me/thanks', membershipThanks);
   router.get('/me/password', editPassword);
   router.post('/me/password', updatePassword);
+  router.get('/me/mailchimp', updateMailchimp);
 }
 
 

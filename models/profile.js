@@ -13,7 +13,8 @@ const mongoose = require('mongoose');
 const baseModel = require('./baseModel');
 
 const MEMBERSHIP_TYPES = {
-  visitor: 'visitor'  // automatic user/profile creation when support form submitted
+  api: 'api'  // create via white-label api - skips welcome email
+  , visitor: 'visitor'  // automatic user/profile creation when support form submitted
   , provisional: 'provisional'
 //  , sustainer: 'sustainer'
   , full: 'full'

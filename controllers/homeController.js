@@ -361,7 +361,6 @@ function addRoutes(router) {
   router.get('/scratch', scratch);
   router.get('/test/welcomeEmail', testWelcomeEmail);
 
-
 }
 
 

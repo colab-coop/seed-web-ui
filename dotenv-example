@@ -25,6 +25,11 @@ email_sesSecretKey=ce7xxx
 email_enabled=false
 email_rootUrl=http://local.coop:8000
 
+# todo: factor these out to campaign scoped values
+mailchimp_apiKey=xxx
+mailchimp_defaultListId=49037
+mailchimp_enabled=false
+
 w4l_statusUrl=http://w4l.local:8000/test/status.html
 
 # use /me/setAdmin?key=secret  to promote your logged in user to an admin

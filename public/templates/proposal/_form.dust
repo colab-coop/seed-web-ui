@@ -101,6 +101,16 @@
   </div>
 </div>
 
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="supporterCount">Current Supporter Count</label>
+
+  <div class="col-sm-8">
+    <input id="supporterCount" value="{item.supporterCount}" name="supporterCount" type="text"
+           class="form-control input-md">
+  </div>
+</div>
+
+
 <!-- Proposal location-->
 <div class="form-group">
   <label class="col-sm-2 control-label" for="location">Location</label>

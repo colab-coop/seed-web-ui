@@ -104,6 +104,7 @@ function copyParams(target, params) {
   //  result.goalAmount = Number(params.goalAmount)
   //}
   _.assignNumericParam(result, params, 'goalAmount');
+  _.assignNumericParam(result, params, 'supporterCount');
   if (params.closingDate) {
     result.closingDate = new Date(params.closingDate); //todo: need a way to remove, this will ignore if blank
   }

@@ -307,14 +307,17 @@ function apiProposalStatus(req, res) {
 function fetchProposalStatus(proposalId) {
   return ProposalService.fetch(proposalId)
     .then((result) => {
-      console.log(`fetchProposalStatus raw: ${_.inspect(result)}`);
+      console.log(`fetchProposalStatus raw data: ${_.inspect(result)}`);
+      const percent = result.goalAmount ? Math.round(100 * result.supporterCount / result.goalAmount) : -1;
       const data = {
         paidTotal: result.paidCapitalTotal
         , supporterCount: result.supporterCount
         , goalCount: result.goalAmount
         , closingDate: result.closingDate
         , pledgerCount: result.pledgerCount
+        , percent: percent
       };
+      console.log(`result data: ${_.inspect(data)}`);
       return data;
     })
 }

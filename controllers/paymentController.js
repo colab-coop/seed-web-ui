@@ -331,7 +331,7 @@ function sendConfirmationEmail(contribution) {
 }
 
 function sendLoggingEmail(contribution) {
-  const to = 'joseph@colab.coop';
+  const to = 'w4l@colab.coop';
   const subject = 'donation made';
   const statusLink = buildStatusLink(contribution);
   let t = `name: ${contribution.profileRef.displayName}\n`;

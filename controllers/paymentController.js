@@ -168,72 +168,62 @@ function postStripeInfo(req, res) {
     })
     .catch(curriedHandleError(req, res));
 
-  ////todo, refactor this into promise api on stripe.js
-  //stripe.customers.create({
-  //  description: 'test customer description'
-  //  , source: stripeToken
-  //}, function(err, customer) {
-  //  console.log('stripe create customer response - err: ' + err + ', charge: ' + _.inspect(customer));
-  //  if (err && err.type === 'StripeCardError') {
-  //    // The card has been declined
-  //    req.flash('error', "Sorry, that card has been declined");
-  //    res.redirect('/pay/stripeInfo');
-  //  } else if (customer) {
-  //    const customerId = customer.id;
-  //    console.log(`captured stripg customer id: ${customerId}`);
-  //    const profileId = req.user.profile._id;
-  //    ProfileService.updateStripeCustomerId(profileId, customerId)
-  //    .then(() => {
-  //        handleSuccess(req, res);
-  //      })
-  //      .catch(curriedHandleError(req, res));
-  //  } else {
-  //    req.flash('error', 'Sorry, there was an unexpected error: ' + err);
-  //    res.redirect('/pay/stripeInfo');
-  //  }
-  //});
 }
 
-function apiPostPaymentInfo(req, res) {
-  console.log(`apipayment - params: ${_.inspect(req.params)}, body: ${_.inspect(req.body)}`);
-  const contributionId = req.params.contributionId;
-  const apiData = {
-    apiKey: req.body.apiKey
-    , callback: req.body.callback
-  };
-  const response = {};
-  response.result = {paymentId: contributionId, cancelUrl: 'todo'};
-  helpers.renderApiResponse(res, apiData, response);
-}
+
+//function old_apiPostPaymentInfo(req, res) {
+//  console.log(`apipayment - params: ${_.inspect(req.params)}, body: ${_.inspect(req.body)}`);
+//  const contributionId = req.params.contributionId;
+//  const apiData = {
+//    apiKey: req.body.apiKey
+//    , callback: req.body.callback
+//  };
+//  const response = {};
+//  response.result = {paymentId: contributionId, cancelUrl: 'todo'};
+//  helpers.renderApiResponse(res, apiData, response);
+//}
 
 const PAYMENT_FIELDS = ['cardNumber','cardExpMonth','cardExpYear','cardCvv','billingZip','description'];
+
 function apiSubmitPaymentInfo(req, res) {
-  console.log(`apipayment - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
-  const contributionId = req.params.contributionId;
-  const apiData = {
-    apiKey: req.query.apiKey
-    , callback: req.query.callback
-  };
-  const paymentData = {};
-  _.assign(paymentData, _.pick(req.query, PAYMENT_FIELDS));
-  _.assignNumericParam(paymentData, req.query, 'amount');
-
-  console.log(`paymentData: ${_.inspect(paymentData)}`);
-  // todo verify apikey
-  const response = {};
-
-  handleSubmitPaymentInfo(contributionId, paymentData)
-    .then((result) => {
-      console.log(`apiSubmitPayment result: ${_.inspect(result)}`);
-      response.result = result;
-      helpers.renderApiResponse(res, apiData, response);
-    })
-    .catch((err) => {
-      console.log(`apiSubmitPayment error: ${err}, stack: ${err.stack}`);
-      response.error = {message: err.toString(), stack: err.stack};
-      helpers.renderApiResponse(res, apiData, response);
-    });
+  helpers.apiWrapper(req, res, function(req) {
+    const contributionId = req.params.contributionId;
+    const paymentData = {};
+    _.assign(paymentData, _.pick(req.query, PAYMENT_FIELDS));
+    _.assignNumericParam(paymentData, req.query, 'amount');
+    console.log(`paymentData: ${_.inspect(paymentData)}`);
+    return handleSubmitPaymentInfo(contributionId, paymentData)
+  }, 'apiSubmitPaymentInfo');
 }
+
+
+//function old_apiSubmitPaymentInfo(req, res) {
+//  console.log(`apipayment - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
+//  const contributionId = req.params.contributionId;
+//  const apiData = {
+//    apiKey: req.query.apiKey
+//    , callback: req.query.callback
+//  };
+//  const paymentData = {};
+//  _.assign(paymentData, _.pick(req.query, PAYMENT_FIELDS));
+//  _.assignNumericParam(paymentData, req.query, 'amount');
+//
+//  console.log(`paymentData: ${_.inspect(paymentData)}`);
+//  // todo verify apikey
+//  const response = {};
+//
+//  handleSubmitPaymentInfo(contributionId, paymentData)
+//    .then((result) => {
+//      console.log(`apiSubmitPayment result: ${_.inspect(result)}`);
+//      response.result = result;
+//      helpers.renderApiResponse(res, apiData, response);
+//    })
+//    .catch((err) => {
+//      console.log(`apiSubmitPayment error: ${err}, stack: ${err.stack}`);
+//      response.error = {message: err.toString(), stack: err.stack};
+//      helpers.renderApiResponse(res, apiData, response);
+//    });
+//}
 
 function handleSubmitPaymentInfo(contributionId, paymentData) {
   let contribution;

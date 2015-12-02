@@ -23,64 +23,12 @@ function render(res, view, model) {
 
 
 
-//
-// new flows
-//
-
-//function apiPostPledge(req, res) {
-//  console.log(`apipledge - req.param: ${_.inspect(req.param)}, params: ${_.inspect(req.params)}`);
-//  let proposalId = req.params.proposalId;
-//  proposalId = proposalId || req.body.campaignId;
-//  console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
-//  const apiData = {
-//    apiKey: req.body.apiKey
-//    , callback: req.body.callback
-//  };
-//  const userData = {
-//    displayName: req.body.displayName
-//    , firstName: req.body.firstName
-//    , lastName:  req.body.lastName
-//    , orgName: req.body.orgName
-//    , email: req.body.email
-//  };
-//  const pledgeData = {
-//    proposalId: proposalId
-//    , amount: req.body.amount
-//    , pledgedCapital: 0  //todo remove fragility here
-//    , recurringInterval: req.body.recurringInterval
-//    , recurringCount: req.body.recurringCount
-//    , offerId: req.body.offerId // not yet used
-//  };
-//  // todo verify apikey
-//  const response = {};
-//  let resultMap;
-//  let contribution;
-//  ContributionService.apiCreatePledge(proposalId, userData, pledgeData)
-//    .then((result) => {
-//      console.log(`apiCreatePledge result: ${_.inspect(result)}`);
-//      result.stripePublicKey = stripe.config.publicKey;  // stuff in stripe key needed for payment capture
-//      response.result = result;
-//
-//      helpers.renderApiResponse(res, apiData, response);
-//    })
-//   .catch((err) => {
-//      console.log(`apiCreatePledge error: ${err}, stack: ${err.stack}`);
-//      response.error = {message: err.toString(), stack: err.stack};
-//      helpers.renderApiResponse(res, apiData, response);
-//    });
-//}
-
 function apiSubmitPledge(req, res) {
-  let apiData;
-  try {
-    console.log(`apipledge - req.param: ${_.inspect(req.param)}, params: ${_.inspect(req.params)}`);
+  helpers.apiWrapper(req, res, function(req) {
+
     let proposalId = req.params.proposalId;
     proposalId = proposalId || req.body.campaignId;
-    console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
-    apiData = {
-      apiKey: req.query.apiKey
-      , callback: req.query.callback
-    };
+
     const userData = {
       displayName: req.query.displayName
       , firstName: req.query.firstName
@@ -102,10 +50,6 @@ function apiSubmitPledge(req, res) {
       pledgeData.isRecurring = true;
       pledgeData.recurringInterval = 'month';
     }
-    // todo verify apikey
-    const response = {};
-    let resultMap;
-    let contribution;
 
     if ( ! userData.email ) {
       throw new Error('Email required');
@@ -114,11 +58,11 @@ function apiSubmitPledge(req, res) {
       throw new Error('Amount required');
     }
 
-    ContributionService.apiCreatePledge(proposalId, userData, pledgeData)
+    let apiResult;
+    return ContributionService.apiCreatePledge(proposalId, userData, pledgeData)
       .then((result) => {
         console.log(`apiCreatePledge result: ${_.inspect(result)}`);
-//      result.stripePublicKey = stripe.config.publicKey;  // stuff in stripe key needed for payment capture
-        response.result = result;
+        apiResult = result;
         if (joinMailingList) {
           return mailchimp.subscribeToDefaultList(userData)
         } else {
@@ -127,30 +71,18 @@ function apiSubmitPledge(req, res) {
       })
       .then((result) => {
         console.log(`subscribe mailing list result: ${_.inspect(result)}`);
-        helpers.renderApiResponse(res, apiData, response);
+        return apiResult;
       })
-      .catch((err) => {
-        console.log(`apiCreatePledge error: ${err}, stack: ${err.stack}`);
-        response.error = {message: err.toString(), stack: err.stack};
-        helpers.renderApiResponse(res, apiData, response);
-      });
-  } catch (err) {
-    console.log(`error: ${err}, stack: ${err.stack}`);
-    const error = {message: err.toString(), stack: err.stack};
-    helpers.renderApiResponse(res, apiData, {error: error});
-  }
+
+  }, 'apiSubmitPledge');
 }
+
 
 const mailchimp = require('../lib/mailchimp');
 
+
 function apiJoinMailingList(req, res) {
-  let apiData;
-  try {
-    apiData = {
-      apiKey: req.query.apiKey
-      , callback: req.query.callback
-    };
-    console.log(`apiJoinMailingList - req.param: ${_.inspect(req.param)}, params: ${_.inspect(req.params)}`);
+  helpers.apiWrapper(req, res, function(req) {
     let proposalId = req.params.proposalId;
     proposalId = proposalId || req.body.campaignId;
     console.log(`pid: ${proposalId}, body: ${_.inspect(req.body)}`);
@@ -161,60 +93,23 @@ function apiJoinMailingList(req, res) {
       , orgName: req.query.orgName
       , email: req.query.email
     };
-    const response = {};
 
     if ( ! userData.email ) {
       throw new Error('Email required');
     }
 
-    mailchimp.subscribeToDefaultList(userData)
-      .then((result) => {
-        console.log(`mc sub result: ${_.inspect(result)}`);
-        result.status = 'ok';
-        response.result = result;
-        helpers.renderApiResponse(res, apiData, response);
-      })
-      .catch((err) => {
-        console.log(`apiCreatePledge error: ${err}, stack: ${err.stack}`);
-        response.error = {message: err.toString(), stack: err.stack};
-        helpers.renderApiResponse(res, apiData, response);
-      });
-  } catch (err) {
-    console.log(`error: ${err}, stack: ${err.stack}`);
-    const error = {message: err.toString(), stack: err.stack};
-    helpers.renderApiResponse(res, apiData, {error: error});
-  }
+    return mailchimp.subscribeToDefaultList(userData)
+  }, 'apiJoinMailingList');
 }
 
 
-//const STATUS_FIELDS = [];
+
 
 function apiContributionStatus(req, res) {
-  let apiData;
-  try {
-    console.log(`apiContributionStatus - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
+  helpers.apiWrapper(req, res, function(req) {
     const contributionId = req.params.contributionId;
-    apiData = {
-      apiKey: req.query.apiKey
-      , callback: req.query.callback
-    };
-    const response = {};
-    fetchContributionStatus(contributionId)
-      .then((result) => {
-        console.log(`apiContributionStatus result: ${_.inspect(result)}`);
-        response.result = result;
-        helpers.renderApiResponse(res, apiData, response);
-      })
-      .catch((err) => {
-        console.log(`apiContributionStatus error: ${err}, stack: ${err.stack}`);
-        response.error = {message: err.toString(), stack: err.stack};
-        helpers.renderApiResponse(res, apiData, response);
-      });
-  } catch (err) {
-    console.log(`error: ${err}, stack: ${err.stack}`);
-    const error = {message: err.toString(), stack: err.stack};
-    helpers.renderApiResponse(res, apiData, {error: error});
-  }
+    return fetchContributionStatus(contributionId)
+  }, 'apiContributionStatus');
 }
 
 function fetchContributionStatus(contributionId) {
@@ -232,28 +127,14 @@ function fetchContributionStatus(contributionId) {
 }
 
 
-
 function apiEndRecurringContribution(req, res) {
-  console.log(`apiEndRecurringContribution - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
-  const contributionId = req.params.contributionId;
-  const apiData = {
-    apiKey: req.query.apiKey
-    , callback: req.query.callback
-  };
-  let contribution;
-  const response = {};
-  handleEndRecurringContribution(contributionId)
-    .then((result) => {
-      console.log(`apiEndRecurring result: ${_.inspect(result)}`);
-      response.result = result;
-      helpers.renderApiResponse(res, apiData, response);
-    })
-    .catch((err) => {
-      console.log(`apiEndRecurring error: ${err}, stack: ${err.stack}`);
-      response.error = {message: err.toString(), stack: err.stack};
-      helpers.renderApiResponse(res, apiData, response);
-    });
+  helpers.apiWrapper(req, res, function(req) {
+    const contributionId = req.params.contributionId;
+    return handleEndRecurringContribution(contributionId);
+  }, 'apiEndRecurringContribution');
 }
+
+
 
 function handleEndRecurringContribution(contributionId) {
   let contribution;

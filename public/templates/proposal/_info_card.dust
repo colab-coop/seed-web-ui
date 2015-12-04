@@ -14,6 +14,9 @@
 
     <div class="proposal_data">
       <ul>
+        <li>
+          Created at: {@formatDate date="{createdAt}" format="MM/DD/YYYY HH:mm" lan="en-US"/}
+        </li>
 
           <li>
             Minimum members: {minimumMembership}

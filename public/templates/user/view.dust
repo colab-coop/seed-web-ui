@@ -6,6 +6,7 @@
   {#item}
     <b>User:</b><br>
     Id: {_id}<br/>
+    Created at: {@formatDate date="{createdAt}" format="MM/DD/YYYY HH:mm" lan="en-US"/}<br/>
     Email: {email}<br/>
     Is Admin: {isAdmin}
     <a href="/admin/user/{id}/setAdmin?value=true">[enable]</a>

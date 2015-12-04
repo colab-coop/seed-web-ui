@@ -4,7 +4,7 @@
   <h2>Users / Profiles</h2>
 
   <table border="2">
-    <th>email</th><th>display name</th><th>organization</th><th>type</th><th>actions</th>
+    <th>email</th><th>display name</th><th>organization</th><th>type</th><th>created</th><th>actions</th>
     {#items}
       <tr>
         <td>
@@ -20,7 +20,12 @@
         <td>
           {memberType}
         </td>
+        {:else}
+          <td></td><td></td><td></td>
         {/defaultProfileRef}
+        <td>
+          {@formatDate date="{createdAt}" format="MM/DD/YYYY HH:mm" lan="en-US"/}
+        </td>
         <td>
           {>"user/_actions"/}
           {!<a href="/admin/sector/{_id}/edit">[Edit]</a>!}

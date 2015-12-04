@@ -80,13 +80,14 @@ function adminListProposals(req, res) {
 }
 
 
-function listProposalsView(req, res, view, kind) {
+function listProposalsView(req, res, view, kind, sort) {
   console.log("VIEW:" + view);
   const parent = req.query.parent;
   const model={};
   const filter={};
   const skip = parseInt(req.query.skip);
   const count = parseInt(req.query.count) || 10;
+  const sortCriteria = sort || {'createdAt': -1};
   console.log(`count: ${count}`);
 
   ProposalService.buildSectorOptions(parent, true, 'Choose a sector')
@@ -105,7 +106,7 @@ function listProposalsView(req, res, view, kind) {
       }
       return count == 0
         ? Promise.resolve([])
-        : Proposal.find(filter, null, {skip: skip, limit: count}).sort({'title': -1}).populate('parentRef profileRef');  // TODO: confirm if this cascades and if we need to worry about circular refs
+        : Proposal.find(filter, null, {skip: skip, limit: count}).sort(sortCriteria).populate('parentRef profileRef');  // TODO: confirm if this cascades and if we need to worry about circular refs
     })
     .then((items) => {
       model.items = items;

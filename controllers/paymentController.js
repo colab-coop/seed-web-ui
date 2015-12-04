@@ -15,6 +15,7 @@ const curriedHandleError = _.curry(helpers.handleError);
 const mailer = require('../lib/mailer');
 const config = require('../lib/config');
 
+const PaymentService = require('../lib/paymentService');
 const stripe = require('../lib/stripe').instance();
 const braintree = require('../lib/braintree').instance();
 const authorizeNet = require('../lib/authorizeNet').instance();
@@ -126,15 +127,6 @@ function showStripeInfo(req, res) {
 }
 
 
-
-//return (function() {
-//  if (bool) {
-//    return Promise.resolve('skip');
-//  } else {
-//    return UserService.createUser(userData);
-//  }
-//}())
-
 function postStripeInfo(req, res) {
   console.log(`poststrip ajax: ${req.query.ajax}`);
   console.log(`body: ${_.inspect(req.body)}`);
@@ -150,7 +142,7 @@ function postStripeInfo(req, res) {
     if (profile.stripeCustomerId) {
       return Promise.resolve('skip');
     } else {
-      return createStripeCustomer(profileId, profile.email, profile.displayName)
+      return stripe.createCustomer(profileId, profile.email, profile.displayName)
       .then((result) => {
           console.log(`stripe create customer result: ${_.inspect(result)}`);
           return ProfileService.updateStripeCustomerId(profileId, profileId);
@@ -160,7 +152,7 @@ function postStripeInfo(req, res) {
     .then((result) => {
       console.log(`update cust id result: ${_.inspect(result)}`);
       // associate our captured payment information as the default payment source for the customer record
-      return storeStripPaymentSource(profileId, stripeToken);
+      return stripe.storePaymentSourceToken(profileId, stripeToken);
     })
     .then((result) => {
       console.log(`stripe store payment result: ${_.inspect(result)}`);
@@ -171,18 +163,6 @@ function postStripeInfo(req, res) {
 }
 
 
-//function old_apiPostPaymentInfo(req, res) {
-//  console.log(`apipayment - params: ${_.inspect(req.params)}, body: ${_.inspect(req.body)}`);
-//  const contributionId = req.params.contributionId;
-//  const apiData = {
-//    apiKey: req.body.apiKey
-//    , callback: req.body.callback
-//  };
-//  const response = {};
-//  response.result = {paymentId: contributionId, cancelUrl: 'todo'};
-//  helpers.renderApiResponse(res, apiData, response);
-//}
-
 const PAYMENT_FIELDS = ['cardNumber','cardExpMonth','cardExpYear','cardCvv','billingZip','description'];
 
 function apiSubmitPaymentInfo(req, res) {
@@ -192,150 +172,13 @@ function apiSubmitPaymentInfo(req, res) {
     _.assign(paymentData, _.pick(req.query, PAYMENT_FIELDS));
     _.assignNumericParam(paymentData, req.query, 'amount');
     console.log(`paymentData: ${_.inspect(paymentData)}`);
-    return handleSubmitPaymentInfo(contributionId, paymentData)
+    return PaymentService.submitPaymentInfo(contributionId, paymentData)
   }, 'apiSubmitPaymentInfo');
 }
 
 
-//function old_apiSubmitPaymentInfo(req, res) {
-//  console.log(`apipayment - params: ${_.inspect(req.params)}, query: ${_.inspect(req.query)}`);
-//  const contributionId = req.params.contributionId;
-//  const apiData = {
-//    apiKey: req.query.apiKey
-//    , callback: req.query.callback
-//  };
-//  const paymentData = {};
-//  _.assign(paymentData, _.pick(req.query, PAYMENT_FIELDS));
-//  _.assignNumericParam(paymentData, req.query, 'amount');
-//
-//  console.log(`paymentData: ${_.inspect(paymentData)}`);
-//  // todo verify apikey
-//  const response = {};
-//
-//  handleSubmitPaymentInfo(contributionId, paymentData)
-//    .then((result) => {
-//      console.log(`apiSubmitPayment result: ${_.inspect(result)}`);
-//      response.result = result;
-//      helpers.renderApiResponse(res, apiData, response);
-//    })
-//    .catch((err) => {
-//      console.log(`apiSubmitPayment error: ${err}, stack: ${err.stack}`);
-//      response.error = {message: err.toString(), stack: err.stack};
-//      helpers.renderApiResponse(res, apiData, response);
-//    });
-//}
 
-function handleSubmitPaymentInfo(contributionId, paymentData) {
-  let contribution;
-  let profile;
-  let stripeCustomerId;
-  let proposal;
-  let amount = paymentData.amount;
-  return ContributionService.fetch(contributionId)
-    .then((aContribution) => {
-      if (!aContribution) {
-        throw new Error(`contribution record not found for id: ${contributionId}`);
-      }
-      contribution = aContribution;
-      profile = contribution.profileRef;
-      if (!profile) {
-        throw new Error(`profileRef missing for contributionId: ${contributionId}`);
-      }
-      if (profile.stripeCustomerId) {
-        stripeCustomerId = profile.stripeCustomerId;
-        return Promise.resolve('skip');
-      } else {
-        stripeCustomerId = profile._id;
-        return createStripeCustomer(stripeCustomerId, profile.email, profile.displayName)
-          .then((result) => {
-            console.log(`stripe create customer result: ${_.inspect(result)}`);
-            return ProfileService.updateStripeCustomerId(profile._id, stripeCustomerId);
-          }) //todo catch and handle error if strip customer already exists
-      }
-    })
-    .then((result) => {
-      console.log(`update cust id result: ${_.inspect(result)}`);
-      // associate our captured payment information as the default payment source for the customer record
-      return storeStripPaymentSourceData(stripeCustomerId, paymentData);
-    })
-    .then((result) => {
-      console.log(`stripe store payment result: ${_.inspect(result)}`);
-      //todo: handle recurring payment as auto created plan?
-      return performStripeCharge(stripeCustomerId, amount, `contribution id: ${contributionId}`);
-    })
-    .then((result) => {
-      console.log(`stripe perform charge result: ${_.inspect(result)}`);
-      const updateData = {paidCapital: amount};
-      updateData.status = contribution.isRecurring ? 'recurring' : 'paid';
-      return ContributionService.save(contributionId, updateData);
-    }).then((result) => {
-      console.log(`contribution update result: ${_.inspect(result)}`);
-      return ContributionService.fetch(contributionId);  // need to refetch to populate relations
-    }).then((result) => {
-      contribution = result;
-      console.log(`refetched contribution: ${_.inspect(result)}`);
-      proposal = contribution.proposalRef;
-      proposal.paidCapitalTotal = proposal.paidCapitalTotal ? proposal.paidCapitalTotal : 0;
-      proposal.paidCapitalTotal += amount;
-      proposal.supporterCount = proposal.supporterCount ? proposal.supporterCount : 0;
-      proposal.supporterCount++;
-      console.log(`paid total: ${proposal.paidCapitalTotal}, supporter count: ${proposal.supporterCount}`);
-      return proposal.save();
-    }).then((result) => {
-      console.log(`saved campaign: ${_.inspect(result)}`);
-      return sendConfirmationEmail(contribution);
-    }).then((result) => {
-      console.log(`send confirmation email result: ${_.inspect(result)}`);
-      return sendLoggingEmail(contribution);
-    })
-    .then((result) => {
-      console.log(`send logging email result: ${_.inspect(result)}`);
-      return {status: 'success', statusLink: buildStatusLink(contribution)};
-    })
 
-}
-
-const W4L_STATUS_URL = config.get('w4l').statusUrl;
-
-function buildStatusLink(contribution) {
-  return `${W4L_STATUS_URL}?c=${contribution._id}`;
-}
-
-function sendConfirmationEmail(contribution) {
-  const to = contribution.profileRef.email;
-  const subject = 'Donation Confirmation';
-  const statusLink = buildStatusLink(contribution);
-  let t = `Thank you ${contribution.profileRef.firstName} for your generation donation.\n`;
-  t += `  amount: \$ ${contribution.paidCapital}\n`;
-  t += `  recurrence: ${contribution.recurringInterval}\n\n`;
-  t += `Your status page is:\n`;
-  t += `  ${statusLink}\n`;
-
-  return mailer.sendEmail({
-    //from: theConfig.sender,
-    to: to
-    , subject: subject
-    , text: t
-  });
-
-}
-
-function sendLoggingEmail(contribution) {
-  const to = 'w4l@colab.coop';
-  const subject = 'donation made';
-  const statusLink = buildStatusLink(contribution);
-  let t = `name: ${contribution.profileRef.displayName}\n`;
-  t += `amount: \$ ${contribution.paidCapital}\n`;
-  t += `recurrence: ${contribution.recurringInterval}\n`;
-  t += `status page: ${statusLink}\n`;
-
-  return mailer.sendEmail({
-    to: to
-    , subject: subject
-    , text: t
-  });
-
-}
 
 
 // perform charge against existing customer record
@@ -371,89 +214,6 @@ function stripeCharge(req, res) {
 
 }
 
-// now using profile._id for strip stripe customerId.
-// todo: change this api to take a Profile obj
-function createStripeCustomer(customerId, email, description) {
-  return new Promise(function (resolve, reject) {
-    stripe.customers.create({
-      id: customerId
-      , email: email
-      , description: description
-    }, function (err, result) {
-      console.log('stripe create customer response - err: ' + err + ', charge: ' + _.inspect(result));
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-}
-
-function storeStripPaymentSource(customerId, stripeToken) {
-  console.log(`store payment: cusotmerId: ${customerId}, token: ${stripeToken}`);
-  return new Promise(function (resolve, reject) {
-    stripe.customers.createSource(
-      customerId
-      , {source: stripeToken}
-      , function(err, result) {
-        console.log('stripe store payment source - err: ' + err + ', charge: ' + _.inspect(result));
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-  });
-}
-
-function storeStripPaymentSourceData(customerId, paymentData) {
-  console.log(`store payment: cusotmerId: ${customerId}, paymentData: ${_.inspect(paymentData)}`);
-  return new Promise(function (resolve, reject) {
-    stripe.customers.createSource(
-      customerId
-      , {source: {
-        object: 'card'
-        , number: paymentData.cardNumber
-        , exp_month: paymentData.cardExpMonth
-        , exp_year: paymentData.cardExpYear
-        , cvc: paymentData.cardCvv
-        , address_zip: paymentData.billingZip
-      }}
-      , function(err, result) {
-        console.log('stripe store payment source - err: ' + err + ', charge: ' + _.inspect(result));
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-  });
-}
-
-
-function performStripeCharge(stripeCustomerId, amount, description) {
-  return new Promise(function (resolve, reject) {
-    const amountCents = amount * 100;
-    console.log(`customerid: ${stripeCustomerId}, amount: ${amountCents}, desc: ${description}`);
-    stripe.charges.create({
-      amount: amountCents // amount in cents, again
-      , currency: "usd"
-      , customer: stripeCustomerId
-      , description: description
-    }, function (err, result) {
-      console.log('stripe charge response - err: ' + err + ', charge: ' + _.inspect(result));
-      if (err) {
-//        if (err && err.type === 'StripeCardError') {
-//        req.flash('error', "Sorry, that card has been declined");
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-
-}
 
 function test1(req, res) {
   stripe.customers.create({

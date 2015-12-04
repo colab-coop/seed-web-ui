@@ -33,7 +33,7 @@
 
 
   <table border="1">
-    <th>title</th><th>type</th><th>subtype</th><th>sector</th><th>owner</th><th>actions</th>
+    <th>title</th><th>type</th><th>subtype</th><th>sector</th><th>owner</th><th>created</th><th>actions</th>
     {#items}
       <tr>
         <td>
@@ -50,6 +50,9 @@
         </td>
         <td>
           <a href="/admin/profile/{profileRef._id}/view">{profileRef.displayName}</a>
+        </td>
+        <td>
+          {@formatDate date="{createdAt}" format="MM/DD/YYYY HH:mm" lan="en-US"/}
         </td>
         <td>
           <a href="/p/{_id}/edit">[Edit]</a> &nbsp;

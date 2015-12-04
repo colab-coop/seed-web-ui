@@ -164,3 +164,11 @@
   </div>
 </div>
 
+<!-- Config Attributes JSON -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="configAttrsJson">Config Attributes (JSON)</label>
+  <div class="col-sm-8">
+    <textarea class="form-control" id="configAttrsJson" name="configAttrsJson">{item.configAttrsJson}</textarea>
+  </div>
+</div>
+

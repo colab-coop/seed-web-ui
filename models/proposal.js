@@ -31,6 +31,7 @@ const attributes = _.merge({
   , paymentDetails: String // ? not sure what this needs to be... account? stripe?
 
   , socialMediaLinks: mongoose.Schema.Types.Mixed   // future
+  , configAttrs: {type: mongoose.Schema.Types.Mixed, default: {}}  //used for various campaign config params, like mail chimp credentials
 
   , subType: String  // default, memberdrive
   // engagement flags
@@ -108,6 +109,11 @@ function copyParams(target, params) {
   if (params.closingDate) {
     result.closingDate = new Date(params.closingDate); //todo: need a way to remove, this will ignore if blank
   }
+  if (params.configAttrsJson) {
+    result.configAttrs = JSON.parse( params.configAttrsJson );
+  } else {
+    result.configAttrs = {};
+  }
   return result;
 }
 
@@ -125,6 +131,17 @@ const modelFactory = function () {
     copyParams(this, params);
   };
 
+  schema.methods.getConfigAttrsJson = function() {
+    const attrs = this.configAttrs || {};
+    return JSON.stringify(this.configAttrs);
+  };
+  schema.methods.setConfigAttrsJson = function(str) {
+    this.configAttrs = JSON.parse(str)
+  };
+  //todo: is there a better way to expose a calculated attribute to the dust template?
+  schema.methods.beforeEdit = function() {
+    this.configAttrsJson = this.getConfigAttrsJson();
+  };
 
   schema.methods.attachImageAsync = function (path) {
     const _this = this;

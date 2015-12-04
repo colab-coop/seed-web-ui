@@ -185,6 +185,7 @@ function editProposal(req, res) {
   ProposalService.fetchLite(id)
     .then((found) => {
       item = found;
+      item.beforeEdit();
       return ProposalService.buildSectorOptions(item.parentRef, true);
     }).then((sectorOptions) => {
       const kindOptions = Proposal.buildKindOptions(item.kind, true);

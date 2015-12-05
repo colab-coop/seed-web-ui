@@ -73,6 +73,7 @@ const KIND = {
   , sector: 'sector'
   , proposal: 'proposal'
   , vision: 'vision'
+  , onboarding: 'onboarding'  // submitted project campaign requests from seed.coop home page
 };
 
 //todo figure out best way to handle select rendering
@@ -81,6 +82,7 @@ const KIND_OPTIONS = [
   , {value: 'sector', display: 'Sector'}
   , {value: 'proposal', display: 'Proposal'}
   , {value: 'vision', display: 'Vision'}
+  , {value: 'onboarding', display:'Onboarding Data'}
 ];
 
 function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
@@ -91,7 +93,7 @@ function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
 // fields to directly populate from edit forms
 const PARAM_FIELDS = [
   'kind', 'subType', 'parentRef', 'title', 'summary', 'location', 'description', 'viewTemplate'
-  , 'patronEnabled', 'memberEnabled', 'funderEnabled', 'merchantConfigRef'
+  , 'patronEnabled', 'memberEnabled', 'funderEnabled', 'merchantConfigRef', 'profileRef'
 ];
 
 function copyParams(target, params) {

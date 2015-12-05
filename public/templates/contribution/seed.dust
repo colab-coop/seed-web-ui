@@ -58,11 +58,11 @@
 
         <a class="btn btn-funder btn-lg" href="#">I Want to fund this</a>
 
-        {#perks}
+        {#perkOffers}
           <div class="alert alert-success">
             <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
           </div>
-        {/perks}
+        {/perkOffers}
       {/funderEnabled}
 
       <div class="alert alert-success">

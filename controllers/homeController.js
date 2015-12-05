@@ -201,7 +201,7 @@ function postJoin(req, res) {
     , lastName: ''  // todo, better reconcile name vs fisrt/last in different forms on site
     , email: req.body.email
   };
-  userData.password = 'xxxxxx';  //tmp hack, should leave password undefined once we have reset flow
+  userData.password = '';  //tmp hack, should leave password undefined once we have reset flow
   userData.memberType = Profile.MEMBERSHIP_TYPES.provisional;
   console.log(`get involved new user: ${_.inspect(userData)}`);
   let user;
@@ -234,8 +234,12 @@ function completeSignup(req, res) {
   return User
     .findOne({ passwordResetToken: token })
     .populate('defaultProfileRef')
+    .then((user) => {  // automatically authenticate current user session
+      return UserService.login(req, user);
+    })
     .then((user) => {
       if (user) {
+//        res.locals.user = user;  could patch session state, but not sure if this is desired
         res.render('reset_password', {
           token: req.query.token
         });

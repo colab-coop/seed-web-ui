@@ -71,7 +71,7 @@
 
       <!-- Supporter Enagement -->
       <div class="form-group">
-        <label class="col-sm-2 control-label" for="proposal[engagement]">Supporter Enagement</label>
+        <label class="col-sm-2 control-label" for="proposal[engagement]">Supporter Engagement</label>
 
         <div class="col-sm-8">
           <textarea class="form-control" rows="4" name="proposal[engagement]" data-minlength="10" data-maxlength="140" placeholder="Describe the different levels for engagement" required></textarea>

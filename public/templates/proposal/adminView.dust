@@ -30,9 +30,9 @@
             {#patron}Patron{/patron} {#member}Member{/member} {#funder}Funder{/funder}
           </td>
           <td>
-            {#perks}
+            {#perkOffers}
               {title}&nbsp;
-            {/perks}
+            {/perkOffers}
 
             {#memberships}
               {title}&nbsp;

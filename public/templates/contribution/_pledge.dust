@@ -60,11 +60,11 @@
       <br/>
       Amount: <input type="text" name="amount" size="5"/><br/>
 
-      {#perks}
+      {#perkOffers}
         <div class="alert alert-success">
           <input type="checkbox" name="perks" value="{_id}"> Perk: {title} &nbsp; ${minimumContributionAmount}<br>
         </div>
-      {/perks}
+      {/perkOffers}
     </div>
     {/funderEnabled}
 

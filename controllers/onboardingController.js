@@ -5,35 +5,39 @@ const proposalService = require('../lib/proposalService');
 const userService = require('../lib/userService');
 const Offer = require('../models/offer');
 const Proposal = require('../models/proposal');
+const Profile = require('../models/profile');
 
 const curriedHandleError = _.curry(helpers.handleError);
 
 function createProposal(req, res, next) {
-  function ensureProfile() {
-    if (req.user && req.user.profile) {
-      return Promise.resolve(req.user.profile);
+  function ensureUser() {
+    if (req.user) {
+      return Promise.resolve(req.user);
     } else {
       return userService.createUser({
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        orgName: req.body.orgName
+        orgName: req.body.orgName,
+        memberType: Profile.MEMBERSHIP_TYPES.provisional
       });
     }
   }
 
-  function createProposal(profile) {
-    console.log(`createprop profile.id: ${profile._id}`);
+  function createProposal(user) {
+    console.log(`createprop user.id: ${user._id}, profid: ${user.defaultProfileRef}`);
     const proposal = new Proposal({
-      profileRef: profile._id,
-      title: req.body.campaignName,
-      summary: req.body.summary
+      profileRef: user.defaultProfileRef
+      , title: req.body.campaignName
+      , summary: req.body.summary
+      , kind: Proposal.KIND.campaign
+      , subType: 'onboarding'
     });
 
     return proposal.save();
   }
 
-  ensureProfile()
+  ensureUser()
     .then(createProposal)
     .then((proposal) => {
       const uri = '/proposals/' + proposal._id;
@@ -61,6 +65,7 @@ function proposalForm(req, res, next) {
 
 
 function updateProposal(req, res, next) {
+  const proposalId = req.params.id;
   var proposal;
 
   //function offerForProposal(proposalRef) {
@@ -88,8 +93,10 @@ function updateProposal(req, res, next) {
   // and forget about building related Offer instances
 
   Promise.all([
-    proposalService.update(req.params.id, req.body.proposal),  // todo: other fields
-    //updateOffer(req.params.id, req.body.offer)
+    proposalService.update(proposalId, req.body.proposal) // note body.proposal is a nested data structure
+    //, updateOffer(req.params.id, req.body.offer)
+    , proposalService.sendSystemNotification(proposalId, 'newOnboard')
+    , proposalService.sendConfirmationEmail(proposalId, 'newOnboard')
   ]).then(() => {
     if (req.query.ajax) {
       res.json({redirect: '/proposalThanks'});

@@ -25,6 +25,10 @@ email_sesSecretKey=ce7xxx
 email_enabled=false
 email_rootUrl=http://local.coop:8000
 
+# used to send notification emails for new user signups and project submissions
+email_systemLogEmail=seed@colab.coop
+
+
 # todo: factor these out to campaign scoped values
 mailchimp_apiKey=xxx
 mailchimp_defaultListId=49037

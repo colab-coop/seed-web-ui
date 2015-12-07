@@ -19,6 +19,10 @@ const helpers = require('../lib/helpers');
 const config = require('../lib/config');
 const path = require('path');
 
+
+const mailChimpFactory = require('../lib/mailchimp');
+
+
 const attributes = _.merge({
   profileRef: {type: String, ref: 'Profile'}
   , kind: String // campaign, sector, proposal
@@ -190,6 +194,12 @@ const modelFactory = function () {
       image: {}
     }
   });
+
+
+  schema.methods.mailChimpApi = function() {
+    const config = this.configAttrs.mailChimp || {};
+    return mailChimpFactory.createInstance(config);  //todo: consider caching
+  };
 
   var model = mongoose.model('Proposal', schema);
   model.KIND = KIND;

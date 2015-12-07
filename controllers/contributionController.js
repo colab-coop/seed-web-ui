@@ -38,6 +38,7 @@ function apiSubmitPledge(req, res) {
       , lastName:  req.query.lastName
       , orgName: req.query.orgName
       , email: req.query.email
+      , joinMailingList: Boolean.parse(req.query.joinMailingList)
     };
     const pledgeData = {
       proposalId: proposalId
@@ -47,35 +48,27 @@ function apiSubmitPledge(req, res) {
       , recurringCount: req.query.recurringCount
       , offerId: req.query.offerId // not yet used
     };
-    const joinMailingList = Boolean.parse(req.query.joinMailingList)
     const monthly = Boolean.parse(req.query.monthly);
     if (monthly) {
       pledgeData.isRecurring = true;
       pledgeData.recurringInterval = 'month';
     }
 
-    if ( ! userData.email ) {
-      throw new Error('Email required');
-    }
-    if ( ! pledgeData.amount || pledgeData.amount <= 0 ) {
-      throw new Error('Amount required');
-    }
-
     let apiResult;
-    return ContributionService.apiCreatePledge(proposalId, userData, pledgeData)
-      .then((result) => {
-        console.log(`apiCreatePledge result: ${_.inspect(result)}`);
-        apiResult = result;
-        if (joinMailingList) {
-          return mailchimp.subscribeToDefaultList(userData)
-        } else {
-          return 'skip';
-        }
-      })
-      .then((result) => {
-        console.log(`subscribe mailing list result: ${_.inspect(result)}`);
-        return apiResult;
-      })
+    return ContributionService.apiCreatePledge(proposalId, userData, pledgeData);
+      //.then((result) => {
+      //  console.log(`apiCreatePledge result: ${_.inspect(result)}`);
+      //  apiResult = result;
+      //  if (joinMailingList) {
+      //    return mailchimp.subscribeToDefaultList(userData)
+      //  } else {
+      //    return 'skip';
+      //  }
+      //})
+      //.then((result) => {
+      //  console.log(`subscribe mailing list result: ${_.inspect(result)}`);
+      //  return apiResult;
+      //})
 
   }, 'apiSubmitPledge');
 }
@@ -101,7 +94,15 @@ function apiJoinMailingList(req, res) {
       throw new Error('Email required');
     }
 
-    return mailchimp.subscribeToDefaultList(userData)
+//    return mailchimp.subscribeToDefaultList(userData)
+
+    return ProposalService.fetch(proposalId)
+      .then((proposal) => {
+        const mailChimpApi = proposal.mailChimpApi();
+        console.log(`mailChimpApi: ${mailChimpApi}`);
+        return mailChimpApi.subscribeToDefaultList(userData)
+      }
+    )
   }, 'apiJoinMailingList');
 }
 

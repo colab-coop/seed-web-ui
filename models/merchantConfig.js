@@ -19,6 +19,9 @@ var attributes = _.merge({
   , dwollaDataKey: String
   , paperCheckEnabled: String
   , paperCheckInfo: String
+  , stripeEnabled: Boolean
+  , stripePublicKey: String
+  , stripeSecretKey: String
   , braintreeEnabled: Boolean
   , braintreeMerchantId: String
   , braintreePublicKey: String
@@ -32,7 +35,7 @@ var attributes = _.merge({
 const PARAM_FIELDS = [
   'name', 'dwollaEnabled', 'dwollaDataKey', 'paperCheckEnabled', 'paperCheckInfo',
   'braintreeEnabled', 'braintreeMerchantId', 'braintreePublicKey',
-  'authorizeNetEnabled', 'authorizeNetApiLoginId'
+  'authorizeNetEnabled', 'authorizeNetApiLoginId', 'stripeEnabled', 'stripePublicKey', 'stripeSecretKey'
 ];
 
 function copyParams(target, params) {

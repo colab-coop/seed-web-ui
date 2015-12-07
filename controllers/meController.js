@@ -120,6 +120,7 @@ const mailchimp = require('../lib/mailchimp');
 function updateMailchimp(req, res) {
   const profile = req.user.profile;
   console.log(`profile: ${profile}`);
+  console.log(`subres: ${mailchimp.subscribeToDefaultList(profile)}`);
   mailchimp.subscribeToDefaultList(profile)
     .then((result) => {
       console.log(`mc sub result: ${_.inspect(result)}`);

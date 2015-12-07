@@ -1,6 +1,6 @@
 <div class="proposal_list_item" {#isLast}data-is-last="true"{/isLast}>
   <div class="proposal_image">
-    <img src="{imageUrl}">
+    <img src="{image.url}">
   </div>
 
   <div class="proposal_info">

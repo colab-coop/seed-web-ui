@@ -21,7 +21,7 @@
 
     <script>
       document.addEventListener( "DOMContentLoaded", function(e) {
-        require('public/js/proposal').onProposalEditPageLoad('{item.image.name}')
+        require('public/js/proposal').onProposalEditPageLoad('{item.imageSrc}')
       }, false);
     </script>
 

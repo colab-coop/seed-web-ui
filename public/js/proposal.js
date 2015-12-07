@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  onProposalEditPageLoad: function (imageName = null) {
+  onProposalEditPageLoad: function (imageSrc = null) {
     $('#proposal_form').validator();
     $('#title').characterCounter(75);
     $('#summary').characterCounter(140);
@@ -10,8 +10,8 @@ module.exports = {
       'showUpload': false,
       'previewFileType': 'any',
     };
-    if (imageName) {
-      Object.assign(imageUploadParams, {'initialPreview': [`<img src='/${imageName}' class='file-preview-image'>`]});
+    if (imageSrc) {
+      Object.assign(imageUploadParams, {'initialPreview': [`<img src='${imageSrc}' class='file-preview-image'>`]});
     }
     $("#image_upload").fileinput(imageUploadParams)
       .on('filecleared', function (event) {

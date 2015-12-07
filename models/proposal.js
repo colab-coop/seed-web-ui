@@ -86,7 +86,7 @@ const KIND_OPTIONS = [
   , {value: 'sector', display: 'Sector'}
   , {value: 'proposal', display: 'Proposal'}
   , {value: 'vision', display: 'Vision'}
-  , {value: 'onboarding', display:'Onboarding Data'}
+  , {value: 'onboarding', display: 'Onboarding Data'}
 ];
 
 function buildKindOptions(selectedValue, includeNone, noneDisplayArg) {
@@ -171,8 +171,15 @@ const modelFactory = function () {
     });
   };
 
-  schema.methods.imageUrl = function () {
-    return fileUploadConfig.storage === 'S3' ? this.image.url : '/' + this.image.name;
+  schema.methods.imageSrc = function () {
+
+    if (this.image && this.image.url) {
+      return this.image.url.startsWith('http')
+        ? this.image.url
+        : this.image.name;
+    } else {
+      return null;
+    }
   };
 
   const storage = fileUploadConfig.storage === 'S3'

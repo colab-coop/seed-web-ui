@@ -190,6 +190,7 @@ function editProposal(req, res) {
       return ProposalService.buildSectorOptions(item.parentRef, true);
     }).then((sectorOptions) => {
       const kindOptions = Proposal.buildKindOptions(item.kind, true);
+      item = Object.assign(item, {imageSrc: item.imageSrc()});
       const model = {item: item, kindOptions: kindOptions, sectorOptions: sectorOptions};
       render(res, 'edit', model);
     })

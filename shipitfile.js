@@ -3,10 +3,12 @@ module.exports = function (shipit) {
   var colors = require('colors');
 
   function getEnv(key, defaultValue) {
-    var value = process.env[key];
-    return value        ? value :
-           defaultValue ? defaultValue :
-           console.log((key + " environment variable required" ).red ) & process.exit(1);
+    return () => {
+      var value = process.env[key];
+      return value ? value :
+        defaultValue ? defaultValue :
+        console.log((key + " environment variable required" ).red) & process.exit(1);
+    }
   }
 
   shipit.initConfig({

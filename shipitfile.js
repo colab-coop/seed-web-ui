@@ -3,12 +3,10 @@ module.exports = function (shipit) {
   var colors = require('colors');
 
   function getEnv(key, defaultValue) {
-    return () => {
-      var value = process.env[key];
-      return value ? value :
-        defaultValue ? defaultValue :
-        console.log((key + " environment variable required" ).red) & process.exit(1);
-    }
+    var value = process.env[key];
+    return value ? value :
+      defaultValue ? defaultValue :
+      console.log((key + " environment variable required" ).red) & process.exit(1);
   }
 
   shipit.initConfig({
@@ -16,7 +14,7 @@ module.exports = function (shipit) {
       workspace: '/tmp/seedbomb',
       deployTo: '~/seedbomb',
       repositoryUrl: 'https://github.com/colab-coop/seed-web-ui.git',
-      branch: getEnv('SEED_BRANCH', 'develop'),
+      branch: getEnv('SEED_BRANCH'),
       ignores: ['.git', 'node_modules'],
       keepReleases: 2,
       shallowClone: true,
@@ -50,7 +48,6 @@ module.exports = function (shipit) {
     production: {
       servers: 'seed@seed.colab.coop',
       deployTo: '/opt/www/seed/seed-web-ui',
-      branch: getEnv('SEED_BRANCH'),
       port: 8108,
       tmp: '/opt/www/seed/tmp',
       npm: '/opt/www/seed/.nvm/versions/node/v4.2.1/bin/npm',
@@ -165,5 +162,6 @@ module.exports = function (shipit) {
   function next() {
     return Promise.resolve(true);
   }
+
 
 };

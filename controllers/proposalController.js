@@ -9,7 +9,8 @@ const ContributionService = require('../lib/contributionService');
 const Profile = require('../models/profile');
 const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
-const stripe = require('../lib/stripe').instance();
+//const stripe = require('../lib/stripe').instance();
+const stripeFactory = require('../lib/stripe');//.instance();
 
 
 const ProposalService = require('../lib/proposalService');
@@ -32,6 +33,8 @@ function render(res, view, model) {
 function home(req, res) {
   //listProposalsView(req, res, 'home/landing', Proposal.KIND.campaign);
 
+  const stripe = stripeFactory.systemInstance();
+
   const model = {};
   ProposalService.fetchOneByFilter({subType: 'seedcoop'}) // the one special seedcoop campaign
     .then((result) => {
@@ -40,7 +43,7 @@ function home(req, res) {
     })
     .then((results) => {
       model.items = results;
-      model.stripePublicKey = stripe.config.publicKey;
+      model.stripePublicKey = stripe.publicKey;
       res.render('home/landing', model);
     })
     .catch(curriedHandleError(req, res));

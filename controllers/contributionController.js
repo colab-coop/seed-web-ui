@@ -12,7 +12,8 @@ const Vote = require('../models/vote');
 const Profile = require('../models/profile');
 const helpers = require('../lib/helpers');
 const curriedHandleError = _.curry(helpers.handleError);
-const stripe = require('../lib/stripe').instance();
+//const stripe = require('../lib/stripe').instance();
+//const stripeFactory = require('../lib/stripe');//.instance();
 
 const baseTemplatePath = 'contribution';
 

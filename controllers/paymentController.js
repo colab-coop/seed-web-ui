@@ -16,7 +16,8 @@ const mailer = require('../lib/mailer');
 const config = require('../lib/config');
 
 const PaymentService = require('../lib/paymentService');
-const stripe = require('../lib/stripe').instance();
+const stripeFactory = require('../lib/stripe');//.instance();
+//const stripe = require('../lib/stripe').instance();
 const braintree = require('../lib/braintree').instance();
 const authorizeNet = require('../lib/authorizeNet').instance();
 const Binbase = require('../models/binbase');
@@ -81,6 +82,8 @@ function postStripe(req, res) {
   var stripeEmail = req.body.stripeEmail;
   console.log('postStripe - token: ' + stripeToken + ', type: ' + stripeTokenType + ', emai: ' + stripeEmail);
 
+  const stripe = stripeFactory.systemInstance();
+
   var charge = stripe.charges.create({
     amount: amountCents // amount in cents, again
     , currency: "usd"
@@ -104,8 +107,10 @@ function postStripe(req, res) {
 
 function showStripeInfo(req, res) {
   var model = req.session.cart;
+  const stripe = stripeFactory.systemInstance();
+
   model.amountCents = model.amount * 100;
-  model.publicKey = stripe.config.publicKey;
+  model.publicKey = stripe.publicKey;
   model.messages = req.flash('error');
   model.pageTitle = model.pageTitle || 'Payment Information';
 
@@ -134,6 +139,7 @@ function postStripeInfo(req, res) {
   //var stripeTokenType = req.body.stripeTokenType;
   //var stripeEmail = req.body.stripeEmail;
   console.log('postStripe - token: ' + stripeToken); // + ', type: ' + stripeTokenType + ', email: ' + stripeEmail);
+  const stripe = stripeFactory.systemInstance();
 
   // need to make sure we have a stripe customer created corresponding to our profile id
   const profile = req.user.profile;
@@ -190,6 +196,7 @@ function stripeCharge(req, res) {
   const description = cart.description;
 
   console.log(`customerid: ${customerId}, amount: ${amountCents}, desc: ${description}`);
+  const stripe = stripeFactory.systemInstance();
 
   var charge = stripe.charges.create({
     amount: amountCents // amount in cents, again
@@ -216,6 +223,7 @@ function stripeCharge(req, res) {
 
 
 function test1(req, res) {
+  const stripe = stripeFactory.systemInstance();
   stripe.customers.create({
     id: 'test1'
     , description: 'newtest1'
@@ -241,6 +249,7 @@ function postTest(req, res) {
   var stripeToken = req.body.stripeToken;
   var stripeTokenType = req.body.stripeTokenType;
   console.log(`token: ${stripeToken}, type: ${stripeTokenType}`);
+  const stripe = stripeFactory.systemInstance();
   stripe.customers.createSource(
     'test1', {source: stripeToken},
     function(err, result) {

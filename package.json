@@ -17,6 +17,7 @@
     "bcrypt": "^0.8.5",
     "bluebird": "^2.10.2",
     "braintree": "^1.29.0",
+    "cache-manager": "^1.2.2",
     "circular-json": "^0.2.0",
     "connect-flash": "^0.1.1",
     "connect-redis": "^3.0.1",

@@ -292,14 +292,15 @@ function apiProposalStatus(req, res) {
       , callback: req.query.callback
     };
     const response = {};
-    fetchProposalStatus(proposalId)
+//    fetchProposalStatus(proposalId)
+    ProposalService.campaignStatus(proposalId)
       .then((result) => {
-        console.log(`fetchProposalStatus result: ${_.inspect(result)}`);
+        console.log(`fetched campaignStatus result: ${_.inspect(result)}`);
         response.result = result;
         helpers.renderApiResponse(res, apiData, response);
       })
       .catch((err) => {
-        console.log(`fetchProposalStatus error: ${err}, stack: ${err.stack}`);
+        console.log(`campaignStatus error: ${err}, stack: ${err.stack}`);
         response.error = {message: err.toString(), stack: err.stack};
         helpers.renderApiResponse(res, apiData, response);
       });
@@ -310,23 +311,80 @@ function apiProposalStatus(req, res) {
   }
 }
 
-function fetchProposalStatus(proposalId) {
-  return ProposalService.fetch(proposalId)
-    .then((result) => {
-      console.log(`fetchProposalStatus raw data: ${_.inspect(result)}`);
-      const percent = result.goalAmount ? Math.round(100 * result.supporterCount / result.goalAmount) : -1;
-      const data = {
-        paidTotal: result.paidCapitalTotal
-        , supporterCount: result.supporterCount
-        , goalCount: result.goalAmount
-        , closingDate: result.closingDate
-        , pledgerCount: result.pledgerCount
-        , percent: percent
-      };
-      console.log(`result data: ${_.inspect(data)}`);
-      return data;
-    })
-}
+//Cache = require('promise-cache').create()
+//
+//function cacheableProposalStatus(proposalId) {
+//  return Cache.remember(proposalId, 60, function(store) {
+//    console.log(`refreshing cached proposal status`);
+//    fetchProposalStatus(proposalId).
+//      then((result) => {
+//        console.log(`fetched status: ${_.inspect(result)}`);
+//        store(result);
+//      })
+//  });
+//}
+
+
+//const cacheManager = require('cache-manager');
+//const memoryCache = cacheManager.caching({store: 'memory', max: 100, ttl: 60/*seconds*/});
+//
+//function cacheableProposalStatus(proposalId) {
+//
+//  const ttl = 60;
+//  return new Promise( (resolve, reject) => {
+//
+//    memoryCache.wrap(proposalId, function(cacheCallback) {
+//      console.log(`refreshing cached proposal status`);
+//      fetchProposalStatus(proposalId)
+//        .then((result) => {
+//          cacheCallback(null, result);
+//        })
+//        .catch((err) => {
+//          cacheCallback(err, null);
+//        })
+//    }, {ttl: 15}, function(err, result) {
+//      if (err) {
+//        reject(err);
+//      } else {
+//        resolve(result)
+//      }
+//    });
+//  });
+//
+//}
+//
+//function clearProposalStatusCache(proposalId) {
+//
+//  return new Promise( (resolve, reject) => {
+//
+//    memoryCache.del(proposalId, function(err, result) {
+//      if (err) {
+//        reject(err);
+//      } else {
+//        resolve(result)
+//      }
+//    });
+//  });
+//
+//}
+//
+//function fetchProposalStatus(proposalId) {
+//  return ProposalService.fetch(proposalId)
+//    .then((result) => {
+//      console.log(`fetchProposalStatus raw data: ${_.inspect(result)}`);
+//      const percent = result.goalAmount ? Math.round(100 * result.supporterCount / result.goalAmount) : -1;
+//      const data = {
+//        paidTotal: result.paidCapitalTotal
+//        , supporterCount: result.supporterCount
+//        , goalCount: result.goalAmount
+//        , closingDate: result.closingDate
+//        , pledgerCount: result.pledgerCount
+//        , percent: percent
+//      };
+//      console.log(`result data: ${_.inspect(data)}`);
+//      return data;
+//    })
+//}
 
 const baseUriPath = '/p';
 

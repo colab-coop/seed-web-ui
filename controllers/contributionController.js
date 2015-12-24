@@ -112,7 +112,7 @@ function apiJoinMailingList(req, res) {
 function apiContributionStatus(req, res) {
   helpers.apiWrapper(req, res, function(req) {
     const contributionId = req.params.contributionId;
-    return ContributionService.fetchContributionStatus(contributionId)
+    return ContributionService.apiFetchStatus(contributionId)
   }, 'apiContributionStatus');
 }
 
@@ -121,7 +121,7 @@ function apiContributionStatus(req, res) {
 function apiEndRecurringContribution(req, res) {
   helpers.apiWrapper(req, res, function(req) {
     const contributionId = req.params.contributionId;
-    return handleEndRecurringContribution(contributionId);
+    return ContributionService.endRecurringContribution(contributionId);
   }, 'apiEndRecurringContribution');
 }
 
